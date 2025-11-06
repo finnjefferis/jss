@@ -76,3 +76,22 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .wire { animation: none !important; }
 }
+/* Mobile wireframes */
+.mw { animation: mw-draw 480ms ease forwards; }
+.mw-1 { animation-delay: 0ms; }
+.mw-2 { animation-delay: 100ms; }
+.mw-3 { animation-delay: 200ms; }
+.mw-4 { animation-delay: 300ms; }
+.mw-5 { animation-delay: 400ms; }
+
+@keyframes mw-draw { to { stroke-dashoffset: 0; } }
+
+@keyframes reveal  { to { opacity: 1; } }
+@keyframes deblur  { from { filter: blur(3px); } to { filter: blur(0); } }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .mw { animation: none !important; }
+  .animate-\[reveal_500ms_600ms_ease-out_forwards\],
+  .animate-\[deblur_400ms_600ms_ease-out_forwards\] { animation: none !important; }
+}

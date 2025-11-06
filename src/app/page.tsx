@@ -19,34 +19,37 @@ export default function Page() {
         </a>
       </header>
 
-      {/* Hero */}
-      <section className="relative mb-20 grid grid-cols-1 items-center gap-10 md:mb-24 md:grid-cols-2">
-        <div>
-          <h2 className="text-4xl font-semibold leading-tight md:text-5xl">
-            Jefferis Software Solutions
-          </h2>
-          <p className="mt-3 text-zinc-600">
-            Professional web presence from £119
-          </p>
+     <section className="relative mb-20 grid grid-cols-1 items-center gap-10 md:mb-24 md:grid-cols-2">
 
-          <a
-            href="https://wa.me/447939309355?text=Hi%20Finn%2C%20I%27d%20like%20a%20FREE%20website%20audit."
-            className="mt-8 inline-block rounded-md bg-black px-6 py-3 text-sm font-medium text-white hover:bg-zinc-800"
-          >
-            Book a free website audit today
-          </a>
-        </div>
+  {/* LEFT SIDE (Text) */}
+  <div>
+    <h2 className="text-4xl font-semibold leading-tight md:text-5xl">
+      Jefferis Software Solutions
+    </h2>
+    <p className="mt-3 text-zinc-600">Professional web presence from £119</p>
+
+    {/* CTA — visible on desktop only */}
+    <a
+      href="https://wa.me/447939309355?text=Hi%20Finn%2C%20I'd%20like%20a%20FREE%20website%20audit."
+      className="mt-8 hidden md:inline-block rounded-md bg-black px-6 py-3 text-sm font-medium text-white hover:bg-zinc-800"
+    >
+      Book a free website audit today
+    </a>
+  </div>
+
+  {/* RIGHT SIDE (Hero Visual, Desktop) */}
+{/* Desktop visual (draw-on wireframe) */}
 <div className="hidden md:flex items-center justify-center h-48 rounded-xl border border-zinc-200">
   <svg
     width="100%"
     height="100%"
-    className="text-zinc-300"
     viewBox="0 0 400 260"
     fill="none"
     stroke="currentColor"
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    className="text-zinc-300"
   >
     {/* Header */}
     <rect
@@ -55,7 +58,6 @@ export default function Page() {
       style={{ strokeDasharray: 100, strokeDashoffset: 100 }}
       className="wire wire-1"
     />
-
     {/* Left main content panel */}
     <rect
       x="10" y="90" width="240" height="150" rx="6" pathLength="100"
@@ -63,7 +65,6 @@ export default function Page() {
       style={{ strokeDasharray: 100, strokeDashoffset: 100 }}
       className="wire wire-2"
     />
-
     {/* Right column cards */}
     <rect
       x="270" y="90" width="120" height="30" rx="6" pathLength="100"
@@ -93,9 +94,44 @@ export default function Page() {
 </div>
 
 
+  {/* MOBILE WIREFRAME + CTA BELOW */}
+  <div className="md:hidden mt-8">
+    {/* compact mobile wireframe block */}
+    <div className="relative h-40 w-full rounded-lg border border-zinc-200 overflow-hidden">
+      {/* screenshot reveal */}
+      <div className="absolute inset-0 opacity-0 animate-[reveal_500ms_600ms_ease-out_forwards]">
+    
+      </div>
 
+      {/* mobile wireframe svg */}
+      <svg
+        viewBox="0 0 360 200"
+        className="absolute inset-0 text-zinc-300"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <rect x="12" y="12" width="336" height="44" rx="6" pathLength="100" className="mw mw-1" style={{ strokeDasharray: 100, strokeDashoffset: 100 }} />
+        <rect x="12" y="64" width="208" height="124" rx="6" pathLength="100" className="mw mw-2" style={{ strokeDasharray: 100, strokeDashoffset: 100 }} />
+        <rect x="232" y="64" width="116" height="28" rx="6" pathLength="100" className="mw mw-3" style={{ strokeDasharray: 100, strokeDashoffset: 100 }} />
+        <rect x="232" y="100" width="116" height="28" rx="6" pathLength="100" className="mw mw-4" style={{ strokeDasharray: 100, strokeDashoffset: 100 }} />
+        <rect x="232" y="136" width="116" height="28" rx="6" pathLength="100" className="mw mw-5" style={{ strokeDasharray: 100, strokeDashoffset: 100 }} />
+      </svg>
+    </div>
 
-      </section>
+    {/* CTA — Mobile below wireframe */}
+    <a
+      href="https://wa.me/447939309355?text=Hi%20Finn%2C%20I'd%20like%20a%20FREE%20website%20audit."
+      className="mt-6 inline-block w-full text-center rounded-md bg-black px-6 py-3 text-sm font-medium text-white hover:bg-zinc-800"
+    >
+      Book a free website audit today
+    </a>
+  </div>
+
+</section>
+
 
       {/* Services */}
       <section className="mb-24 md:mb-28">
