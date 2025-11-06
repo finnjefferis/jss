@@ -1,26 +1,29 @@
 @import "tailwindcss";
 
+/* --- FORCE LIGHT MODE --- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #ffffff;
+  --text: #1a1a1a;
+  --subtle: #6e6e6e;
+  --border: #e5e5e5;
+  --button-bg: #111111;
+  --button-text: #ffffff;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* Remove system theme detection entirely */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg: #ffffff !important;
+    --text: #1a1a1a !important;
+    --subtle: #6e6e6e !important;
+    --border: #e5e5e5 !important;
+    --button-bg: #111111 !important;
+    --button-text: #ffffff !important;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, sans-serif;
 }
