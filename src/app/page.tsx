@@ -36,9 +36,65 @@ export default function Page() {
             Book a free website audit today
           </a>
         </div>
+<div className="hidden md:flex items-center justify-center h-48 rounded-xl border border-zinc-200">
+  <svg
+    width="100%"
+    height="100%"
+    className="text-zinc-300"
+    viewBox="0 0 400 260"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    {/* Header */}
+    <rect
+      x="10" y="10" width="380" height="60" rx="6" pathLength="100"
+      vectorEffect="non-scaling-stroke"
+      style={{ strokeDasharray: 100, strokeDashoffset: 100 }}
+      className="wire wire-1"
+    />
 
-        {/* Subtle visual block to balance layout (can replace with logo later) */}
-        <div className="hidden h-48 w-full rounded-xl border border-zinc-200 bg-white md:block" />
+    {/* Left main content panel */}
+    <rect
+      x="10" y="90" width="240" height="150" rx="6" pathLength="100"
+      vectorEffect="non-scaling-stroke"
+      style={{ strokeDasharray: 100, strokeDashoffset: 100 }}
+      className="wire wire-2"
+    />
+
+    {/* Right column cards */}
+    <rect
+      x="270" y="90" width="120" height="30" rx="6" pathLength="100"
+      vectorEffect="non-scaling-stroke"
+      style={{ strokeDasharray: 100, strokeDashoffset: 100 }}
+      className="wire wire-3"
+    />
+    <rect
+      x="270" y="130" width="120" height="30" rx="6" pathLength="100"
+      vectorEffect="non-scaling-stroke"
+      style={{ strokeDasharray: 100, strokeDashoffset: 100 }}
+      className="wire wire-4"
+    />
+    <rect
+      x="270" y="170" width="120" height="30" rx="6" pathLength="100"
+      vectorEffect="non-scaling-stroke"
+      style={{ strokeDasharray: 100, strokeDashoffset: 100 }}
+      className="wire wire-5"
+    />
+    <rect
+      x="270" y="210" width="120" height="30" rx="6" pathLength="100"
+      vectorEffect="non-scaling-stroke"
+      style={{ strokeDasharray: 100, strokeDashoffset: 100 }}
+      className="wire wire-6"
+    />
+  </svg>
+</div>
+
+
+
+
       </section>
 
       {/* Services */}

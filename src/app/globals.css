@@ -27,3 +27,52 @@ body {
   color: var(--text);
   font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, sans-serif;
 }
+
+.animate-wire rect {
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  animation: draw 1.2s ease forwards;
+}
+
+.animate-wire rect:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.animate-wire rect:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.animate-wire rect:nth-child(4) {
+  animation-delay: 0.45s;
+}
+.animate-wire rect:nth-child(5) {
+  animation-delay: 0.6s;
+}
+.animate-wire rect:nth-child(6) {
+  animation-delay: 0.75s;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+/* Base animation: draw each rect fully */
+.wire {
+  animation: wire-draw 1.2s ease forwards;
+}
+
+/* Staggered delays */
+.wire-1 { animation-delay: 0ms; }
+.wire-2 { animation-delay: 150ms; }
+.wire-3 { animation-delay: 300ms; }
+.wire-4 { animation-delay: 450ms; }
+.wire-5 { animation-delay: 600ms; }
+.wire-6 { animation-delay: 750ms; }
+
+@keyframes wire-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .wire { animation: none !important; }
+}
