@@ -96,41 +96,63 @@ export default function Page() {
 
 
 
-  {/* MOBILE WIREFRAME + CTA BELOW */}
-  <div className="md:hidden mt-8">
-    {/* compact mobile wireframe block */}
-    <div className="relative h-40 w-full rounded-lg border border-zinc-200 overflow-hidden">
-      {/* screenshot reveal */}
-      <div className="absolute inset-0 opacity-0 animate-[reveal_500ms_600ms_ease-out_forwards]">
-    
-      </div>
+{/* MOBILE PHONE HERO */}
+<div className="md:hidden mt-6">
 
-      {/* mobile wireframe svg */}
-      <svg
-        viewBox="0 0 360 200"
-        className="absolute inset-0 text-zinc-300"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <rect x="12" y="12" width="336" height="44" rx="6" pathLength="100" className="mw mw-1" style={{ strokeDasharray: 100, strokeDashoffset: 100 }} />
-        <rect x="12" y="64" width="208" height="124" rx="6" pathLength="100" className="mw mw-2" style={{ strokeDasharray: 100, strokeDashoffset: 100 }} />
-        <rect x="232" y="64" width="116" height="28" rx="6" pathLength="100" className="mw mw-3" style={{ strokeDasharray: 100, strokeDashoffset: 100 }} />
-        <rect x="232" y="100" width="116" height="28" rx="6" pathLength="100" className="mw mw-4" style={{ strokeDasharray: 100, strokeDashoffset: 100 }} />
-        <rect x="232" y="136" width="116" height="28" rx="6" pathLength="100" className="mw mw-5" style={{ strokeDasharray: 100, strokeDashoffset: 100 }} />
-      </svg>
-    </div>
+  {/* Phone Frame */}
+  <div className="relative w-full h-72 rounded-[28px] border border-zinc-200 bg-white/70 backdrop-blur-sm shadow-[0_1px_2px_rgba(0,0,0,0.04)] overflow-hidden">
 
-    {/* CTA — Mobile below wireframe */}
-    <a
-      href="https://wa.me/447939309355?text=Hi%20Finn%2C%20I'd%20like%20a%20FREE%20website%20audit."
-      className="mt-6 inline-block w-full text-center rounded-md bg-black px-6 py-3 text-sm font-medium text-white hover:bg-zinc-800"
+    <svg
+      viewBox="0 0 360 720"
+      className="absolute inset-0 text-zinc-300"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     >
-      Book a free website audit today
-    </a>
+
+      {/* Outer phone shell */}
+      <rect x="6" y="6" width="348" height="708" rx="38" className="mw mw-1" pathLength="1" />
+
+      {/* Top speaker notch */}
+      <rect x="150" y="20" width="60" height="8" rx="4" className="mw mw-2" pathLength="1" />
+
+      {/* Screen soft fill */}
+      <rect x="20" y="48" width="320" height="650" rx="20" className="fill-soft fill-m1" />
+
+      {/* Header block */}
+      <rect x="40" y="70" width="280" height="60" rx="10" className="mw mw-3" pathLength="1" />
+      <line x1="60" y1="100" x2="300" y2="100" className="shimmer" />
+
+      {/* Left content area */}
+      <rect x="40" y="150" width="180" height="380" rx="14" className="mw mw-4" pathLength="1" />
+      <rect x="55" y="170" width="155" height="20" rx="6" className="mw mw-5" pathLength="1" />
+      <rect x="55" y="200" width="130" height="14" rx="6" className="mw mw-6" pathLength="1" />
+      <rect x="55" y="230" width="160" height="14" rx="6" className="mw mw-7" pathLength="1" />
+      <rect x="55" y="260" width="120" height="14" rx="6" className="mw mw-8" pathLength="1" />
+
+      {/* Right stacked cards */}
+      <rect x="235" y="150" width="85" height="36" rx="8" className="mw mw-9" pathLength="1" />
+      <rect x="235" y="200" width="85" height="36" rx="8" className="mw mw-10" pathLength="1" />
+      <rect x="235" y="250" width="85" height="36" rx="8" className="mw mw-11" pathLength="1" />
+
+      {/* Soft fills for cards */}
+      <rect x="235" y="150" width="85" height="36" rx="8" className="fill-soft fill-m2" />
+      <rect x="235" y="200" width="85" height="36" rx="8" className="fill-soft fill-m3" />
+      <rect x="235" y="250" width="85" height="36" rx="8" className="fill-soft fill-m4" />
+    </svg>
   </div>
+
+  {/* CTA (No WhatsApp Icon, Clean Button) */}
+  <a
+    href="https://wa.me/447939309355?text=Hi%20Finn%2C%20I'd%20like%20a%20website%20audit."
+    className="mt-6 block w-full rounded-md bg-black px-6 py-3 text-center text-sm font-medium text-white hover:bg-zinc-800"
+  >
+    Book a Free Website Audit
+  </a>
+
+</div>
 
 </section>
 

@@ -88,3 +88,13 @@ body {
     opacity: 1 !important;
   }
 }
+.fill-m1 { animation: fill-in 420ms ease forwards 650ms; }
+.fill-m2 { animation: fill-in 420ms ease forwards 820ms; }
+.fill-m3 { animation: fill-in 420ms ease forwards 940ms; }
+.fill-m4 { animation: fill-in 420ms ease forwards 1060ms; }
+
+.mw-7 { animation-delay: 300ms; }
+.mw-8 { animation-delay: 360ms; }
+.mw-9 { animation-delay: 420ms; }
+.mw-10 { animation-delay: 480ms; }
+.mw-11 { animation-delay: 540ms; }
