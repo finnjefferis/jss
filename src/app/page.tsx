@@ -19,16 +19,18 @@ export default function Page() {
         </a>
       </header>
 
-     <section className="relative mb-20 grid grid-cols-1 items-center gap-10 md:mb-24 md:grid-cols-2">
+   <section className="relative mb-16 grid grid-cols-1 items-start mt-8 gap-10 md:grid-cols-2">
 
-  {/* LEFT SIDE (Text) */}
-  <div>
+  {/* LEFT (Text) */}
+  <div className="md:pt-6 md:pb-10">   {/* ← adds breathing room on desktop */}
     <h2 className="text-4xl font-semibold leading-tight md:text-5xl">
       Jefferis Software Solutions
     </h2>
-    <p className="mt-3 text-zinc-600">Professional web presence from £119</p>
+    <p className="mt-3 text-zinc-600">
+      Professional, personal online presence — from £119.
+    </p>
 
-    {/* CTA — visible on desktop only */}
+    {/* CTA — desktop only */}
     <a
       href="https://wa.me/447939309355?text=Hi%20Finn%2C%20I'd%20like%20a%20FREE%20website%20audit."
       className="mt-8 hidden md:inline-block rounded-md bg-black px-6 py-3 text-sm font-medium text-white hover:bg-zinc-800"
@@ -37,13 +39,16 @@ export default function Page() {
     </a>
   </div>
 
+
+
+
   {/* RIGHT SIDE (Hero Visual, Desktop) */}
 {/* Desktop visual (draw-on wireframe) */}
-<div className="hidden md:flex items-center justify-center h-48 rounded-xl border border-zinc-200">
+<div className="hidden md:flex mt-12 items-center justify-center h-56 w-full rounded-xl border border-zinc-200 overflow-hidden">
   <svg
     width="100%"
     height="100%"
-    viewBox="0 0 400 260"
+    viewBox="0 0 480 245"
     fill="none"
     stroke="currentColor"
     strokeWidth="2"
@@ -53,45 +58,42 @@ export default function Page() {
   >
     {/* Header */}
     <rect
-      x="10" y="10" width="380" height="60" rx="6" pathLength="100"
-      vectorEffect="non-scaling-stroke"
-      style={{ strokeDasharray: 100, strokeDashoffset: 100 }}
+      x="20" y="14" width="440" height="48" rx="6" pathLength="100"
       className="wire wire-1"
+      strokeDasharray="1" strokeDashoffset="1"
     />
-    {/* Left main content panel */}
+
+    {/* Left Content */}
     <rect
-      x="10" y="90" width="240" height="150" rx="6" pathLength="100"
-      vectorEffect="non-scaling-stroke"
-      style={{ strokeDasharray: 100, strokeDashoffset: 100 }}
+      x="20" y="78" width="285" height="150" rx="6" pathLength="100"
       className="wire wire-2"
+      strokeDasharray="1" strokeDashoffset="1"
     />
-    {/* Right column cards */}
+
+    {/* Right Column */}
     <rect
-      x="270" y="90" width="120" height="30" rx="6" pathLength="100"
-      vectorEffect="non-scaling-stroke"
-      style={{ strokeDasharray: 100, strokeDashoffset: 100 }}
+      x="325" y="78" width="135" height="28" rx="6" pathLength="100"
       className="wire wire-3"
+      strokeDasharray="1" strokeDashoffset="1"
     />
     <rect
-      x="270" y="130" width="120" height="30" rx="6" pathLength="100"
-      vectorEffect="non-scaling-stroke"
-      style={{ strokeDasharray: 100, strokeDashoffset: 100 }}
+      x="325" y="116" width="135" height="28" rx="6" pathLength="100"
       className="wire wire-4"
+      strokeDasharray="1" strokeDashoffset="1"
     />
     <rect
-      x="270" y="170" width="120" height="30" rx="6" pathLength="100"
-      vectorEffect="non-scaling-stroke"
-      style={{ strokeDasharray: 100, strokeDashoffset: 100 }}
+      x="325" y="154" width="135" height="28" rx="6" pathLength="100"
       className="wire wire-5"
+      strokeDasharray="1" strokeDashoffset="1"
     />
     <rect
-      x="270" y="210" width="120" height="30" rx="6" pathLength="100"
-      vectorEffect="non-scaling-stroke"
-      style={{ strokeDasharray: 100, strokeDashoffset: 100 }}
+      x="325" y="192" width="135" height="28" rx="6" pathLength="100"
       className="wire wire-6"
+      strokeDasharray="1" strokeDashoffset="1"
     />
   </svg>
 </div>
+
 
 
   {/* MOBILE WIREFRAME + CTA BELOW */}
