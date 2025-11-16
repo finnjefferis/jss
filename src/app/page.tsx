@@ -183,21 +183,35 @@ export default function Page() {
 </section>
 
 
-      {/* Services */}
+  {/* Services */}
       <section className="mb-24 md:mb-28">
-        <h3 className="mb-8 text-2xl font-semibold md:mb-12">Services</h3>
+        <div className="mb-3 flex items-center gap-2">
+          <span className="h-1 w-6 rounded-full bg-gradient-to-r from-indigo-500 to-sky-500" />
+          <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-500">
+            What I can handle for you
+          </p>
+        </div>
+
+        <h3 className="mb-3 text-2xl font-semibold md:text-3xl">Services</h3>
+        <p className="mb-8 max-w-2xl text-sm text-zinc-600">
+          For busy owners who already have the work — you just need your online presence
+          to match the quality of what you do.
+        </p>
 
         {/* Free Audit Banner */}
-        <div className="mb-8 rounded-lg border border-zinc-200 bg-white p-5 md:mb-10 md:flex md:items-center md:justify-between md:gap-6 md:p-6">
+        <div className="mb-10 rounded-xl border border-indigo-100 bg-gradient-to-r from-indigo-50 via-white to-sky-50 p-5 shadow-[0_1px_3px_rgba(15,23,42,0.05)] md:flex md:items-center md:justify-between md:gap-6 md:p-6">
           <div>
-            <h4 className="font-semibold text-zinc-900">Free Website Audit</h4>
-            <p className="mt-2 text-sm text-zinc-600">
-              I’ll review your site and send clear improvements you can apply today. No jargon, no pressure.
+            <h4 className="text-sm font-semibold text-zinc-900">
+              Free Website Audit
+            </h4>
+            <p className="mt-2 text-sm text-zinc-700">
+              I’ll review your site and send clear improvements you can apply today.
+              No jargon, no pressure, just a simple list of fixes.
             </p>
           </div>
           <a
             href="https://wa.me/447939309355?text=Hi%20Finn%2C%20I'd%20like%20a%20free%20website%20audit."
-            className="mt-4 inline-block shrink-0 rounded-md bg-black px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800 md:mt-0"
+            className="mt-4 inline-flex shrink-0 items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600 md:mt-0"
           >
             Book free audit
           </a>
@@ -206,56 +220,58 @@ export default function Page() {
         {/* Three Service Cards */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {/* Social */}
-          <div className="rounded-lg border border-zinc-200 bg-white p-6">
-            <h4 className="font-semibold text-zinc-900">
+          <div className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+            <h4 className="text-sm font-semibold text-zinc-900">
               Social Media — from £119/mo
             </h4>
             <p className="mt-3 text-sm leading-relaxed text-zinc-600">
-              Weekly posts, captions & scheduling handled for you.
-              You approve once a month — then relax.
+              Weekly posts, captions & scheduling handled for you. You approve once a
+              month — then get back to your actual job.
             </p>
             <a
               href="https://wa.me/447939309355?text=I'm%20interested%20in%20Social%20Media%20Management."
-              className="mt-6 inline-block rounded-md bg-black px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800"
+              className="mt-6 inline-flex rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600"
             >
               Enquire via WhatsApp
             </a>
           </div>
 
           {/* Websites */}
-          <div className="rounded-lg border border-zinc-200 bg-white p-6">
-            <h4 className="font-semibold text-zinc-900">
+          <div className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+            <h4 className="text-sm font-semibold text-zinc-900">
               Website Refresh / New — from £269
             </h4>
             <p className="mt-3 text-sm leading-relaxed text-zinc-600">
-              Clean, modern websites that build trust and make contact easy.
-              I handle everything — you just send your logo.
+              Clean, modern websites that build trust and make it obvious how to
+              contact you. I handle copy, layout and basic SEO.
             </p>
             <a
               href="https://wa.me/447939309355?text=I'm%20interested%20in%20a%20website%20refresh."
-              className="mt-6 inline-block rounded-md bg-black px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800"
+              className="mt-6 inline-flex rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600"
             >
               Enquire via WhatsApp
             </a>
           </div>
 
           {/* Tools */}
-          <div className="rounded-lg border border-zinc-200 bg-white p-6">
-            <h4 className="font-semibold text-zinc-900">
+          <div className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+            <h4 className="text-sm font-semibold text-zinc-900">
               Custom Tools / Dashboards — quoted
             </h4>
             <p className="mt-3 text-sm leading-relaxed text-zinc-600">
-              Booking systems, quote calculators & admin automation for your exact workflow.
+              Booking systems, quote calculators & internal dashboards wired into
+              your existing workflow — so things stop living in 10 different places.
             </p>
             <a
               href="https://wa.me/447939309355?text=I'm%20interested%20in%20a%20custom%20tool."
-              className="mt-6 inline-block rounded-md bg-black px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800"
+              className="mt-6 inline-flex rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600"
             >
               Enquire via WhatsApp
             </a>
           </div>
         </div>
       </section>
+
 
       {/* Why people hire me */}
       <section className="mb-20 md:mb-24">
@@ -352,13 +368,24 @@ export default function Page() {
   );
 }
 function HeroText() {
-  // 1) Initial render: deterministic – no randomness here
+  // 1) Initial render: deterministic – SSR-safe
   const [sequence, setSequence] = useState<WordPair[]>(WORD_PAIRS);
   const [index, setIndex] = useState(0);
 
-  // 2) After mount (client-only): shuffle once, reset to 0
+  // 2) After mount (client-only): shuffle, but always end on DIY/done-for-you
   useEffect(() => {
-    setSequence(shufflePairs(WORD_PAIRS));
+    const diyPair = WORD_PAIRS.find((p) => p.from === "DIY");
+    const others = WORD_PAIRS.filter((p) => p.from !== "DIY");
+
+    if (!diyPair) {
+      // fallback: no DIY pair found, just shuffle everything
+      setSequence(shufflePairs(WORD_PAIRS));
+      setIndex(0);
+      return;
+    }
+
+    const shuffledOthers = shufflePairs(others);
+    setSequence([...shuffledOthers, diyPair]); // DIY is always last
     setIndex(0);
   }, []);
 
@@ -381,58 +408,52 @@ function HeroText() {
         Websites & social for small businesses
       </p>
 
-            <h2 className="hero-line hero-delay-2 cal-sans mt-3 text-4xl font-semibold leading-tight md:text-5xl">
+      <h2 className="hero-line hero-delay-2 cal-sans mt-3 text-4xl font-semibold leading-tight md:text-5xl">
         Turn{" "}
-        {/* FROM word (grey) */}
-        <span className="swap-shell text-zinc-600 font-bold">
-          {/* ghost sets consistent width, stays invisible */}
+        <span className="swap-shell text-zinc-700">
           <span className="swap-ghost">visibility</span>
           <span key={pair.from} className="swap-word">
             {pair.from}
           </span>
         </span>{" "}
-        into
-        {/* TO word (indigo) */}
-        <span className="swap-shell text-indigo-600 font-bold">
-          {/* ghost sets consistent width, stays invisible */}
-          <span className="swap-ghost">reve</span>
+        into{" "}
+        <span className="swap-shell text-indigo-600">
+          <span className="swap-ghost">    </span>
           <span key={pair.to} className="swap-word">
             {pair.to}
           </span>
         </span>
-        
       </h2>
 
-
-
-      <p className="hero-line hero-delay-3 mt-4 text-sm text-zinc-600 md:text-base">
+      <p className="hero-line hero-delay-3 mt-8 mb-8 text-l text-zinc-600 md:text-base">
         Simple, fast websites and social that bring you new work. Projects from £119.
       </p>
 
-      {/* Who it's for */}
-      <div className="hero-line hero-delay-4 mt-4 flex flex-wrap gap-2 text-xs text-zinc-500">
+      <div className="hero-line hero-delay-4 mt-4 mb-8 flex flex-wrap gap-2 text-xs text-zinc-500">
         <span className="rounded-full border border-zinc-200 px-3 py-1">
           Trades & home services
         </span>
         <span className="rounded-full border border-zinc-200 px-3 py-1">
-          Cafés & local shops
+          Cafés & shops
         </span>
         <span className="rounded-full border border-zinc-200 px-3 py-1">
           Solo founders
         </span>
+          <span className="rounded-full border border-zinc-200 px-3 py-1">
+          E-Commerce
+        </span>
       </div>
 
-      {/* CTAs */}
-      <div className="hero-line hero-delay-5 mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+      <div className="hero-line hero-delay-5 mt-12 flex flex-col gap-3 sm:flex-row sm:items-center">
         <a
           href="https://wa.me/447939309355?text=Hi%20Finn%2C%20I'd%20like%20a%20FREE%20website%20audit."
-          className="inline-flex items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500  px-6 py-3 text-sm font-medium text-white hover:bg-indigo-800"
+          className="inline-flex items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600"
         >
           Book a free website audit
         </a>
         <a
           href="#recent-work"
-          className="text-sm font-medium text-zinc-700 underline-offset-4 underline "
+          className="text-sm font-medium md:mt-0 mt-12 text-zinc-700 underline underline-offset-4"
         >
           See recent projects
         </a>
@@ -440,4 +461,5 @@ function HeroText() {
     </div>
   );
 }
+
 
