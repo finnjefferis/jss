@@ -179,36 +179,7 @@ export default function Page() {
     </svg>
   </div>
 
-  {/* MOBILE HERO (image) */}
-  <div className="md:hidden">
-    <div className="relative mt-4 h-60 w-full overflow-hidden rounded-xl border border-zinc-200 bg-zinc-50">
-      <Image
-        src="/naxco1.png"
-        alt="Example website built by Jefferis Software Solutions"
-        fill
-        className="object-cover"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
-      <div className="absolute bottom-4 left-4 right-4">
-        <p className="text-xs font-medium uppercase tracking-[0.18em] text-zinc-200">
-          Recent project
-        </p>
-        <p className="mt-1 text-sm font-semibold text-white">
-          Naxco Services website refresh
-        </p>
-        <p className="mt-1 text-xs text-zinc-200">
-          Clearer services, stronger trust signals, easier enquiries.
-        </p>
-      </div>
-    </div>
-
-    <a
-      href="https://wa.me/447939309355?text=Hi%20Finn%2C%20I'd%20like%20a%20FREE%20website%20audit."
-      className="mt-6 block w-full rounded-md bg-black px-6 py-3 text-center text-sm font-medium text-white hover:bg-zinc-800"
-    >
-      Book a free website audit
-    </a>
-  </div>
+ 
 </section>
 
 
@@ -461,7 +432,7 @@ function HeroText() {
         </a>
         <a
           href="#recent-work"
-          className="text-sm font-medium text-zinc-700 underline-offset-4 underline"
+          className="text-sm font-medium text-zinc-700 underline-offset-4 underline "
         >
           See recent projects
         </a>
