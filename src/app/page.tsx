@@ -1,11 +1,34 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useState } from "react";
+
+type WordPair = { from: string; to: string };
+
+const WORD_PAIRS: WordPair[] = [
+  { from: "clicks",     to: "enquiries." },
+  { from: "attention",  to: "customers." },
+  { from: "visits",     to: "bookings." },
+  { from: "searches",   to: "sales." },
+  { from: "visibility", to: "revenue." },
+  { from: "scrolls",    to: "DMs." },
+  { from: "DIY",        to: "done-for-you." },
+  { from: "chaos",      to: "clarity." },
+];
+
+function shufflePairs<T>(array: T[]): T[] {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
 
 export default function Page() {
   return (
     <main className="mx-auto max-w-6xl px-5 md:px-8 lg:px-10">
-
       {/* Top Bar */}
       <header className="flex items-center justify-between gap-4 py-6">
         <h1 className="text-sm font-semibold tracking-wide">
@@ -19,141 +42,168 @@ export default function Page() {
         </a>
       </header>
 
-   <section className="relative mb-16 grid grid-cols-1 items-start mt-8 gap-10 md:grid-cols-2">
-
+   {/* Hero */}
+<section className="relative mb-10 grid min-h-[60vh] grid-cols-1 items-center gap-10 md:min-h-[60vh] md:grid-cols-2">
   {/* LEFT (Text) */}
-  <div className="md:pt-6 md:pb-10">   {/* ← adds breathing room on desktop */}
-    <h2 className="text-4xl font-semibold leading-tight md:text-5xl">
-      Jefferis Software Solutions
-    </h2>
-    <p className="mt-3 text-zinc-600">
-      Professional, personal online presence — from £119.
-    </p>
-
-    {/* CTA — desktop only */}
-    <a
-      href="https://wa.me/447939309355?text=Hi%20Finn%2C%20I'd%20like%20a%20FREE%20website%20audit."
-      className="mt-8 hidden md:inline-block rounded-md bg-black px-6 py-3 text-sm font-medium text-white hover:bg-zinc-800"
-    >
-      Book a free website audit today
-    </a>
-  </div>
+         {/* LEFT (Text) */}
+        <HeroText />
 
 
-
-
-  {/* RIGHT SIDE (Hero Visual, Desktop) */}
-{/* Desktop visual (draw-on wireframe) */}
-<div className="hidden md:flex mt-12 items-center justify-center h-56 w-full rounded-xl border border-zinc-200 overflow-hidden">
-  <svg
-    width="100%"
-    height="100%"
-    viewBox="0 0 480 245"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="text-zinc-300"
-  >
-    {/* Header */}
-    <rect
-      x="20" y="14" width="440" height="48" rx="6" pathLength="100"
-      className="wire wire-1"
-      strokeDasharray="1" strokeDashoffset="1"
-    />
-
-    {/* Left Content */}
-    <rect
-      x="20" y="78" width="285" height="150" rx="6" pathLength="100"
-      className="wire wire-2"
-      strokeDasharray="1" strokeDashoffset="1"
-    />
-
-    {/* Right Column */}
-    <rect
-      x="325" y="78" width="135" height="28" rx="6" pathLength="100"
-      className="wire wire-3"
-      strokeDasharray="1" strokeDashoffset="1"
-    />
-    <rect
-      x="325" y="116" width="135" height="28" rx="6" pathLength="100"
-      className="wire wire-4"
-      strokeDasharray="1" strokeDashoffset="1"
-    />
-    <rect
-      x="325" y="154" width="135" height="28" rx="6" pathLength="100"
-      className="wire wire-5"
-      strokeDasharray="1" strokeDashoffset="1"
-    />
-    <rect
-      x="325" y="192" width="135" height="28" rx="6" pathLength="100"
-      className="wire wire-6"
-      strokeDasharray="1" strokeDashoffset="1"
-    />
-  </svg>
-</div>
-
-
-
-{/* MOBILE PHONE HERO */}
-<div className="md:hidden mt-6">
-
-  {/* Phone Frame */}
-  <div className="relative w-full h-72 rounded-[28px] border border-zinc-200 bg-white/70 backdrop-blur-sm shadow-[0_1px_2px_rgba(0,0,0,0.04)] overflow-hidden">
+  {/* RIGHT (Desktop wireframe) */}
+  <div className="relative hidden h-64 w-full items-center justify-center overflow-hidden rounded-xl border border-zinc-100 md:flex md:h-72">
+    {/* soft glow */}
+    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,24,27,0.08),_transparent_55%)]" />
 
     <svg
-      viewBox="0 0 360 720"
-      className="absolute inset-0 text-zinc-300"
+      width="100%"
+      height="100%"
+      viewBox="0 0 480 260"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="2.2"
       strokeLinecap="round"
       strokeLinejoin="round"
+      className="relative z-10 text-zinc-400"
     >
+      {/* Outer browser frame */}
+      <rect
+        x="16"
+        y="14"
+        width="448"
+        height="232"
+        rx="16"
+        pathLength="1"
+        className="wire wire-1"
+      />
 
-      {/* Outer phone shell */}
-      <rect x="6" y="6" width="348" height="708" rx="38" className="mw mw-1" pathLength="1" />
+      {/* Top bar */}
+      <rect
+        x="24"
+        y="24"
+        width="432"
+        height="32"
+        rx="10"
+        pathLength="1"
+        className="wire wire-2"
+      />
 
-      {/* Top speaker notch */}
-      <rect x="150" y="20" width="60" height="8" rx="4" className="mw mw-2" pathLength="1" />
+      {/* Browser dots */}
+      <circle cx="40" cy="40" r="4" pathLength="1" className="wire wire-3" />
+      <circle cx="54" cy="40" r="4" pathLength="1" className="wire wire-4" />
+      <circle cx="68" cy="40" r="4" pathLength="1" className="wire wire-5" />
 
-      {/* Screen soft fill */}
-      <rect x="20" y="48" width="320" height="650" rx="20" className="fill-soft fill-m1" />
+      {/* Address bar */}
+      <rect
+        x="88"
+        y="32"
+        width="140"
+        height="12"
+        rx="6"
+        pathLength="1"
+        className="wire wire-6"
+      />
 
-      {/* Header block */}
-      <rect x="40" y="70" width="280" height="60" rx="10" className="mw mw-3" pathLength="1" />
-      <line x1="60" y1="100" x2="300" y2="100" className="shimmer" />
+      {/* Main hero image / content block */}
+      <rect
+        x="32"
+        y="72"
+        width="260"
+        height="110"
+        rx="12"
+        pathLength="1"
+        className="wire wire-7"
+      />
 
-      {/* Left content area */}
-      <rect x="40" y="150" width="180" height="380" rx="14" className="mw mw-4" pathLength="1" />
-      <rect x="55" y="170" width="155" height="20" rx="6" className="mw mw-5" pathLength="1" />
-      <rect x="55" y="200" width="130" height="14" rx="6" className="mw mw-6" pathLength="1" />
-      <rect x="55" y="230" width="160" height="14" rx="6" className="mw mw-7" pathLength="1" />
-      <rect x="55" y="260" width="120" height="14" rx="6" className="mw mw-8" pathLength="1" />
+      {/* Lower left text rows */}
+      <rect
+        x="32"
+        y="192"
+        width="120"
+        height="26"
+        rx="7"
+        pathLength="1"
+        className="wire wire-10"
+      />
+      <rect
+        x="172"
+        y="192"
+        width="120"
+        height="26"
+        rx="7"
+        pathLength="1"
+        className="wire wire-11"
+      />
 
-      {/* Right stacked cards */}
-      <rect x="235" y="150" width="85" height="36" rx="8" className="mw mw-9" pathLength="1" />
-      <rect x="235" y="200" width="85" height="36" rx="8" className="mw mw-10" pathLength="1" />
-      <rect x="235" y="250" width="85" height="36" rx="8" className="mw mw-11" pathLength="1" />
-
-      {/* Soft fills for cards */}
-      <rect x="235" y="150" width="85" height="36" rx="8" className="fill-soft fill-m2" />
-      <rect x="235" y="200" width="85" height="36" rx="8" className="fill-soft fill-m3" />
-      <rect x="235" y="250" width="85" height="36" rx="8" className="fill-soft fill-m4" />
+      {/* Right column cards */}
+      <rect
+        x="312"
+        y="72"
+        width="136"
+        height="40"
+        rx="10"
+        pathLength="1"
+        className="wire wire-12"
+      />
+      <rect
+        x="312"
+        y="122"
+        width="136"
+        height="30"
+        rx="8"
+        pathLength="1"
+        className="wire wire-13"
+      />
+      <rect
+        x="312"
+        y="166"
+        width="136"
+        height="30"
+        rx="8"
+        pathLength="1"
+        className="wire wire-14"
+      />
+      <rect
+        x="312"
+        y="210"
+        width="136"
+        height="30"
+        rx="8"
+        pathLength="1"
+        className="wire wire-15"
+      />
     </svg>
   </div>
 
-  {/* CTA (No WhatsApp Icon, Clean Button) */}
-  <a
-    href="https://wa.me/447939309355?text=Hi%20Finn%2C%20I'd%20like%20a%20website%20audit."
-    className="mt-6 block w-full rounded-md bg-black px-6 py-3 text-center text-sm font-medium text-white hover:bg-zinc-800"
-  >
-    Book a Free Website Audit
-  </a>
+  {/* MOBILE HERO (image) */}
+  <div className="md:hidden">
+    <div className="relative mt-4 h-60 w-full overflow-hidden rounded-xl border border-zinc-200 bg-zinc-50">
+      <Image
+        src="/naxco1.png"
+        alt="Example website built by Jefferis Software Solutions"
+        fill
+        className="object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+      <div className="absolute bottom-4 left-4 right-4">
+        <p className="text-xs font-medium uppercase tracking-[0.18em] text-zinc-200">
+          Recent project
+        </p>
+        <p className="mt-1 text-sm font-semibold text-white">
+          Naxco Services website refresh
+        </p>
+        <p className="mt-1 text-xs text-zinc-200">
+          Clearer services, stronger trust signals, easier enquiries.
+        </p>
+      </div>
+    </div>
 
-</div>
-
+    <a
+      href="https://wa.me/447939309355?text=Hi%20Finn%2C%20I'd%20like%20a%20FREE%20website%20audit."
+      className="mt-6 block w-full rounded-md bg-black px-6 py-3 text-center text-sm font-medium text-white hover:bg-zinc-800"
+    >
+      Book a free website audit
+    </a>
+  </div>
 </section>
 
 
@@ -231,8 +281,38 @@ export default function Page() {
         </div>
       </section>
 
+      {/* Why people hire me */}
+      <section className="mb-20 md:mb-24">
+        <h3 className="mb-4 text-2xl font-semibold">Why people hire me</h3>
+        <p className="mb-8 max-w-2xl text-sm text-zinc-600">
+          Most clients come to me with an out-of-date site, no clear call to action, and no time to fix it.
+          My job is to make it easy for customers to understand what you do and contact you in one tap.
+        </p>
+
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <div className="rounded-lg border border-zinc-200 bg-white p-5">
+            <h4 className="text-sm font-semibold text-zinc-900">Simple process</h4>
+            <p className="mt-2 text-sm text-zinc-600">
+              Short call, content collected in one go, clear timeline. Most sites done in about a week.
+            </p>
+          </div>
+          <div className="rounded-lg border border-zinc-200 bg-white p-5">
+            <h4 className="text-sm font-semibold text-zinc-900">Built for enquiries</h4>
+            <p className="mt-2 text-sm text-zinc-600">
+              Clear service pages, obvious buttons and WhatsApp / phone CTAs — not just something that “looks nice”.
+            </p>
+          </div>
+          <div className="rounded-lg border border-zinc-200 bg-white p-5">
+            <h4 className="text-sm font-semibold text-zinc-900">Ongoing support</h4>
+            <p className="mt-2 text-sm text-zinc-600">
+              I stay available for tweaks, updates and questions so you’re not stuck when something changes.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Recent Work */}
-      <section className="mb-24 md:mb-28">
+      <section id="recent-work" className="mb-24 md:mb-28">
         <h3 className="mb-8 text-2xl font-semibold md:mb-12">Recent Work</h3>
 
         <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
@@ -242,7 +322,9 @@ export default function Page() {
               <Image src="/naxco1.png" alt="Naxco" fill className="object-cover" />
             </div>
             <h4 className="text-lg font-semibold text-zinc-900">Naxco Services</h4>
-            <p className="mt-1 text-zinc-600">Improved clarity, trust signals & enquiry flow.</p>
+            <p className="mt-1 text-zinc-600">
+              Improved clarity, trust signals & enquiry flow.
+            </p>
           </article>
 
           {/* Carbon Calculator */}
@@ -260,7 +342,9 @@ export default function Page() {
               <Image src="/toolbox.png" alt="Toolbox" fill className="object-cover" />
             </div>
             <h4 className="text-lg font-semibold text-zinc-900">Toolbox Platform</h4>
-            <p className="mt-1 text-zinc-600">.NET dashboard for cost & procurement insights.</p>
+            <p className="mt-1 text-zinc-600">
+              .NET dashboard for cost & procurement insights.
+            </p>
           </article>
         </div>
       </section>
@@ -268,7 +352,9 @@ export default function Page() {
       {/* Contact */}
       <section className="mb-24 text-center">
         <h3 className="text-2xl font-semibold">Get in Touch</h3>
-        <p className="mt-3 text-zinc-600">Send a message anytime — quick reply.</p>
+        <p className="mt-3 text-zinc-600">
+          Send a message anytime — quick reply.
+        </p>
 
         <a
           href="https://wa.me/447939309355"
@@ -289,3 +375,93 @@ export default function Page() {
     </main>
   );
 }
+function HeroText() {
+  // 1) Initial render: deterministic – no randomness here
+  const [sequence, setSequence] = useState<WordPair[]>(WORD_PAIRS);
+  const [index, setIndex] = useState(0);
+
+  // 2) After mount (client-only): shuffle once, reset to 0
+  useEffect(() => {
+    setSequence(shufflePairs(WORD_PAIRS));
+    setIndex(0);
+  }, []);
+
+  // 3) Move through all pairs in sequence, then stop on the last one
+  useEffect(() => {
+    if (index >= sequence.length - 1) return; // already at last, stop
+
+    const timeout = setTimeout(() => {
+      setIndex((prev) => prev + 1);
+    }, 2600); // how long each pair shows
+
+    return () => clearTimeout(timeout);
+  }, [index, sequence.length]);
+
+  const pair = sequence[index];
+
+  return (
+    <div className="md:pt-6 md:pb-10">
+      <p className="hero-line hero-delay-1 text-xs font-medium uppercase tracking-[0.18em] text-zinc-500">
+        Websites & social for small businesses
+      </p>
+
+            <h2 className="hero-line hero-delay-2 cal-sans mt-3 text-4xl font-semibold leading-tight md:text-5xl">
+        Turn{" "}
+        {/* FROM word (grey) */}
+        <span className="swap-shell text-zinc-600">
+          {/* ghost sets consistent width, stays invisible */}
+          <span className="swap-ghost">visibility</span>
+          <span key={pair.from} className="swap-word">
+            {pair.from}
+          </span>
+        </span>{" "}
+        into{" "}
+        {/* TO word (indigo) */}
+        <span className="swap-shell text-indigo-600">
+          {/* ghost sets consistent width, stays invisible */}
+          <span className="swap-ghost">done-for-you</span>
+          <span key={pair.to} className="swap-word">
+            {pair.to}
+          </span>
+        </span>
+        
+      </h2>
+
+
+
+      <p className="hero-line hero-delay-3 mt-4 text-sm text-zinc-600 md:text-base">
+        Simple, fast websites and social that bring you new work. Projects from £119.
+      </p>
+
+      {/* Who it's for */}
+      <div className="hero-line hero-delay-4 mt-4 flex flex-wrap gap-2 text-xs text-zinc-500">
+        <span className="rounded-full border border-zinc-200 px-3 py-1">
+          Trades & home services
+        </span>
+        <span className="rounded-full border border-zinc-200 px-3 py-1">
+          Cafés & local shops
+        </span>
+        <span className="rounded-full border border-zinc-200 px-3 py-1">
+          Solo founders
+        </span>
+      </div>
+
+      {/* CTAs */}
+      <div className="hero-line hero-delay-5 mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <a
+          href="https://wa.me/447939309355?text=Hi%20Finn%2C%20I'd%20like%20a%20FREE%20website%20audit."
+          className="inline-flex items-center justify-center rounded-md bg-black px-6 py-3 text-sm font-medium text-white hover:bg-zinc-800"
+        >
+          Book a free website audit
+        </a>
+        <a
+          href="#recent-work"
+          className="text-sm font-medium text-zinc-700 underline-offset-4 hover:underline"
+        >
+          See recent projects
+        </a>
+      </div>
+    </div>
+  );
+}
+

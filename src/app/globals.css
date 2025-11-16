@@ -27,74 +27,100 @@ body {
   font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* ---------------------------
-   DESKTOP WIREFRAME ANIMATION
----------------------------- */
+/* ===========================
+   Wireframe hero animation
+   =========================== */
+
 .wire {
-  stroke-dasharray: 100;
-  stroke-dashoffset: 100;
-  animation: wire-draw 900ms ease forwards;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: wire-draw 1.1s ease-out forwards;
 }
 
-.wire-1 { animation-delay: 0ms; }
-.wire-2 { animation-delay: 120ms; }
-.wire-3 { animation-delay: 240ms; }
-.wire-4 { animation-delay: 360ms; }
-.wire-5 { animation-delay: 480ms; }
-.wire-6 { animation-delay: 600ms; }
+/* Staggered delays so it "builds" nicely */
+.wire-1  { animation-delay: 0.00s; }
+.wire-2  { animation-delay: 0.06s; }
+.wire-3  { animation-delay: 0.12s; }
+.wire-4  { animation-delay: 0.16s; }
+.wire-5  { animation-delay: 0.20s; }
+.wire-6  { animation-delay: 0.26s; }
+.wire-7  { animation-delay: 0.34s; }
+.wire-8  { animation-delay: 0.42s; }
+.wire-9  { animation-delay: 0.50s; }
+.wire-10 { animation-delay: 0.60s; }
+.wire-11 { animation-delay: 0.70s; }
+.wire-12 { animation-delay: 0.80s; }
+.wire-13 { animation-delay: 0.88s; }
+.wire-14 { animation-delay: 0.96s; }
+.wire-15 { animation-delay: 1.04s; }
 
 @keyframes wire-draw {
-  to { stroke-dashoffset: 0; }
-}
-
-/* Soft fill glow */
-.fill-soft { fill: currentColor; opacity: 0; }
-.fill-1 { animation: fill-in 360ms ease forwards 700ms; }
-.fill-2 { animation: fill-in 360ms ease forwards 820ms; }
-.fill-3 { animation: fill-in 360ms ease forwards 940ms; }
-.fill-4 { animation: fill-in 360ms ease forwards 1060ms; }
-.fill-5 { animation: fill-in 360ms ease forwards 1180ms; }
-.fill-6 { animation: fill-in 360ms ease forwards 1300ms; }
-
-@keyframes fill-in {
-  to { opacity: 0.06; }
-}
-
-/* ---------------------------
-   MOBILE WIREFRAME
----------------------------- */
-.mw {
-  stroke-dasharray: 100;
-  stroke-dashoffset: 100;
-  animation: mw-draw 480ms ease forwards;
-}
-
-.mw-1 { animation-delay: 0ms; }
-.mw-2 { animation-delay: 100ms; }
-.mw-3 { animation-delay: 200ms; }
-.mw-4 { animation-delay: 300ms; }
-.mw-5 { animation-delay: 400ms; }
-
-@keyframes mw-draw {
-  to { stroke-dashoffset: 0; }
-}
-
-/* ---------------------------
-   ACCESSIBILITY: REDUCED MOTION
----------------------------- */
-@media (prefers-reduced-motion: reduce) {
-  .wire, .fill-soft, .mw {
-    animation: none !important;
-    opacity: 1 !important;
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
   }
 }
-.fill-m1 { animation: fill-in 420ms ease forwards 650ms; }
-.fill-m2 { animation: fill-in 420ms ease forwards 820ms; }
-.fill-m3 { animation: fill-in 420ms ease forwards 940ms; }
-.fill-m4 { animation: fill-in 420ms ease forwards 1060ms; }
+/* Hero text fade-up */
+.hero-line {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: hero-fade-up 0.6s ease-out forwards;
+}
 
-.mw-7 { animation-delay: 300ms; }
-.mw-8 { animation-delay: 360ms; }
-.mw-9 { animation-delay: 420ms; }
-.mw-10 { animation-delay: 480ms; }
-.mw-11 { animation-delay: 540ms; }
+.hero-delay-1 { animation-delay: 0.05s; }
+.hero-delay-2 { animation-delay: 0.15s; }
+.hero-delay-3 { animation-delay: 0.25s; }
+.hero-delay-4 { animation-delay: 0.35s; }
+.hero-delay-5 { animation-delay: 0.45s; }
+
+@keyframes hero-fade-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Swapping words animation – fade only, no vertical shift */
+/* Shell makes both ghost + real word share the same space */
+.swap-shell {
+  display: inline-grid;
+  align-items: baseline;
+}
+
+/* Ghost text: controls width, never visible */
+.swap-ghost {
+  grid-area: 1 / 1;
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Real animated word: sits on top, fades in */
+.swap-word {
+  grid-area: 1 / 1;
+  display: inline-block;
+  opacity: 0;
+  animation: swap-word-in 0.3s ease-out forwards;
+}
+
+@keyframes swap-word-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
+/* Cal Sans font for hero heading (make sure the font is loaded in your project) */
+.cal-sans {
+  font-family: "Cal Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
