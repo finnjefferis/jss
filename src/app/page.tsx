@@ -11,7 +11,7 @@ const WORD_PAIRS: WordPair[] = [
   { from: "visits",     to: "bookings." },
   { from: "searches",   to: "sales." },
   { from: "visibility", to: "revenue." },
-  { from: "scrolls",    to: "DMs." },
+
   { from: "DIY",        to: "done-for-you." },
   { from: "chaos",      to: "clarity." },
 ];
@@ -30,17 +30,22 @@ export default function Page() {
   return (
     <main className="mx-auto max-w-6xl px-5 md:px-8 lg:px-10">
       {/* Top Bar */}
-      <header className="flex items-center justify-between gap-4 py-6">
-        <h1 className="text-sm font-semibold tracking-wide">
-          Jefferis Software Solutions
-        </h1>
-        <a
-          href="https://wa.me/447939309355"
-          className="rounded-md bg-black px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800"
-        >
-          WhatsApp
-        </a>
-      </header>
+        <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-indigo-500 via-sky-500 to-indigo-500"></div>
+
+   <header className="flex items-center justify-between gap-4 py-6">
+  <h1 className="flex items-center gap-2 text-sm font-semibold tracking-wide">
+    <span className="h-2 w-2 rounded-full bg-indigo-500"></span>
+    Jefferis Software Solutions
+  </h1>
+
+ <a
+    href="https://wa.me/447939309355"
+    className="rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:from-indigo-700 hover:to-indigo-600 transition"
+  >
+    WhatsApp
+  </a>
+</header>
+
 
    {/* Hero */}
 <section className="relative mb-10 grid min-h-[60vh] grid-cols-1 items-center gap-10 md:min-h-[60vh] md:grid-cols-2">
