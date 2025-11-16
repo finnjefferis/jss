@@ -408,18 +408,18 @@ function HeroText() {
             <h2 className="hero-line hero-delay-2 cal-sans mt-3 text-4xl font-semibold leading-tight md:text-5xl">
         Turn{" "}
         {/* FROM word (grey) */}
-        <span className="swap-shell text-zinc-600">
+        <span className="swap-shell text-zinc-600 font-bold">
           {/* ghost sets consistent width, stays invisible */}
           <span className="swap-ghost">visibility</span>
           <span key={pair.from} className="swap-word">
             {pair.from}
           </span>
         </span>{" "}
-        into{" "}
+        into
         {/* TO word (indigo) */}
-        <span className="swap-shell text-indigo-600">
+        <span className="swap-shell text-indigo-600 font-bold">
           {/* ghost sets consistent width, stays invisible */}
-          <span className="swap-ghost">done-for-you</span>
+          <span className="swap-ghost">reve</span>
           <span key={pair.to} className="swap-word">
             {pair.to}
           </span>
