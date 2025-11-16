@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 type WordPair = { from: string; to: string };
 
@@ -303,65 +303,12 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Recent Work */}
-      <section id="recent-work" className="mb-24 md:mb-28">
-        <h3 className="mb-8 text-2xl font-semibold md:mb-12">Recent Work</h3>
-
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
-          {/* Naxco */}
-          <article>
-            <div className="relative mb-4 h-64 w-full overflow-hidden rounded-lg border border-zinc-200">
-              <Image src="/naxco1.png" alt="Naxco" fill className="object-cover" />
-            </div>
-            <h4 className="text-lg font-semibold text-zinc-900">Naxco Services</h4>
-            <p className="mt-1 text-zinc-600">
-              Improved clarity, trust signals & enquiry flow.
-            </p>
-          </article>
-
-          {/* Carbon Calculator */}
-          <article>
-            <div className="relative mb-4 h-64 w-full overflow-hidden rounded-lg border border-zinc-200">
-              <Image src="/carbon.png" alt="Carbon Calculator" fill className="object-cover" />
-            </div>
-            <h4 className="text-lg font-semibold text-zinc-900">Carbon Calculator</h4>
-            <p className="mt-1 text-zinc-600">Streamlined workflow & CRM syncing.</p>
-          </article>
-
-          {/* Toolbox */}
-          <article>
-            <div className="relative mb-4 h-64 w-full overflow-hidden rounded-lg border border-zinc-200">
-              <Image src="/toolbox.png" alt="Toolbox" fill className="object-cover" />
-            </div>
-            <h4 className="text-lg font-semibold text-zinc-900">Toolbox Platform</h4>
-            <p className="mt-1 text-zinc-600">
-              .NET dashboard for cost & procurement insights.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      {/* Contact */}
-      <section className="mb-24 text-center">
-        <h3 className="text-2xl font-semibold">Get in Touch</h3>
-        <p className="mt-3 text-zinc-600">
-          Send a message anytime — quick reply.
-        </p>
-
-        <a
-          href="https://wa.me/447939309355"
-          className="mt-8 inline-block rounded-md bg-black px-6 py-3 text-sm font-medium text-white hover:bg-zinc-800"
-        >
-          Message on WhatsApp
-        </a>
-
-        <p className="mt-4 text-sm text-zinc-500">
-          Based in Worthing · Serving West Sussex
-        </p>
-      </section>
-
+          <RecentWorkSection />
+  <ContactSection />
       {/* Footer */}
+      
       <footer className="border-t py-8 text-center text-xs text-zinc-500">
+        
         © {new Date().getFullYear()} Jefferis Software Solutions
       </footer>
     </main>
@@ -463,3 +410,319 @@ function HeroText() {
 }
 
 
+type ProjectKey = "naxco" | "carbon" | "toolbox" | null;
+
+function RecentWorkSection() {
+  const [activeProject, setActiveProject] = useState<ProjectKey>(null);
+
+  return (
+    <section id="recent-work" className="mb-24 md:mb-28">
+      <div className="mb-3 flex items-center gap-2">
+        <span className="h-1 w-6 rounded-full bg-gradient-to-r from-indigo-500 to-sky-500" />
+        <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-500">
+          A few things I’ve worked on
+        </p>
+      </div>
+
+      <h3 className="mb-8 text-2xl font-semibold md:mb-10 md:text-3xl">
+        Recent Work
+      </h3>
+
+      <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
+        {/* Naxco */}
+        <article
+          className="group cursor-pointer"
+          onClick={() => setActiveProject("naxco")}
+        >
+          <div className="relative mb-4 h-64 w-full overflow-hidden rounded-xl border border-zinc-200 bg-zinc-50 shadow-sm transition group-hover:-translate-y-1 group-hover:shadow-md">
+            <Image src="/naxco1.png" alt="Naxco" fill className="object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent opacity-0 transition group-hover:opacity-100" />
+          </div>
+          <h4 className="text-lg font-semibold text-zinc-900">Naxco Services</h4>
+          <p className="mt-1 text-sm text-zinc-600">
+            Improved clarity, trust signals & enquiry flow.
+          </p>
+        </article>
+
+        {/* Carbon Calculator */}
+        <article
+          className="group cursor-pointer"
+          onClick={() => setActiveProject("carbon")}
+        >
+          <div className="relative mb-4 h-64 w-full overflow-hidden rounded-xl border border-zinc-200 bg-zinc-50 shadow-sm transition group-hover:-translate-y-1 group-hover:shadow-md">
+            <Image
+              src="/carbon.png"
+              alt="Carbon Calculator"
+              fill
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent opacity-0 transition group-hover:opacity-100" />
+          </div>
+          <h4 className="text-lg font-semibold text-zinc-900">
+            Carbon Calculator
+          </h4>
+          <p className="mt-1 text-sm text-zinc-600">
+            Streamlined workflow & CRM syncing.
+          </p>
+        </article>
+
+        {/* Toolbox */}
+        <article
+          className="group cursor-pointer"
+          onClick={() => setActiveProject("toolbox")}
+        >
+          <div className="relative mb-4 h-64 w-full overflow-hidden rounded-xl border border-zinc-200 bg-zinc-50 shadow-sm transition group-hover:-translate-y-1 group-hover:shadow-md">
+            <Image
+              src="/toolbox.png"
+              alt="Toolbox"
+              fill
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent opacity-0 transition group-hover:opacity-100" />
+          </div>
+          <h4 className="text-lg font-semibold text-zinc-900">
+            Toolbox Platform
+          </h4>
+          <p className="mt-1 text-sm text-zinc-600">
+            .NET dashboard for cost & procurement insights.
+          </p>
+        </article>
+      </div>
+
+      {/* Modals */}
+      {activeProject === "naxco" && (
+        <ProjectModal onClose={() => setActiveProject(null)}>
+          <NaxcoModalContent />
+        </ProjectModal>
+      )}
+
+      {activeProject === "carbon" && (
+        <ProjectModal onClose={() => setActiveProject(null)}>
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-zinc-900">
+              Carbon Calculator
+            </h3>
+            <p className="text-sm text-zinc-600">
+              A web application that lets users enter activity data, generates a
+              carbon report and syncs the results into the client&apos;s CRM.
+            </p>
+            <ul className="list-disc space-y-1 pl-5 text-sm text-zinc-600">
+              <li>Guided form flow for non-technical users.</li>
+              <li>Automatic PDF report generation.</li>
+              <li>Pushes data into the client CRM for follow-up and tracking.</li>
+            </ul>
+          </div>
+        </ProjectModal>
+      )}
+
+      {activeProject === "toolbox" && (
+        <ProjectModal onClose={() => setActiveProject(null)}>
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-zinc-900">
+              Toolbox Platform
+            </h3>
+            <p className="text-sm text-zinc-600">
+              A .NET dashboard used by procurement teams to monitor cost savings
+              and supplier performance in one place.
+            </p>
+            <ul className="list-disc space-y-1 pl-5 text-sm text-zinc-600">
+              <li>Live cost saving summaries by supplier and category.</li>
+              <li>Exportable views for board reports.</li>
+              <li>Built to integrate with existing data exports.</li>
+            </ul>
+          </div>
+        </ProjectModal>
+      )}
+    </section>
+  );
+}
+
+type ProjectModalProps = {
+  onClose: () => void;
+  children: React.ReactNode;
+};
+
+function ProjectModal({ onClose, children }: ProjectModalProps) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 py-8">
+      <div
+        className="absolute inset-0"
+        onClick={onClose}
+        aria-hidden="true"
+      />
+      <div className="relative z-10 w-full max-w-3xl rounded-2xl border border-zinc-200 bg-white p-6 shadow-xl md:p-8">
+        <button
+          onClick={onClose}
+          className="absolute right-4 top-4 rounded-full border border-zinc-200 bg-white/80 p-1 text-xs text-zinc-500 hover:bg-zinc-50"
+          aria-label="Close"
+        >
+          ✕
+        </button>
+        {children}
+      </div>
+    </div>
+  );
+}
+function NaxcoModalContent() {
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 md:flex-row md:items-start">
+        <div className="flex-1 space-y-3">
+          <h3 className="text-lg font-semibold text-zinc-900">
+            Naxco Services — website refresh
+          </h3>
+          <p className="text-sm text-zinc-600">
+            Local services business with a dated site and unclear calls to action.
+            I rebuilt the homepage to better explain what they do and make it easy
+            to call or message.
+          </p>
+          <ul className="list-disc space-y-1 pl-5 text-sm text-zinc-600">
+            <li>Clear service breakdown and stronger trust signals.</li>
+            <li>Prominent WhatsApp / contact options above the fold.</li>
+            <li>Simpler layout that works well on mobile.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="space-y-3">
+        <p className="text-xs font-medium uppercase tracking-[0.18em] text-zinc-500">
+          Before / after
+        </p>
+        <p className="text-sm text-zinc-600">
+          Drag the handle to compare the old design with the refreshed version.
+        </p>
+        <BeforeAfterSlider
+          beforeSrc="/naxco-before.png"
+          afterSrc="/naxco-after.png"
+          altBefore="Naxco old website"
+          altAfter="Naxco refreshed website"
+        />
+        <p className="text-xs text-zinc-500">
+          (Update <code>beforeSrc</code> / <code>afterSrc</code> to match your actual
+          filenames.)
+        </p>
+      </div>
+    </div>
+  );
+}
+
+type BeforeAfterSliderProps = {
+  beforeSrc: string;
+  afterSrc: string;
+  altBefore: string;
+  altAfter: string;
+};
+
+function BeforeAfterSlider({
+  beforeSrc,
+  afterSrc,
+  altBefore,
+  altAfter,
+}: BeforeAfterSliderProps) {
+  const [position, setPosition] = useState(50); // percentage
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const isDraggingRef = useRef(false);
+
+  const updatePositionFromClientX = (clientX: number) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const clamped = Math.max(0, Math.min(rect.width, x));
+    setPosition((clamped / rect.width) * 100);
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    isDraggingRef.current = true;
+    updatePositionFromClientX(e.clientX);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDraggingRef.current) return;
+    updatePositionFromClientX(e.clientX);
+  };
+
+  const handleMouseUpOrLeave = () => {
+    isDraggingRef.current = false;
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    isDraggingRef.current = true;
+    updatePositionFromClientX(e.touches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDraggingRef.current) return;
+    updatePositionFromClientX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    isDraggingRef.current = false;
+  };
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative h-64 w-full overflow-hidden rounded-xl border border-zinc-200 bg-zinc-50"
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUpOrLeave}
+      onMouseLeave={handleMouseUpOrLeave}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
+      {/* Before (full width below) */}
+      <Image src={beforeSrc} alt={altBefore} fill className="object-cover" />
+
+      {/* After (clipped to slider position) */}
+      <div
+        className="absolute inset-y-0 left-0 overflow-hidden"
+        style={{ width: `${position}%` }}
+      >
+        <Image src={afterSrc} alt={altAfter} fill className="object-cover" />
+      </div>
+
+      {/* Handle */}
+      <div
+        className="pointer-events-none absolute inset-y-0"
+        style={{ left: `${position}%`, transform: "translateX(-50%)" }}
+      >
+        <div className="flex h-full items-center">
+          <div className="h-full w-[2px] bg-white/70 shadow-[0_0_0_1px_rgba(15,23,42,0.3)]" />
+          <div className="pointer-events-auto -ml-[13px] flex flex-col items-center gap-1">
+            <div className="flex items-center justify-center rounded-full bg-gradient-to-r from-indigo-600 to-indigo-500 p-1 shadow-md">
+              <span className="flex h-6 w-6 items-center justify-center text-[11px] text-white">
+                ⇔
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+function ContactSection() {
+  return (
+    <section className="mb-24 rounded-2xl border border-zinc-200 bg-zinc-50/60 px-6 py-10 text-center md:px-10">
+      <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-500">
+        Ready when you are
+      </p>
+      <h3 className="mt-3 text-2xl font-semibold md:text-3xl">Get in touch</h3>
+      <p className="mt-3 text-sm text-zinc-600 md:text-base">
+        Send a WhatsApp message anytime — I&apos;ll reply with a simple next step, and
+        if helpful, a rough idea of cost.
+      </p>
+
+      <a
+        href="https://wa.me/447939309355"
+        className="mt-8 inline-flex items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600"
+      >
+        Message on WhatsApp
+      </a>
+
+      <p className="mt-4 text-sm text-zinc-500">
+        Based in Worthing · Serving West Sussex and beyond
+      </p>
+    </section>
+  );
+}
