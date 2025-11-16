@@ -350,12 +350,12 @@ function HeroText() {
   const pair = sequence[index];
 
   return (
-    <div className="md:pt-6 md:pb-10">
+    <div className="md:pt-6 md:pb-10 mt-12 ">
       <p className="hero-line hero-delay-1 text-xs font-medium uppercase tracking-[0.18em] text-zinc-500">
         Websites & social for small businesses
       </p>
 
-      <h2 className="hero-line hero-delay-2 cal-sans mt-3 text-4xl font-semibold leading-tight md:text-5xl">
+      <h2 className="hero-line hero-delay-2 cal-sans mt-8 text-4xl font-semibold leading-tight md:text-5xl">
         Turn{" "}
         <span className="swap-shell text-zinc-700">
           <span className="swap-ghost">visibility</span>
@@ -372,11 +372,11 @@ function HeroText() {
         </span>
       </h2>
 
-      <p className="hero-line hero-delay-3 mt-8 mb-8 text-l text-zinc-600 md:text-base">
+      <p className="hero-line hero-delay-3 mt-10 mb-8 text-l text-zinc-600 md:text-base">
         Simple, fast websites and social that bring you new work. Projects from £119.
       </p>
 
-      <div className="hero-line hero-delay-4 mt-4 mb-8 flex flex-wrap gap-2 text-xs text-zinc-500">
+      <div className="hero-line hero-delay-4 mt-12  flex flex-wrap gap-2 text-xs text-zinc-500">
         <span className="rounded-full border border-zinc-200 px-3 py-1">
           Trades & home services
         </span>
@@ -391,7 +391,7 @@ function HeroText() {
         </span>
       </div>
 
-      <div className="hero-line hero-delay-5 mt-12 flex flex-col gap-3 sm:flex-row sm:items-center">
+      <div className="hero-line hero-delay-5 mt-16 mb-6 flex flex-col gap-3 sm:flex-row sm:items-center">
         <a
           href="https://wa.me/447939309355?text=Hi%20Finn%2C%20I'd%20like%20a%20FREE%20website%20audit."
           className="inline-flex items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600"
@@ -400,7 +400,7 @@ function HeroText() {
         </a>
         <a
           href="#recent-work"
-          className="text-sm font-medium md:mt-0 mt-12 text-zinc-700 underline underline-offset-4"
+          className="text-sm font-medium md:mt-0 mt-8 text-zinc-700 underline underline-offset-4"
         >
           See recent projects
         </a>
