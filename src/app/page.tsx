@@ -455,13 +455,13 @@ function HeroText() {
       <div className="hero-line hero-delay-5 mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
         <a
           href="https://wa.me/447939309355?text=Hi%20Finn%2C%20I'd%20like%20a%20FREE%20website%20audit."
-          className="inline-flex items-center justify-center rounded-md bg-black px-6 py-3 text-sm font-medium text-white hover:bg-zinc-800"
+          className="inline-flex items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500  px-6 py-3 text-sm font-medium text-white hover:bg-indigo-800"
         >
           Book a free website audit
         </a>
         <a
           href="#recent-work"
-          className="text-sm font-medium text-zinc-700 underline-offset-4 hover:underline"
+          className="text-sm font-medium text-zinc-700 underline-offset-4 underline"
         >
           See recent projects
         </a>
