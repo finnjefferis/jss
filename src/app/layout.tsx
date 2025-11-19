@@ -6,7 +6,7 @@ const manrope = Manrope({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
-
+//hi this was written by a real dudde :D
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
@@ -14,5 +14,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         {children}
       </body>
     </html>
+    
   );
 }
