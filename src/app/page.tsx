@@ -546,6 +546,9 @@ function NaxcoModalContent() {
           <h3 className="text-lg font-semibold text-zinc-900">
             Naxco Services — website refresh
           </h3>
+          <a className="text-blue-500 hover:text-blue-600" href="https://naxco-site.vercel.app/">
+            https://naxco-site.vercel.app/
+          </a>
           <p className="text-sm text-zinc-600">
             Local services business with a dated site and unclear calls to action.
             I rebuilt the homepage to better explain what they do and make it easy
@@ -564,7 +567,7 @@ function NaxcoModalContent() {
           Before / after
         </p>
         <p className="text-sm text-zinc-600">
-          Drag the handle to compare the old design with the refreshed version.
+          Drag the handle to compare the refreshed design (left) with the old version.
         </p>
         <BeforeAfterSlider
           beforeSrc="/naxold.png"
@@ -671,7 +674,7 @@ function BeforeAfterSlider({
       </div>
  
 
- 
+
       {/* Handle */}
       <div
         className="pointer-events-none absolute inset-y-0"
