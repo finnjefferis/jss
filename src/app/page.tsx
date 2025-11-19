@@ -568,7 +568,7 @@ function NaxcoModalContent() {
         </p>
         <BeforeAfterSlider
           beforeSrc="/naxold.png"
-          afterSrc="/naxco1.png"
+          afterSrc="/naxnew.jpg"
           altBefore="Naxco old website"
           altAfter="Naxco refreshed website"
         />
@@ -644,16 +644,34 @@ function BeforeAfterSlider({
       onTouchEnd={handleTouchEnd}
     >
       {/* Before (full width below) */}
-      <Image src={beforeSrc} alt={altBefore} fill className="object-cover" />
+   <Image
+  src={beforeSrc}
+  alt={altBefore}
+  fill
+  className="object-contain"
+  sizes="100vw"
+  style={{ backgroundColor: "white" }} 
+/>
+
 
       {/* After (clipped to slider position) */}
       <div
         className="absolute inset-y-0 left-0 overflow-hidden"
         style={{ width: `${position}%` }}
       >
-        <Image src={afterSrc} alt={altAfter} fill className="object-cover" />
-      </div>
+     <Image
+  src={afterSrc}
+  alt={altAfter}
+  fill
+  className="object-contain"
+  sizes="100vw"
+  style={{ backgroundColor: "white" }} 
+/>
 
+      </div>
+ 
+
+ 
       {/* Handle */}
       <div
         className="pointer-events-none absolute inset-y-0"
