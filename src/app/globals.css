@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+html{
+  scroll-behavior: smooth;
+}
 /* --- FORCE LIGHT MODE --- */
 :root {
   --bg: #ffffff;

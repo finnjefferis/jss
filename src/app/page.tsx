@@ -32,23 +32,28 @@ export default function Page() {
       {/* Top Bar */}
         <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-indigo-500 via-sky-500 to-indigo-500"></div>
 
-   <header className="flex items-center justify-between gap-4 py-6">
+<header className="flex items-center justify-between gap-6 py-6 border-b border-zinc-400">
+  {/* LEFT — LOGO */}
   <h1 className="flex items-center gap-2 text-sm font-semibold tracking-wide">
     <span className="h-2 w-2 rounded-full bg-indigo-500"></span>
     Jefferis Software Solutions
   </h1>
 
- <a
+
+
+  {/* RIGHT — WHATSAPP BUTTON */}
+  <a
     href="https://wa.me/447939309355"
-    className="rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:from-indigo-700 hover:to-indigo-600 transition"
+    className="hidden md:inline-flex rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600"
   >
     WhatsApp
   </a>
 </header>
 
 
+
    {/* Hero */}
-<section className="relative mb-10 grid min-h-[60vh] grid-cols-1 items-center gap-10 md:min-h-[60vh] md:grid-cols-2">
+<section className="relative mb-10 grid min-h-[60vh] grid-cols-1 items-center gap-10 md:min-h-[50vh] md:grid-cols-2">
   {/* LEFT (Text) */}
          {/* LEFT (Text) */}
         <HeroText />
@@ -273,36 +278,6 @@ export default function Page() {
       </section>
 
 
-      {/* Why people hire me */}
-      <section className="mb-20 md:mb-24">
-        <h3 className="mb-4 text-2xl font-semibold">Why people hire me</h3>
-        <p className="mb-8 max-w-2xl text-sm text-zinc-600">
-          Most clients come to me with an out-of-date site, no clear call to action, and no time to fix it.
-          My job is to make it easy for customers to understand what you do and contact you in one tap.
-        </p>
-
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          <div className="rounded-lg border border-zinc-200 bg-white p-5">
-            <h4 className="text-sm font-semibold text-zinc-900">Simple process</h4>
-            <p className="mt-2 text-sm text-zinc-600">
-              Short call, content collected in one go, clear timeline. Most sites done in about a week.
-            </p>
-          </div>
-          <div className="rounded-lg border border-zinc-200 bg-white p-5">
-            <h4 className="text-sm font-semibold text-zinc-900">Built for enquiries</h4>
-            <p className="mt-2 text-sm text-zinc-600">
-              Clear service pages, obvious buttons and WhatsApp / phone CTAs — not just something that “looks nice”.
-            </p>
-          </div>
-          <div className="rounded-lg border border-zinc-200 bg-white p-5">
-            <h4 className="text-sm font-semibold text-zinc-900">Ongoing support</h4>
-            <p className="mt-2 text-sm text-zinc-600">
-              I stay available for tweaks, updates and questions so you’re not stuck when something changes.
-            </p>
-          </div>
-        </div>
-      </section>
-
           <RecentWorkSection />
   <ContactSection />
       {/* Footer */}
@@ -451,7 +426,7 @@ function RecentWorkSection() {
         >
           <div className="relative mb-4 h-64 w-full overflow-hidden rounded-xl border border-zinc-200 bg-zinc-50 shadow-sm transition group-hover:-translate-y-1 group-hover:shadow-md">
             <Image
-              src="/carbon.png"
+              src="/calc.png"
               alt="Carbon Calculator"
               fill
               className="object-cover"
@@ -473,7 +448,7 @@ function RecentWorkSection() {
         >
           <div className="relative mb-4 h-64 w-full overflow-hidden rounded-xl border border-zinc-200 bg-zinc-50 shadow-sm transition group-hover:-translate-y-1 group-hover:shadow-md">
             <Image
-              src="/toolbox.png"
+              src="/gtoolbox.png"
               alt="Toolbox"
               fill
               className="object-cover"
@@ -592,15 +567,12 @@ function NaxcoModalContent() {
           Drag the handle to compare the old design with the refreshed version.
         </p>
         <BeforeAfterSlider
-          beforeSrc="/naxco-before.png"
-          afterSrc="/naxco-after.png"
+          beforeSrc="/naxold.png"
+          afterSrc="/naxco1.png"
           altBefore="Naxco old website"
           altAfter="Naxco refreshed website"
         />
-        <p className="text-xs text-zinc-500">
-          (Update <code>beforeSrc</code> / <code>afterSrc</code> to match your actual
-          filenames.)
-        </p>
+      
       </div>
     </div>
   );
@@ -721,7 +693,7 @@ function ContactSection() {
       </a>
 
       <p className="mt-4 text-sm text-zinc-500">
-        Based in Worthing · Serving West Sussex and beyond
+        Based in Worthing · Proudly Serving Sussex and beyond
       </p>
     </section>
   );
