@@ -35,8 +35,11 @@ export default function Page() {
 <header className="flex items-center justify-between gap-6 py-6 border-b border-zinc-400">
   {/* LEFT — LOGO */}
   <h1 className="flex items-center gap-2 text-sm font-semibold tracking-wide">
+    
   <Image src="/jsslogo.png" alt="logo" height={36} width={36}/>
+     <span className="h-2 w-2 rounded-full bg-indigo-500"></span>
     Jefferis Software Solutions
+    
   </h1>
 
 
