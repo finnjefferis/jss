@@ -7,10 +7,10 @@ type WordPair = { from: string; to: string };
 
 const WORD_PAIRS: WordPair[] = [
   { from: "clicks",     to: "enquiries." },
-  { from: "attention",  to: "customers." },
+
   { from: "visits",     to: "bookings." },
   { from: "searches",   to: "sales." },
-  { from: "visibility", to: "revenue." },
+
 
   { from: "DIY",        to: "done-for-you." },
   { from: "chaos",      to: "clarity." },
@@ -365,7 +365,7 @@ export  function HeroText() {
         Turn{' '}
         
       
-        <span className="relative inline-grid  grid-cols-1 text-center min-w-[8ch]">
+        <span className="relative inline-grid  grid-cols-1 text-center min-w-[6ch]">
         
           <span className="invisible col-start-1 row-start-1 whitespace-pre">
             {maxFrom}
