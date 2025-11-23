@@ -49,7 +49,7 @@ export default function Page() {
     href="https://wa.me/447939309355"
     className="hidden md:inline-flex rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600"
   >
-    WhatsApp
+    Contact Us
   </a>
 </header>
 
@@ -62,131 +62,133 @@ export default function Page() {
         <HeroText />
 
 
-  {/* RIGHT (Desktop wireframe) */}
-  <div className="relative hidden h-64 w-full items-center justify-center overflow-hidden rounded-xl border border-zinc-100 md:flex md:h-72">
-    {/* soft glow */}
-    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,24,27,0.08),_transparent_55%)]" />
+ {/* RIGHT (Desktop wireframe) */}
+<div className="relative hidden h-64 w-full items-center justify-center overflow-hidden rounded-xl  md:flex md:h-72 ">
+  {/* Subtle background glow */}
+  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,_rgba(24,24,27,0.05),_transparent_60%)] dark:bg-[radial-gradient(circle_at_50%_20%,_rgba(255,255,255,0.05),_transparent_60%)]" />
 
-    <svg
-      width="100%"
-      height="100%"
-      viewBox="0 0 480 260"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="relative z-10 text-zinc-400"
-    >
-      {/* Outer browser frame */}
-      <rect
-        x="16"
-        y="14"
-        width="448"
-        height="232"
-        rx="16"
-        pathLength="1"
-        className="wire wire-1"
-      />
+  <svg
+    width="100%"
+    height="100%"
+    viewBox="0 0 480 260"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="relative z-10 text-zinc-300 dark:text-zinc-700"
+  >
+    {/* --- Browser Frame --- */}
+    {/* Main Window */}
+    <rect
+      x="30"
+      y="25"
+      width="420"
+      height="210"
+      rx="12"
+      pathLength="1"
+      className="wire wire-1"
+    />
 
-      {/* Top bar */}
-      <rect
-        x="24"
-        y="24"
-        width="432"
-        height="32"
-        rx="10"
-        pathLength="1"
-        className="wire wire-2"
-      />
+    {/* Browser Header Separator (Line instead of box for cleaner look) */}
+    <line
+      x1="30"
+      y1="60"
+      x2="450"
+      y2="60"
+      pathLength="1"
+      className="wire wire-2 opacity-50"
+    />
 
-      {/* Browser dots */}
-      <circle cx="40" cy="40" r="4" pathLength="1" className="wire wire-3" />
-      <circle cx="54" cy="40" r="4" pathLength="1" className="wire wire-4" />
-      <circle cx="68" cy="40" r="4" pathLength="1" className="wire wire-5" />
+    {/* Browser Dots (Traffic Lights) */}
+    <circle cx="52" cy="42" r="3" pathLength="1" className="wire wire-3" />
+    <circle cx="64" cy="42" r="3" pathLength="1" className="wire wire-4" />
+    <circle cx="76" cy="42" r="3" pathLength="1" className="wire wire-5" />
 
-      {/* Address bar */}
-      <rect
-        x="88"
-        y="32"
-        width="140"
-        height="12"
-        rx="6"
-        pathLength="1"
-        className="wire wire-6"
-      />
+    {/* Address Bar (Thinner, pill shape) */}
+    <rect
+      x="100"
+      y="35"
+      width="200"
+      height="14"
+      rx="7"
+      pathLength="1"
+      className="wire wire-6 opacity-50"
+    />
 
-      {/* Main hero image / content block */}
-      <rect
-        x="32"
-        y="72"
-        width="260"
-        height="110"
-        rx="12"
-        pathLength="1"
-        className="wire wire-7"
-      />
+    {/* --- Content Layout --- */}
+    
+    {/* Hero / Main Chart Area */}
+    <rect
+      x="50"
+      y="80"
+      width="230"
+      height="100"
+      rx="6"
+      pathLength="1"
+      className="wire wire-7 text-zinc-400 dark:text-zinc-600"
+    />
 
-      {/* Lower left text rows */}
-      <rect
-        x="32"
-        y="192"
-        width="120"
-        height="26"
-        rx="7"
-        pathLength="1"
-        className="wire wire-10"
-      />
-      <rect
-        x="172"
-        y="192"
-        width="120"
-        height="26"
-        rx="7"
-        pathLength="1"
-        className="wire wire-11"
-      />
+    {/* Lower Metrics Row (Using uniform spacing) */}
+    <rect
+      x="50"
+      y="195"
+      width="110"
+      height="20"
+      rx="4"
+      pathLength="1"
+      className="wire wire-10 text-zinc-400 dark:text-zinc-600"
+    />
+    <rect
+      x="170"
+      y="195"
+      width="110"
+      height="20"
+      rx="4"
+      pathLength="1"
+      className="wire wire-11 text-zinc-400 dark:text-zinc-600"
+    />
 
-      {/* Right column cards */}
-      <rect
-        x="312"
-        y="72"
-        width="136"
-        height="40"
-        rx="10"
-        pathLength="1"
-        className="wire wire-12"
-      />
-      <rect
-        x="312"
-        y="122"
-        width="136"
-        height="30"
-        rx="8"
-        pathLength="1"
-        className="wire wire-13"
-      />
-      <rect
-        x="312"
-        y="166"
-        width="136"
-        height="30"
-        rx="8"
-        pathLength="1"
-        className="wire wire-14"
-      />
-      <rect
-        x="312"
-        y="210"
-        width="136"
-        height="30"
-        rx="8"
-        pathLength="1"
-        className="wire wire-15"
-      />
-    </svg>
-  </div>
-
+    {/* Sidebar / Right Column (Stacked items) */}
+    {/* We align these perfectly with the Hero block top and Metrics bottom */}
+    <rect
+      x="300"
+      y="80"
+      width="130"
+      height="30"
+      rx="6"
+      pathLength="1"
+      className="wire wire-12 text-zinc-400 dark:text-zinc-600"
+    />
+    <rect
+      x="300"
+      y="120"
+      width="130"
+      height="25"
+      rx="4"
+      pathLength="1"
+      className="wire wire-13 opacity-80"
+    />
+    <rect
+      x="300"
+      y="155"
+      width="130"
+      height="25"
+      rx="4"
+      pathLength="1"
+      className="wire wire-14 opacity-80"
+    />
+    <rect
+      x="300"
+      y="190"
+      width="130"
+      height="25"
+      rx="4"
+      pathLength="1"
+      className="wire wire-15 opacity-80"
+    />
+  </svg>
+</div>
  
 </section>
 
