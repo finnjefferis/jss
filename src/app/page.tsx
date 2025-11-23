@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 
 type WordPair = { from: string; to: string };
 
@@ -289,60 +289,110 @@ export default function Page() {
     </main>
   );
 }
-function HeroText() {
-  // 1) Initial render: deterministic – SSR-safe
-  const [sequence, setSequence] = useState<WordPair[]>(WORD_PAIRS);
-  const [index, setIndex] = useState(0);
 
-  // 2) After mount (client-only): shuffle, but always end on DIY/done-for-you
-  useEffect(() => {
-    const diyPair = WORD_PAIRS.find((p) => p.from === "DIY");
-    const others = WORD_PAIRS.filter((p) => p.from !== "DIY");
 
-    if (!diyPair) {
-      // fallback: no DIY pair found, just shuffle everything
-      setSequence(shufflePairs(WORD_PAIRS));
-      setIndex(0);
-      return;
-    }
+export  function HeroText() {
+ const [sequence, setSequence] = useState<WordPair[]>(WORD_PAIRS);
+  const [pairIndex, setPairIndex] = useState(0);
 
-    const shuffledOthers = shufflePairs(others);
-    setSequence([...shuffledOthers, diyPair]); // DIY is always last
-    setIndex(0);
+  // Typewriter state
+  const [textFrom, setTextFrom] = useState("");
+  const [textTo, setTextTo] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [typingSpeed, setTypingSpeed] = useState(100);
+
+  // 1) CALCULATE LONGEST WORDS FOR LAYOUT STABILITY
+  const { maxFrom, maxTo } = useMemo(() => {
+    return WORD_PAIRS.reduce(
+      (acc, pair) => ({
+  
+        maxFrom: pair.from.length > acc.maxFrom.length ? pair.from : acc.maxFrom,
+        maxTo: pair.to.length > acc.maxTo.length ? pair.to : acc.maxTo,
+      }),
+      { maxFrom: "", maxTo: "" } 
+    );
   }, []);
 
-  // 3) Move through all pairs in sequence, then stop on the last one
+  // 3) TYPEWRITER LOOP
   useEffect(() => {
-    if (index >= sequence.length - 1) return; // already at last, stop
+    const currentPair = sequence[pairIndex];
+    const isLastPair = pairIndex === sequence.length - 1;
+    
+    const handleTyping = () => {
+      const fullFrom = currentPair.from;
+      const fullTo = currentPair.to;
 
-    const timeout = setTimeout(() => {
-      setIndex((prev) => prev + 1);
-    }, 2600); // how long each pair shows
+      const isFullFrom = textFrom === fullFrom;
+      const isFullTo = textTo === fullTo;
+      const isFullyTyped = isFullFrom && isFullTo;
+      const isFullyDeleted = textFrom === '' && textTo === '';
 
-    return () => clearTimeout(timeout);
-  }, [index, sequence.length]);
+      if (isDeleting) {
+        // Deleting phase
+        setTextFrom((prev) => prev.slice(0, -1));
+        setTextTo((prev) => prev.slice(0, -1));
+        setTypingSpeed(50); 
 
-  const pair = sequence[index];
+        if (isFullyDeleted) {
+          setIsDeleting(false);
+          setPairIndex((prev) => prev + 1);
+          setTypingSpeed(100);
+        }
+      } else {
+        // Typing phase
+        if (!isFullFrom) setTextFrom(fullFrom.slice(0, textFrom.length + 1));
+        if (!isFullTo) setTextTo(fullTo.slice(0, textTo.length + 1));
+        setTypingSpeed(100);
+
+        if (isFullyTyped) {
+          if (isLastPair) return; 
+          setTimeout(() => setIsDeleting(true), 2000); 
+        }
+      }
+    };
+
+    const timer = setTimeout(handleTyping, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [textFrom, textTo, isDeleting, pairIndex, sequence, typingSpeed]);
 
   return (
-    <div className="md:pt-6 md:pb-10 mt-12 ">
-      <p className="hero-line hero-delay-1 text-xs font-medium uppercase tracking-[0.18em] text-zinc-500">
+    <div className="mt-12 md:pt-6 md:pb-10">
+      <p className=" text-xs font-medium uppercase tracking-[0.18em] text-zinc-500">
         Websites & social for small businesses
       </p>
 
-      <h2 className="hero-line hero-delay-2 cal-sans mt-8 text-4xl font-semibold leading-tight md:text-5xl">
-        Turn{" "}
-        <span className="swap-shell text-zinc-700">
-          <span className="swap-ghost">visibility</span>
-          <span key={pair.from} className="swap-word">
-            {pair.from}
+      <h2 className=" hero-delay-2 cal-sans mt-8 text-4xl font-semibold leading-tight md:text-5xl">
+        Turn{' '}
+        
+      
+        <span className="relative inline-grid  grid-cols-1 text-center min-w-[11ch]">
+        
+          <span className="invisible col-start-1 row-start-1 whitespace-pre">
+            {maxFrom}
           </span>
-        </span>{" "}
-        into{" "}
-        <span className="swap-shell text-indigo-600">
-          <span className="swap-ghost">    </span>
-          <span key={pair.to} className="swap-word">
-            {pair.to}
+       
+          <span className="col-start-1 row-start-1 text-zinc-700">
+            {textFrom}
+            {(pairIndex !== sequence.length - 1 || isDeleting || textFrom !== currentPairFrom(sequence, pairIndex)) && (
+               <span className="animate-pulse font-light text-zinc-400">|</span>
+            )}
+          </span>
+        </span>{' '}
+        
+        into{' '}
+        
+   
+        <span className="relative inline-grid translate-y-2 grid-cols-1 text-left min-w-[14ch]">
+          {/* GHOST */}
+          <span className="invisible col-start-1 row-start-1 whitespace-pre">
+            {maxTo}
+          </span>
+          {/* REAL TEXT */}
+          <span className="col-start-1 row-start-1 text-indigo-600">
+            {textTo}
+             {(pairIndex !== sequence.length - 1 || isDeleting || textTo !== currentPairTo(sequence, pairIndex)) && (
+               <span className="animate-pulse font-light text-indigo-300">|</span>
+            )}
           </span>
         </span>
       </h2>
@@ -351,19 +401,12 @@ function HeroText() {
         Simple, fast websites and social that bring you new work. Projects from £119.
       </p>
 
-      <div className="hero-line hero-delay-4 mt-12  flex flex-wrap gap-2 text-xs text-zinc-500">
-        <span className="rounded-full border border-zinc-200 px-3 py-1">
-          Trades & home services
-        </span>
-        <span className="rounded-full border border-zinc-200 px-3 py-1">
-          Cafés & shops
-        </span>
-        <span className="rounded-full border border-zinc-200 px-3 py-1">
-          Solo founders
-        </span>
-          <span className="rounded-full border border-zinc-200 px-3 py-1">
-          E-Commerce
-        </span>
+      <div className="hero-line hero-delay-4 mt-12 flex flex-wrap gap-2 text-xs text-zinc-500">
+        {['Trades & home services', 'Cafés & shops', 'Solo founders', 'E-Commerce'].map((tag) => (
+          <span key={tag} className="rounded-full border border-zinc-200 px-3 py-1">
+            {tag}
+          </span>
+        ))}
       </div>
 
       <div className="hero-line hero-delay-5 mt-16 mb-6 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -382,6 +425,14 @@ function HeroText() {
       </div>
     </div>
   );
+}
+
+// Helpers to prevent undefined access during render
+function currentPairFrom(seq: WordPair[], idx: number) {
+  return seq[idx] ? seq[idx].from : '';
+}
+function currentPairTo(seq: WordPair[], idx: number) {
+  return seq[idx] ? seq[idx].to : '';
 }
 
 
