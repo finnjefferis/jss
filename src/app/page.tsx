@@ -365,7 +365,7 @@ export  function HeroText() {
         Turn{' '}
         
       
-        <span className="relative inline-grid  grid-cols-1 text-center min-w-[11ch]">
+        <span className="relative inline-grid  grid-cols-1 text-center min-w-[8ch]">
         
           <span className="invisible col-start-1 row-start-1 whitespace-pre">
             {maxFrom}
@@ -382,7 +382,7 @@ export  function HeroText() {
         into{' '}
         
    
-        <span className="relative inline-grid translate-y-2 grid-cols-1 text-left min-w-[14ch]">
+        <span className="relative inline-grid translate-y-2 grid-cols-1 text-left min-w-[8ch]">
           {/* GHOST */}
           <span className="invisible col-start-1 row-start-1 whitespace-pre">
             {maxTo}
