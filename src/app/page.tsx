@@ -2,29 +2,16 @@
 
 import Image from "next/image";
 import { useEffect, useState, useRef, useMemo } from "react";
-
+import { Megaphone, Globe, Wrench } from "lucide-react";
 type WordPair = { from: string; to: string };
 
 const WORD_PAIRS: WordPair[] = [
   { from: "clicks",     to: "enquiries." },
-
   { from: "visits",     to: "bookings." },
   { from: "chaos",      to: "clarity." },
-
-
   { from: "DIY",        to: "done-for-you." },
  
 ];
-
-function shufflePairs<T>(array: T[]): T[] {
-  const arr = [...array];
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
-
 
 export default function Page() {
   return (
@@ -193,94 +180,129 @@ export default function Page() {
 </section>
 
 
-  {/* Services */}
-      <section className="mb-24 md:mb-28">
-        <div className="mb-3 flex items-center gap-2">
-          <span className="h-1 w-6 rounded-full bg-gradient-to-r from-indigo-500 to-sky-500" />
-          <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-500">
-            What I can handle for you
-          </p>
-        </div>
 
-        <h3 className="mb-3 text-2xl font-semibold md:text-3xl">Services</h3>
-        <p className="mb-8 max-w-2xl text-sm text-zinc-600">
-          For busy owners who already have the work — you just need your online presence
-          to match the quality of what you do.
+<section id="services" className="mb-24 md:mb-28">
+  <div className="mb-3 flex items-center gap-2">
+    <span className="h-1 w-6 rounded-full bg-gradient-to-r from-indigo-500 to-sky-500" />
+    <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-500">
+      What I can handle for you
+    </p>
+  </div>
+
+  <h3 className="mb-3 text-2xl font-semibold md:text-3xl">Services</h3>
+  <p className="mb-8 max-w-2xl text-base text-zinc-600">
+    For busy owners who already have great work — you just need your **online
+    presence to match the quality** of what you do.
+  </p>
+
+  {/* Free Audit Banner (Slightly improved CTA) */}
+  <div className="mb-10 rounded-xl border border-indigo-100 bg-gradient-to-r from-indigo-50 via-white to-sky-50 p-5 shadow-lg shadow-indigo-500/10 md:flex md:items-center md:justify-between md:gap-6 md:p-6">
+    <div>
+      <h4 className="text-lg font-bold text-zinc-900">🎁 Claim Your Free Website Audit</h4>
+      <p className="mt-1 text-sm text-zinc-700">
+        I’ll review your site and send clear, actionable improvements you can apply today. 
+        No jargon, no pressure, just a simple list of fixes.
+      </p>
+    </div>
+    <a
+      href="https://wa.me/447939309355?text=Hi%20Finn%2C%20I'd%20like%20a%20free%20website%20audit."
+      className="mt-4 inline-flex shrink-0 items-center justify-center rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:from-indigo-700 hover:to-indigo-600 md:mt-0"
+    >
+      Claim Free Audit
+    </a>
+  </div>
+
+  {/* Three Service Cards */}
+  <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+    {/* 1. Social Media */}
+    <div className="group rounded-xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+      <div className="flex items-center gap-3">
+        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
+          <Megaphone className="h-5 w-5" />
+        </div>
+        <h4 className="text-base font-semibold text-zinc-900">
+          Social Media Management
+        </h4>
+      </div>
+      
+      <p className="mt-3 text-sm leading-relaxed text-zinc-600">
+        Weekly posts, captions, and scheduling handled for you. You approve once a
+        month — then get back to your actual job.
+      </p>
+      
+      <div className="mt-4 border-t border-zinc-100 pt-4">
+        <p className="text-sm font-medium text-zinc-500">
+          Starts from **£119 / month**
         </p>
+        <a
+          href="#contact" // Link to a contact form/detailed section below
+          className="mt-3 inline-flex text-sm font-medium text-indigo-600 transition group-hover:text-indigo-700"
+        >
+          View Packages &rarr;
+        </a>
+      </div>
+    </div>
 
-        {/* Free Audit Banner */}
-        <div className="mb-10 rounded-xl border border-indigo-100 bg-gradient-to-r from-indigo-50 via-white to-sky-50 p-5 shadow-[0_1px_3px_rgba(15,23,42,0.05)] md:flex md:items-center md:justify-between md:gap-6 md:p-6">
-          <div>
-            <h4 className="text-sm font-semibold text-zinc-900">
-              Free Website Audit
-            </h4>
-            <p className="mt-2 text-sm text-zinc-700">
-              I’ll review your site and send clear improvements you can apply today.
-              No jargon, no pressure, just a simple list of fixes.
-            </p>
-          </div>
-          <a
-            href="https://wa.me/447939309355?text=Hi%20Finn%2C%20I'd%20like%20a%20free%20website%20audit."
-            className="mt-4 inline-flex shrink-0 items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600 md:mt-0"
-          >
-            Book free audit
-          </a>
+    {/* 2. Websites */}
+    <div className="group rounded-xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+      <div className="flex items-center gap-3">
+        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
+          <Globe className="h-5 w-5" />
         </div>
+        <h4 className="text-base font-semibold text-zinc-900">
+          Website Design & Refresh
+        </h4>
+      </div>
 
-        {/* Three Service Cards */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {/* Social */}
-          <div className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
-            <h4 className="text-sm font-semibold text-zinc-900">
-              Social Media — from £119/mo
-            </h4>
-            <p className="mt-3 text-sm leading-relaxed text-zinc-600">
-              Weekly posts, captions & scheduling handled for you. You approve once a
-              month — then get back to your actual job.
-            </p>
-            <a
-              href="https://wa.me/447939309355?text=I'm%20interested%20in%20Social%20Media%20Management."
-              className="mt-6 inline-flex rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600"
-            >
-              Enquire via WhatsApp
-            </a>
-          </div>
+      <p className="mt-3 text-sm leading-relaxed text-zinc-600">
+        Clean, modern websites that build trust and make it obvious how to
+        contact you. I handle copy, layout, and basic SEO.
+      </p>
+      
+      <div className="mt-4 border-t border-zinc-100 pt-4">
+        <p className="text-sm font-medium text-zinc-500">
+          Starts from **£269 (one-off)**
+        </p>
+        <a
+          href="#contact" // Link to a contact form/detailed section below
+          className="mt-3 inline-flex text-sm font-medium text-indigo-600 transition group-hover:text-indigo-700"
+        >
+          See Examples &rarr;
+        </a>
+      </div>
+    </div>
 
-          {/* Websites */}
-          <div className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
-            <h4 className="text-sm font-semibold text-zinc-900">
-              Website Refresh / New — from £269
-            </h4>
-            <p className="mt-3 text-sm leading-relaxed text-zinc-600">
-              Clean, modern websites that build trust and make it obvious how to
-              contact you. I handle copy, layout and basic SEO.
-            </p>
-            <a
-              href="https://wa.me/447939309355?text=I'm%20interested%20in%20a%20website%20refresh."
-              className="mt-6 inline-flex rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600"
-            >
-              Enquire via WhatsApp
-            </a>
-          </div>
-
-          {/* Tools */}
-          <div className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
-            <h4 className="text-sm font-semibold text-zinc-900">
-              Custom Tools / Dashboards — quoted
-            </h4>
-            <p className="mt-3 text-sm leading-relaxed text-zinc-600">
-              Booking systems, quote calculators & internal dashboards wired into
-              your existing workflow — so things stop living in 10 different places.
-            </p>
-            <a
-              href="https://wa.me/447939309355?text=I'm%20interested%20in%20a%20custom%20tool."
-              className="mt-6 inline-flex rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600"
-            >
-              Enquire via WhatsApp
-            </a>
-          </div>
+    {/* 3. Custom Tools */}
+    <div className="group rounded-xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+      <div className="flex items-center gap-3">
+        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
+          <Wrench className="h-5 w-5" />
         </div>
-      </section>
+        <h4 className="text-base font-semibold text-zinc-900">
+          Custom Tools & Dashboards
+        </h4>
+      </div>
+
+      <p className="mt-3 text-sm leading-relaxed text-zinc-600">
+        Booking systems, quote calculators, and internal dashboards wired into your
+        existing workflow — so things stop living in 10 different places.
+      </p>
+      
+      <div className="mt-4 border-t border-zinc-100 pt-4">
+        <p className="text-sm font-medium text-zinc-500">
+          **Quote required**
+        </p>
+        <a
+          href="#contact" // Link to a contact form/detailed section below
+          className="mt-3 inline-flex text-sm font-medium text-indigo-600 transition group-hover:text-indigo-700"
+        >
+          Discuss Project &rarr;
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 
           <RecentWorkSection />
@@ -645,12 +667,12 @@ type BeforeAfterSliderProps = {
 };
 
 function BeforeAfterSlider({
-  beforeSrc,
-  afterSrc,
+  beforeSrc,   // old site
+  afterSrc,    // new design
   altBefore,
   altAfter,
 }: BeforeAfterSliderProps) {
-  const [position, setPosition] = useState(50); // percentage
+  const [position, setPosition] = useState(55); // % of NEW (after) shown on the left
   const containerRef = useRef<HTMLDivElement | null>(null);
   const isDraggingRef = useRef(false);
 
@@ -691,65 +713,88 @@ function BeforeAfterSlider({
   };
 
   return (
-    <div
-      ref={containerRef}
-      className="relative h-64 w-full overflow-hidden rounded-xl border border-zinc-200 bg-zinc-50"
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUpOrLeave}
-      onMouseLeave={handleMouseUpOrLeave}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-    >
-      {/* Before (full width below) */}
-   <Image
-  src={beforeSrc}
-  alt={altBefore}
-  fill
-  className="object-contain"
-  sizes="100vw"
-  style={{ backgroundColor: "white" }} 
-/>
-
-
-      {/* After (clipped to slider position) */}
-      <div
-        className="absolute inset-y-0 left-0 overflow-hidden"
-        style={{ width: `${position}%` }}
-      >
-     <Image
-  src={afterSrc}
-  alt={altAfter}
-  fill
-  className="object-contain"
-  sizes="100vw"
-  style={{ backgroundColor: "white" }} 
-/>
-
+    <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-3">
+      <div className="mb-3 flex items-center justify-between text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-500">
+        <span>Before / after</span>
+        <span className="text-[10px] text-zinc-400">Drag the handle</span>
       </div>
- 
 
-
-      {/* Handle */}
       <div
-        className="pointer-events-none absolute inset-y-0"
-        style={{ left: `${position}%`, transform: "translateX(-50%)" }}
+        ref={containerRef}
+        className="relative h-64 w-full overflow-hidden rounded-xl bg-zinc-900 cursor-col-resize"
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUpOrLeave}
+        onMouseLeave={handleMouseUpOrLeave}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
       >
-        <div className="flex h-full items-center">
-          <div className="h-full w-[2px] bg-white/70 shadow-[0_0_0_1px_rgba(15,23,42,0.3)]" />
-          <div className="pointer-events-auto -ml-[13px] flex flex-col items-center gap-1">
-            <div className="flex items-center justify-center rounded-full bg-gradient-to-r from-indigo-600 to-indigo-500 p-1 shadow-md">
-              <span className="flex h-6 w-6 items-center justify-center text-[11px] text-white">
-                ⇔
-              </span>
+        {/* OLD SITE — full-width base layer */}
+        <div className="absolute inset-0">
+          <Image
+            src={beforeSrc}
+            alt={altBefore}
+            fill
+            className="object-contain"
+            sizes="100vw"
+            style={{ backgroundColor: "white" }}
+          />
+        </div>
+
+        {/* NEW DESIGN — full-width, but clipped with clip-path so it stays the SAME SIZE */}
+        <div
+          className="absolute inset-0"
+          style={{
+            clipPath: `inset(0 ${100 - position}% 0 0)`, // show left portion only
+          }}
+        >
+          <Image
+            src={afterSrc}
+            alt={altAfter}
+            fill
+            className="object-contain"
+            sizes="100vw"
+            style={{ backgroundColor: "white" }}
+          />
+
+          {/* optional soft fade on the boundary */}
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-zinc-900/60 via-zinc-900/20 to-transparent" />
+        </div>
+
+        {/* LABELS */}
+        <span className="pointer-events-none absolute left-3 top-3 rounded-full bg-emerald-500/90 px-3 py-1 text-[11px] font-medium text-white">
+          New design
+        </span>
+        <span className="pointer-events-none absolute right-3 top-3 rounded-full bg-zinc-950/85 px-3 py-1 text-[11px] font-medium text-zinc-100">
+          Old site
+        </span>
+
+        {/* HANDLE */}
+        <div
+          className="pointer-events-none absolute inset-y-4 sm:inset-y-6"
+          style={{ left: `${position}%`, transform: "translateX(-50%)" }}
+        >
+          <div className="flex h-full items-center">
+            <div className="h-full w-[2px] bg-white/80 shadow-[0_0_0_1px_rgba(15,23,42,0.6)]" />
+            <div className="pointer-events-auto -ml-[18px] flex flex-col items-center">
+              <div className="flex items-center justify-center rounded-full bg-gradient-to-r from-indigo-600 to-indigo-500 p-1 shadow-lg shadow-indigo-600/40">
+                <span className="flex h-8 w-8 items-center justify-center text-xs font-semibold text-white">
+                  ⇆
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      <p className="mt-3 text-[11px] text-zinc-500">
+        Left: refreshed homepage · Right: original site
+      </p>
     </div>
   );
 }
+
 function ContactSection() {
   return (
     <section className="mb-24 rounded-2xl border border-zinc-200 bg-zinc-50/60 px-6 py-10 text-center md:px-10">
