@@ -180,7 +180,6 @@ export default function Page() {
 </section>
 
 
-
 <section id="services" className="mb-24 md:mb-28">
   <div className="mb-3 flex items-center gap-2">
     <span className="h-1 w-6 rounded-full bg-gradient-to-r from-indigo-500 to-sky-500" />
@@ -191,17 +190,16 @@ export default function Page() {
 
   <h3 className="mb-3 text-2xl font-semibold md:text-3xl">Services</h3>
   <p className="mb-8 max-w-2xl text-base text-zinc-600">
-    For busy owners who already have great work — you just need your **online
-    presence to match the quality** of what you do.
+    For busy owners who already do great work — you just need a strong online prescence to reflect that.
   </p>
 
-  {/* Free Audit Banner (Slightly improved CTA) */}
+  {/* Free Audit Banner */}
   <div className="mb-10 rounded-xl border border-indigo-100 bg-gradient-to-r from-indigo-50 via-white to-sky-50 p-5 shadow-lg shadow-indigo-500/10 md:flex md:items-center md:justify-between md:gap-6 md:p-6">
     <div>
       <h4 className="text-lg font-bold text-zinc-900">🎁 Claim Your Free Website Audit</h4>
       <p className="mt-1 text-sm text-zinc-700">
-        I’ll review your site and send clear, actionable improvements you can apply today. 
-        No jargon, no pressure, just a simple list of fixes.
+        Send me your website link and I’ll reply with a short list of fixes to get you
+        more enquiries. No jargon, no pressure — just clear, practical improvements.
       </p>
     </div>
     <a
@@ -214,7 +212,8 @@ export default function Page() {
 
   {/* Three Service Cards */}
   <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-    {/* 1. Social Media */}
+    
+    {/* Social Media */}
     <div className="group rounded-xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
       <div className="flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
@@ -224,26 +223,27 @@ export default function Page() {
           Social Media Management
         </h4>
       </div>
-      
+
       <p className="mt-3 text-sm leading-relaxed text-zinc-600">
-        Weekly posts, captions, and scheduling handled for you. You approve once a
-        month — then get back to your actual job.
+        Weekly posts, captions, and scheduling handled for you. Approve content once a month,
+        then get back to actually running your business.
       </p>
-      
-      <div className="mt-4 border-t border-zinc-100 pt-4">
+
+      <div className="mt-4 border-t border-zinc-100 pt-4 mb-4">
         <p className="text-sm font-medium text-zinc-500">
-          Starts from **£119 / month**
+          Starts from <span className="font-semibold text-zinc-800">£119 / month</span>
         </p>
-        <a
-          href="#contact" // Link to a contact form/detailed section below
-          className="mt-3 inline-flex text-sm font-medium text-indigo-600 transition group-hover:text-indigo-700"
-        >
-          View Packages &rarr;
-        </a>
       </div>
+
+      <a
+        href="https://wa.me/447939309355?text=Hi%20Finn%2C%20I'm%20interested%20in%20Social%20Media%20management.%20Can%20we%20talk%3F"
+        className="inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-500 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition hover:from-indigo-700 hover:to-indigo-600"
+      >
+        Enquire via WhatsApp
+      </a>
     </div>
 
-    {/* 2. Websites */}
+    {/* Websites */}
     <div className="group rounded-xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
       <div className="flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
@@ -255,53 +255,59 @@ export default function Page() {
       </div>
 
       <p className="mt-3 text-sm leading-relaxed text-zinc-600">
-        Clean, modern websites that build trust and make it obvious how to
-        contact you. I handle copy, layout, and basic SEO.
+        Modern websites that build trust and clearly show how to contact you.
+        I handle copy, layout, and basic SEO so you look professional from day one.
       </p>
-      
-      <div className="mt-4 border-t border-zinc-100 pt-4">
-        <p className="text-sm font-medium text-zinc-500">
-          Starts from **£269 (one-off)**
-        </p>
-        <a
-          href="#contact" // Link to a contact form/detailed section below
-          className="mt-3 inline-flex text-sm font-medium text-indigo-600 transition group-hover:text-indigo-700"
-        >
-          See Examples &rarr;
-        </a>
-      </div>
-    </div>
 
-    {/* 3. Custom Tools */}
-    <div className="group rounded-xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-      <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
-          <Wrench className="h-5 w-5" />
-        </div>
-        <h4 className="text-base font-semibold text-zinc-900">
-          Custom Tools & Dashboards
-        </h4>
+      <div className="mt-4 border-t border-zinc-100 pt-4 mb-4">
+        <p className="text-sm font-medium text-zinc-500">
+          Starts from <span className="font-semibold text-zinc-800">£269 (one-off)</span>
+        </p>
       </div>
 
-      <p className="mt-3 text-sm leading-relaxed text-zinc-600">
-        Booking systems, quote calculators, and internal dashboards wired into your
-        existing workflow — so things stop living in 10 different places.
-      </p>
-      
-      <div className="mt-4 border-t border-zinc-100 pt-4">
-        <p className="text-sm font-medium text-zinc-500">
-          **Quote required**
-        </p>
-        <a
-          href="#contact" // Link to a contact form/detailed section below
-          className="mt-3 inline-flex text-sm font-medium text-indigo-600 transition group-hover:text-indigo-700"
-        >
-          Discuss Project &rarr;
-        </a>
-      </div>
+      <a
+        href="https://wa.me/447939309355?text=Hi%20Finn%2C%20I'd%20like%20a%20website%20designed%20or%20refreshed.%20Can%20you%20advise%3F"
+        className="inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-500 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition hover:from-indigo-700 hover:to-indigo-600"
+      >
+        Talk Websites on WhatsApp
+      </a>
     </div>
+
+{/* 3. Bespoke Software */}
+<div className="group rounded-xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+  <div className="flex items-center gap-3">
+    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
+      <Wrench className="h-5 w-5" />
+    </div>
+    <h4 className="text-base font-semibold text-zinc-900">
+      Bespoke Software & Automation
+    </h4>
+  </div>
+
+  <p className="mt-3 text-sm leading-relaxed text-zinc-600">
+    Internal platforms, data tools, and full-stack applications built around how 
+    your business actually works — not how an off-the-shelf app forces you to.
+  </p>
+
+  
+
+  <div className="mt-4 border-t border-zinc-100 pt-4 mb-4">
+    <p className="text-sm font-medium text-zinc-500">
+      <span className="font-semibold text-zinc-800">Quote required</span>
+    </p>
+  </div>
+
+  <a
+    href="https://wa.me/447939309355?text=Hi%20Finn%2C%20I'd%20like%20to%20discuss%20a%20bespoke%20software%20project."
+    className="inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-500 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition hover:from-indigo-700 hover:to-indigo-600"
+  >
+    Talk Software on WhatsApp
+  </a>
+</div>
+
   </div>
 </section>
+
 
 
 
