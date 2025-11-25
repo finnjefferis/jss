@@ -13,6 +13,12 @@ const WORD_PAIRS: WordPair[] = [
  
 ];
 
+export const metadata = {
+  title: "Jefferis Software Solutions — Websites & Social",
+  description: "Simple, fast websites and social media that bring you enquiries.",
+};
+
+
 export default function Page() {
   return (
     <main className="mx-auto max-w-6xl px-5 md:px-8 lg:px-10">
@@ -502,7 +508,26 @@ function RecentWorkSection() {
             Improved clarity, trust signals & enquiry flow.
           </p>
         </article>
-
+     <article
+          className="group cursor-pointer"
+          onClick={() => setActiveProject("toolbox")}
+        >
+          <div className="relative mb-4 h-64 w-full overflow-hidden rounded-xl border border-zinc-200 bg-zinc-50 shadow-sm transition group-hover:-translate-y-1 group-hover:shadow-md">
+            <Image
+              src="/gtoolbox.png"
+              alt="Toolbox"
+              fill
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent opacity-0 transition group-hover:opacity-100" />
+          </div>
+          <h4 className="text-lg font-semibold text-zinc-900">
+            Toolbox Platform
+          </h4>
+          <p className="mt-1 text-sm text-zinc-600">
+            .NET dashboard for cost & procurement insights.
+          </p>
+        </article>
         {/* Carbon Calculator */}
         <article
           className="group cursor-pointer"
@@ -526,26 +551,7 @@ function RecentWorkSection() {
         </article>
 
         {/* Toolbox */}
-        <article
-          className="group cursor-pointer"
-          onClick={() => setActiveProject("toolbox")}
-        >
-          <div className="relative mb-4 h-64 w-full overflow-hidden rounded-xl border border-zinc-200 bg-zinc-50 shadow-sm transition group-hover:-translate-y-1 group-hover:shadow-md">
-            <Image
-              src="/gtoolbox.png"
-              alt="Toolbox"
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent opacity-0 transition group-hover:opacity-100" />
-          </div>
-          <h4 className="text-lg font-semibold text-zinc-900">
-            Toolbox Platform
-          </h4>
-          <p className="mt-1 text-sm text-zinc-600">
-            .NET dashboard for cost & procurement insights.
-          </p>
-        </article>
+   
       </div>
 
       {/* Modals */}
