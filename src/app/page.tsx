@@ -13,10 +13,6 @@ const WORD_PAIRS: WordPair[] = [
  
 ];
 
-export const metadata = {
-  title: "Jefferis Software Solutions — Websites & Social",
-  description: "Simple, fast websites and social media that bring you enquiries.",
-};
 
 
 export default function Page() {

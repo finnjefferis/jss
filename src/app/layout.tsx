@@ -7,6 +7,12 @@ const manrope = Manrope({
   weight: ["400", "500", "600", "700"],
 });
 //hi this was written by a real dudde :D
+
+export const metadata = {
+  title: "Jefferis Software Solutions — Websites & Social",
+  description: "Simple, fast websites and social media that bring you enquiries.",
+};
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
