@@ -65,133 +65,192 @@ export default function Page() {
 {/* Mobile visual – full-width section underneath hero */}
 <HeroVisualMobile />
 
-
-
-<section id="services" className="mb-24 md:mb-28">
-  <div className="mb-3 flex items-center gap-2">
+<section id="services" className="mb-28">
+  {/* Label */}
+  <div className="mb-4 flex items-center gap-2">
     <span className="h-1 w-6 rounded-full bg-gradient-to-r from-indigo-500 to-sky-500" />
     <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-500">
-      What I can handle for you
+      Start here
     </p>
   </div>
 
-  <h3 className="mb-3 text-2xl font-semibold md:text-3xl">Services</h3>
-  <p className="mb-8 max-w-2xl text-base text-zinc-600">
-    For busy owners who already do great work — you just need a strong online prescence to reflect that.
-  </p>
+  {/* Web Presence Audit – primary CTA */}
+  <div className="mb-10 overflow-hidden rounded-2xl border border-indigo-100 bg-gradient-to-r from-indigo-600 via-indigo-500 to-sky-500 p-6 text-white shadow-xl shadow-indigo-500/30 md:flex md:items-center md:justify-between md:gap-6 md:p-8">
+    <div className="space-y-3 md:max-w-xl">
+      <h2 className="text-2xl font-semibold md:text-3xl">
+        Web Presence Audit
+      </h2>
+      <p className="text-sm md:text-[15px] text-indigo-100">
+        I review your website, Google Business profile and social media,
+        then send you a short, plain-English list of changes to bring in more
+        enquiries.
+      </p>
+      <ul className="space-y-1 text-xs md:text-sm text-indigo-100/90">
+        <li>• Website first impression and calls-to-action</li>
+        <li>• Google Business basics (visibility and trust)</li>
+        <li>• Social media activity and how it supports the site</li>
+      </ul>
+    </div>
 
-  {/* Free Audit Banner */}
-  <div className="mb-10 rounded-xl border border-indigo-100 bg-gradient-to-r from-indigo-50 via-white to-sky-50 p-5 shadow-lg shadow-indigo-500/10 md:flex md:items-center md:justify-between md:gap-6 md:p-6">
-    <div>
-      <h4 className="text-lg font-bold text-zinc-900">🎁 Claim Your Free Website Audit</h4>
-      <p className="mt-1 text-sm text-zinc-700">
-        Send me your website link and I’ll reply with a short list of fixes to get you
-        more enquiries. No jargon, no pressure — just clear, practical improvements.
+    <div className="mt-6 flex flex-col items-start gap-3 md:mt-0 md:items-end">
+      <p className="text-xs uppercase tracking-[0.18em] text-indigo-100/80">
+        Main call to action
+      </p>
+      <a
+        href="https://wa.me/447887034503?text=Hi%20Finn%2C%20I’d%20like%20a%20Web%20Presence%20Audit.%20Here’s%20my%20website%20and%20social%20links%3A"
+        className="inline-flex items-center justify-center rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-indigo-700 shadow-md shadow-indigo-900/20 transition hover:bg-indigo-50"
+      >
+        Book a free web presence audit
+      </a>
+      <p className="text-[11px] text-indigo-100/80">
+        No jargon, no pressure — just clear next steps.
       </p>
     </div>
-    <a
-      href="https://wa.me/447939309355?text=Hi%20Finn%2C%20I'd%20like%20a%20free%20website%20audit."
-      className="mt-4 inline-flex shrink-0 items-center justify-center rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:from-indigo-700 hover:to-indigo-600 md:mt-0"
-    >
-      Claim Free Audit
-    </a>
   </div>
 
-  {/* Three Service Cards */}
-  <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-    
-    {/* Social Media */}
-    <div className="group rounded-xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-      <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
+  {/* Social first, then websites */}
+  <div className="grid grid-cols-1 gap-6 md:grid-cols-[1.1fr_minmax(0,1fr)]">
+    {/* Social Media Management */}
+    <div className="group rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+      <div className="mb-3 flex items-center gap-3">
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
           <Megaphone className="h-5 w-5" />
         </div>
-        <h4 className="text-base font-semibold text-zinc-900">
-          Social Media Management
-        </h4>
+        <div>
+          <p className="text-[11px] uppercase tracking-[0.18em] text-zinc-500">
+            Monthly service
+          </p>
+          <h3 className="text-lg font-semibold text-zinc-900">
+            Social Media Management
+          </h3>
+        </div>
       </div>
 
-      <p className="mt-3 text-sm leading-relaxed text-zinc-600">
-        Weekly posts, captions, and scheduling handled for you. Approve content once a month,
-        then get back to actually running your business.
+      <p className="text-sm text-zinc-600">
+        You approve content once a month. I handle posts, captions and
+        scheduling so your business always looks active and approachable.
       </p>
 
-      <div className="mt-4 border-t border-zinc-100 pt-4 mb-4">
-        <p className="text-sm font-medium text-zinc-500">
-          Starts from <span className="font-semibold text-zinc-800">£119 / month</span>
-        </p>
-      </div>
+      <ul className="mt-4 space-y-1 text-sm text-zinc-600">
+        <li>• 4–12 posts per month (platforms agreed up front)</li>
+        <li>• Captions written for your tone of voice</li>
+        <li>• Scheduled at sensible times for your audience</li>
+        <li>• Light inbox support and lead handover</li>
+      </ul>
+
+      <p className="mt-4 text-sm text-zinc-500">
+        From <span className="font-semibold text-zinc-800">£119/month</span>
+      </p>
 
       <a
-        href="https://wa.me/447939309355?text=Hi%20Finn%2C%20I'm%20interested%20in%20Social%20Media%20management.%20Can%20we%20talk%3F"
-        className="inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-500 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition hover:from-indigo-700 hover:to-indigo-600"
+        href="https://wa.me/447887034503?text=Hi%20Finn%2C%20I’m%20interested%20in%20Social%20Media%20Management.%20Can%20you%20tell%20me%20what%20you’d%20suggest%20for%20my%20business%3F"
+        className="mt-5 inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:from-indigo-700 hover:to-indigo-600"
       >
-        Enquire via WhatsApp
+        Talk to me about socials
       </a>
     </div>
 
-    {/* Websites */}
-    <div className="group rounded-xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-      <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
+    {/* Website builds */}
+    <div className="space-y-4 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+      <div className="mb-1 flex items-center gap-3">
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
           <Globe className="h-5 w-5" />
         </div>
-        <h4 className="text-base font-semibold text-zinc-900">
-          Website Design & Refresh
-        </h4>
+        <div>
+          <p className="text-[11px] uppercase tracking-[0.18em] text-zinc-500">
+            Fixed price builds
+          </p>
+          <h3 className="text-lg font-semibold text-zinc-900">
+            Website Projects
+          </h3>
+        </div>
       </div>
 
-      <p className="mt-3 text-sm leading-relaxed text-zinc-600">
-        Modern websites that build trust and clearly show how to contact you.
-        I handle copy, layout, and basic SEO so you look professional from day one.
+      <p className="text-sm text-zinc-600">
+        Modern, fast websites that make it obvious what you do, why you are
+        trustworthy and how to contact you.
       </p>
 
-      <div className="mt-4 border-t border-zinc-100 pt-4 mb-4">
-        <p className="text-sm font-medium text-zinc-500">
-          Starts from <span className="font-semibold text-zinc-800">£269 (one-off)</span>
-        </p>
+      <div className="mt-3 grid grid-cols-1 gap-3 text-sm text-zinc-600">
+        <div className="rounded-xl border border-zinc-100 bg-zinc-50/70 p-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-zinc-500">
+            Website Refresh
+          </p>
+          <p className="mt-1 text-sm">
+            Fixes to your existing site: clearer layout, stronger calls-to-action,
+            better mobile experience.
+          </p>
+          <p className="mt-2 text-xs text-zinc-500">
+            From <span className="font-semibold text-zinc-800">£269</span> one time
+          </p>
+        </div>
+
+        <div className="rounded-xl border border-zinc-100 bg-zinc-50/70 p-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-zinc-500">
+            Business Website
+          </p>
+          <p className="mt-1 text-sm">
+            Full small-business site: homepage, service pages and clear enquiry
+            flows tailored to how you actually work.
+          </p>
+          <p className="mt-2 text-xs text-zinc-500">
+            Typically <span className="font-semibold text-zinc-800">£749–£1,200</span>
+          </p>
+        </div>
       </div>
 
       <a
-        href="https://wa.me/447939309355?text=Hi%20Finn%2C%20I'd%20like%20a%20website%20designed%20or%20refreshed.%20Can%20you%20advise%3F"
-        className="inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-500 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition hover:from-indigo-700 hover:to-indigo-600"
+        href="https://wa.me/447887034503?text=Hi%20Finn%2C%20I’m%20thinking%20about%20a%20new%20website.%20Can%20you%20advise%20whether%20I%20need%20a%20refresh%20or%20a%20full%20build%3F"
+        className="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:from-indigo-700 hover:to-indigo-600"
       >
-        Talk Websites on WhatsApp
+        Ask what kind of site I need
       </a>
     </div>
+  </div>
 
-{/* 3. Bespoke Software */}
-<div className="group rounded-xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-  <div className="flex items-center gap-3">
-    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
-      <Wrench className="h-5 w-5" />
+  {/* Ongoing care – not optional for hosted sites */}
+  <div className="mt-10 rounded-2xl border border-indigo-100 bg-indigo-50/70 px-5 py-5 shadow-md shadow-indigo-100 md:flex md:items-center md:justify-between md:gap-6">
+    <div className="flex items-start gap-3">
+      <div className="mt-1 flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 text-white">
+        <Wrench className="h-4 w-4" />
+      </div>
+      <div>
+        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-700">
+          Included with hosted sites
+        </p>
+        <h4 className="mt-1 text-sm font-semibold text-zinc-900">
+          JSS Ongoing Care
+        </h4>
+        <p className="mt-1 text-sm text-zinc-700">
+          Every website I host comes with a care plan by default — so you are not
+          left managing updates or fixes alone.
+        </p>
+        <p className="mt-2 text-xs text-zinc-600">
+          Plans start at <span className="font-semibold text-zinc-900">£11/month</span> for
+          sites that rarely change, and scale up if you want more frequent content
+          edits and support.
+        </p>
+      </div>
     </div>
-    <h4 className="text-base font-semibold text-zinc-900">
-      Bespoke Software & Automation
-    </h4>
+
+    <div className="mt-4 md:mt-0">
+      <p className="text-[11px] text-zinc-600">
+        We will choose the right level during your audit or project call.
+      </p>
+    </div>
   </div>
 
-  <p className="mt-3 text-sm leading-relaxed text-zinc-600">
-    Internal platforms, data tools, and full-stack applications built around how 
-    your business actually works — not how an off-the-shelf app forces you to.
-  </p>
-
-  
-
-  <div className="mt-4 border-t border-zinc-100 pt-4 mb-4">
-    <p className="text-sm font-medium text-zinc-500">
-      <span className="font-semibold text-zinc-800">Quote required</span>
+  {/* Secondary CTA – still audit-focused */}
+  <div className="mt-10 text-center">
+    <a
+      href="https://wa.me/447887034503?text=Hi%20Finn%2C%20I’d%20like%20a%20Web%20Presence%20Audit.%20Here’s%20my%20website%20and%20socials%3A"
+      className="inline-flex items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-6 py-3 text-sm font-medium text-white shadow-md transition hover:from-indigo-700 hover:to-indigo-600"
+    >
+      Start with a free web presence audit
+    </a>
+    <p className="mt-3 text-sm text-zinc-500">
+      One WhatsApp message, then a clear list of changes that will actually help.
     </p>
-  </div>
-
-  <a
-    href="https://wa.me/447939309355?text=Hi%20Finn%2C%20I'd%20like%20to%20discuss%20a%20bespoke%20software%20project."
-    className="inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-500 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition hover:from-indigo-700 hover:to-indigo-600"
-  >
-    Talk Software on WhatsApp
-  </a>
-</div>
-
   </div>
 </section>
 
