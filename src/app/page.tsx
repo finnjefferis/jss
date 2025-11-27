@@ -863,13 +863,7 @@ function NaxcoBeforeAfterSlider({ card }: { card?: boolean }) {
             <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-zinc-900/60 via-zinc-900/20 to-transparent" />
           </div>
 
-          {/* labels */}
-          <span className="pointer-events-none absolute left-3 top-3 rounded-full bg-emerald-500/90 px-3 py-1 text-[11px] font-medium text-white">
-            New design
-          </span>
-          <span className="pointer-events-none absolute right-3 top-3 rounded-full bg-zinc-950/85 px-3 py-1 text-[11px] font-medium text-zinc-100">
-            Old site
-          </span>
+        
 
           {/* HANDLE – purple line with bulge */}
           <div
