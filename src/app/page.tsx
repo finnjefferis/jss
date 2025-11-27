@@ -23,10 +23,19 @@ export default function Page() {
 
 <header className="flex items-center justify-between gap-6 py-6 border-b border-zinc-400">
   {/* LEFT — LOGO */}
-  <h1 className="flex items-center gap-2 text-sm font-semibold tracking-wide">
+  <h1 className="flex items-center text-xl gap-2 text-sm font-semibold tracking-wide">
     
-  <Image src="/jsslogo.png" alt="logo" height={36} width={36}/>
-     <span className="h-2 w-2 rounded-full bg-indigo-500"></span>
+  <div className="relative h-10 w-9 shrink-0">
+      <Image
+        src="/jsslogo.png"
+        alt="Jefferis Software Solutions logo"
+        fill
+        sizes="40px"
+        priority
+        className="rounded-lg"
+      />
+    </div>
+     <span className="h-4 w-4 rounded-full bg-indigo-500"></span>
     Jefferis Software Solutions
     
   </h1>
@@ -50,135 +59,7 @@ export default function Page() {
          {/* LEFT (Text) */}
         <HeroText />
 
-
- {/* RIGHT (Desktop wireframe) */}
-<div className="relative hidden h-64 w-full items-center justify-center overflow-hidden rounded-xl  md:flex md:h-72 ">
-  {/* Subtle background glow */}
-  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,_rgba(24,24,27,0.05),_transparent_60%)] dark:bg-[radial-gradient(circle_at_50%_20%,_rgba(255,255,255,0.05),_transparent_60%)]" />
-
-  <svg
-    width="100%"
-    height="100%"
-    viewBox="0 0 480 260"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="relative z-10 text-zinc-300 dark:text-zinc-700"
-  >
-    {/* --- Browser Frame --- */}
-    {/* Main Window */}
-    <rect
-      x="30"
-      y="25"
-      width="420"
-      height="210"
-      rx="12"
-      pathLength="1"
-      className="wire wire-1"
-    />
-
-    {/* Browser Header Separator (Line instead of box for cleaner look) */}
-    <line
-      x1="30"
-      y1="60"
-      x2="450"
-      y2="60"
-      pathLength="1"
-      className="wire wire-2 opacity-50"
-    />
-
-    {/* Browser Dots (Traffic Lights) */}
-    <circle cx="52" cy="42" r="3" pathLength="1" className="wire wire-3" />
-    <circle cx="64" cy="42" r="3" pathLength="1" className="wire wire-4" />
-    <circle cx="76" cy="42" r="3" pathLength="1" className="wire wire-5" />
-
-    {/* Address Bar (Thinner, pill shape) */}
-    <rect
-      x="100"
-      y="35"
-      width="200"
-      height="14"
-      rx="7"
-      pathLength="1"
-      className="wire wire-6 opacity-50"
-    />
-
-    {/* --- Content Layout --- */}
-    
-    {/* Hero / Main Chart Area */}
-    <rect
-      x="50"
-      y="80"
-      width="230"
-      height="100"
-      rx="6"
-      pathLength="1"
-      className="wire wire-7 text-zinc-400 dark:text-zinc-600"
-    />
-
-    {/* Lower Metrics Row (Using uniform spacing) */}
-    <rect
-      x="50"
-      y="195"
-      width="110"
-      height="20"
-      rx="4"
-      pathLength="1"
-      className="wire wire-10 text-zinc-400 dark:text-zinc-600"
-    />
-    <rect
-      x="170"
-      y="195"
-      width="110"
-      height="20"
-      rx="4"
-      pathLength="1"
-      className="wire wire-11 text-zinc-400 dark:text-zinc-600"
-    />
-
-    {/* Sidebar / Right Column (Stacked items) */}
-    {/* We align these perfectly with the Hero block top and Metrics bottom */}
-    <rect
-      x="300"
-      y="80"
-      width="130"
-      height="30"
-      rx="6"
-      pathLength="1"
-      className="wire wire-12 text-zinc-400 dark:text-zinc-600"
-    />
-    <rect
-      x="300"
-      y="120"
-      width="130"
-      height="25"
-      rx="4"
-      pathLength="1"
-      className="wire wire-13 opacity-80"
-    />
-    <rect
-      x="300"
-      y="155"
-      width="130"
-      height="25"
-      rx="4"
-      pathLength="1"
-      className="wire wire-14 opacity-80"
-    />
-    <rect
-      x="300"
-      y="190"
-      width="130"
-      height="25"
-      rx="4"
-      pathLength="1"
-      className="wire wire-15 opacity-80"
-    />
-  </svg>
-</div>
- 
+  <HeroVisual />
 </section>
 
 
@@ -826,5 +707,107 @@ function ContactSection() {
         Based in Worthing · Proudly Serving Sussex and beyond
       </p>
     </section>
+  );
+}
+
+
+function HeroVisual() {
+  return (
+    <div className="relative w-full max-w-md rounded-2xl border border-zinc-200 bg-white/80 p-5 shadow-xl shadow-indigo-500/10">
+      {/* Subtle background glow */}
+      <div className="pointer-events-none absolute inset-0 rounded-2xl bg-[radial-gradient(circle_at_10%_0,rgba(79,70,229,0.12),transparent_55%),radial-gradient(circle_at_90%_100%,rgba(56,189,248,0.12),transparent_55%)]" />
+
+      <div className="relative flex flex-col gap-4">
+        {/* Fake browser bar */}
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full bg-red-400" />
+            <span className="h-2 w-2 rounded-full bg-amber-400" />
+            <span className="h-2 w-2 rounded-full bg-emerald-400" />
+          </div>
+          <div className="flex-1">
+            <div className="mx-auto h-6 max-w-[70%] rounded-full border border-zinc-200/80 bg-zinc-50/70 px-3 text-[10px] text-zinc-400">
+              jefferissoftware.co.uk / dashboard
+            </div>
+          </div>
+        </div>
+
+        {/* Main stat row */}
+        <div className="mt-1 grid grid-cols-[1.4fr_1fr] gap-4">
+          {/* Left: “chart” */}
+          <div className="rounded-xl border border-zinc-100 bg-zinc-50/80 p-3">
+            <p className="text-[11px] font-medium text-zinc-500">
+              Enquiries this month
+            </p>
+            <div className="mt-1 flex items-baseline gap-2">
+              <span className="text-2xl font-semibold text-zinc-900">42</span>
+              <span className="text-[11px] font-medium text-emerald-600">
+                +38% vs last month
+              </span>
+            </div>
+
+            {/* simple bar “chart” */}
+            <div className="mt-3 flex items-end gap-1.5">
+              {[30, 45, 55, 40, 65, 80, 72].map((h, i) => (
+                <div
+                  key={i}
+                  className="flex-1 rounded-full bg-gradient-to-t from-indigo-200 to-indigo-500/80"
+                  style={{ height: `${h}%` }}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Right: KPI cards */}
+          <div className="flex flex-col gap-2.5">
+            <div className="rounded-lg border border-zinc-100 bg-white/90 p-2.5">
+              <p className="text-[11px] text-zinc-500">Website visitors</p>
+              <p className="mt-0.5 text-sm font-semibold text-zinc-900">
+                1,280 <span className="text-[10px] text-emerald-600">+21%</span>
+              </p>
+              <div className="mt-1 h-1.5 rounded-full bg-zinc-100">
+                <div className="h-full w-4/5 rounded-full bg-gradient-to-r from-indigo-500 to-sky-400" />
+              </div>
+            </div>
+
+            <div className="rounded-lg border border-zinc-100 bg-white/90 p-2.5">
+              <p className="text-[11px] text-zinc-500">Enquiry rate</p>
+              <p className="mt-0.5 text-sm font-semibold text-zinc-900">
+                3.3% <span className="text-[10px] text-emerald-600">↑ better than avg</span>
+              </p>
+              <div className="mt-1 flex items-center gap-1.5 text-[10px] text-zinc-500">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                <span>After refresh</span>
+              </div>
+            </div>
+
+            <div className="rounded-lg border border-zinc-100 bg-indigo-50/90 p-2.5">
+              <p className="text-[11px] text-indigo-700">Sources</p>
+              <div className="mt-1 flex flex-wrap gap-1.5 text-[10px] font-medium">
+                <span className="rounded-full bg-white/90 px-2 py-0.5 text-zinc-700">
+                  Google Maps
+                </span>
+                <span className="rounded-full bg-white/90 px-2 py-0.5 text-zinc-700">
+                  Facebook Ads
+                </span>
+                <span className="rounded-full bg-white/90 px-2 py-0.5 text-zinc-700">
+                  Instagram
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom banner */}
+        <div className="mt-1 flex items-center justify-between rounded-xl border border-zinc-100 bg-zinc-50/80 px-3 py-2.5">
+          <p className="text-[11px] text-zinc-500">
+            “Since the new site, enquiries are actually trackable.”
+          </p>
+          <span className="text-[10px] font-medium text-zinc-400">
+            Client snapshot
+          </span>
+        </div>
+      </div>
+    </div>
   );
 }
