@@ -712,100 +712,185 @@ function ContactSection() {
 
 
 function HeroVisual() {
+  // Start almost fully on the old site
+  const [position, setPosition] = useState(5); // 0–100
+  const [userInteracted, setUserInteracted] = useState(false);
+
+  const updatePosition = (
+    clientX: number,
+    element: HTMLDivElement | null
+  ) => {
+    if (!element) return;
+    const rect = element.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const clamped = Math.max(0, Math.min(rect.width, x));
+    setPosition((clamped / rect.width) * 100);
+  };
+
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    setUserInteracted(true); // cancel auto anim if user grabs it
+    const el = e.currentTarget;
+    el.setPointerCapture(e.pointerId);
+    updatePosition(e.clientX, el);
+  };
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const el = e.currentTarget;
+    if (!el.hasPointerCapture(e.pointerId)) return;
+    updatePosition(e.clientX, el);
+  };
+
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    e.currentTarget.releasePointerCapture(e.pointerId);
+  };
+
+  // Ease-out-back for bounce, but we’ll clamp it so it never actually overshoots
+  const easeOutBack = (t: number) => {
+    const c1 = 1.3; // slightly softer bounce
+    const c3 = c1 + 1;
+    return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+  };
+
+  // Show old site, then do a short, bouncy slide to (almost) the end
+  useEffect(() => {
+    if (userInteracted) return;
+
+    const start = 5;       // mostly old site
+    const end = 97;        // stop just inside the right edge
+    const delay = 1600;    // ~1.1s pause on old
+    const duration = 2300; // ~1.5s slide
+
+    let frameId: number | undefined;
+    let timeoutId: number | undefined;
+    let startTime: number | null = null;
+
+    const startAnimation = () => {
+      startTime = performance.now();
+
+      const animate = (now: number) => {
+        if (userInteracted) return;
+
+        const elapsed = now - (startTime as number);
+        const t = Math.min(1, elapsed / duration);
+
+        // bounce easing, clamped to [0,1] so we don’t go past the edge
+        const easedRaw = easeOutBack(t);
+        const eased = Math.max(0, Math.min(1, easedRaw));
+
+        const value = start + (end - start) * eased;
+        setPosition(value);
+
+        if (t < 1) {
+          frameId = requestAnimationFrame(animate);
+        }
+      };
+
+      frameId = requestAnimationFrame(animate);
+    };
+
+    timeoutId = window.setTimeout(startAnimation, delay);
+
+    return () => {
+      if (timeoutId) window.clearTimeout(timeoutId);
+      if (frameId) cancelAnimationFrame(frameId);
+    };
+  }, [userInteracted]);
+
+  const sliderClass =
+    "relative mt-1 h-64 md:h-72 w-full overflow-hidden rounded-xl bg-zinc-900 cursor-col-resize select-none touch-none";
+
   return (
-    <div className="relative w-full max-w-md rounded-2xl border border-zinc-200 bg-white/80 p-5 shadow-xl shadow-indigo-500/10">
-      {/* Subtle background glow */}
-      <div className="pointer-events-none absolute inset-0 rounded-2xl bg-[radial-gradient(circle_at_10%_0,rgba(79,70,229,0.12),transparent_55%),radial-gradient(circle_at_90%_100%,rgba(56,189,248,0.12),transparent_55%)]" />
+    <div className="relative hidden items-center justify-center md:flex">
+      <div className="relative w-full max-w-lg rounded-2xl border border-zinc-200 bg-white/80 p-4 shadow-xl shadow-indigo-500/10">
+        {/* subtle glow */}
+        <div className="pointer-events-none absolute inset-0 rounded-2xl bg-[radial-gradient(circle_at_10%_0,rgba(79,70,229,0.12),transparent_55%),radial-gradient(circle_at_90%_100%,rgba(56,189,248,0.12),transparent_55%)]" />
 
-      <div className="relative flex flex-col gap-4">
-        {/* Fake browser bar */}
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-red-400" />
-            <span className="h-2 w-2 rounded-full bg-amber-400" />
-            <span className="h-2 w-2 rounded-full bg-emerald-400" />
-          </div>
-          <div className="flex-1">
-            <div className="mx-auto h-6 max-w-[70%] rounded-full border border-zinc-200/80 bg-zinc-50/70 px-3 text-[10px] text-zinc-400">
-              jefferissoftware.co.uk / dashboard
+        <div className="relative flex flex-col gap-3">
+          {/* fake browser chrome */}
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-1.5">
+              <span className="h-2 w-2 rounded-full bg-red-400" />
+              <span className="h-2 w-2 rounded-full bg-amber-400" />
+              <span className="h-2 w-2 rounded-full bg-emerald-400" />
             </div>
-          </div>
-        </div>
-
-        {/* Main stat row */}
-        <div className="mt-1 grid grid-cols-[1.4fr_1fr] gap-4">
-          {/* Left: “chart” */}
-          <div className="rounded-xl border border-zinc-100 bg-zinc-50/80 p-3">
-            <p className="text-[11px] font-medium text-zinc-500">
-              Enquiries this month
-            </p>
-            <div className="mt-1 flex items-baseline gap-2">
-              <span className="text-2xl font-semibold text-zinc-900">42</span>
-              <span className="text-[11px] font-medium text-emerald-600">
-                +38% vs last month
-              </span>
-            </div>
-
-            {/* simple bar “chart” */}
-            <div className="mt-3 flex items-end gap-1.5">
-              {[30, 45, 55, 40, 65, 80, 72].map((h, i) => (
-                <div
-                  key={i}
-                  className="flex-1 rounded-full bg-gradient-to-t from-indigo-200 to-indigo-500/80"
-                  style={{ height: `${h}%` }}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* Right: KPI cards */}
-          <div className="flex flex-col gap-2.5">
-            <div className="rounded-lg border border-zinc-100 bg-white/90 p-2.5">
-              <p className="text-[11px] text-zinc-500">Website visitors</p>
-              <p className="mt-0.5 text-sm font-semibold text-zinc-900">
-                1,280 <span className="text-[10px] text-emerald-600">+21%</span>
-              </p>
-              <div className="mt-1 h-1.5 rounded-full bg-zinc-100">
-                <div className="h-full w-4/5 rounded-full bg-gradient-to-r from-indigo-500 to-sky-400" />
-              </div>
-            </div>
-
-            <div className="rounded-lg border border-zinc-100 bg-white/90 p-2.5">
-              <p className="text-[11px] text-zinc-500">Enquiry rate</p>
-              <p className="mt-0.5 text-sm font-semibold text-zinc-900">
-                3.3% <span className="text-[10px] text-emerald-600">↑ better than avg</span>
-              </p>
-              <div className="mt-1 flex items-center gap-1.5 text-[10px] text-zinc-500">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                <span>After refresh</span>
-              </div>
-            </div>
-
-            <div className="rounded-lg border border-zinc-100 bg-indigo-50/90 p-2.5">
-              <p className="text-[11px] text-indigo-700">Sources</p>
-              <div className="mt-1 flex flex-wrap gap-1.5 text-[10px] font-medium">
-                <span className="rounded-full bg-white/90 px-2 py-0.5 text-zinc-700">
-                  Google Maps
-                </span>
-                <span className="rounded-full bg-white/90 px-2 py-0.5 text-zinc-700">
-                  Facebook Ads
-                </span>
-                <span className="rounded-full bg-white/90 px-2 py-0.5 text-zinc-700">
-                  Instagram
-                </span>
+            <div className="flex-1">
+              <div className="mx-auto h-6 max-w-[70%] rounded-full border border-zinc-200/80 bg-zinc-50/70 px-3 text-[10px] text-zinc-400">
+                Naxco Services — homepage refresh
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Bottom banner */}
-        <div className="mt-1 flex items-center justify-between rounded-xl border border-zinc-100 bg-zinc-50/80 px-3 py-2.5">
+          {/* slider “screen” */}
+          <div
+            className={sliderClass}
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
+            onPointerCancel={handlePointerUp}
+          >
+            {/* OLD SITE — base */}
+            <div className="absolute inset-0">
+              <Image
+                src="/naxold.png"
+                alt="Naxco old website"
+                fill
+                priority
+                className="object-contain"
+                sizes="(min-width: 768px) 50vw, 100vw"
+                style={{ backgroundColor: "white" }}
+              />
+            </div>
+
+            {/* NEW SITE — clipped to the handle position */}
+            <div
+              className="absolute inset-0"
+              style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
+            >
+              <Image
+                src="/naxnew.jpg"
+                alt="Naxco refreshed website"
+                fill
+                priority
+                className="object-contain"
+                sizes="(min-width: 768px) 50vw, 100vw"
+                style={{ backgroundColor: "white" }}
+              />
+              {/* soft edge so the join isn’t harsh */}
+              <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-zinc-900/60 via-zinc-900/20 to-transparent" />
+            </div>
+
+            {/* labels – left = new, right = old */}
+            <span className="pointer-events-none absolute left-3 top-3 rounded-full bg-emerald-500/90 px-3 py-1 text-[11px] font-medium text-white">
+              New design
+            </span>
+            <span className="pointer-events-none absolute right-3 top-3 rounded-full bg-zinc-950/85 px-3 py-1 text-[11px] font-medium text-zinc-100">
+              Old site
+            </span>
+
+            {/* HANDLE – nudged by 0.5px to line up with the clip edge */}
+<div
+  className="pointer-events-none absolute inset-y-4 sm:inset-y-6"
+  style={{
+    left: `calc(${position}% - 0.5px)`,
+    transform: "translateX(-50%)",
+  }}
+>
+  <div className="flex h-full items-center">
+    <div className="h-full w-[2px] bg-white/80 shadow-[0_0_0_1px_rgba(15,23,42,0.6)]" />
+    <div className="-ml-[18px] flex flex-col items-center">
+      <div className="flex items-center justify-center rounded-full bg-gradient-to-r from-indigo-600 to-indigo-500 p-1 shadow-lg shadow-indigo-600/40">
+        <span className="flex h-8 w-8 items-center justify-center text-xs font-semibold text-white animate-pulse">
+          ⇆
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
           <p className="text-[11px] text-zinc-500">
-            “Since the new site, enquiries are actually trackable.”
+            Starts on the original homepage, then eases into the refreshed design.
           </p>
-          <span className="text-[10px] font-medium text-zinc-400">
-            Client snapshot
-          </span>
         </div>
       </div>
     </div>
