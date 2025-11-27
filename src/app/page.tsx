@@ -542,7 +542,7 @@ function NaxcoModalContent() {
         </p>
         <BeforeAfterSlider
           beforeSrc="/naxold.png"
-          afterSrc="/naxnew.jpg"
+          afterSrc="/naxnew.png"
           altBefore="Naxco old website"
           altAfter="Naxco refreshed website"
         />
@@ -852,7 +852,7 @@ function NaxcoBeforeAfterSlider({ card }: { card?: boolean }) {
             style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
           >
             <Image
-              src="/naxnew.jpg"
+              src="/naxnew.png"
               alt="Naxco refreshed website"
               fill
               priority
