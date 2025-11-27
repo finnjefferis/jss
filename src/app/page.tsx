@@ -56,11 +56,15 @@ export default function Page() {
    {/* Hero */}
 <section className="relative mb-10 grid min-h-[60vh] grid-cols-1 items-center gap-10 md:min-h-[50vh] md:grid-cols-2">
   {/* LEFT (Text) */}
-         {/* LEFT (Text) */}
-        <HeroText />
+  <HeroText />
 
-  <HeroVisual />
+  {/* RIGHT – desktop visual only */}
+  <HeroVisualDesktop />
 </section>
+
+{/* Mobile visual – full-width section underneath hero */}
+<HeroVisualMobile />
+
 
 
 <section id="services" className="mb-24 md:mb-28">
@@ -710,10 +714,9 @@ function ContactSection() {
   );
 }
 
-
-function HeroVisual() {
-  // Start almost fully on the old site
-  const [position, setPosition] = useState(5); // 0–100
+// Shared core slider (logic + handle + images)
+function NaxcoBeforeAfterSlider({ card }: { card?: boolean }) {
+  const [position, setPosition] = useState(5); // 0–100, almost all old site
   const [userInteracted, setUserInteracted] = useState(false);
 
   const updatePosition = (
@@ -744,21 +747,20 @@ function HeroVisual() {
     e.currentTarget.releasePointerCapture(e.pointerId);
   };
 
-  // Ease-out-back for bounce, but we’ll clamp it so it never actually overshoots
+  // Ease-out-back for bounce, clamped so it doesn’t overshoot the track
   const easeOutBack = (t: number) => {
-    const c1 = 1.3; // slightly softer bounce
+    const c1 = 1.3;
     const c3 = c1 + 1;
     return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
   };
 
-  // Show old site, then do a short, bouncy slide to (almost) the end
   useEffect(() => {
     if (userInteracted) return;
 
-    const start = 5;       // mostly old site
-    const end = 97;        // stop just inside the right edge
-    const delay = 1600;    // ~1.1s pause on old
-    const duration = 2300; // ~1.5s slide
+    const start = 5;       // mostly old
+    const end = 97;        // stop just inside right edge
+    const delay = 1100;    // ~1.1s pause
+    const duration = 1500; // ~1.5s slide
 
     let frameId: number | undefined;
     let timeoutId: number | undefined;
@@ -773,7 +775,6 @@ function HeroVisual() {
         const elapsed = now - (startTime as number);
         const t = Math.min(1, elapsed / duration);
 
-        // bounce easing, clamped to [0,1] so we don’t go past the edge
         const easedRaw = easeOutBack(t);
         const eased = Math.max(0, Math.min(1, easedRaw));
 
@@ -797,102 +798,135 @@ function HeroVisual() {
   }, [userInteracted]);
 
   const sliderClass =
-    "relative mt-1 h-64 md:h-72 w-full overflow-hidden rounded-xl bg-zinc-900 cursor-col-resize select-none touch-none";
+    "relative mt-2 h-64 md:h-72 w-full overflow-hidden rounded-xl bg-zinc-900 cursor-col-resize select-none touch-none";
+
+  // Wrapper styling: card on desktop, softer section on mobile
+  const wrapperClass = card
+    ? "relative w-full max-w-lg rounded-2xl border border-zinc-200 bg-white/80 p-4 shadow-xl shadow-indigo-500/10"
+    : "relative w-full rounded-2xl border border-zinc-200 bg-white p-4 shadow-lg shadow-indigo-500/10";
 
   return (
-    <div className="relative hidden items-center justify-center md:flex">
-      <div className="relative w-full max-w-lg rounded-2xl border border-zinc-200 bg-white/80 p-4 shadow-xl shadow-indigo-500/10">
-        {/* subtle glow */}
-        <div className="pointer-events-none absolute inset-0 rounded-2xl bg-[radial-gradient(circle_at_10%_0,rgba(79,70,229,0.12),transparent_55%),radial-gradient(circle_at_90%_100%,rgba(56,189,248,0.12),transparent_55%)]" />
+    <div className={wrapperClass}>
+      {/* subtle glow */}
+      <div className="pointer-events-none absolute inset-0 rounded-2xl bg-[radial-gradient(circle_at_10%_0,rgba(79,70,229,0.12),transparent_55%),radial-gradient(circle_at_90%_100%,rgba(56,189,248,0.12),transparent_55%)]" />
 
-        <div className="relative flex flex-col gap-3">
-          {/* fake browser chrome */}
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-1.5">
-              <span className="h-2 w-2 rounded-full bg-red-400" />
-              <span className="h-2 w-2 rounded-full bg-amber-400" />
-              <span className="h-2 w-2 rounded-full bg-emerald-400" />
+      <div className="relative flex flex-col gap-3">
+        {/* fake browser chrome */}
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full bg-red-400" />
+            <span className="h-2 w-2 rounded-full bg-amber-400" />
+            <span className="h-2 w-2 rounded-full bg-emerald-400" />
+          </div>
+          <div className="flex-1">
+            <div className="mx-auto h-6 max-w-[70%] rounded-full border border-zinc-200/80 bg-zinc-50/70 px-3 text-[10px] text-zinc-400">
+              Naxco Services — homepage refresh
             </div>
-            <div className="flex-1">
-              <div className="mx-auto h-6 max-w-[70%] rounded-full border border-zinc-200/80 bg-zinc-50/70 px-3 text-[10px] text-zinc-400">
-                Naxco Services — homepage refresh
+          </div>
+        </div>
+
+        {/* slider “screen” */}
+        <div
+          className={sliderClass}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerUp}
+        >
+          {/* OLD SITE — base */}
+          <div className="absolute inset-0">
+            <Image
+              src="/naxold.png"
+              alt="Naxco old website"
+              fill
+              priority
+              className="object-contain"
+              sizes="(min-width: 768px) 50vw, 100vw"
+              style={{ backgroundColor: "white" }}
+            />
+          </div>
+
+          {/* NEW SITE — clipped to the handle position */}
+          <div
+            className="absolute inset-0"
+            style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
+          >
+            <Image
+              src="/naxnew.jpg"
+              alt="Naxco refreshed website"
+              fill
+              priority
+              className="object-contain"
+              sizes="(min-width: 768px) 50vw, 100vw"
+              style={{ backgroundColor: "white" }}
+            />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-zinc-900/60 via-zinc-900/20 to-transparent" />
+          </div>
+
+          {/* labels */}
+          <span className="pointer-events-none absolute left-3 top-3 rounded-full bg-emerald-500/90 px-3 py-1 text-[11px] font-medium text-white">
+            New design
+          </span>
+          <span className="pointer-events-none absolute right-3 top-3 rounded-full bg-zinc-950/85 px-3 py-1 text-[11px] font-medium text-zinc-100">
+            Old site
+          </span>
+
+          {/* HANDLE – purple line with bulge */}
+          <div
+            className="pointer-events-none absolute inset-y-4 sm:inset-y-6"
+            style={{
+              left: `calc(${position}% - 0.5px)`,
+              transform: "translateX(-50%)",
+            }}
+          >
+            <div className="flex h-full items-center justify-center">
+              <div className="relative flex h-full items-center">
+                {/* purple vertical line */}
+                <div className="h-full w-[5px] rounded-full bg-gradient-to-b from-indigo-600 via-indigo-500 to-indigo-400 shadow-[0_0_0_1px_rgba(15,23,42,0.5)]" />
+                {/* central bulge */}
+                <div className="absolute left-1/2 top-1/2 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-indigo-600 shadow-lg shadow-indigo-600/50">
+                  <span className="text-xs font-semibold text-white animate-pulse">
+                    ⇆
+                  </span>
+                </div>
               </div>
             </div>
           </div>
+        </div>
 
-          {/* slider “screen” */}
-          <div
-            className={sliderClass}
-            onPointerDown={handlePointerDown}
-            onPointerMove={handlePointerMove}
-            onPointerUp={handlePointerUp}
-            onPointerCancel={handlePointerUp}
-          >
-            {/* OLD SITE — base */}
-            <div className="absolute inset-0">
-              <Image
-                src="/naxold.png"
-                alt="Naxco old website"
-                fill
-                priority
-                className="object-contain"
-                sizes="(min-width: 768px) 50vw, 100vw"
-                style={{ backgroundColor: "white" }}
-              />
-            </div>
-
-            {/* NEW SITE — clipped to the handle position */}
-            <div
-              className="absolute inset-0"
-              style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
-            >
-              <Image
-                src="/naxnew.jpg"
-                alt="Naxco refreshed website"
-                fill
-                priority
-                className="object-contain"
-                sizes="(min-width: 768px) 50vw, 100vw"
-                style={{ backgroundColor: "white" }}
-              />
-              {/* soft edge so the join isn’t harsh */}
-              <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-zinc-900/60 via-zinc-900/20 to-transparent" />
-            </div>
-
-            {/* labels – left = new, right = old */}
-            <span className="pointer-events-none absolute left-3 top-3 rounded-full bg-emerald-500/90 px-3 py-1 text-[11px] font-medium text-white">
-              New design
-            </span>
-            <span className="pointer-events-none absolute right-3 top-3 rounded-full bg-zinc-950/85 px-3 py-1 text-[11px] font-medium text-zinc-100">
-              Old site
-            </span>
-
-            {/* HANDLE – nudged by 0.5px to line up with the clip edge */}
-<div
-  className="pointer-events-none absolute inset-y-4 sm:inset-y-6"
-  style={{
-    left: `calc(${position}% - 0.5px)`,
-    transform: "translateX(-50%)",
-  }}
->
-  <div className="flex h-full items-center">
-    <div className="h-full w-[2px] bg-white/80 shadow-[0_0_0_1px_rgba(15,23,42,0.6)]" />
-    <div className="-ml-[18px] flex flex-col items-center">
-      <div className="flex items-center justify-center rounded-full bg-gradient-to-r from-indigo-600 to-indigo-500 p-1 shadow-lg shadow-indigo-600/40">
-        <span className="flex h-8 w-8 items-center justify-center text-xs font-semibold text-white animate-pulse">
-          ⇆
-        </span>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-
+        {!card && (
           <p className="text-[11px] text-zinc-500">
             Starts on the original homepage, then eases into the refreshed design.
           </p>
-        </div>
+        )}
       </div>
     </div>
+  );
+}
+
+// DESKTOP: lives in the hero grid, right column
+function HeroVisualDesktop() {
+  return (
+    <div className="relative hidden items-center justify-center md:flex">
+      <NaxcoBeforeAfterSlider card />
+    </div>
+  );
+}
+
+// MOBILE: full-width section underneath the hero
+function HeroVisualMobile() {
+  return (
+    <section className="mb-12 md:hidden">
+      <div className="mb-3 flex items-center gap-2">
+        <span className="h-1 w-6 rounded-full bg-gradient-to-r from-indigo-500 to-sky-500" />
+        <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-500">
+          Before / after example
+        </p>
+      </div>
+      <h3 className="mb-3 text-lg font-semibold text-zinc-900">
+        See the kind of change I make
+      </h3>
+      <NaxcoBeforeAfterSlider />
+    </section>
   );
 }
