@@ -93,62 +93,62 @@ export default function Page() {
     </div>
 
     <div className="mt-6 flex flex-col items-start gap-3 md:mt-0 md:items-end">
-      <p className="text-xs uppercase tracking-[0.18em] text-indigo-100/80">
-        Main call to action
-      </p>
+     
       <a
         href="https://wa.me/447887034503?text=Hi%20Finn%2C%20I’d%20like%20a%20Web%20Presence%20Audit.%20Here’s%20my%20website%20and%20social%20links%3A"
         className="inline-flex items-center justify-center rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-indigo-700 shadow-md shadow-indigo-900/20 transition hover:bg-indigo-50"
       >
         Book a free web presence audit
       </a>
-      <p className="text-[11px] text-indigo-100/80">
-        No jargon, no pressure — just clear next steps.
-      </p>
+    
     </div>
   </div>
 
   {/* Social first, then websites */}
   <div className="grid grid-cols-1 gap-6 md:grid-cols-[1.1fr_minmax(0,1fr)]">
     {/* Social Media Management */}
-    <div className="group rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-      <div className="mb-3 flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
-          <Megaphone className="h-5 w-5" />
-        </div>
-        <div>
-          <p className="text-[11px] uppercase tracking-[0.18em] text-zinc-500">
-            Monthly service
-          </p>
-          <h3 className="text-lg font-semibold text-zinc-900">
-            Social Media Management
-          </h3>
-        </div>
-      </div>
-
-      <p className="text-sm text-zinc-600">
-        You approve content once a month. I handle posts, captions and
-        scheduling so your business always looks active and approachable.
-      </p>
-
-      <ul className="mt-4 space-y-1 text-sm text-zinc-600">
-        <li>• 4–12 posts per month (platforms agreed up front)</li>
-        <li>• Captions written for your tone of voice</li>
-        <li>• Scheduled at sensible times for your audience</li>
-        <li>• Light inbox support and lead handover</li>
-      </ul>
-
-      <p className="mt-4 text-sm text-zinc-500">
-        From <span className="font-semibold text-zinc-800">£119/month</span>
-      </p>
-
-      <a
-        href="https://wa.me/447887034503?text=Hi%20Finn%2C%20I’m%20interested%20in%20Social%20Media%20Management.%20Can%20you%20tell%20me%20what%20you’d%20suggest%20for%20my%20business%3F"
-        className="mt-5 inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:from-indigo-700 hover:to-indigo-600"
-      >
-        Talk to me about socials
-      </a>
+   <div className="group flex flex-col rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+  <div className="mb-3 flex items-center gap-3">
+    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+      <Megaphone className="h-5 w-5" />
     </div>
+    <div>
+      <p className="text-[11px] uppercase tracking-[0.18em] text-zinc-500">
+        Monthly service
+      </p>
+      <h3 className="text-lg font-semibold text-zinc-900">
+        Social Media Management
+      </h3>
+    </div>
+  </div>
+
+  <p className="text-sm text-zinc-600">
+    You approve content once a month. I handle posts, captions and
+    scheduling so your business actually looks active and approachable.
+  </p>
+
+  <ul className="mt-4 space-y-1 text-sm text-zinc-600">
+    <li>• 4–12 posts per month (platforms agreed up front)</li>
+    <li>• Captions written in your tone of voice</li>
+    <li>• Scheduled at sensible times for your audience</li>
+    <li>• Light inbox support & lead handover</li>
+  </ul>
+
+  {/* Spacer pushes button to the bottom */}
+  <div className="flex-1" />
+
+  <p className="mt-4 text-sm text-zinc-500">
+    From <span className="font-semibold text-zinc-800">£119/month</span>
+  </p>
+
+  <a
+    href="https://wa.me/447887034503?text=Hi%20Finn%2C%20I’m%20interested%20in%20Social%20Media%20Management.%20Can%20you%20tell%20me%20what%20you’d%20suggest%20for%20my%20business%3F"
+    className="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:from-indigo-700 hover:to-indigo-600"
+  >
+    Talk to me about socials
+  </a>
+</div>
+
 
     {/* Website builds */}
     <div className="space-y-4 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
@@ -190,11 +190,11 @@ export default function Page() {
             Business Website
           </p>
           <p className="mt-1 text-sm">
-            Full small-business site: homepage, service pages and clear enquiry
+            Full scale-business site: homepage, service pages and clear enquiry
             flows tailored to how you actually work.
           </p>
           <p className="mt-2 text-xs text-zinc-500">
-            Typically <span className="font-semibold text-zinc-800">£749–£1,200</span>
+             From <span className="font-semibold text-zinc-800">£749</span> one time
           </p>
         </div>
       </div>
@@ -233,25 +233,7 @@ export default function Page() {
       </div>
     </div>
 
-    <div className="mt-4 md:mt-0">
-      <p className="text-[11px] text-zinc-600">
-        We will choose the right level during your audit or project call.
-      </p>
     </div>
-  </div>
-
-  {/* Secondary CTA – still audit-focused */}
-  <div className="mt-10 text-center">
-    <a
-      href="https://wa.me/447887034503?text=Hi%20Finn%2C%20I’d%20like%20a%20Web%20Presence%20Audit.%20Here’s%20my%20website%20and%20socials%3A"
-      className="inline-flex items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-6 py-3 text-sm font-medium text-white shadow-md transition hover:from-indigo-700 hover:to-indigo-600"
-    >
-      Start with a free web presence audit
-    </a>
-    <p className="mt-3 text-sm text-zinc-500">
-      One WhatsApp message, then a clear list of changes that will actually help.
-    </p>
-  </div>
 </section>
 
 
