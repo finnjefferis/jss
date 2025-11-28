@@ -928,7 +928,7 @@ function NaxcoBeforeAfterSlider({ card }: { card?: boolean }) {
             </div>
           </div>
         </div>
-
+   <NaxcoLighthouseRow />
         {!card && (
           <p className="text-[11px] text-zinc-500">
             Starts on the original homepage, then eases into the refreshed design.
@@ -963,5 +963,91 @@ function HeroVisualMobile() {
       </h3>
       <NaxcoBeforeAfterSlider />
     </section>
+  );
+}
+
+
+type LighthouseMetricProps = {
+  label: string;
+  value: number; // 0–100
+};
+function NaxcoLighthouseRow() {
+  return (
+    <div className="mt-4 flex flex-wrap items-center justify-center gap-6">
+      <LighthouseMetric label="Performance" value={71} />
+      <LighthouseMetric label="Accessibility" value={86} />
+      <LighthouseMetric label="Best Practices" value={100} />
+      <LighthouseMetric label="SEO" value={82} />
+    </div>
+  );
+}
+
+function LighthouseMetric({ label, value }: LighthouseMetricProps) {
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    const delay = 1500;   // 1.5s before starting
+    const duration = 2000; // 2s animation
+
+    let frameId: number;
+    let startTime: number | null = null;
+    let timeoutId: number;
+
+    const animate = (now: number) => {
+      if (startTime === null) startTime = now;
+      const elapsed = now - startTime;
+      const t = Math.min(1, elapsed / duration);
+
+      // easeOutCubic
+      const eased = 1 - Math.pow(1 - t, 3);
+      const next = Math.round(0 + (value - 0) * eased);
+      setDisplay(next);
+
+      if (t < 1) {
+        frameId = requestAnimationFrame(animate);
+      }
+    };
+
+    timeoutId = window.setTimeout(() => {
+      frameId = requestAnimationFrame(animate);
+    }, delay);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+      if (frameId) cancelAnimationFrame(frameId);
+    };
+  }, [value]);
+
+  const percent = Math.max(0, Math.min(100, display));
+  const degrees = (percent / 100) * 360;
+
+  // Lighthouse-style colour: amber for mid, green for 90+
+  const ringColor = value >= 90 ? "#22c55e" : "#f59e0b";
+  const textColor = value >= 90 ? "#15803d" : "#b45309";
+
+  return (
+    <div className="flex flex-col items-center gap-2">
+      <div className="relative h-14 w-14">
+        {/* base light fill */}
+        <div className="absolute inset-0 rounded-full bg-[#fef9c3]" />
+        {/* coloured arc */}
+        <div
+          className="absolute inset-0 rounded-full"
+          style={{
+            background: `conic-gradient(${ringColor} ${degrees}deg, transparent 0deg)`,
+          }}
+        />
+        {/* inner white disc with number */}
+        <div className="absolute inset-[5px] flex items-center justify-center rounded-full bg-white">
+          <span
+            className="text-base font-semibold"
+            style={{ color: textColor }}
+          >
+            {display}
+          </span>
+        </div>
+      </div>
+      <span className="text-xs text-zinc-700">{label}</span>
+    </div>
   );
 }
