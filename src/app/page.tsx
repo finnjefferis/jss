@@ -181,7 +181,7 @@ export default function Page() {
             better mobile experience.
           </p>
           <p className="mt-2 text-xs text-zinc-500">
-            From <span className="font-semibold text-zinc-800">£269</span> one time
+            From <span className="font-semibold text-zinc-800">£369</span> one time
           </p>
         </div>
 
