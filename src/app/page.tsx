@@ -23,7 +23,7 @@ export default function Page() {
 
 <header className="flex items-center justify-between gap-6 py-6 border-b border-zinc-400">
   {/* LEFT — LOGO */}
-  <h1 className="flex items-center text-xl gap-2 text-sm font-semibold tracking-wide">
+  <h1 className="flex items-center md:text-xl gap-2 text-sm font-semibold tracking-wide">
     
   <div className="relative h-10 w-9 shrink-0">
       <Image
@@ -754,7 +754,6 @@ function ContactSection() {
     </section>
   );
 }
-
 // Shared core slider (logic + handle + images)
 function NaxcoBeforeAfterSlider({ card }: { card?: boolean }) {
   const [position, setPosition] = useState(5); // 0–100, almost all old site
@@ -904,8 +903,6 @@ function NaxcoBeforeAfterSlider({ card }: { card?: boolean }) {
             <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-zinc-900/60 via-zinc-900/20 to-transparent" />
           </div>
 
-        
-
           {/* HANDLE – purple line with bulge */}
           <div
             className="pointer-events-none absolute inset-y-4 sm:inset-y-6"
@@ -928,7 +925,7 @@ function NaxcoBeforeAfterSlider({ card }: { card?: boolean }) {
             </div>
           </div>
         </div>
-   <NaxcoLighthouseRow />
+        <NaxcoLighthouseRow position={position} />
         {!card && (
           <p className="text-[11px] text-zinc-500">
             Starts on the original homepage, then eases into the refreshed design.
@@ -966,9 +963,7 @@ function HeroVisualMobile() {
   );
 }
 
-
-
-function NaxcoLighthouseRow() {
+function NaxcoLighthouseRow({ position }: { position: number }) {
   const metrics = [
     { label: "Performance", from: 71, to: 98 },
     { label: "Accessibility", from: 86, to: 100 },
@@ -976,15 +971,20 @@ function NaxcoLighthouseRow() {
     { label: "SEO", from: 82, to: 100 },
   ];
 
+  const updatedMetrics = metrics.map((metric) => {
+    const range = metric.to - metric.from;
+    const updatedScore = metric.from + (range * position) / 100;
+    return { ...metric, adjustedScore: Math.round(updatedScore) };
+  });
+
   return (
     <div className="mt-4">
       <div className="flex flex-wrap items-center justify-center gap-6">
-        {metrics.map((m) => (
+        {updatedMetrics.map((metric) => (
           <LighthouseMetric
-            key={m.label}
-            label={m.label}
-            from={m.from}
-            to={m.to}
+            key={metric.label}
+            label={metric.label}
+            adjustedScore={metric.adjustedScore}
           />
         ))}
       </div>
@@ -1006,56 +1006,16 @@ function NaxcoLighthouseRow() {
 
 type LighthouseMetricProps = {
   label: string;
-  from: number; // old score
-  to: number;   // new score
+  adjustedScore: number;
 };
 
-function LighthouseMetric({ label, from, to }: LighthouseMetricProps) {
-  const [display, setDisplay] = useState(from);
-
-  useEffect(() => {
-    if (from === to) return;
-
-    const delay = 1500;    // 1.5s pause
-    const duration = 2000; // 2s animation
-
-    let frameId: number;
-    let startTime: number | null = null;
-    let timeoutId: number;
-
-    const animate = (now: number) => {
-      if (startTime === null) startTime = now;
-      const elapsed = now - startTime;
-      const t = Math.min(1, elapsed / duration);
-
-      // easeOutCubic for smooth finish
-      const eased = 1 - Math.pow(1 - t, 3);
-      const next = from + (to - from) * eased;
-      setDisplay(Math.round(next));
-
-      if (t < 1) {
-        frameId = requestAnimationFrame(animate);
-      }
-    };
-
-    timeoutId = window.setTimeout(() => {
-      frameId = requestAnimationFrame(animate);
-    }, delay);
-
-    return () => {
-      window.clearTimeout(timeoutId);
-      if (frameId) cancelAnimationFrame(frameId);
-    };
-  }, [from, to]);
-
-  const value = Math.max(0, Math.min(100, display));
+function LighthouseMetric({ label, adjustedScore }: LighthouseMetricProps) {
+  const value = Math.max(0, Math.min(100, adjustedScore));
   const degrees = (value / 100) * 360;
 
   // Lighthouse-style colour: red < 50, amber 50–89, green 90+
-  const ringColor =
-    value >= 90 ? "#22c55e" : value >= 50 ? "#f59e0b" : "#ef4444";
-  const textColor =
-    value >= 90 ? "#15803d" : value >= 50 ? "#b45309" : "#b91c1c";
+  const ringColor = value >= 90 ? "#22c55e" : value >= 50 ? "#f59e0b" : "#ef4444";
+  const textColor = value >= 90 ? "#15803d" : value >= 50 ? "#b45309" : "#b91c1c";
 
   return (
     <div className="flex flex-col items-center gap-2">
