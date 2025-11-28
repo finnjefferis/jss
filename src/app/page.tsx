@@ -967,26 +967,56 @@ function HeroVisualMobile() {
 }
 
 
-type LighthouseMetricProps = {
-  label: string;
-  value: number; // 0–100
-};
+
 function NaxcoLighthouseRow() {
+  const metrics = [
+    { label: "Performance", from: 71, to: 98 },
+    { label: "Accessibility", from: 86, to: 100 },
+    { label: "Best Practices", from: 100, to: 100 },
+    { label: "SEO", from: 82, to: 100 },
+  ];
+
   return (
-    <div className="mt-4 flex flex-wrap items-center justify-center gap-6">
-      <LighthouseMetric label="Performance" value={71} />
-      <LighthouseMetric label="Accessibility" value={86} />
-      <LighthouseMetric label="Best Practices" value={100} />
-      <LighthouseMetric label="SEO" value={82} />
+    <div className="mt-4">
+      <div className="flex flex-wrap items-center justify-center gap-6">
+        {metrics.map((m) => (
+          <LighthouseMetric
+            key={m.label}
+            label={m.label}
+            from={m.from}
+            to={m.to}
+          />
+        ))}
+      </div>
+      <p className="mt-2 text-center text-[10px] text-zinc-400">
+        Scores as per{" "}
+        <a
+          href="https://pagespeed.web.dev/"
+          target="_blank"
+          rel="noreferrer"
+          className="underline underline-offset-2"
+        >
+          PageSpeed Insights
+        </a>
+        .
+      </p>
     </div>
   );
 }
 
-function LighthouseMetric({ label, value }: LighthouseMetricProps) {
-  const [display, setDisplay] = useState(0);
+type LighthouseMetricProps = {
+  label: string;
+  from: number; // old score
+  to: number;   // new score
+};
+
+function LighthouseMetric({ label, from, to }: LighthouseMetricProps) {
+  const [display, setDisplay] = useState(from);
 
   useEffect(() => {
-    const delay = 1500;   // 1.5s before starting
+    if (from === to) return;
+
+    const delay = 1500;    // 1.5s pause
     const duration = 2000; // 2s animation
 
     let frameId: number;
@@ -998,10 +1028,10 @@ function LighthouseMetric({ label, value }: LighthouseMetricProps) {
       const elapsed = now - startTime;
       const t = Math.min(1, elapsed / duration);
 
-      // easeOutCubic
+      // easeOutCubic for smooth finish
       const eased = 1 - Math.pow(1 - t, 3);
-      const next = Math.round(0 + (value - 0) * eased);
-      setDisplay(next);
+      const next = from + (to - from) * eased;
+      setDisplay(Math.round(next));
 
       if (t < 1) {
         frameId = requestAnimationFrame(animate);
@@ -1016,20 +1046,22 @@ function LighthouseMetric({ label, value }: LighthouseMetricProps) {
       window.clearTimeout(timeoutId);
       if (frameId) cancelAnimationFrame(frameId);
     };
-  }, [value]);
+  }, [from, to]);
 
-  const percent = Math.max(0, Math.min(100, display));
-  const degrees = (percent / 100) * 360;
+  const value = Math.max(0, Math.min(100, display));
+  const degrees = (value / 100) * 360;
 
-  // Lighthouse-style colour: amber for mid, green for 90+
-  const ringColor = value >= 90 ? "#22c55e" : "#f59e0b";
-  const textColor = value >= 90 ? "#15803d" : "#b45309";
+  // Lighthouse-style colour: red < 50, amber 50–89, green 90+
+  const ringColor =
+    value >= 90 ? "#22c55e" : value >= 50 ? "#f59e0b" : "#ef4444";
+  const textColor =
+    value >= 90 ? "#15803d" : value >= 50 ? "#b45309" : "#b91c1c";
 
   return (
     <div className="flex flex-col items-center gap-2">
       <div className="relative h-14 w-14">
-        {/* base light fill */}
-        <div className="absolute inset-0 rounded-full bg-[#fef9c3]" />
+        {/* pale background like Lighthouse */}
+        <div className="absolute inset-0 rounded-full bg-[#fffbeb]" />
         {/* coloured arc */}
         <div
           className="absolute inset-0 rounded-full"
@@ -1037,13 +1069,13 @@ function LighthouseMetric({ label, value }: LighthouseMetricProps) {
             background: `conic-gradient(${ringColor} ${degrees}deg, transparent 0deg)`,
           }}
         />
-        {/* inner white disc with number */}
+        {/* inner white disc */}
         <div className="absolute inset-[5px] flex items-center justify-center rounded-full bg-white">
           <span
             className="text-base font-semibold"
             style={{ color: textColor }}
           >
-            {display}
+            {value}
           </span>
         </div>
       </div>
