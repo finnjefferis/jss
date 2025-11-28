@@ -131,7 +131,7 @@ export default function Page() {
     <li>• 4–12 posts per month (platforms agreed up front)</li>
     <li>• Captions written in your tone of voice</li>
     <li>• Scheduled at sensible times for your audience</li>
-    <li>• Light inbox support & lead handover</li>
+    <li>• Inbox support & lead handover</li>
   </ul>
 
   {/* Spacer pushes button to the bottom */}
