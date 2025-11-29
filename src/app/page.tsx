@@ -1067,7 +1067,7 @@ function LighthouseMetric({ label, adjustedScore, compact }: LighthouseMetricPro
 }
 function HeroLighthouseRowMobile() {
   const metrics = [
-    { label: "Perf.", from: 43, to: 98 },
+    { label: "Performance", from: 43, to: 98 },
     { label: "Access.", from: 60, to: 100 },
     { label: "Best Prac.", from: 75, to: 100 },
     { label: "SEO", from: 25, to: 100 },
