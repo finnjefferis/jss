@@ -93,87 +93,81 @@ export default function Page() {
     </div>
 
     <div className="mt-6 flex flex-col items-start gap-3 md:mt-0 md:items-end">
-     
       <a
         href="https://wa.me/447887034503?text=Hi%20Finn%2C%20I’d%20like%20a%20Web%20Presence%20Audit.%20Here’s%20my%20website%20and%20social%20links%3A"
         className="inline-flex items-center justify-center rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-indigo-700 shadow-md shadow-indigo-900/20 transition hover:bg-indigo-50"
       >
         Book a free web presence audit
       </a>
-    
     </div>
   </div>
 
   {/* Social first, then websites */}
-<div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-
+  <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
     {/* Social Media Management */}
-{/* Social Media Management */}
-<div className="group flex flex-col rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-  <div className="mb-3 flex items-center gap-3">
-    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
-      <Megaphone className="h-5 w-5" />
+    <div className="group flex flex-col rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+      <div className="mb-3 flex items-center gap-3">
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+          <Megaphone className="h-5 w-5" />
+        </div>
+        <div>
+          <p className="text-[11px] uppercase tracking-[0.18em] text-zinc-500">
+            Monthly service
+          </p>
+          <h3 className="text-lg font-semibold text-zinc-900">
+            Social Media Management
+          </h3>
+        </div>
+      </div>
+
+      <p className="text-sm text-zinc-600">
+        You approve content once a month. I handle posts, captions and scheduling so
+        your business actually looks active and approachable.
+      </p>
+
+      {/* Two social packages */}
+      <div className="mt-4 grid grid-cols-1 gap-3 text-sm text-zinc-600">
+        <div className="rounded-xl border border-zinc-100 bg-zinc-50/70 p-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-zinc-500">
+            Baseline Presence
+          </p>
+          <p className="mt-1 text-sm">
+            4–6 posts per month, written in your voice, scheduled at sensible times.
+            Perfect for small local businesses who just need to stay visible.
+          </p>
+          <p className="mt-2 text-xs text-zinc-500">
+            From <span className="font-semibold text-zinc-800">£139/month</span>
+          </p>
+        </div>
+
+        <div className="rounded-xl border border-zinc-100 bg-zinc-50/70 p-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-zinc-500">
+            Active Brand
+          </p>
+          <p className="mt-1 text-sm">
+            8–12 posts per month, inbox support, lead handover and basic content
+            planning. Grow trust and enquiries with consistent presence.
+          </p>
+          <p className="mt-2 text-xs text-zinc-500">
+            From <span className="font-semibold text-zinc-800">£219/month</span>
+          </p>
+        </div>
+      </div>
+
+      {/* Spacer pushes button down for alignment */}
+      <div className="flex-1" />
+
+      <a
+        href="https://wa.me/447887034503?text=Hi%20Finn%2C%20I’m%20interested%20in%20Social%20Media%20Management.%20Can%20you%20tell%20me%20what%20you’d%20suggest%20for%20my%20business%3F"
+        className="mt-5 inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:from-indigo-700 hover:to-indigo-600"
+      >
+        Talk to me about socials
+      </a>
     </div>
-    <div>
-      <p className="text-[11px] uppercase tracking-[0.18em] text-zinc-500">
-        Monthly service
-      </p>
-      <h3 className="text-lg font-semibold text-zinc-900">
-        Social Media Management
-      </h3>
-    </div>
-  </div>
-
-  <p className="text-sm text-zinc-600">
-    You approve content once a month. I handle posts, captions and scheduling so
-    your business actually looks active and approachable.
-  </p>
-
-  {/* Two social packages */}
-  <div className="mt-4 grid grid-cols-1 gap-3 text-sm text-zinc-600">
-    <div className="rounded-xl border border-zinc-100 bg-zinc-50/70 p-3">
-      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-zinc-500">
-        Baseline Presence
-      </p>
-      <p className="mt-1 text-sm">
-        4–6 posts per month, written in your voice, scheduled at sensible times.
-        Perfect for small local businesses who just need to stay visible.
-      </p>
-      <p className="mt-2 text-xs text-zinc-500">
-        From <span className="font-semibold text-zinc-800">£139/month</span>
-      </p>
-    </div>
-
-    <div className="rounded-xl border border-zinc-100 bg-zinc-50/70 p-3">
-      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-zinc-500">
-        Active Brand
-      </p>
-      <p className="mt-1 text-sm">
-        8–12 posts per month, inbox support, lead handover and basic content
-        planning. Grow trust and enquiries with consistent presence.
-      </p>
-      <p className="mt-2 text-xs text-zinc-500">
-        From <span className="font-semibold text-zinc-800">£219/month</span>
-      </p>
-    </div>
-  </div>
-
-  {/* Spacer pushes button down for alignment */}
-  <div className="flex-1" />
-
-  <a
-    href="https://wa.me/447887034503?text=Hi%20Finn%2C%20I’m%20interested%20in%20Social%20Media%20Management.%20Can%20you%20tell%20me%20what%20you’d%20suggest%20for%20my%20business%3F"
-    className="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:from-indigo-700 hover:to-indigo-600"
-  >
-    Talk to me about socials
-  </a>
-</div>
-
-
 
     {/* Website builds */}
-    <div className="space-y-4 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
-      <div className="mb-1 flex items-center gap-3">
+    <div className="group flex flex-col rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+      <div className="mb-3 flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
           <Globe className="h-5 w-5" />
         </div>
@@ -192,7 +186,7 @@ export default function Page() {
         trustworthy and how to contact you.
       </p>
 
-      <div className="mt-3 grid grid-cols-1 gap-3 text-sm text-zinc-600">
+      <div className="mt-4 grid grid-cols-1 gap-3 text-sm text-zinc-600">
         <div className="rounded-xl border border-zinc-100 bg-zinc-50/70 p-3">
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-zinc-500">
             Website Refresh
@@ -215,27 +209,29 @@ export default function Page() {
             flows tailored to how you actually work.
           </p>
           <p className="mt-2 text-xs text-zinc-500">
-             From <span className="font-semibold text-zinc-800">£749</span> one time
+            From <span className="font-semibold text-zinc-800">£749</span> one time
           </p>
         </div>
       </div>
 
+      <div className="flex-1" />
+
       <a
         href="https://wa.me/447887034503?text=Hi%20Finn%2C%20I’m%20thinking%20about%20a%20new%20website.%20Can%20you%20advise%20whether%20I%20need%20a%20refresh%20or%20a%20full%20build%3F"
-        className="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:from-indigo-700 hover:to-indigo-600"
+        className="mt-5 inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:from-indigo-700 hover:to-indigo-600"
       >
         Ask what kind of site I need
       </a>
     </div>
   </div>
 
-    {/* Ongoing care – attached to hosted sites */}
-  <div className="mt-10 rounded-2xl border border-indigo-100 bg-indigo-50/70 p-5 shadow-md shadow-indigo-100">
+  {/* Ongoing care – attached to hosted sites */}
+  <div className="mt-12 rounded-2xl border border-indigo-100 bg-indigo-50 p-5 shadow-sm shadow-indigo-100">
     {/* Heading + explainer */}
     <div className="flex items-start gap-3">
-    <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-white">
-  <Wrench className="h-4 w-4" />
-</div>
+      <div className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-white">
+        <Wrench className="h-4 w-4" />
+      </div>
 
       <div>
         <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-700">
@@ -303,8 +299,6 @@ export default function Page() {
       Find the right care plan
     </a>
   </div>
-
-
 </section>
 
 
@@ -470,11 +464,113 @@ function currentPairTo(seq: WordPair[], idx: number) {
   return seq[idx] ? seq[idx].to : '';
 }
 
-
 type ProjectKey = "naxco" | "carbon" | "toolbox" | null;
+
 
 function RecentWorkSection() {
   const [activeProject, setActiveProject] = useState<ProjectKey>(null);
+
+  const projects: {
+    key: Exclude<ProjectKey, null>;
+    title: string;
+    role: string;
+    summary: string;
+    image: string;
+    alt: string;
+    tags: string[];
+  }[] = [
+    {
+      key: "naxco",
+      title: "Naxco Services",
+      role: "Website refresh · Local trades",
+      summary:
+        "Homepage rebuild for a local property maintenance business, focused on clearer messaging and stronger calls-to-action.",
+      image: "/naxco1.png",
+      alt: "Naxco Services website",
+      tags: ["Homepage refresh", "Trust signals", "WhatsApp enquiries"],
+    },
+    {
+      key: "toolbox",
+      title: "Toolbox Platform",
+      role: "Internal platform · Procurement",
+      summary:
+        "A .NET dashboard for finance and procurement teams to track cost savings and supplier performance in one place.",
+      image: "/gtoolbox.png",
+      alt: "Toolbox platform dashboard",
+      tags: [".NET MVC", "Reporting views", "Cost savings"],
+    },
+    {
+      key: "carbon",
+      title: "Carbon Calculator",
+      role: "Web app · Sustainability",
+      summary:
+        "A web application for generating carbon reports from activity data and syncing results into the client’s CRM.",
+      image: "/calc.png",
+      alt: "Carbon calculator application",
+      tags: ["Guided form flow", "PDF reports", "CRM syncing"],
+    },
+  ];
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  // width of each slide as % of viewport width
+  // 100 on mobile, ~85 on desktop so the next card peeks
+  const [slideWidth, setSlideWidth] = useState(100);
+
+  useEffect(() => {
+    const update = () => {
+      if (window.innerWidth >= 1024) {
+        setSlideWidth(85); // show next card peeking
+      } else {
+        setSlideWidth(100); // full-width on mobile/tablet
+      }
+    };
+
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  // swipe state
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
+
+  const goTo = (index: number) => {
+    const total = projects.length;
+    const normalised = ((index % total) + total) % total;
+    setActiveIndex(normalised);
+  };
+
+  const goNext = () => goTo(activeIndex + 1);
+  const goPrev = () => goTo(activeIndex - 1);
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchEndX.current = null;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX.current === null || touchEndX.current === null) return;
+    const delta = touchStartX.current - touchEndX.current;
+    const threshold = 40;
+    if (Math.abs(delta) > threshold) {
+      if (delta > 0) {
+        goNext(); // swipe left
+      } else {
+        goPrev(); // swipe right
+      }
+    }
+    touchStartX.current = null;
+    touchEndX.current = null;
+  };
+
+
+const offset = activeIndex * slideWidth;
+
 
   return (
     <section id="recent-work" className="mb-24 md:mb-28">
@@ -485,69 +581,130 @@ function RecentWorkSection() {
         </p>
       </div>
 
-      <h3 className="mb-8 text-2xl font-semibold md:mb-10 md:text-3xl">
+      <h3 className="mb-6 text-2xl font-semibold md:mb-8 md:text-3xl">
         Recent Work
       </h3>
 
-      <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
-        {/* Naxco */}
-        <article
-          className="group cursor-pointer"
-          onClick={() => setActiveProject("naxco")}
+      <div className="relative">
+        {/* Prev / Next buttons (desktop) */}
+        <button
+          type="button"
+          onClick={goPrev}
+          className="pointer-events-auto absolute left-4 top-1/2 z-10 hidden -translate-y-1/2 items-center justify-center rounded-full bg-gradient-to-r from-indigo-600 to-indigo-500 p-3 text-base text-white shadow-md shadow-indigo-500/40 transition hover:from-indigo-700 hover:to-indigo-600 md:flex"
+          aria-label="Previous project"
         >
-          <div className="relative mb-4 h-64 w-full overflow-hidden rounded-xl border border-zinc-200 bg-zinc-50 shadow-sm transition group-hover:-translate-y-1 group-hover:shadow-md">
-            <Image src="/naxco1.png" alt="Naxco" fill className="object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent opacity-0 transition group-hover:opacity-100" />
-          </div>
-          <h4 className="text-lg font-semibold text-zinc-900">Naxco Services</h4>
-          <p className="mt-1 text-sm text-zinc-600">
-            Improved clarity, trust signals & enquiry flow.
-          </p>
-        </article>
-     <article
-          className="group cursor-pointer"
-          onClick={() => setActiveProject("toolbox")}
-        >
-          <div className="relative mb-4 h-64 w-full overflow-hidden rounded-xl border border-zinc-200 bg-zinc-50 shadow-sm transition group-hover:-translate-y-1 group-hover:shadow-md">
-            <Image
-              src="/gtoolbox.png"
-              alt="Toolbox"
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent opacity-0 transition group-hover:opacity-100" />
-          </div>
-          <h4 className="text-lg font-semibold text-zinc-900">
-            Toolbox Platform
-          </h4>
-          <p className="mt-1 text-sm text-zinc-600">
-            .NET dashboard for cost & procurement insights.
-          </p>
-        </article>
-        {/* Carbon Calculator */}
-        <article
-          className="group cursor-pointer"
-          onClick={() => setActiveProject("carbon")}
-        >
-          <div className="relative mb-4 h-64 w-full overflow-hidden rounded-xl border border-zinc-200 bg-zinc-50 shadow-sm transition group-hover:-translate-y-1 group-hover:shadow-md">
-            <Image
-              src="/calc.png"
-              alt="Carbon Calculator"
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent opacity-0 transition group-hover:opacity-100" />
-          </div>
-          <h4 className="text-lg font-semibold text-zinc-900">
-            Carbon Calculator
-          </h4>
-          <p className="mt-1 text-sm text-zinc-600">
-            Streamlined workflow & CRM syncing.
-          </p>
-        </article>
+          ‹
+        </button>
 
-        {/* Toolbox */}
-   
+        <button
+          type="button"
+          onClick={goNext}
+          className="pointer-events-auto absolute right-4 top-1/2 z-10 hidden -translate-y-1/2 items-center justify-center rounded-full bg-gradient-to-r from-indigo-600 to-indigo-500 p-3 text-base text-white shadow-md shadow-indigo-500/40 transition hover:from-indigo-700 hover:to-indigo-600 md:flex"
+          aria-label="Next project"
+        >
+          ›
+        </button>
+
+        {/* Viewport */}
+        <div
+          className="overflow-hidden px-1 sm:px-2 md:px-6 lg:px-10"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          {/* Track */}
+          <div
+            className="flex"
+            style={{
+              transition: "transform 650ms cubic-bezier(.22,.61,.36,1)",
+              transform: `translateX(-${offset}%)`,
+            }}
+          >
+            {projects.map((project) => (
+              <div
+                key={project.key}
+                // IMPORTANT: build className as a single deterministic string
+                className={[
+                  "w-full",
+                  "flex-shrink-0",
+                  "px-1",
+                  "sm:px-2",
+                  "md:px-4",
+                ].join(" ")}
+                style={{
+                  minWidth: `${slideWidth}%`,
+                  maxWidth: `${slideWidth}%`,
+                }}
+              >
+                <article
+                  className="group flex h-full cursor-pointer flex-col rounded-2xl border border-zinc-200 bg-white/90 p-4 shadow-sm ring-0 transition hover:-translate-y-1 hover:shadow-md hover:ring-1 hover:ring-indigo-100 md:p-5"
+                  onClick={() => setActiveProject(project.key)}
+                >
+                  <div className="relative mb-4 h-52 w-full overflow-hidden rounded-xl border border-zinc-200 bg-zinc-50 shadow-sm md:h-56">
+                    <Image
+                      src={project.image}
+                      alt={project.alt}
+                      fill
+                      className="object-cover transition duration-500 group-hover:scale-[1.02]"
+                    />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-black/5 to-transparent opacity-0 transition group-hover:opacity-100" />
+                  </div>
+
+                  <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-indigo-500">
+                    {project.role}
+                  </p>
+                  <h4 className="mt-1 text-lg font-semibold text-zinc-900">
+                    {project.title}
+                  </h4>
+                  <p className="mt-2 text-sm text-zinc-600">
+                    {project.summary}
+                  </p>
+
+                  <div className="mt-3 flex flex-wrap gap-2 text-[11px] text-zinc-500">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-zinc-200 bg-zinc-50 px-2.5 py-1"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex-1" />
+
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActiveProject(project.key);
+                    }}
+                    className="mt-5 inline-flex w-full items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600"
+                  >
+                    View case details
+                  </button>
+                </article>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Dots */}
+        <div className="mt-4 flex justify-center gap-2">
+          {projects.map((project, index) => (
+            <button
+              key={project.key}
+              type="button"
+              onClick={() => goTo(index)}
+              className={`h-2.5 rounded-full transition-all ${
+                index === activeIndex
+                  ? "w-6 bg-indigo-600"
+                  : "w-2.5 bg-zinc-300 hover:bg-zinc-400"
+              }`}
+              aria-label={`Go to ${project.title}`}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Modals */}
@@ -583,8 +740,8 @@ function RecentWorkSection() {
               Toolbox Platform
             </h3>
             <p className="text-sm text-zinc-600">
-              A .NET dashboard used by procurement teams to monitor cost savings
-              and supplier performance in one place.
+              A .NET dashboard used by procurement teams to monitor cost
+              savings and supplier performance in one place.
             </p>
             <ul className="list-disc space-y-1 pl-5 text-sm text-zinc-600">
               <li>Live cost saving summaries by supplier and category.</li>
@@ -597,6 +754,7 @@ function RecentWorkSection() {
     </section>
   );
 }
+
 
 type ProjectModalProps = {
   onClose: () => void;
@@ -611,19 +769,24 @@ function ProjectModal({ onClose, children }: ProjectModalProps) {
         onClick={onClose}
         aria-hidden="true"
       />
-      <div className="relative z-10 w-full max-w-3xl rounded-2xl border border-zinc-200 bg-white p-6 shadow-xl md:p-8">
-        <button
-          onClick={onClose}
-          className="absolute right-4 top-4 rounded-full border border-zinc-200 bg-white/80 p-1 text-xs text-zinc-500 hover:bg-zinc-50"
-          aria-label="Close"
-        >
-          ✕
-        </button>
-        {children}
+      <div className="relative z-10 w-full max-w-3xl overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-xl">
+        {/* subtle top accent bar */}
+        <div className="h-1 w-full bg-gradient-to-r from-indigo-500 via-sky-500 to-indigo-500" />
+        <div className="relative p-6 md:p-8">
+          <button
+            onClick={onClose}
+            className="absolute right-4 top-4 rounded-full border border-zinc-200 bg-white/80 p-1 text-xs text-zinc-500 shadow-sm transition hover:bg-zinc-50"
+            aria-label="Close"
+          >
+            ✕
+          </button>
+          {children}
+        </div>
       </div>
     </div>
   );
 }
+
 function NaxcoModalContent() {
   return (
     <div className="space-y-6">
