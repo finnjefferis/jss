@@ -964,16 +964,17 @@ function HeroVisualMobile() {
     <NaxcoPhoneSliderMobile />
   </div>
 
-  <p className="mt-4 text-[12px] text-zinc-600">
-    Get more enquiries without changing your business.
-  </p>
+<p className="mt-4   text-zinc-600">
+  Your site can work harder for you.
+</p>
 
-  <a
-    href="https://wa.me/447939309355?text=Hi%20Finn%2C%20let’s%20improve%20my%20site."
-    className="mt-5 inline-flex items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600"
-  >
-    Show me what you’d change
-  </a>
+<a
+  href="https://wa.me/447939309355?text=Hi%20Finn%2C%20let’s%20improve%20my%20site."
+  className="mt-5 inline-flex w-full items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-5 py-3 text-sm font-medium text-white shadow-md transition hover:from-indigo-700 hover:to-indigo-600 active:scale-[0.97]"
+>
+  Show me what you’d change
+</a>
+
 </section>
 
   );
