@@ -365,7 +365,7 @@ export  function HeroText() {
    <div className="hero-line hero-delay-4 mb-6 md:hidden">
         <HeroLighthouseRowMobile />
       </div>
-      <div className="hero-line hero-delay-4 mt-12 flex flex-wrap gap-2 text-xs text-zinc-500">
+      <div className="hidden md:flex hero-line hero-delay-4 mt-12 flex flex-wrap gap-2 text-xs text-zinc-500">
         {['Trades & home services', 'Cafés & shops', 'Solo founders', 'E-Commerce'].map((tag) => (
           <span key={tag} className="rounded-full border border-zinc-200 px-3 py-1">
             {tag}
@@ -1100,7 +1100,7 @@ function HeroLighthouseRowMobile() {
 
   return (
     <div className="flex w-full flex-col items-center">
-      <p className="mb-1 text-[10px] font-medium uppercase tracking-[0.18em] text-zinc-500">
+      <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.18em] text-zinc-500">
         Typical site improvement
       </p>
 
@@ -1116,7 +1116,7 @@ function HeroLighthouseRowMobile() {
         ))}
       </div>
 
-      <p className="mt-1 text-[9px] text-zinc-400">
+      <p className="mt-4 text-[9px] text-zinc-400">
         Based on a real homepage refresh (PageSpeed Insights).
       </p>
     </div>
