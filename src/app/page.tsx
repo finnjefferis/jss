@@ -951,20 +951,34 @@ function HeroVisualDesktop() {
 // MOBILE: full-width section underneath the hero
 function HeroVisualMobile() {
   return (
-    <section className="mb-12 md:hidden">
-      <div className="mb-3 flex items-center gap-2">
-        <span className="h-1 w-6 rounded-full bg-gradient-to-r from-indigo-500 to-sky-500" />
-        <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-500">
-          Before / after example
-        </p>
-      </div>
-      <h3 className="mb-3 text-lg font-semibold text-zinc-900">
-        See the kind of change I make
-      </h3>
-      <NaxcoBeforeAfterSlider />
-    </section>
+<section className="mb-12 md:hidden text-center">
+  <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-500">
+    Before & After
+  </p>
+
+  <h3 className="mt-2 text-xl font-semibold text-zinc-900">
+     A clearer website for more enquiries.
+  </h3>
+
+  <div className="mt-4">
+    <NaxcoPhoneSliderMobile />
+  </div>
+
+  <p className="mt-4 text-[12px] text-zinc-600">
+    Get more enquiries without changing your business.
+  </p>
+
+  <a
+    href="https://wa.me/447939309355?text=Hi%20Finn%2C%20let’s%20improve%20my%20site."
+    className="mt-5 inline-flex items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600"
+  >
+    Show me what you’d change
+  </a>
+</section>
+
   );
 }
+
 
 function NaxcoLighthouseRow({ position }: { position: number }) {
   const metrics = [
@@ -1119,6 +1133,182 @@ function HeroLighthouseRowMobile() {
       <p className="mt-4 text-[9px] text-zinc-400">
         Based on a real homepage refresh (PageSpeed Insights).
       </p>
+    </div>
+  );
+}
+function NaxcoPhoneSliderMobile() {
+  const [position, setPosition] = useState(5); // 0–100
+  const [userInteracted, setUserInteracted] = useState(false);
+  const [autoPlay, setAutoPlay] = useState(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+
+  // Scroll-trigger: start autoPlay when phone enters viewport
+  useEffect(() => {
+    if (!wrapperRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting) {
+          setAutoPlay(true);
+          observer.disconnect(); // trigger once
+        }
+      },
+      {
+        threshold: 0.35, // ~1/3 of it visible
+      }
+    );
+
+    observer.observe(wrapperRef.current);
+
+    return () => observer.disconnect();
+  }, []);
+
+  const updatePositionFromClientX = (clientX: number) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const clamped = Math.max(0, Math.min(rect.width, x));
+    setPosition((clamped / rect.width) * 100);
+  };
+
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    setUserInteracted(true);
+    const el = e.currentTarget;
+    el.setPointerCapture(e.pointerId);
+    updatePositionFromClientX(e.clientX);
+  };
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const el = e.currentTarget;
+    if (!el.hasPointerCapture(e.pointerId)) return;
+    updatePositionFromClientX(e.clientX);
+  };
+
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    e.currentTarget.releasePointerCapture(e.pointerId);
+  };
+
+  // Ease-out-back for bounce, clamped so it doesn’t overshoot the track
+  const easeOutBack = (t: number) => {
+    const c1 = 1.3;
+    const c3 = c1 + 1;
+    return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+  };
+
+  // Auto animation: only when autoPlay=true AND user hasn’t dragged
+  useEffect(() => {
+    if (!autoPlay || userInteracted) return;
+
+    const start = 5;
+    const end = 97;
+    const delay = 1100; // small pause after entering view
+    const duration = 1500;
+
+    let frameId: number | undefined;
+    let timeoutId: number | undefined;
+    let startTime: number | null = null;
+
+    const startAnimation = () => {
+      startTime = performance.now();
+
+      const animate = (now: number) => {
+        if (userInteracted) return; // abort if user grabs it
+
+        const elapsed = now - (startTime as number);
+        const t = Math.min(1, elapsed / duration);
+
+        const easedRaw = easeOutBack(t);
+        const eased = Math.max(0, Math.min(1, easedRaw));
+
+        const value = start + (end - start) * eased;
+        setPosition(value);
+
+        if (t < 1) {
+          frameId = requestAnimationFrame(animate);
+        }
+      };
+
+      frameId = requestAnimationFrame(animate);
+    };
+
+    timeoutId = window.setTimeout(startAnimation, delay);
+
+    return () => {
+      if (timeoutId) window.clearTimeout(timeoutId);
+      if (frameId) cancelAnimationFrame(frameId);
+    };
+  }, [autoPlay, userInteracted]);
+
+  return (
+    <div
+      ref={wrapperRef}
+      className="mx-auto w-full max-w-xs rounded-[2.5rem] border border-zinc-800 bg-zinc-950 p-2 shadow-xl shadow-black/40"
+    >
+      {/* top notch / speaker */}
+      <div className="mx-auto mb-2 h-4 w-24 rounded-full bg-black/60" />
+
+      {/* “screen” */}
+    <div
+  ref={containerRef}
+  className="relative w-full aspect-[1/1.67] overflow-hidden rounded-3xl bg-black cursor-col-resize select-none touch-none"
+
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onPointerCancel={handlePointerUp}
+      >
+        {/* OLD SITE — base */}
+        <div className="absolute inset-0">
+          <Image
+            src="/naxoldmobile.jpg"
+            alt="Naxco old website"
+            fill
+            priority
+            className="object-contain"
+            sizes="100vw"
+            style={{ backgroundColor: "white" }}
+          />
+        </div>
+
+        {/* NEW SITE — clipped to handle position */}
+        <div
+          className="absolute inset-0"
+          style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
+        >
+          <Image
+            src="/naxnewmobile.jpg"
+            alt="Naxco refreshed website"
+            fill
+            priority
+            className="object-contain"
+            sizes="100vw"
+            style={{ backgroundColor: "white" }}
+          />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-zinc-900/60 via-zinc-900/20 to-transparent" />
+        </div>
+
+        {/* HANDLE – line + pill, no text */}
+        <div
+          className="pointer-events-none absolute inset-y-6"
+          style={{
+            left: `calc(${position}% - 0.5px)`,
+            transform: "translateX(-50%)",
+          }}
+        >
+          <div className="flex h-full items-center justify-center">
+            <div className="relative flex h-full items-center">
+              <div className="h-full w-[4px] rounded-full bg-white/80 shadow-[0_0_0_1px_rgba(15,23,42,0.7)]" />
+              <div className="absolute left-1/2 top-1/2 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 shadow-lg shadow-black/40">
+                <span className="text-xs font-semibold text-zinc-900">
+                  ⇆
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
