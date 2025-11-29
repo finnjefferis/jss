@@ -44,7 +44,7 @@ export default function Page() {
 
   {/* RIGHT — WHATSAPP BUTTON */}
   <a
-    href="https://wa.me/447939309355"
+    href="https://wa.me/447887034503"
     className="hidden md:inline-flex rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600"
   >
     Contact Us
@@ -375,7 +375,7 @@ export  function HeroText() {
 
       <div className="hero-line hero-delay-5 mt-16 mb-6 flex flex-col gap-3 sm:flex-row sm:items-center">
         <a
-          href="https://wa.me/447939309355?text=Hi%20Finn%2C%20I'd%20like%20a%20FREE%20website%20audit."
+          href="https://wa.me/447887034503?text=Hi%20Finn%2C%20I'd%20like%20a%20FREE%20website%20audit."
           className="inline-flex items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600"
         >
           Book a free website audit
@@ -745,7 +745,7 @@ function ContactSection() {
       </p>
 
       <a
-        href="https://wa.me/447939309355"
+        href="https://wa.me/447887034503"
         className="mt-8 inline-flex items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600"
       >
         Message on WhatsApp
@@ -969,10 +969,10 @@ function HeroVisualMobile() {
 </p>
 
 <a
-  href="https://wa.me/447939309355?text=Hi%20Finn%2C%20let’s%20improve%20my%20site."
+  href="https://wa.me/447887034503?text=Hi%20Finn%2C%20let’s%20improve%20my%20site."
   className="mt-5 inline-flex w-full items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-5 py-3 text-sm font-medium text-white shadow-md transition hover:from-indigo-700 hover:to-indigo-600 active:scale-[0.97]"
 >
-  Show me what you’d change
+  Let's make that change.
 </a>
 
 </section>
