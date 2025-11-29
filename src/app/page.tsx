@@ -138,7 +138,7 @@ export default function Page() {
   <div className="flex-1" />
 
   <p className="mt-4 text-sm text-zinc-500">
-    From <span className="font-semibold text-zinc-800">£119/month</span>
+    From <span className="font-semibold text-zinc-800">£139/month</span>
   </p>
 
   <a
@@ -359,9 +359,12 @@ export  function HeroText() {
       </h2>
 
       <p className="hero-line hero-delay-3 mt-10 mb-8 text-l text-zinc-600 md:text-base">
-        Simple, fast websites and social that bring you new work. Projects from £119.
+        Simple, fast websites and social that bring you new work. Projects from £219.
       </p>
 
+   <div className="hero-line hero-delay-4 mb-6 md:hidden">
+        <HeroLighthouseRowMobile />
+      </div>
       <div className="hero-line hero-delay-4 mt-12 flex flex-wrap gap-2 text-xs text-zinc-500">
         {['Trades & home services', 'Cafés & shops', 'Solo founders', 'E-Commerce'].map((tag) => (
           <span key={tag} className="rounded-full border border-zinc-200 px-3 py-1">
@@ -1007,9 +1010,10 @@ function NaxcoLighthouseRow({ position }: { position: number }) {
 type LighthouseMetricProps = {
   label: string;
   adjustedScore: number;
+  compact?: boolean;
 };
 
-function LighthouseMetric({ label, adjustedScore }: LighthouseMetricProps) {
+function LighthouseMetric({ label, adjustedScore, compact }: LighthouseMetricProps) {
   const value = Math.max(0, Math.min(100, adjustedScore));
   const degrees = (value / 100) * 360;
 
@@ -1017,9 +1021,16 @@ function LighthouseMetric({ label, adjustedScore }: LighthouseMetricProps) {
   const ringColor = value >= 90 ? "#22c55e" : value >= 50 ? "#f59e0b" : "#ef4444";
   const textColor = value >= 90 ? "#15803d" : value >= 50 ? "#b45309" : "#b91c1c";
 
+  const circleSize = compact ? "h-10 w-10" : "h-14 w-14";
+  const innerInset = compact ? "inset-[4px]" : "inset-[5px]";
+  const valueTextClass = compact ? "text-xs font-semibold" : "text-base font-semibold";
+  const labelTextClass = compact
+    ? "mt-0.5 text-[9px] text-zinc-600 text-center leading-tight"
+    : "text-xs text-zinc-700";
+
   return (
-    <div className="flex flex-col items-center gap-2">
-      <div className="relative h-14 w-14">
+    <div className="flex flex-col items-center gap-1">
+      <div className={`relative ${circleSize}`}>
         {/* pale background like Lighthouse */}
         <div className="absolute inset-0 rounded-full bg-[#fffbeb]" />
         {/* coloured arc */}
@@ -1030,16 +1041,84 @@ function LighthouseMetric({ label, adjustedScore }: LighthouseMetricProps) {
           }}
         />
         {/* inner white disc */}
-        <div className="absolute inset-[5px] flex items-center justify-center rounded-full bg-white">
-          <span
-            className="text-base font-semibold"
-            style={{ color: textColor }}
-          >
+        <div className={`absolute ${innerInset} flex items-center justify-center rounded-full bg-white`}>
+          <span className={valueTextClass} style={{ color: textColor }}>
             {value}
           </span>
         </div>
       </div>
-      <span className="text-xs text-zinc-700">{label}</span>
+      <span className={labelTextClass}>{label}</span>
+    </div>
+  );
+}
+function HeroLighthouseRowMobile() {
+  const metrics = [
+    { label: "Perf.", from: 43, to: 98 },
+    { label: "Access.", from: 60, to: 100 },
+    { label: "Best Prac.", from: 75, to: 100 },
+    { label: "SEO", from: 25, to: 100 },
+  ];
+
+  const [values, setValues] = useState(metrics.map((m) => m.from));
+
+  useEffect(() => {
+    const delay = 1150;   // 1.15s showing low scores
+    const duration = 2000; // ms for the count-up
+    let frameId: number;
+    let startTime: number | null = null;
+    let timeoutId: number;
+
+    const animate = (now: number) => {
+      if (startTime === null) startTime = now;
+      const elapsed = now - startTime;
+      const tRaw = elapsed / duration;
+      const t = Math.min(1, tRaw);
+
+      // ease-out
+      const eased = 1 - Math.pow(1 - t, 3);
+
+      setValues(
+        metrics.map((m) =>
+          Math.round(m.from + (m.to - m.from) * eased)
+        )
+      );
+
+      if (t < 1) {
+        frameId = requestAnimationFrame(animate);
+      }
+    };
+
+    timeoutId = window.setTimeout(() => {
+      frameId = requestAnimationFrame(animate);
+    }, delay);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+      if (frameId) cancelAnimationFrame(frameId);
+    };
+  }, []);
+
+  return (
+    <div className="flex w-full flex-col items-center">
+      <p className="mb-1 text-[10px] font-medium uppercase tracking-[0.18em] text-zinc-500">
+        Typical site improvement
+      </p>
+
+      {/* 1×4 row, centred with inner max-width so it never kisses the screen edges */}
+      <div className="flex w-full max-w-xs items-center justify-between gap-2 mx-auto">
+        {metrics.map((m, index) => (
+          <LighthouseMetric
+            key={m.label}
+            label={m.label}
+            adjustedScore={values[index]}
+            compact
+          />
+        ))}
+      </div>
+
+      <p className="mt-1 text-[9px] text-zinc-400">
+        Based on a real homepage refresh (PageSpeed Insights).
+      </p>
     </div>
   );
 }
