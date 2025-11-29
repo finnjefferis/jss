@@ -19,7 +19,7 @@ export default function Page() {
   return (
     <main className="mx-auto max-w-6xl px-5 md:px-8 lg:px-10">
       {/* Top Bar */}
-        <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-emerald-500 via-emerald-400 to-emerald-600"></div>
+        <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-indigo-500 via-sky-500 to-indigo-500"></div>
 
 <header className="flex items-center justify-between gap-6 py-6 border-b border-zinc-400">
   {/* LEFT — LOGO */}
@@ -35,7 +35,7 @@ export default function Page() {
         className="rounded-lg"
       />
     </div>
-     <span className="h-4 w-4 rounded-full bg-emerald-600"></span>
+     <span className="h-4 w-4 rounded-full bg-indigo-500"></span>
     Jefferis Software Solutions
     
   </h1>
@@ -45,7 +45,7 @@ export default function Page() {
   {/* RIGHT — WHATSAPP BUTTON */}
   <a
     href="https://wa.me/447887034503"
-    className="hidden md:inline-flex rounded-md bg-gradient-to-r from-emerald-600 to-emerald-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:from-emerald-700 hover:to-emerald-600"
+    className="hidden md:inline-flex rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600"
   >
     Contact Us
   </a>
@@ -68,24 +68,24 @@ export default function Page() {
 <section id="services" className="mb-28">
   {/* Label */}
   <div className="mb-4 flex items-center gap-2">
-    <span className="h-1 w-6 rounded-full bg-gradient-to-r from-emerald-500 to-emerald-400" />
+    <span className="h-1 w-6 rounded-full bg-gradient-to-r from-indigo-500 to-sky-500" />
     <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-500">
       Start here
     </p>
   </div>
 
   {/* Web Presence Audit – primary CTA */}
-  <div className="mb-10 overflow-hidden rounded-2xl border border-emerald-100 bg-gradient-to-r from-emerald-700 via-emerald-600 to-emerald-500 p-6 text-white shadow-xl shadow-emerald-500/30 md:flex md:items-center md:justify-between md:gap-6 md:p-8">
+  <div className="mb-10 overflow-hidden rounded-2xl border border-indigo-100 bg-gradient-to-r from-indigo-600 via-indigo-500 to-sky-500 p-6 text-white shadow-xl shadow-indigo-500/30 md:flex md:items-center md:justify-between md:gap-6 md:p-8">
     <div className="space-y-3 md:max-w-xl">
       <h2 className="text-2xl font-semibold md:text-3xl">
         Web Presence Audit
       </h2>
-      <p className="text-sm md:text-[15px] text-emerald-100">
+      <p className="text-sm md:text-[15px] text-indigo-100">
         I review your website, Google Business profile and social media,
         then send you a short, plain-English list of changes to bring in more
         enquiries.
       </p>
-      <ul className="space-y-1 text-xs md:text-sm text-emerald-100/90">
+      <ul className="space-y-1 text-xs md:text-sm text-indigo-100/90">
         <li>• Website first impression and calls-to-action</li>
         <li>• Google Business basics (visibility and trust)</li>
         <li>• Social media activity and how it supports the site</li>
@@ -96,7 +96,7 @@ export default function Page() {
      
       <a
         href="https://wa.me/447887034503?text=Hi%20Finn%2C%20I’d%20like%20a%20Web%20Presence%20Audit.%20Here’s%20my%20website%20and%20social%20links%3A"
-        className="inline-flex items-center justify-center rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-emerald-700 shadow-md shadow-emerald-900/20 transition hover:bg-emerald-50"
+        className="inline-flex items-center justify-center rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-indigo-700 shadow-md shadow-indigo-900/20 transition hover:bg-indigo-50"
       >
         Book a free web presence audit
       </a>
@@ -109,7 +109,7 @@ export default function Page() {
     {/* Social Media Management */}
    <div className="group flex flex-col rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
   <div className="mb-3 flex items-center gap-3">
-    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
       <Megaphone className="h-5 w-5" />
     </div>
     <div>
@@ -143,7 +143,7 @@ export default function Page() {
 
   <a
     href="https://wa.me/447887034503?text=Hi%20Finn%2C%20I’m%20interested%20in%20Social%20Media%20Management.%20Can%20you%20tell%20me%20what%20you’d%20suggest%20for%20my%20business%3F"
-    className="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-emerald-600 to-emerald-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:from-emerald-700 hover:to-emerald-600"
+    className="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:from-indigo-700 hover:to-indigo-600"
   >
     Talk to me about socials
   </a>
@@ -153,7 +153,7 @@ export default function Page() {
     {/* Website builds */}
     <div className="space-y-4 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
       <div className="mb-1 flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
           <Globe className="h-5 w-5" />
         </div>
         <div>
@@ -201,7 +201,7 @@ export default function Page() {
 
       <a
         href="https://wa.me/447887034503?text=Hi%20Finn%2C%20I’m%20thinking%20about%20a%20new%20website.%20Can%20you%20advise%20whether%20I%20need%20a%20refresh%20or%20a%20full%20build%3F"
-        className="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-emerald-600 to-emerald-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:from-emerald-700 hover:to-emerald-600"
+        className="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:from-indigo-700 hover:to-indigo-600"
       >
         Ask what kind of site I need
       </a>
@@ -209,13 +209,13 @@ export default function Page() {
   </div>
 
   {/* Ongoing care – not optional for hosted sites */}
-  <div className="mt-10 rounded-2xl border border-emerald-100 bg-emerald-50/70 px-5 py-5 shadow-md shadow-emerald-100 md:flex md:items-center md:justify-between md:gap-6">
+  <div className="mt-10 rounded-2xl border border-indigo-100 bg-indigo-50/70 px-5 py-5 shadow-md shadow-indigo-100 md:flex md:items-center md:justify-between md:gap-6">
     <div className="flex items-start gap-3">
-      <div className="mt-1 flex h-8 w-8 items-center justify-center rounded-full bg-emerald-700 text-white">
+      <div className="mt-1 flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 text-white">
         <Wrench className="h-4 w-4" />
       </div>
       <div>
-        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-700">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-700">
           Included with hosted sites
         </p>
         <h4 className="mt-1 text-sm font-semibold text-zinc-900">
@@ -349,10 +349,10 @@ export  function HeroText() {
             {maxTo}
           </span>
           {/* REAL TEXT */}
-          <span className="col-start-1 row-start-1 text-emerald-600">
+          <span className="col-start-1 row-start-1 text-indigo-600">
             {textTo}
              {(pairIndex !== sequence.length - 1 || isDeleting || textTo !== currentPairTo(sequence, pairIndex)) && (
-               <span className="animate-pulse font-light text-emerald-300">|</span>
+               <span className="animate-pulse font-light text-indigo-300">|</span>
             )}
           </span>
         </span>
@@ -376,7 +376,7 @@ export  function HeroText() {
       <div className="hero-line hero-delay-5 mt-16 mb-6 flex flex-col gap-3 sm:flex-row sm:items-center">
         <a
           href="https://wa.me/447887034503?text=Hi%20Finn%2C%20I'd%20like%20a%20FREE%20website%20audit."
-          className="inline-flex items-center justify-center rounded-md bg-gradient-to-r from-emerald-600 to-emerald-500 px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:from-emerald-700 hover:to-emerald-600"
+          className="inline-flex items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600"
         >
           Book a free website audit
         </a>
@@ -408,7 +408,7 @@ function RecentWorkSection() {
   return (
     <section id="recent-work" className="mb-24 md:mb-28">
       <div className="mb-3 flex items-center gap-2">
-        <span className="h-1 w-6 rounded-full bg-gradient-to-r from-emerald-500 to-emerald-400" />
+        <span className="h-1 w-6 rounded-full bg-gradient-to-r from-indigo-500 to-sky-500" />
         <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-500">
           A few things I’ve worked on
         </p>
@@ -715,7 +715,7 @@ function BeforeAfterSlider({
           <div className="flex h-full items-center">
             <div className="h-full w-[2px] bg-white/80 shadow-[0_0_0_1px_rgba(15,23,42,0.6)]" />
             <div className="pointer-events-auto -ml-[18px] flex flex-col items-center">
-              <div className="flex items-center justify-center rounded-full bg-gradient-to-r from-emerald-600 to-emerald-500 p-1 shadow-lg shadow-emerald-600/40">
+              <div className="flex items-center justify-center rounded-full bg-gradient-to-r from-indigo-600 to-indigo-500 p-1 shadow-lg shadow-indigo-600/40">
                 <span className="flex h-8 w-8 items-center justify-center text-xs font-semibold text-white">
                   ⇆
                 </span>
@@ -746,7 +746,7 @@ function ContactSection() {
 
       <a
         href="https://wa.me/447887034503"
-        className="mt-8 inline-flex items-center justify-center rounded-md bg-gradient-to-r from-emerald-600 to-emerald-500 px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:from-emerald-700 hover:to-emerald-600"
+        className="mt-8 inline-flex items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600"
       >
         Message on WhatsApp
       </a>
@@ -845,13 +845,13 @@ function NaxcoBeforeAfterSlider({ card }: { card?: boolean }) {
 
   // Wrapper styling: card on desktop, softer section on mobile
   const wrapperClass = card
-    ? "relative w-full max-w-lg rounded-2xl border border-zinc-200 bg-white/80 p-4 shadow-xl shadow-emerald-500/10"
-    : "relative w-full rounded-2xl border border-zinc-200 bg-white p-4 shadow-lg shadow-emerald-500/10";
+    ? "relative w-full max-w-lg rounded-2xl border border-zinc-200 bg-white/80 p-4 shadow-xl shadow-indigo-500/10"
+    : "relative w-full rounded-2xl border border-zinc-200 bg-white p-4 shadow-lg shadow-indigo-500/10";
 
   return (
     <div className={wrapperClass}>
       {/* subtle glow */}
-      <div className="pointer-events-none absolute inset-0 rounded-2xl bg-[radial-gradient(circle_at_10%_0,rgba(16,185,129,0.12),transparent_55%),radial-gradient(circle_at_90%_100%,rgba(45,212,191,0.12),transparent_55%)]" />
+      <div className="pointer-events-none absolute inset-0 rounded-2xl bg-[radial-gradient(circle_at_10%_0,rgba(79,70,229,0.12),transparent_55%),radial-gradient(circle_at_90%_100%,rgba(56,189,248,0.12),transparent_55%)]" />
 
       <div className="relative flex flex-col gap-3">
         {/* fake browser chrome */}
@@ -917,9 +917,9 @@ function NaxcoBeforeAfterSlider({ card }: { card?: boolean }) {
             <div className="flex h-full items-center justify-center">
               <div className="relative flex h-full items-center">
                 {/* purple vertical line */}
-                <div className="h-full w-[5px] rounded-full bg-gradient-to-b from-emerald-600 via-emerald-500 to-emerald-400 shadow-[0_0_0_1px_rgba(15,23,42,0.5)]" />
+                <div className="h-full w-[5px] rounded-full bg-gradient-to-b from-indigo-600 via-indigo-500 to-indigo-400 shadow-[0_0_0_1px_rgba(15,23,42,0.5)]" />
                 {/* central bulge */}
-                <div className="absolute left-1/2 top-1/2 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-emerald-700 shadow-lg shadow-emerald-600/50">
+                <div className="absolute left-1/2 top-1/2 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-indigo-600 shadow-lg shadow-indigo-600/50">
                   <span className="text-xs font-semibold text-white animate-pulse">
                     ⇆
                   </span>
@@ -970,7 +970,7 @@ function HeroVisualMobile() {
 
 <a
   href="https://wa.me/447887034503?text=Hi%20Finn%2C%20let’s%20improve%20my%20site."
-  className="mt-5 inline-flex w-full items-center justify-center rounded-md bg-gradient-to-r from-emerald-600 to-emerald-500 px-5 py-3 text-sm font-medium text-white shadow-md transition hover:from-emerald-700 hover:to-emerald-600 active:scale-[0.97]"
+  className="mt-5 inline-flex w-full items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-5 py-3 text-sm font-medium text-white shadow-md transition hover:from-indigo-700 hover:to-indigo-600 active:scale-[0.97]"
 >
   Let's make that change.
 </a>
