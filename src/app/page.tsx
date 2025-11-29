@@ -105,9 +105,11 @@ export default function Page() {
   </div>
 
   {/* Social first, then websites */}
-  <div className="grid grid-cols-1 gap-6 md:grid-cols-[1.1fr_minmax(0,1fr)]">
+<div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+
     {/* Social Media Management */}
-   <div className="group flex flex-col rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+{/* Social Media Management */}
+<div className="group flex flex-col rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
   <div className="mb-3 flex items-center gap-3">
     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
       <Megaphone className="h-5 w-5" />
@@ -123,23 +125,41 @@ export default function Page() {
   </div>
 
   <p className="text-sm text-zinc-600">
-    You approve content once a month. I handle posts, captions and
-    scheduling so your business actually looks active and approachable.
+    You approve content once a month. I handle posts, captions and scheduling so
+    your business actually looks active and approachable.
   </p>
 
-  <ul className="mt-4 space-y-1 text-sm text-zinc-600">
-    <li>• 4–12 posts per month (platforms agreed up front)</li>
-    <li>• Captions written in your tone of voice</li>
-    <li>• Scheduled at sensible times for your audience</li>
-    <li>• Inbox support & lead handover</li>
-  </ul>
+  {/* Two social packages */}
+  <div className="mt-4 grid grid-cols-1 gap-3 text-sm text-zinc-600">
+    <div className="rounded-xl border border-zinc-100 bg-zinc-50/70 p-3">
+      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-zinc-500">
+        Baseline Presence
+      </p>
+      <p className="mt-1 text-sm">
+        4–6 posts per month, written in your voice, scheduled at sensible times.
+        Perfect for small local businesses who just need to stay visible.
+      </p>
+      <p className="mt-2 text-xs text-zinc-500">
+        From <span className="font-semibold text-zinc-800">£139/month</span>
+      </p>
+    </div>
 
-  {/* Spacer pushes button to the bottom */}
+    <div className="rounded-xl border border-zinc-100 bg-zinc-50/70 p-3">
+      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-zinc-500">
+        Active Brand
+      </p>
+      <p className="mt-1 text-sm">
+        8–12 posts per month, inbox support, lead handover and basic content
+        planning. Grow trust and enquiries with consistent presence.
+      </p>
+      <p className="mt-2 text-xs text-zinc-500">
+        From <span className="font-semibold text-zinc-800">£219/month</span>
+      </p>
+    </div>
+  </div>
+
+  {/* Spacer pushes button down for alignment */}
   <div className="flex-1" />
-
-  <p className="mt-4 text-sm text-zinc-500">
-    From <span className="font-semibold text-zinc-800">£139/month</span>
-  </p>
 
   <a
     href="https://wa.me/447887034503?text=Hi%20Finn%2C%20I’m%20interested%20in%20Social%20Media%20Management.%20Can%20you%20tell%20me%20what%20you’d%20suggest%20for%20my%20business%3F"
@@ -148,6 +168,7 @@ export default function Page() {
     Talk to me about socials
   </a>
 </div>
+
 
 
     {/* Website builds */}
@@ -208,32 +229,82 @@ export default function Page() {
     </div>
   </div>
 
-  {/* Ongoing care – not optional for hosted sites */}
-  <div className="mt-10 rounded-2xl border border-indigo-100 bg-indigo-50/70 px-5 py-5 shadow-md shadow-indigo-100 md:flex md:items-center md:justify-between md:gap-6">
+    {/* Ongoing care – attached to hosted sites */}
+  <div className="mt-10 rounded-2xl border border-indigo-100 bg-indigo-50/70 p-5 shadow-md shadow-indigo-100">
+    {/* Heading + explainer */}
     <div className="flex items-start gap-3">
-      <div className="mt-1 flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 text-white">
-        <Wrench className="h-4 w-4" />
-      </div>
+    <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-white">
+  <Wrench className="h-4 w-4" />
+</div>
+
       <div>
         <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-700">
-          Included with hosted sites
+          For hosted websites
         </p>
         <h4 className="mt-1 text-sm font-semibold text-zinc-900">
-          JSS Ongoing Care
+          JSS Ongoing Care Plans
         </h4>
         <p className="mt-1 text-sm text-zinc-700">
-          Every website I host comes with a care plan by default — so you are not
-          left managing updates or fixes alone.
+          Every site I host comes with a care plan so you&apos;re not left managing
+          updates, security or fixes on your own.
         </p>
         <p className="mt-2 text-xs text-zinc-600">
-          Plans start at <span className="font-semibold text-zinc-900">£11/month</span> for
-          sites that rarely change, and scale up if you want more frequent content
-          edits and support.
+          Plans start at{" "}
+          <span className="font-semibold text-zinc-900">£19/month</span> for
+          simple sites, and scale up if you want more frequent content edits and
+          hands-on support.
         </p>
       </div>
     </div>
 
+    {/* Plans */}
+    <div className="mt-5 grid grid-cols-1 gap-3 md:grid-cols-3">
+      <div className="rounded-xl border border-indigo-100 bg-white p-3">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-indigo-700">
+          Core
+        </p>
+        <p className="mt-1 text-sm text-zinc-700">
+          Monitoring, updates and backups for sites that rarely change.
+        </p>
+        <p className="mt-2 text-xs text-zinc-600">
+          From <span className="font-semibold text-zinc-900">£19/month</span>
+        </p>
+      </div>
+
+      <div className="rounded-xl border border-indigo-100 bg-white p-3">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-indigo-700">
+          Support
+        </p>
+        <p className="mt-1 text-sm text-zinc-700">
+          Everything in Core plus small content edits and tweaks each month.
+        </p>
+        <p className="mt-2 text-xs text-zinc-600">
+          From <span className="font-semibold text-zinc-900">£39/month</span>
+        </p>
+      </div>
+
+      <div className="rounded-xl border border-indigo-100 bg-white p-3">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-indigo-700">
+          Growth
+        </p>
+        <p className="mt-1 text-sm text-zinc-700">
+          For evolving sites: regular content updates and priority support.
+        </p>
+        <p className="mt-2 text-xs text-zinc-600">
+          From <span className="font-semibold text-zinc-900">£79/month</span>
+        </p>
+      </div>
     </div>
+
+    <a
+      href="https://wa.me/447887034503?text=Hi%20Finn%2C%20can%20you%20recommend%20a%20care%20plan%20for%20my%20website%3F"
+      className="mt-5 inline-flex w-full items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600"
+    >
+      Find the right care plan
+    </a>
+  </div>
+
+
 </section>
 
 
