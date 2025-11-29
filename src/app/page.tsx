@@ -1130,7 +1130,7 @@ function NaxcoBeforeAfterSlider({ card }: { card?: boolean }) {
     if (userInteracted) return;
 
     const start = 5;       // mostly old
-    const end = 97;        // stop just inside right edge
+    const end = 100;        // stop just inside right edge
     const delay = 1100;    // ~1.1s pause
     const duration = 1500; // ~1.5s slide
 
