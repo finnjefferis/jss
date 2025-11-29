@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState, useRef, useMemo } from "react";
-import { Megaphone, Globe, Wrench } from "lucide-react";
+import { Megaphone, Globe, Wrench, Star  } from "lucide-react";
 type WordPair = { from: string; to: string };
 
 const WORD_PAIRS: WordPair[] = [
@@ -967,30 +967,125 @@ function BeforeAfterSlider({
 }
 
 function ContactSection() {
+  const testimonialRef = useRef<HTMLDivElement | null>(null);
+  const [showStars, setShowStars] = useState(false);
+
+  useEffect(() => {
+    if (!testimonialRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting) {
+          setShowStars(true);      // fire once
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.3,
+      }
+    );
+
+    observer.observe(testimonialRef.current);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="mb-24 rounded-2xl border border-zinc-200 bg-zinc-50/60 px-6 py-10 text-center md:px-10">
-      <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-500">
-        Ready when you are
-      </p>
-      <h3 className="mt-3 text-2xl font-semibold md:text-3xl">Get in touch</h3>
-      <p className="mt-3 text-sm text-zinc-600 md:text-base">
-        Send a WhatsApp message anytime — I&apos;ll reply with a simple next step, and
-        if helpful, a rough idea of cost.
-      </p>
+    <section className="mb-24 rounded-2xl border border-zinc-200 bg-zinc-50/70 px-6 py-10 md:px-10">
+      <div className="mx-auto flex max-w-4xl flex-col gap-10 md:flex-row md:items-stretch md:justify-between">
+        {/* Left: copy + reassurance */}
+        <div className="flex-1 text-center md:text-left">
+          <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-500">
+            Ready when you are
+          </p>
+          <h3 className="mt-3 text-2xl font-semibold md:text-3xl">
+            Let&apos;s talk about what you actually need
+          </h3>
+          <p className="mt-3 text-sm text-zinc-600 md:text-base">
+            Send a quick message with a link to your current site (or a short
+            description of your business). I&apos;ll reply with practical suggestions
+            and, if helpful, a rough idea of cost.
+          </p>
 
-      <a
-        href="https://wa.me/447887034503"
-        className="mt-8 inline-flex items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600"
-      >
-        Message on WhatsApp
-      </a>
+          <p className="mt-4 text-xs text-zinc-500">
+            Not sure what to say? Just send your website link or Google Business
+            profile and I&apos;ll take it from there.
+          </p>
 
-      <p className="mt-4 text-sm text-zinc-500">
-        Based in Worthing · Proudly Serving Sussex and beyond
-      </p>
+          {/* Tiny social proof + animated stars */}
+          <div
+            ref={testimonialRef}
+            className="mt-5 rounded-xl border border-zinc-200 bg-white/80 px-4 py-3 text-left text-xs text-zinc-600"
+          >
+            {/* Animated 5 stars */}
+            <div className="mb-2 flex items-center gap-1 text-amber-400">
+              {[0, 1, 2, 3, 4].map((i) => (
+            <Star
+  key={i}
+  className={`
+    h-4 w-4
+    transition-all
+    duration-400
+    ${showStars ? "opacity-100 scale-100" : "opacity-0 scale-50 translate-y-1"}
+  `}
+  style={{ transitionDelay: showStars ? `${i * 90}ms` : "0ms`" }}
+  fill="currentColor"
+  stroke="none"
+/>
+
+              ))}
+            </div>
+
+            <p className="italic">
+              &quot;Within a week of the refresh I had more enquiries than the
+              previous few months.&quot;
+            </p>
+            <p className="mt-1 text-[11px] font-medium text-zinc-500">
+              — Local services business, Sussex
+            </p>
+          </div>
+        </div>
+
+        {/* Right: CTA card */}
+        <div className="w-full max-w-sm flex-1 rounded-2xl border border-indigo-100 bg-white/90 p-5 text-center shadow-sm">
+        
+ <p className="text-l font-semibold font-medium uppercase tracking-[0.18em] text-indigo-600">
+              Fastest reply
+            </p>
+            <p className="mt-2 text-m text-zinc-600">
+              WhatsApp is usually the quickest way to reach me.
+            </p>
+
+            <a
+              href="https://wa.me/447887034503?text=Hi%20Finn%2C%20here%27s%20a%20bit%20about%20my%20business%20and%20what%20I%27m%20looking%20for%20with%20my%20website%2Fsocials%3A"
+              className="mt-5 md:mt-12 md: mb-4 inline-flex w-full items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600"
+            >
+              Message me on WhatsApp
+            </a>
+
+            <p className="mt-3 text-xs text-zinc-500">
+              Typical reply within one working day (often sooner).
+            </p>
+          <div className="mt-4 border-t border-zinc-100 pt-4 text-xs text-zinc-500">
+           
+          </div>
+  <p className="mb-1 text-xs text-zinc-500">Prefer email?</p>
+          <a
+            href="mailto:hello@jefferissoftware.co.uk"
+            className="font-medium text-indigo-600 underline underline-offset-2 hover:text-indigo-700"
+          >
+            hello@jefferissoftware.co.uk
+          </a>
+         
+        </div>
+      </div>
     </section>
   );
 }
+
+
+
 // Shared core slider (logic + handle + images)
 function NaxcoBeforeAfterSlider({ card }: { card?: boolean }) {
   const [position, setPosition] = useState(5); // 0–100, almost all old site
