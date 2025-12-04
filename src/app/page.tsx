@@ -45,7 +45,7 @@ export default function Page() {
   {/* RIGHT — WHATSAPP BUTTON */}
   <a
     href="https://wa.me/447887034503"
-    className="hidden md:inline-flex rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600"
+    className="hidden md:inline-flex rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm  hover:from-indigo-700 hover:to-indigo-600"
   >
     Contact Us
   </a>
@@ -95,7 +95,7 @@ export default function Page() {
     <div className="mt-6 flex flex-col items-start gap-3 md:mt-0 md:items-end">
       <a
         href="https://wa.me/447887034503?text=Hi%20Finn%2C%20I’d%20like%20a%20Web%20Presence%20Audit.%20Here’s%20my%20website%20and%20social%20links%3A"
-        className="inline-flex items-center justify-center rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-indigo-700 shadow-md shadow-indigo-900/20 transition hover:bg-indigo-50"
+        className="inline-flex items-center justify-center rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-indigo-700 shadow-md shadow-indigo-900/20 hover:bg-indigo-50"
       >
         Book a free web presence audit
       </a>
@@ -105,7 +105,7 @@ export default function Page() {
   {/* Social first, then websites */}
   <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
     {/* Social Media Management */}
-    <div className="group flex flex-col rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+    <div className="group flex flex-col rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm  hover:-translate-y-1 hover:shadow-lg">
       <div className="mb-3 flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
           <Megaphone className="h-5 w-5" />
@@ -145,7 +145,7 @@ export default function Page() {
             Active Brand
           </p>
           <p className="mt-1 text-sm">
-            8–12 posts per month, inbox support, lead handover and basic content
+            8–12 posts per month, inbox support, lead handover and content
             planning. Grow trust and enquiries with consistent presence.
           </p>
           <p className="mt-2 text-xs text-zinc-500">
@@ -166,7 +166,7 @@ export default function Page() {
     </div>
 
     {/* Website builds */}
-    <div className="group flex flex-col rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+    <div className="group flex flex-col rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transitionchro hover:-translate-y-1 hover:shadow-lg">
       <div className="mb-3 flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
           <Globe className="h-5 w-5" />
@@ -196,7 +196,7 @@ export default function Page() {
             better mobile experience.
           </p>
           <p className="mt-2 text-xs text-zinc-500">
-            From <span className="font-semibold text-zinc-800">£369</span> one time
+            From <span className="font-semibold text-zinc-800">£419</span> one time
           </p>
         </div>
 
@@ -424,7 +424,7 @@ export  function HeroText() {
       </h2>
 
       <p className="hero-line hero-delay-3 mt-10 mb-8 text-l text-zinc-600 md:text-base">
-        Simple, fast websites and social that bring you new work. Projects from £219.
+        Simple, fast websites and social that bring you new work. Projects from £139.
       </p>
 
    <div className="hero-line hero-delay-4 mb-6 md:hidden">
@@ -1002,49 +1002,13 @@ function ContactSection() {
           <h3 className="mt-3 text-2xl font-semibold md:text-3xl">
             Let&apos;s talk about what you actually need
           </h3>
-          <p className="mt-3 text-sm text-zinc-600 md:text-base">
-            Send a quick message with a link to your current site (or a short
-            description of your business). I&apos;ll reply with practical suggestions
-            and, if helpful, a rough idea of cost.
-          </p>
+       
 
           <p className="mt-4 text-xs text-zinc-500">
-            Not sure what to say? Just send your website link or Google Business
-            profile and I&apos;ll take it from there.
+            Not sure what to say? Just send your website link and I&apos;ll take it from there.
           </p>
 
-          {/* Tiny social proof + animated stars */}
-          <div
-            ref={testimonialRef}
-            className="mt-5 rounded-xl border border-zinc-200 bg-white/80 px-4 py-3 text-left text-xs text-zinc-600"
-          >
-            {/* Animated 5 stars */}
-            <div className="mb-2 flex items-center gap-1 text-amber-400">
-              {[0, 1, 2, 3, 4].map((i) => (
-            <Star
-  key={i}
-  className={`
-    h-4 w-4
-    transition-all
-    duration-400
-    ${showStars ? "opacity-100 scale-100" : "opacity-0 scale-50 translate-y-1"}
-  `}
-  style={{ transitionDelay: showStars ? `${i * 90}ms` : "0ms`" }}
-  fill="currentColor"
-  stroke="none"
-/>
-
-              ))}
-            </div>
-
-            <p className="italic">
-              &quot;Within a week of the refresh I had more enquiries than the
-              previous few months.&quot;
-            </p>
-            <p className="mt-1 text-[11px] font-medium text-zinc-500">
-              — Local services business, Sussex
-            </p>
-          </div>
+        
         </div>
 
         {/* Right: CTA card */}
@@ -1059,7 +1023,7 @@ function ContactSection() {
 
             <a
               href="https://wa.me/447887034503?text=Hi%20Finn%2C%20here%27s%20a%20bit%20about%20my%20business%20and%20what%20I%27m%20looking%20for%20with%20my%20website%2Fsocials%3A"
-              className="mt-5 md:mt-12 md: mb-4 inline-flex w-full items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600"
+              className="mt-5 md:mt-12 md: mb-4 inline-flex w-full items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-6 py-3 text-sm font-medium text-white shadow-sm hover:from-indigo-700 hover:to-indigo-600"
             >
               Message me on WhatsApp
             </a>
@@ -1299,7 +1263,7 @@ function HeroVisualMobile() {
 
 <a
   href="https://wa.me/447887034503?text=Hi%20Finn%2C%20let’s%20improve%20my%20site."
-  className="mt-5 inline-flex w-full items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-5 py-3 text-sm font-medium text-white shadow-md transition hover:from-indigo-700 hover:to-indigo-600 active:scale-[0.97]"
+  className="mt-5 inline-flex w-full items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-5 py-3 text-sm font-medium text-white shadow-md  hover:from-indigo-700 hover:to-indigo-600 active:scale-[0.97]"
 >
   Let's make that change.
 </a>
