@@ -5,6 +5,7 @@ import { useEffect, useState, useRef, useMemo } from "react";
 import { Megaphone, Globe, Wrench, Star  } from "lucide-react";
 import { PricingTiers } from "./components/PricingTiers";
 import { ValueProposition } from "./components/ValueProposition";
+import { ComparisonTable } from "./components/ComparisonTable";
 type WordPair = { from: string; to: string };
 
 const WORD_PAIRS: WordPair[] = [
@@ -70,7 +71,7 @@ export default function Page() {
 <section id="services" className="mb-28">
  <PricingTiers />
 </section>
-
+<ComparisonTable/>
 
 
 
