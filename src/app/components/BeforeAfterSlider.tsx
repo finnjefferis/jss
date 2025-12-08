@@ -12,12 +12,23 @@ export function BeforeAfterSlider({ beforeSrc, afterSrc, alt }: BeforeAfterSlide
   const [sliderPosition, setSliderPosition] = useState(50);
 
   return (
-    <div className="relative w-full overflow-hidden rounded-xl border border-zinc-200 bg-zinc-100">
-      {/* Aspect Ratio Container (adjust aspect-video or h-[400px] as needed) */}
+    <div 
+      className="relative w-full overflow-hidden rounded-xl border border-zinc-200 bg-zinc-100 select-none"
+      // Stop the browser from thinking you are dragging a file
+      onDragStart={(e) => e.preventDefault()} 
+    >
+      {/* Aspect Ratio Container */}
       <div className="relative aspect-video w-full">
         
-        {/* 1. The "After" Image (Background) */}
-        <Image src={afterSrc} alt={`After ${alt}`} fill className="object-cover" />
+        {/* 1. The "After" Image */}
+        <Image 
+          src={afterSrc} 
+          alt={`After ${alt}`} 
+          fill 
+          className="object-cover pointer-events-none" // Disable pointer events on image
+          priority
+          draggable={false} // Crucial: Disable native image dragging
+        />
 
         {/* 2. The "Before" Image (Foreground, clipped) */}
         <div
@@ -28,32 +39,32 @@ export function BeforeAfterSlider({ beforeSrc, afterSrc, alt }: BeforeAfterSlide
             src={beforeSrc}
             alt={`Before ${alt}`}
             fill
-            className="object-cover"
+            className="object-cover pointer-events-none" // Disable pointer events on image
+            priority
+            draggable={false} // Crucial: Disable native image dragging
           />
         </div>
 
         {/* 3. The Drag Handle Line */}
         <div
-          className="absolute inset-y-0 z-20 w-1 bg-white shadow-[0_0_10px_rgba(0,0,0,0.3)]"
+          className="absolute inset-y-0 z-20 w-1 bg-white shadow-[0_0_10px_rgba(0,0,0,0.3)] pointer-events-none"
           style={{ left: `${sliderPosition}%` }}
         >
           <div className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-indigo-500 p-1.5 shadow-sm">
-             {/* Simple arrows icon */}
             <svg className="h-3 w-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M8 9l-4 3 4 3m8-3l4 3-4 3" />
             </svg>
           </div>
         </div>
 
-        {/* 4. The Interaction Layer (Range Input) */}
-        {/* This sits on top, invisible, and handles the touch/drag physics natively */}
+        {/* 4. The Interaction Layer */}
         <input
           type="range"
           min="0"
           max="100"
           value={sliderPosition}
           onChange={(e) => setSliderPosition(Number(e.target.value))}
-          className="absolute inset-0 z-30 h-full w-full cursor-ew-resize opacity-0"
+          className="absolute inset-0 z-30 h-full w-full cursor-ew-resize opacity-0 touch-pan-y"
           aria-label="Compare before and after images"
         />
         
