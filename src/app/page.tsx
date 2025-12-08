@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState, useRef, useMemo } from "react";
-import { Megaphone, Globe, Wrench, Star  } from "lucide-react";
+import { Megaphone, Globe, Wrench, Star, ChevronDown, ChevronUp } from "lucide-react";
 import { PricingTiers } from "./components/PricingTiers";
 import { ValueProposition } from "./components/ValueProposition";
 import { ComparisonTable } from "./components/ComparisonTable";
@@ -71,7 +71,7 @@ export default function Page() {
 <section id="services" className="mb-28">
  <PricingTiers />
 </section>
-<ComparisonTable/>
+<CollapsibleComparison />
 
 
 
@@ -1375,5 +1375,45 @@ function NaxcoPhoneSliderMobile() {
         </div>
       </div>
     </div>
+  );
+}
+function CollapsibleComparison() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <section className="mb-28">
+      <div className="flex justify-center">
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="group inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-6 py-3 text-sm font-medium text-zinc-600 shadow-sm transition-all hover:border-indigo-200 hover:text-indigo-600 hover:ring-2 hover:ring-indigo-50 active:scale-95"
+        >
+          {isOpen ? "Hide full menu" : "Show full menu"}
+          {isOpen ? (
+            <ChevronUp className="h-4 w-4 text-zinc-400 group-hover:text-indigo-500" />
+          ) : (
+            <ChevronDown className="h-4 w-4 text-zinc-400 group-hover:text-indigo-500" />
+          )}
+        </button>
+      </div>
+
+      {/* We use a simple conditional render here. 
+         The div wrapper adds a subtle fade-in animation when it opens.
+      */}
+      {isOpen && (
+        <div className="mt-10 animate-in fade-in slide-in-from-top-4 duration-500">
+          <ComparisonTable />
+          
+          {/* Optional: A 'Close' button at the bottom for UX convenience if the table is long */}
+          <div className="mt-8 flex justify-center">
+             <button 
+               onClick={() => setIsOpen(false)}
+               className="text-xs font-medium text-zinc-400 hover:text-zinc-600 underline underline-offset-4"
+             >
+               Close comparison
+             </button>
+          </div>
+        </div>
+      )}
+    </section>
   );
 }
