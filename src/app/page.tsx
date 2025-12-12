@@ -69,9 +69,9 @@ export default function Page() {
 <HeroVisualMobile />
 <ValueProposition />
 <section id="services" className="mb-28">
- <PricingTiers />
+ <PricingTiers /> 
 </section>
-<CollapsibleComparison />
+{/* <CollapsibleComparison /> */}
 
 
 
@@ -195,7 +195,7 @@ export  function HeroText() {
       </h2>
 
       <p className="hero-line hero-delay-3 mt-10 mb-8 text-l text-zinc-600 md:text-base">
-        Simple, fast websites and social that bring you new work. Projects from £139.
+        Simple, fast websites and social that bring you new work. 
       </p>
 
    <div className="hero-line hero-delay-4 mb-6 md:hidden">
