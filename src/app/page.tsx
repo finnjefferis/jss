@@ -947,7 +947,7 @@ function NaxcoBeforeAfterSlider({ card }: { card?: boolean }) {
               alt="Naxco old website"
               fill
               priority
-              className="object-contain"
+              className="object-contain pointer-events-none"
               sizes="(min-width: 768px) 50vw, 100vw"
               style={{ backgroundColor: "white" }}
             />
@@ -963,7 +963,7 @@ function NaxcoBeforeAfterSlider({ card }: { card?: boolean }) {
               alt="Naxco refreshed website"
               fill
               priority
-              className="object-contain"
+              className="object-contain pointer-events-none"
               sizes="(min-width: 768px) 50vw, 100vw"
               style={{ backgroundColor: "white" }}
             />
