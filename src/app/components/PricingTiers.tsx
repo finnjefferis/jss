@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { CheckCircle2, Megaphone, Monitor, Cpu, ArrowRight } from "lucide-react";
 
 const PILLARS = [
@@ -9,7 +9,6 @@ const PILLARS = [
     title: "Social & Ads",
     description: "Stop shouting into the void. We create a professional online presence that drives real eyes to your business.",
     icon: Megaphone,
-    // Theme Colors
     theme: {
       border: "border-pink-500",
       shadow: "shadow-pink-500/15",
@@ -29,11 +28,10 @@ const PILLARS = [
   },
   {
     id: "web",
-    popular: true, // Adds the badge
+    popular: true,
     title: "Bespoke Websites",
     description: "High-quality, creative sites designed to elevate your brand. No templates—just fast, responsive code.",
     icon: Monitor,
-    // Theme Colors
     theme: {
       border: "border-indigo-600",
       shadow: "shadow-indigo-500/15",
@@ -56,7 +54,6 @@ const PILLARS = [
     title: "Custom Software",
     description: "Solve complex problems. We build integrations and tools that save you time and automate your workflow.",
     icon: Cpu,
-    // Theme Colors
     theme: {
       border: "border-sky-500",
       shadow: "shadow-sky-500/15",
@@ -77,11 +74,12 @@ const PILLARS = [
 ];
 
 export function PricingTiers() {
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  // 'web' is default for Desktop. null is passed to start logic, but logic falls back to 'web'.
+  // We track strictly what is being interacted with.
+  const [activeId, setActiveId] = useState<string | null>(null);
 
-  // LOGIC: If nothing is hovered, 'web' is active. 
-  // If something is hovered, that specific ID is active.
-  const activeId = hoveredId || "web";
+  // The effective ID is either what is hovered/scrolled, OR 'web' as a fallback
+  const effectiveId = activeId || "web";
 
   return (
     <section className="py-12 md:py-24">
@@ -100,9 +98,8 @@ export function PricingTiers() {
           <PillarCard 
             key={pillar.id} 
             pillar={pillar} 
-            isActive={activeId === pillar.id}
-            onHover={() => setHoveredId(pillar.id)}
-            onLeave={() => setHoveredId(null)}
+            isActive={effectiveId === pillar.id}
+            setActiveId={setActiveId}
           />
         ))}
       </div>
@@ -113,21 +110,50 @@ export function PricingTiers() {
 function PillarCard({ 
   pillar, 
   isActive, 
-  onHover, 
-  onLeave 
+  setActiveId 
 }: { 
   pillar: typeof PILLARS[0]; 
   isActive: boolean;
-  onHover: () => void;
-  onLeave: () => void;
+  setActiveId: (id: string | null) => void;
 }) {
   const Icon = pillar.icon;
   const t = pillar.theme;
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  // MOBILE SCROLL DETECTION
+  useEffect(() => {
+    // 1. Check if device supports hover (Desktop). 
+    // If it DOES support hover, we abort this logic to prevent scroll hijacking the mouse.
+    const isMobile = window.matchMedia("(hover: none)").matches;
+    if (!isMobile) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // If 60% of the card is visible, make it active
+          if (entry.isIntersecting) {
+            setActiveId(pillar.id);
+          }
+        });
+      },
+      { 
+        threshold: 0.6, // Trigger when 60% visible
+        rootMargin: "-10% 0px -10% 0px" // Slight buffer
+      } 
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [pillar.id, setActiveId]);
 
   return (
     <div
-      onMouseEnter={onHover}
-      onMouseLeave={onLeave}
+      ref={cardRef}
+      onMouseEnter={() => setActiveId(pillar.id)}
+      onMouseLeave={() => setActiveId(null)} // Reverts to "web" via parent logic
       className={`
         group relative flex flex-col rounded-3xl border-2 p-8 
         transition-all duration-300 ease-out 
@@ -135,7 +161,7 @@ function PillarCard({
         bg-white
       `}
     >
-      {/* Popular Badge: Only visible if active AND it's the popular card */}
+      {/* Popular Badge */}
       {pillar.popular && (
         <div className={`
           absolute -top-4 left-1/2 -translate-x-1/2 rounded-full px-4 py-1 text-xs font-bold uppercase tracking-wide text-white shadow-sm transition-opacity duration-300
