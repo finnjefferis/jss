@@ -31,7 +31,6 @@ function Container({ children, className = "" }: { children: React.ReactNode; cl
 
 export default function Page() {
   return (
-    // Removed overflow-x-hidden here to fix sticky scrolling issues
     <main className="min-h-screen w-full bg-white relative">
       
       {/* Top Bar */}
@@ -61,16 +60,33 @@ export default function Page() {
           </a>
         </header>
 
-        {/* HERO */}
-        <section className="relative mb-10 grid min-h-[60vh] grid-cols-1 items-center gap-10 md:min-h-[50vh] md:grid-cols-2">
+        {/* HERO SECTION */}
+        {/* Added 'pb-16' to make room for the bouncing arrow so it doesn't overlap text on small screens */}
+        <section className="relative mb-10 md:mt-20 pb-16 grid min-h-[60vh] grid-cols-1 items-center gap-10 md:min-h-[50vh] md:grid-cols-2">
           <HeroText />
           <HeroVisualDesktop />
+
+          {/* TINY BOUNCING ARROW */}
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 pb-4">
+            <a 
+              href="#services" 
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 transition hover:bg-indigo-700 animate-bounce"
+              aria-label="Scroll down"
+            >
+              <svg 
+                className="h-4 w-4" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </a>
+          </div>
         </section>
         
-   
       </Container>
 
-      {/* Value Prop (Has its own internal container, now matches the one above) */}
       <ValueProposition />
 
       <Container>
@@ -91,132 +107,132 @@ export default function Page() {
   );
 }
 export function HeroText() {
-    const [sequence, setSequence] = useState<WordPair[]>(WORD_PAIRS);
-    const [pairIndex, setPairIndex] = useState(0);
-    const [textFrom, setTextFrom] = useState("");
-    const [textTo, setTextTo] = useState("");
-    const [isDeleting, setIsDeleting] = useState(false);
-    const [typingSpeed, setTypingSpeed] = useState(100);
-    const { maxFrom, maxTo } = useMemo(() => {
-      return WORD_PAIRS.reduce(
-        (acc, pair) => ({
-    
-          maxFrom: pair.from.length > acc.maxFrom.length ? pair.from : acc.maxFrom,
-          maxTo: pair.to.length > acc.maxTo.length ? pair.to : acc.maxTo,
-        }),
-        { maxFrom: "", maxTo: "" } 
-      );
-    }, []);
+  const [sequence, setSequence] = useState<WordPair[]>(WORD_PAIRS);
+  const [pairIndex, setPairIndex] = useState(0);
+  const [textFrom, setTextFrom] = useState("");
+  const [textTo, setTextTo] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [typingSpeed, setTypingSpeed] = useState(100);
   
-    useEffect(() => {
-      const currentPair = sequence[pairIndex];
-      const isLastPair = pairIndex === sequence.length - 1;
-      
-      const handleTyping = () => {
-        const fullFrom = currentPair.from;
-        const fullTo = currentPair.to;
-  
-        const isFullFrom = textFrom === fullFrom;
-        const isFullTo = textTo === fullTo;
-        const isFullyTyped = isFullFrom && isFullTo;
-        const isFullyDeleted = textFrom === '' && textTo === '';
-  
-        if (isDeleting) {
-          setTextFrom((prev) => prev.slice(0, -1));
-          setTextTo((prev) => prev.slice(0, -1));
-          setTypingSpeed(50); 
-          if (isFullyDeleted) {
-            setIsDeleting(false);
-            setPairIndex((prev) => prev + 1);
-            setTypingSpeed(100);
-          }
-        } else {
-          if (!isFullFrom) setTextFrom(fullFrom.slice(0, textFrom.length + 1));
-          if (!isFullTo) setTextTo(fullTo.slice(0, textTo.length + 1));
-          setTypingSpeed(100);
-          if (isFullyTyped) {
-            if (isLastPair) return; 
-            setTimeout(() => setIsDeleting(true), 2000); 
-          }
-        }
-      };
-  
-      const timer = setTimeout(handleTyping, typingSpeed);
-      return () => clearTimeout(timer);
-    }, [textFrom, textTo, isDeleting, pairIndex, sequence, typingSpeed]);
-  
-    return (
-      <div className="mt-12 md:pt-6 md:pb-10">
-        <p className=" text-xs font-medium uppercase tracking-[0.18em] text-zinc-500">
-          Websites & social for small businesses
-        </p>
-  
-        <h2 className=" hero-delay-2 cal-sans mt-8 text-4xl font-semibold leading-tight md:text-5xl">
-          Turn{' '}
-          
-        
-          <span className="relative inline-grid  grid-cols-1 text-center min-w-[6ch]">
-          
-            <span className="invisible col-start-1 row-start-1 whitespace-pre">
-              {maxFrom}
-            </span>
-         
-            <span className="col-start-1 row-start-1 text-zinc-700">
-              {textFrom}
-              {(pairIndex !== sequence.length - 1 || isDeleting || textFrom !== currentPairFrom(sequence, pairIndex)) && (
-                 <span className="animate-pulse font-light text-zinc-400">|</span>
-              )}
-            </span>
-          </span>{' '}
-          
-          into{' '}
-          
-     
-          <span className="relative inline-grid grid-cols-1 text-left min-w-[8ch]">
-            <span className="invisible col-start-1 row-start-1 whitespace-pre">
-              {maxTo}
-            </span>
-            <span className="col-start-1 row-start-1 text-indigo-600">
-              {textTo}
-               {(pairIndex !== sequence.length - 1 || isDeleting || textTo !== currentPairTo(sequence, pairIndex)) && (
-                 <span className="animate-pulse font-light text-indigo-300">|</span>
-              )}
-            </span>
-          </span>
-        </h2>
-  
-        <p className="hero-line hero-delay-3 mt-10 mb-8 text-l text-zinc-600 md:text-base">
-          Simple, fast websites and social that bring you new work. 
-        </p>
-  
-     <div className="hero-line hero-delay-4 mb-6 md:hidden">
-          <HeroLighthouseRowMobile />
-        </div>
-        <div className="hidden md:flex hero-line hero-delay-4 mt-12 flex flex-wrap gap-2 text-xs text-zinc-500">
-          {['Trades & home services', 'Cafés & shops', 'Solo founders', 'E-Commerce'].map((tag) => (
-            <span key={tag} className="rounded-full border border-zinc-200 px-3 py-1">
-              {tag}
-            </span>
-          ))}
-        </div>
-  
-        <div className="hero-line hero-delay-5 mt-16 mb-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-          <a
-            href="https://wa.me/447887034503?text=Hi%20Finn%2C%20I'd%20like%20a%20FREE%20website%20audit."
-            className="inline-flex items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600"
-          >
-            Book a free website audit
-          </a>
-          <a
-            href="#recent-work"
-            className="text-sm font-medium md:mt-0 mt-8 text-zinc-700 underline underline-offset-4"
-          >
-            See recent projects
-          </a>
-        </div>
-      </div>
+  const { maxFrom, maxTo } = useMemo(() => {
+    return WORD_PAIRS.reduce(
+      (acc, pair) => ({
+        maxFrom: pair.from.length > acc.maxFrom.length ? pair.from : acc.maxFrom,
+        maxTo: pair.to.length > acc.maxTo.length ? pair.to : acc.maxTo,
+      }),
+      { maxFrom: "", maxTo: "" } 
     );
-  }
+  }, []);
+
+  useEffect(() => {
+    const currentPair = sequence[pairIndex];
+    const isLastPair = pairIndex === sequence.length - 1;
+    
+    const handleTyping = () => {
+      const fullFrom = currentPair.from;
+      const fullTo = currentPair.to;
+
+      const isFullFrom = textFrom === fullFrom;
+      const isFullTo = textTo === fullTo;
+      const isFullyTyped = isFullFrom && isFullTo;
+      const isFullyDeleted = textFrom === '' && textTo === '';
+
+      if (isDeleting) {
+        setTextFrom((prev) => prev.slice(0, -1));
+        setTextTo((prev) => prev.slice(0, -1));
+        setTypingSpeed(50); 
+        if (isFullyDeleted) {
+          setIsDeleting(false);
+          setPairIndex((prev) => prev + 1);
+          setTypingSpeed(100);
+        }
+      } else {
+        if (!isFullFrom) setTextFrom(fullFrom.slice(0, textFrom.length + 1));
+        if (!isFullTo) setTextTo(fullTo.slice(0, textTo.length + 1));
+        setTypingSpeed(100);
+        if (isFullyTyped) {
+          if (isLastPair) return; 
+          setTimeout(() => setIsDeleting(true), 2000); 
+        }
+      }
+    };
+
+    const timer = setTimeout(handleTyping, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [textFrom, textTo, isDeleting, pairIndex, sequence, typingSpeed]);
+
+  return (
+    <div className="mt-12 md:pt-6 md:pb-10">
+      <p className="text-xs font-medium uppercase tracking-[0.18em] text-zinc-500">
+        Websites & social for small businesses
+      </p>
+
+      {/* UPDATED: Increased text size to 6xl on md and 7xl on lg */}
+      <h2 className="hero-delay-2 cal-sans mt-8 text-4xl font-semibold leading-tight md:text-6xl lg:text-6xl">
+        Turn{' '}
+        
+        <span className="relative inline-grid grid-cols-1 text-center min-w-[6ch]">
+          <span className="invisible col-start-1 row-start-1 whitespace-pre">
+            {maxFrom}
+          </span>
+       
+          <span className="col-start-1 row-start-1 text-zinc-700">
+            {textFrom}
+            {(pairIndex !== sequence.length - 1 || isDeleting || textFrom !== currentPairFrom(sequence, pairIndex)) && (
+               <span className="animate-pulse font-light text-zinc-400">|</span>
+            )}
+          </span>
+        </span>{' '}
+        
+        into{' '}
+        
+        <span className="relative inline-grid grid-cols-1 text-left min-w-[8ch]">
+          <span className="invisible col-start-1 row-start-1 whitespace-pre">
+            {maxTo}
+          </span>
+          <span className="col-start-1 row-start-1 text-indigo-600">
+            {textTo}
+             {(pairIndex !== sequence.length - 1 || isDeleting || textTo !== currentPairTo(sequence, pairIndex)) && (
+               <span className="animate-pulse font-light text-indigo-300">|</span>
+            )}
+          </span>
+        </span>
+      </h2>
+
+      {/* UPDATED: Fixed typo 'text-l' to 'text-lg' and increased desktop size to 'md:text-xl' */}
+      <p className="hero-line hero-delay-3 mt-10 mb-8 text-lg text-zinc-600 md:text-xl md:leading-relaxed max-w-lg">
+        Simple, fast websites and social that bring you new work. 
+      </p>
+
+      <div className="hero-line hero-delay-4 mb-6 md:hidden">
+        <HeroLighthouseRowMobile />
+      </div>
+
+      <div className="hidden md:flex hero-line hero-delay-4 mt-12 flex flex-wrap gap-2 text-xs text-zinc-500">
+        {['Trades & home services', 'Cafés & shops', 'Solo founders', 'E-Commerce'].map((tag) => (
+          <span key={tag} className="rounded-full border border-zinc-200 px-3 py-1">
+            {tag}
+          </span>
+        ))}
+      </div>
+
+      <div className="hero-line hero-delay-5 mt-16 mb-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <a
+          href="https://wa.me/447887034503?text=Hi%20Finn%2C%20I'd%20like%20a%20FREE%20website%20audit."
+          className="inline-flex items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:from-indigo-700 hover:to-indigo-600"
+        >
+          Book a free website audit
+        </a>
+        <a
+          href="#recent-work"
+          className="text-sm font-medium md:mt-0 mt-8 text-zinc-700 underline underline-offset-4"
+        >
+          See recent projects
+        </a>
+      </div>
+    </div>
+  );
+}
   
   // Helpers to prevent undefined access during render
   function currentPairFrom(seq: WordPair[], idx: number) {
