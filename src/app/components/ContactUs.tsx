@@ -63,7 +63,7 @@ export function ContactSection() {
                  {/* <Image src="/finn-face.jpg" alt="Finn" width={48} height={48} /> */}
               </div>
               <div>
-                <p className="font-bold text-zinc-900">Finn Jefferis</p>
+                <p className="font-bold text-zinc-900">Finlay Jefferis</p>
                 <p className="text-xs text-zinc-500">Developer & Lead Strategist</p>
               </div>
             </div>
