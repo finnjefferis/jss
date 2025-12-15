@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useRef } from "react";
 import { ScanEye, Link, TrendingUp, ArrowUpRight, ArrowDown } from "lucide-react";
-import { InstagramGrowthSimulator } from "./InstagramGrowthSimulator"; 
+import { InstagramGrowthSimulator } from "./InstagramGrowthSimulator";
+import { MobileGrowthSwiper } from "./HeroVisualMobile"; 
 
 const CARDS = [
   {
@@ -58,11 +59,11 @@ export function ValueProposition() {
       
       <div className="mx-auto w-full max-w-[1440px] px-4 md:px-8 lg:px-12 relative z-10">
         
-        {/* FIX: Changed grid-cols-2 to explicit 40% / 60% split */}
+        {/* GRID: 40% Left / 60% Right (Desktop Only Structure) */}
         <div className="grid grid-cols-1 lg:grid-cols-[40%_60%] gap-12 lg:gap-0 items-start">
           
-          {/* === LEFT COLUMN (Visual) === */}
-          <div className="hidden lg:flex sticky top-0 h-screen self-start flex-col justify-center items-center lg:items-center lg:pl-8">
+          {/* === LEFT COLUMN (Visual - Desktop Sticky) === */}
+          <div className="hidden lg:flex sticky top-0 h-screen self-start flex-col justify-center items-center lg:items-end lg:pr-24">
             <div className="relative w-full max-w-[26rem] lg:max-w-[28rem]">
                <div className="absolute -right-4 top-10 z-20 hidden xl:block animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-500">
                   <div className="rounded-xl border border-white/50 bg-white/80 p-4 shadow-xl backdrop-blur-md">
@@ -78,16 +79,14 @@ export function ValueProposition() {
             </div>
           </div>
 
+          {/* === MOBILE SWIPER (Replaces Visual + Cards on Mobile) === */}
           <div className="block lg:hidden mb-8">
-             <div className="flex justify-center">
-               <div className="w-full max-w-[20rem]">
-                 <InstagramGrowthSimulator stage={activeId} />
-               </div>
-             </div>
+             <MobileGrowthSwiper />
           </div>
 
-          {/* === RIGHT COLUMN (Content) === */}
-          <div className="flex flex-col justify-center items-start lg:pl-10 relative z-20">
+          {/* === RIGHT COLUMN (Content - Desktop Scroll) === */}
+          {/* Hidden on mobile because the swiper handles the content now */}
+          <div className="hidden lg:flex flex-col justify-center items-start lg:pl-0 relative z-20">
             <div className="mb-12 w-full pt-10 lg:pt-20">
               <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.2em] text-indigo-600">
                 The Process
@@ -104,7 +103,7 @@ export function ValueProposition() {
               </p>
             </div>
             
-            <div className="w-full max-w-2xl pb-24">
+            <div className="w-full max-w-2xl pb-[20vh]">
               {CARDS.map((card) => (
                 <ValueCard 
                   key={card.id} 
@@ -117,7 +116,7 @@ export function ValueProposition() {
           </div>
         </div>
 
-        <div className="mt-0 flex justify-center lg:justify-end lg:pr-32">
+        <div className="mt-0 flex justify-center  lg:pr-32">
           <a href="#pricing" className="flex flex-col items-center gap-2 text-indigo-600/80 hover:text-indigo-700 transition cursor-pointer group">
              <span className="text-[10px] font-semibold uppercase tracking-widest">See pricing</span>
              <ArrowDown className="h-5 w-5 animate-bounce text-indigo-600 group-hover:translate-y-1 transition" />
@@ -161,7 +160,7 @@ function ValueCard({
   return (
     <div
       ref={cardRef}
-      className={`min-h-[50vh] flex items-center p-4 lg:p-8 transition-all duration-700 ease-in-out
+      className={`min-h-[90vh] flex items-center p-4 lg:p-8 transition-all duration-700 ease-in-out
         ${isActive ? "opacity-100 translate-x-0" : "opacity-40 translate-x-4 grayscale"}
       `}
     >

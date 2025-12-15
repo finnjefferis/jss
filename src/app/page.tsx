@@ -7,6 +7,7 @@ import { useEffect, useState, useMemo, useRef } from "react"; // Added useRef he
 import { PricingTiers } from "./components/PricingTiers";
 import { ValueProposition } from "./components/ValueProposition";
 import { ContactSection } from './components/ContactUs';
+import { MobileGrowthSwiper } from "./components/HeroVisualMobile";
 // Note: If you have HeroText / HeroVisuals in separate files, import them. 
 // Since they were in the same file in your snippet, I kept them below.
 
@@ -66,14 +67,14 @@ export default function Page() {
           <HeroVisualDesktop />
         </section>
         
-        <HeroVisualMobile />
+   
       </Container>
 
       {/* Value Prop (Has its own internal container, now matches the one above) */}
       <ValueProposition />
 
       <Container>
-        <section id="services" className="mb-28">
+        <section id="services" className="mb-28 ">
           <PricingTiers /> 
         </section>
 

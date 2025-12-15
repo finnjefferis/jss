@@ -5,7 +5,7 @@ import { Heart, TrendingUp } from "lucide-react";
 
 type Stage = "gap" | "build" | "report" | string | null;
 
-export function InstagramGrowthSimulator({ stage }: { stage: Stage }) {
+export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; children?: React.ReactNode }) {
   // --- STATE ---
   const [displayFollowers, setDisplayFollowers] = useState(142);
   const [postsFilled, setPostsFilled] = useState(0);
@@ -75,7 +75,11 @@ export function InstagramGrowthSimulator({ stage }: { stage: Stage }) {
   // --- RENDER ---
   return (
     <div className="relative mx-auto w-full max-w-xs overflow-hidden rounded-[2.5rem] border-[8px] border-zinc-900 bg-white shadow-2xl shadow-indigo-500/20">
-      
+      {children && (
+         <div className="absolute bottom-4 inset-x-4 z-30 animate-in fade-in slide-in-from-bottom-2 duration-500">
+           {children}
+         </div>
+       )}
       {/* POP-UP REPORT CARD */}
       <div className={`
         absolute inset-0 z-20 flex items-center justify-center bg-black/5 backdrop-blur-[2px] transition-all duration-700

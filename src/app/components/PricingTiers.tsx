@@ -82,7 +82,7 @@ export function PricingTiers() {
   const effectiveId = activeId || "web";
 
   return (
-    <section className="py-12 md:py-24">
+    <section className="py-12 md:py-24 ">
       <div className="mb-16 space-y-4 text-center">
         <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
           Three ways I build your business.
