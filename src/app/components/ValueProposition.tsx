@@ -83,11 +83,17 @@ export function ValueProposition() {
           <div className="block lg:hidden mb-8">
              <MobileGrowthSwiper />
           </div>
-
-          {/* === RIGHT COLUMN (Content - Desktop Scroll) === */}
+{/* === RIGHT COLUMN (Content - Desktop Scroll) === */}
           {/* Hidden on mobile because the swiper handles the content now */}
           <div className="hidden lg:flex flex-col justify-center items-start lg:pl-0 relative z-20">
-            <div className="mb-12 w-full pt-10 lg:pt-20">
+            
+            {/* STICKY HEADER FIX:
+               - sticky top-24: Sticks to the top (adjust 24 based on your main nav height).
+               - z-30: Sits above the cards.
+               - bg-white/95: Ensures cards scrolling under it are hidden/blurred.
+               - pb-8: Adds some breathing room at the bottom of the sticky header.
+            */}
+            <div className="mb-12 w-full pt-10 lg:pt-20 sticky top-0 z-30 bg-white/95 backdrop-blur-sm pb-8 transition-all">
               <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.2em] text-indigo-600">
                 The Process
               </p>
@@ -101,6 +107,9 @@ export function ValueProposition() {
                 You do fantastic work, but you're invisible to local customers. 
                 I fix the three broken parts of your digital engine so you can stop chasing leads and start choosing them.
               </p>
+              
+              {/* Optional: A subtle gradient fade at the bottom of the sticky header */}
+              <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-b from-white to-transparent translate-y-full pointer-events-none" />
             </div>
             
             <div className="w-full max-w-2xl pb-[20vh]">
