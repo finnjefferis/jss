@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { ScanEye, Link, TrendingUp, ArrowDown, ArrowUpRight } from "lucide-react";
+import { ScanEye, Link, TrendingUp, ArrowUpRight, ArrowDown } from "lucide-react";
+import { InstagramGrowthSimulator } from "./InstagramGrowthSimulator"; 
 
 const CARDS = [
   {
@@ -49,43 +50,78 @@ const CARDS = [
 ];
 
 export function ValueProposition() {
-  const [activeId, setActiveId] = useState<string | null>(null);
+  const [activeId, setActiveId] = useState<string>("gap");
 
   return (
-    <section className="mb-20">
-      {/* Header */}
-      <div className="text-center md:text-left mb-12">
-        <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-indigo-600 mb-3">
-          The Missing Link
-        </p>
-        <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl leading-tight">
-          You're an expert at your trade. <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-sky-500 animate-pulse">
-            But the internet doesn't know it yet.
-          </span>
-        </h2>
-        <p className="mt-5 max-w-2xl text-base text-zinc-600 leading-relaxed">
-          You do fantastic work, but you are missing out on the entire digital world. 
-          I analyze where you are invisible, build the systems to get you seen, and make the connection painless.
-        </p>
-      </div>
+    <section className="relative py-16 md:py-24 bg-white" id="process">
+      <div className="pointer-events-none absolute -left-48 top-40 h-96 w-96 rounded-full bg-indigo-50/80 blur-3xl mix-blend-multiply opacity-70" />
+      
+      <div className="mx-auto w-full max-w-[1440px] px-4 md:px-8 lg:px-12 relative z-10">
+        
+        {/* FIX: Changed grid-cols-2 to explicit 40% / 60% split */}
+        <div className="grid grid-cols-1 lg:grid-cols-[40%_60%] gap-12 lg:gap-0 items-start">
+          
+          {/* === LEFT COLUMN (Visual) === */}
+          <div className="hidden lg:flex sticky top-0 h-screen self-start flex-col justify-center items-center lg:items-center lg:pl-8">
+            <div className="relative w-full max-w-[26rem] lg:max-w-[28rem]">
+               <div className="absolute -right-4 top-10 z-20 hidden xl:block animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-500">
+                  <div className="rounded-xl border border-white/50 bg-white/80 p-4 shadow-xl backdrop-blur-md">
+                     <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Total Reach</p>
+                     <div className="flex items-baseline gap-1">
+                        <span className="text-2xl font-bold text-zinc-900">+14k</span>
+                        <ArrowUpRight className="h-4 w-4 text-emerald-500" />
+                     </div>
+                  </div>
+               </div>
+               <InstagramGrowthSimulator stage={activeId} />
+               <div className="absolute inset-0 -z-10 bg-gradient-to-tr from-indigo-100 to-purple-50 blur-2xl rounded-full opacity-60 transform scale-110" />
+            </div>
+          </div>
 
-      <div className="grid gap-6 md:grid-cols-3">
-        {CARDS.map((card) => (
-          <ValueCard 
-            key={card.id} 
-            card={card} 
-            isActive={activeId === card.id} 
-            setActiveId={setActiveId}
-          />
-        ))}
-      </div>
+          <div className="block lg:hidden mb-8">
+             <div className="flex justify-center">
+               <div className="w-full max-w-[20rem]">
+                 <InstagramGrowthSimulator stage={activeId} />
+               </div>
+             </div>
+          </div>
 
-      {/* Visual Connector to Pricing */}
-      <div className="mt-10 flex justify-center">
-        <div className="flex flex-col items-center gap-2 text-indigo-600/80">
-           <span className="text-[10px] font-semibold uppercase tracking-widest">See the plans</span>
-           <ArrowDown className="h-5 w-5 animate-bounce text-indigo-600" />
+          {/* === RIGHT COLUMN (Content) === */}
+          <div className="flex flex-col justify-center items-start lg:pl-10 relative z-20">
+            <div className="mb-12 w-full pt-10 lg:pt-20">
+              <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.2em] text-indigo-600">
+                The Process
+              </p>
+              <h2 className="mb-6 text-3xl font-bold leading-tight text-zinc-900 md:text-5xl lg:text-6xl">
+                Expert at your trade? <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
+                  Let's tell the world.
+                </span>
+              </h2>
+              <p className="text-base text-zinc-600 md:text-lg leading-relaxed max-w-xl">
+                You do fantastic work, but you're invisible to local customers. 
+                I fix the three broken parts of your digital engine so you can stop chasing leads and start choosing them.
+              </p>
+            </div>
+            
+            <div className="w-full max-w-2xl pb-24">
+              {CARDS.map((card) => (
+                <ValueCard 
+                  key={card.id} 
+                  card={card} 
+                  isActive={activeId === card.id} 
+                  setActiveId={setActiveId}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-0 flex justify-center lg:justify-end lg:pr-32">
+          <a href="#pricing" className="flex flex-col items-center gap-2 text-indigo-600/80 hover:text-indigo-700 transition cursor-pointer group">
+             <span className="text-[10px] font-semibold uppercase tracking-widest">See pricing</span>
+             <ArrowDown className="h-5 w-5 animate-bounce text-indigo-600 group-hover:translate-y-1 transition" />
+          </a>
         </div>
       </div>
     </section>
@@ -105,11 +141,6 @@ function ValueCard({
   const Icon = card.icon;
 
   useEffect(() => {
-    // 1. Mobile check
-    const isMobile = window.matchMedia("(hover: none)").matches;
-    if (!isMobile) return;
-
-    // 2. The "Center Line" Observer
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -119,14 +150,10 @@ function ValueCard({
         });
       },
       { 
-        // KEY CHANGE: This creates a narrow band in the middle of the screen (from 45% to 55%).
-        // The card MUST touch this middle band to trigger.
-        // This ensures strictly one card is active at a time, even when scrolling fast.
-        rootMargin: "-45% 0px -45% 0px",
-        threshold: 0 
+        rootMargin: "-25% 0px -25% 0px", 
+        threshold: 0.2
       }
     );
-
     if (cardRef.current) observer.observe(cardRef.current);
     return () => observer.disconnect();
   }, [card.id, setActiveId]);
@@ -134,79 +161,50 @@ function ValueCard({
   return (
     <div
       ref={cardRef}
-      className={`
-        group relative overflow-hidden rounded-2xl border bg-white p-6 shadow-sm transition-all duration-500
-        
-        /* DESKTOP HOVER */
-        md:hover:shadow-xl md:hover:border-indigo-100 md:hover:-translate-y-1
-
-        /* MOBILE ACTIVE */
-        ${isActive ? "shadow-xl border-indigo-100 -translate-y-1" : "border-zinc-200"}
+      className={`min-h-[50vh] flex items-center p-4 lg:p-8 transition-all duration-700 ease-in-out
+        ${isActive ? "opacity-100 translate-x-0" : "opacity-40 translate-x-4 grayscale"}
       `}
     >
-      <div className="relative z-10 flex h-full flex-col">
-        {/* Icon */}
-        <div 
-          className={`
-            mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 transition-colors
-            
-            /* Desktop Hover */
-            md:group-hover:bg-indigo-600 md:group-hover:text-white
+      <div 
+        onMouseEnter={() => setActiveId(card.id)}
+        className={`
+          w-full rounded-3xl border p-8 shadow-xl transition-all duration-500 bg-white
+          ${isActive ? "border-indigo-100 ring-1 ring-indigo-50" : "border-transparent shadow-none"}
+        `}
+      >
+        <div className="flex flex-col gap-6">
+          <div 
+            className={`
+              inline-flex h-14 w-14 items-center justify-center rounded-2xl transition-colors duration-300
+              ${isActive ? "bg-indigo-600 text-white" : "bg-zinc-100 text-zinc-400"}
+            `}
+          >
+            <Icon className="h-7 w-7" />
+          </div>
 
-            /* Mobile Active */
-            ${isActive ? "bg-indigo-600 text-white" : ""}
-          `}
-        >
-          <Icon className="h-6 w-6" />
-        </div>
+          <div>
+            <h3 className="text-2xl font-bold text-zinc-900 mb-3">{card.title}</h3>
+            <p className="text-base leading-relaxed text-zinc-600">
+              {card.description}
+            </p>
+          </div>
 
-        <h3 className="text-lg font-bold text-zinc-900">{card.title}</h3>
-        <p className="mt-2 text-sm text-zinc-600 leading-relaxed">
-          {card.description}
-        </p>
-
-        {/* THE PROOF */}
-        <div 
-          className={`
-            mt-6 pt-4 border-t border-dashed border-zinc-200 transition-all duration-500 delay-75
-            
-            /* Desktop Logic */
-            md:opacity-0 md:translate-y-4 md:group-hover:opacity-100 md:group-hover:translate-y-0
-
-            /* Mobile Logic */
-            ${isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 md:opacity-0"}
-          `}
-        >
-          <p className="text-[10px] uppercase tracking-wider font-semibold text-zinc-400 mb-2">Real Result</p>
-          <div className="flex items-center gap-3">
-            <div className="flex flex-col">
-              <span className="text-xs text-zinc-500">{card.proof.label}</span>
-              <span className="text-2xl font-bold text-zinc-900">
-                {card.proof.before} <span className="text-zinc-400 text-sm font-normal">→</span> {card.proof.after}
-              </span>
-            </div>
-            <div className="ml-auto text-right">
-              <span className="block text-[10px] text-zinc-400">{card.proof.metricName}</span>
-              <span className={`text-xs font-bold flex items-center justify-end gap-1 ${card.proof.color}`}>
-                {card.proof.change} <ArrowUpRight className="h-3 w-3" />
-              </span>
-            </div>
+          <div className={`
+             mt-2 flex items-center justify-between border-t border-dashed pt-4
+             ${isActive ? "border-indigo-200" : "border-zinc-200"}
+          `}>
+             <div>
+               <span className="text-[10px] uppercase text-zinc-400 font-bold tracking-wider">Metric</span>
+               <p className="font-semibold text-zinc-700 text-sm">{card.proof.metricName}</p>
+             </div>
+             <div className="text-right">
+                <span className={`block text-xl font-bold ${isActive ? card.proof.color : "text-zinc-400"}`}>
+                   {card.proof.change}
+                </span>
+             </div>
           </div>
         </div>
       </div>
-
-      {/* Subtle background gradient */}
-      <div 
-        className={`
-          absolute inset-0 bg-gradient-to-b from-transparent to-indigo-50/50 transition-opacity duration-500
-          
-          /* Desktop Hover */
-          md:opacity-0 md:group-hover:opacity-100
-
-          /* Mobile Active */
-          ${isActive ? "opacity-100" : "opacity-0"}
-        `} 
-      />
     </div>
   );
 }
