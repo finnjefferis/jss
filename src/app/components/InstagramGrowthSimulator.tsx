@@ -7,7 +7,7 @@ type Stage = "gap" | "build" | "report" | string | null;
 
 export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; children?: React.ReactNode }) {
   // --- STATE ---
-  const [displayFollowers, setDisplayFollowers] = useState(142);
+  const [displayFollowers, setDisplayFollowers] = useState(0);
   const [postsFilled, setPostsFilled] = useState(0);
   const [showReport, setShowReport] = useState(false);
 
@@ -126,7 +126,7 @@ export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; ch
         {/* Stats */}
         <div className="flex flex-1 justify-around pl-4">
           <StatBox label="Posts" value={postsFilled} />
-          <StatBox label="Followers" value={displayFollowers.toLocaleString()} highlight={displayFollowers > 2000} />
+          <StatBox label="Followers" value={displayFollowers.toLocaleString()} highlight={displayFollowers > 1000} />
           <StatBox label="Following" value="16" />
         </div>
       </div>
