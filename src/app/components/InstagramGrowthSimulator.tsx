@@ -25,12 +25,12 @@ export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; ch
   // --- 1. SET TARGETS BASED ON STAGE ---
   useEffect(() => {
     if (stage === "gap") {
-      targetFollowers.current = 142;
+      targetFollowers.current = 0;
       targetPosts.current = 0;
       setShowReport(false);
     } 
     else if (stage === "build") {
-      targetFollowers.current = 1200; 
+      targetFollowers.current = 142; 
       targetPosts.current = 5;
       setShowReport(false);
     } 
@@ -127,7 +127,7 @@ export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; ch
         <div className="flex flex-1 justify-around pl-4">
           <StatBox label="Posts" value={postsFilled} />
           <StatBox label="Followers" value={displayFollowers.toLocaleString()} highlight={displayFollowers > 2000} />
-          <StatBox label="Following" value="420" />
+          <StatBox label="Following" value="16" />
         </div>
       </div>
 
