@@ -117,7 +117,7 @@ export function ValueProposition() {
 
         <div className="mt-0 flex justify-center lg:pr-32">
           <a href="#pricing" className="flex flex-col items-center gap-2 text-indigo-600/80 hover:text-indigo-700 transition cursor-pointer group">
-             <span className="text-[10px] font-semibold uppercase tracking-widest">See pricing</span>
+             <span className="text-[10px] font-semibold uppercase tracking-widest">See plans</span>
              <ArrowDown className="h-5 w-5 animate-bounce text-indigo-600 group-hover:translate-y-1 transition" />
           </a>
         </div>
