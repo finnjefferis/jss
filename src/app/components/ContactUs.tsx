@@ -64,7 +64,8 @@ export function ContactSection() {
             Ready to start?
           </p>
 
-          <h2 className="text-5xl font-bold leading-tight text-zinc-900 md:text-6xl lg:text-7xl mb-6">
+          {/* FIX: Smaller font on mobile (text-4xl) to prevent wrapping issues */}
+          <h2 className="text-4xl font-bold leading-tight text-zinc-900 md:text-6xl lg:text-7xl mb-6">
             Stop chasing leads. <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
               Let's clear the chaos.
@@ -76,14 +77,14 @@ export function ContactSection() {
             Let's build a system that brings you work while you sleep.
           </p>
 
-          <div className="flex flex-wrap justify-center gap-4 md:gap-6 mb-10">
+          <div className="flex flex-wrap justify-center gap-3 md:gap-6 mb-10">
              <StepPill text="1. Quick Chat" />
              <StepPill text="2. Fixed Proposal" />
              <StepPill text="3. Launch & Grow" />
           </div>
 
-          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-xs font-bold text-emerald-700 uppercase tracking-wide">
-            <span className="relative flex h-2.5 w-2.5">
+          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-xs font-bold text-emerald-700 uppercase tracking-wide text-center">
+            <span className="relative flex h-2.5 w-2.5 flex-shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
             </span>
@@ -96,21 +97,18 @@ export function ContactSection() {
         <div className="w-full relative">
           <div className="absolute -inset-1 bg-gradient-to-b from-indigo-100 to-transparent rounded-[2.5rem] blur-xl opacity-70 -z-10" />
           
-          <div className="relative overflow-hidden rounded-[2.5rem] border border-zinc-200 bg-white p-8 md:p-12 shadow-2xl shadow-indigo-500/10">
+          {/* FIX: Reduced padding on mobile (p-6) so content isn't squeezed */}
+          <div className="relative overflow-hidden rounded-[2.5rem] border border-zinc-200 bg-white p-6 md:p-12 shadow-2xl shadow-indigo-500/10">
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
               
-              {/* === LEFT COL: TRUST & SPEED (Review + WhatsApp + Email) === */}
+              {/* === LEFT COL: TRUST & SPEED === */}
               <div className="flex flex-col h-full">
                 
-                {/* 1. Review (Social Proof) */}
+                {/* 1. Review */}
                 <div ref={reviewRef} className="mb-10 bg-zinc-50/50 p-6 rounded-3xl border border-zinc-100 relative overflow-hidden">
-                   <div className="absolute top-0 right-0 p-4 opacity-10">
-                   
-                   </div>
-
                    <div className="flex items-center gap-3 mb-3 relative z-10">
-                      <div className="h-10 w-10 rounded-full bg-[#EF6C00] flex items-center justify-center text-white text-sm font-bold shadow-sm ring-2 ring-orange-100">K</div>
+                      <div className="h-10 w-10 shrink-0 rounded-full bg-[#EF6C00] flex items-center justify-center text-white text-sm font-bold shadow-sm ring-2 ring-orange-100">K</div>
                       <div>
                         <p className="text-sm font-bold text-zinc-900 leading-none">Karl Couling</p>
                         <div className="flex items-center gap-2 mt-1.5">
@@ -128,7 +126,7 @@ export function ContactSection() {
                    </p>
                 </div>
 
-                {/* 2. WhatsApp (Speed) */}
+                {/* 2. WhatsApp */}
                 <div className="mb-8">
                   <div className="flex items-center justify-between mb-3 px-1">
                      <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Fastest Response</p>
@@ -141,13 +139,13 @@ export function ContactSection() {
                     href="https://wa.me/447887034503?text=Hi%20Finn%2C%20I%27d%20like%20to%20discuss%20a%20project."
                     className="group relative flex w-full items-center justify-center gap-3 rounded-2xl bg-indigo-600 px-6 py-5 text-base font-bold text-white shadow-lg shadow-indigo-600/20 transition-all hover:bg-indigo-700 hover:shadow-xl hover:scale-[1.01] active:scale-[0.99]"
                   >
-                    <MessageCircle className="h-6 w-6 fill-white/20" />
+                    <MessageCircle className="h-6 w-6 fill-white/20 shrink-0" />
                     <span>Chat on WhatsApp</span>
                     <ArrowRight className="h-5 w-5 opacity-50 -ml-4 transition-all group-hover:opacity-100 group-hover:ml-0" />
                   </a>
                 </div>
 
-                {/* 3. Email (Copy) */}
+                {/* 3. Email (FIXED: Stacked on mobile) */}
                 <div className="mt-auto">
                    <div className="flex items-center gap-4 mb-3">
                       <div className="h-px bg-zinc-100 flex-1" />
@@ -155,14 +153,19 @@ export function ContactSection() {
                       <div className="h-px bg-zinc-100 flex-1" />
                    </div>
                    
-                   <div className="group flex items-center gap-2 rounded-xl border border-zinc-200 bg-zinc-50 p-1.5 transition-colors hover:border-indigo-200 hover:bg-white">
-                     <div className="h-10 w-10 flex items-center justify-center bg-white rounded-lg border border-zinc-200 shadow-sm text-zinc-400 group-hover:text-indigo-600 transition-colors">
-                        <Mail className="h-5 w-5" />
+                   {/* FIX: flex-col on mobile, flex-row on desktop */}
+                   <div className="group flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-2 rounded-xl border border-zinc-200 bg-zinc-50 p-2 sm:p-1.5 transition-colors hover:border-indigo-200 hover:bg-white">
+                     
+                     <div className="flex items-center gap-3 flex-1 px-2 sm:px-0">
+                        <div className="h-10 w-10 flex shrink-0 items-center justify-center bg-white rounded-lg border border-zinc-200 shadow-sm text-zinc-400 group-hover:text-indigo-600 transition-colors">
+                            <Mail className="h-5 w-5" />
+                        </div>
+                        <span className="text-sm font-semibold text-zinc-700 break-all sm:break-normal">hello@jefferissoftware.co.uk</span>
                      </div>
-                     <span className="flex-1 text-sm font-semibold text-zinc-700 px-2">hello@jefferissoftware.co.uk</span>
+
                      <button 
                        onClick={handleCopyEmail}
-                       className="h-10 px-4 flex items-center gap-2 rounded-lg bg-white border border-zinc-200 text-xs font-bold text-zinc-500 shadow-sm hover:text-indigo-600 hover:border-indigo-200 active:scale-95 transition-all"
+                       className="h-10 w-full sm:w-auto px-4 flex items-center justify-center gap-2 rounded-lg bg-white border border-zinc-200 text-xs font-bold text-zinc-500 shadow-sm hover:text-indigo-600 hover:border-indigo-200 active:scale-95 transition-all"
                      >
                        {copied ? <Check className="h-4 w-4 text-emerald-500" /> : <Copy className="h-4 w-4" />}
                        {copied ? "Copied" : "Copy"}
@@ -172,7 +175,7 @@ export function ContactSection() {
 
               </div>
 
-              {/* === RIGHT COL: THE FORM (Detailed Inquiry) === */}
+              {/* === RIGHT COL: FORM === */}
               <div className="relative">
                 {/* Vertical Divider Line (Desktop only) */}
                 <div className="hidden lg:block absolute -left-10 top-10 bottom-10 w-px bg-zinc-100" />
@@ -199,7 +202,9 @@ export function ContactSection() {
                      </div>
                   ) : (
                      <form onSubmit={handleSubmit} className="space-y-5">
-                        <div className="grid grid-cols-2 gap-5">
+                        
+                        {/* FIX: grid-cols-1 on mobile so inputs are full width */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                           <div className="space-y-1.5">
                             <label htmlFor="name" className="text-xs font-bold text-zinc-700 ml-1">Name</label>
                             <input 
