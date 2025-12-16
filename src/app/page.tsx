@@ -217,7 +217,7 @@ export function HeroText() {
   return (
     <div className="mt-12 md:pt-6 md:pb-10">
       <p className="text-xs font-medium uppercase tracking-[0.18em] text-zinc-500">
-        Websites & social for small businesses
+        Websites & social for local businesses
       </p>
 
       {/* UPDATED: Increased text size to 6xl on md and 7xl on lg */}
