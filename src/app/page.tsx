@@ -95,7 +95,7 @@ export default function Page() {
                    The Process
                  </a>
                  <a href="#services" onClick={handleLinkClick} className="text-sm font-medium text-zinc-600 hover:text-indigo-600 py-2">
-                   Services & Pricing
+                   Services
                  </a>
                  <a href="#recent-work" onClick={handleLinkClick} className="text-sm font-medium text-zinc-600 hover:text-indigo-600 py-2">
                    Recent Work
