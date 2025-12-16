@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useRef } from "react";
+
 import Image from "next/image";
 import { ArrowRight, X, ExternalLink, ChevronRight, Check, ArrowLeft } from "lucide-react";
-
+import { useState, useRef, useEffect } from "react";
 // --- DATA ---
 type ProjectKey = "naxco" | "carbon" | "toolbox" | null;
 
@@ -168,98 +168,115 @@ export function RecentWorkSection() {
   );
 }
 
-// ... Keep ProjectModal and ComparisonSlider the same as before ...
-// (I have omitted them here for brevity, but they should remain in the file)
 function ProjectModal({ isOpen, onClose, project }: { isOpen: boolean; onClose: () => void; project: typeof PROJECTS[0] }) {
-    if (typeof window !== 'undefined') {
-        document.body.style.overflow = isOpen ? 'hidden' : 'unset';
-    }
-   
-     if (!isOpen) return null;
-   
-     return (
-       <div className="fixed inset-0 z-[60] flex items-end md:items-center justify-center sm:p-4 md:p-8">
-         <div 
-           className="absolute inset-0 bg-zinc-900/60 backdrop-blur-sm animate-in fade-in duration-300"
-           onClick={onClose}
-         />
-         <div className="relative w-full max-w-4xl max-h-[85vh] flex flex-col overflow-hidden rounded-t-[2rem] md:rounded-[2rem] bg-white shadow-2xl animate-in slide-in-from-bottom-8 duration-500">
-           <div className="flex items-center justify-between border-b border-zinc-100 bg-white px-6 py-4 sticky top-0 z-20">
-             <div>
-               <h3 className="text-lg font-bold text-zinc-900">{project.title}</h3>
-               <p className="text-xs font-bold text-indigo-600 uppercase tracking-wide">{project.role}</p>
-             </div>
-             <button 
-               onClick={onClose}
-               className="rounded-full bg-zinc-100 p-2 text-zinc-500 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
-             >
-               <X className="h-5 w-5" />
-             </button>
-           </div>
-   
-           <div className="overflow-y-auto p-6 md:p-10 space-y-10">
-             {project.key === 'naxco' && (
-                <div className="space-y-8">
-                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-                     <div>
-                       <h4 className="text-xl font-bold text-zinc-900 mb-4">The Challenge</h4>
-                       <p className="text-zinc-600 leading-relaxed mb-6">
-                         Naxco is a local property maintenance company. Their old site was text-heavy, hard to navigate on mobile, and wasn't generating leads.
-                       </p>
-                       <ul className="space-y-3">
-                         {["Clarify service offering", "Add Trust Signals", "Easy WhatsApp Booking"].map(item => (
-                           <li key={item} className="flex gap-3 text-sm text-zinc-700">
-                             <span className="flex h-5 w-5 items-center justify-center rounded-full bg-indigo-100 text-indigo-600">
-                               <Check className="h-3 w-3" />
-                             </span>
-                             <span>{item}</span>
-                           </li>
-                         ))}
-                       </ul>
-                       {project.link && (
-                         <a href={project.link} target="_blank" rel="noreferrer" className="mt-8 inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-bold text-white shadow-md hover:bg-indigo-700 transition-all">
-                           Visit Live Site <ExternalLink className="h-4 w-4" />
-                         </a>
-                       )}
-                     </div>
-                     <div className="relative aspect-video rounded-xl overflow-hidden bg-zinc-100 border border-zinc-200 shadow-lg">
-                        <Image src="/naxco1.png" alt="Naxco full screen" fill className="object-cover" />
-                     </div>
-                   </div>
-   
-                   <div className="rounded-3xl bg-indigo-50/50 border border-indigo-100 p-6 md:p-8">
-                      <div className="mb-6">
-                         <h4 className="text-lg font-bold text-indigo-900">Before & After</h4>
-                         <p className="text-sm text-indigo-600/80">Drag the slider to see the transformation.</p>
-                      </div>
-                      <ComparisonSlider beforeSrc="/naxold.png" afterSrc="/naxnew.png" />
-                   </div>
-                </div>
-             )}
-   
-             {project.key !== 'naxco' && (
-               <div className="max-w-2xl mx-auto text-center space-y-6">
-                  <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-zinc-200 shadow-sm">
-                     <Image src={project.image} alt={project.title} fill className="object-cover" />
-                  </div>
+  
+  // FIX: Use useEffect to manage body scroll locking
+  useEffect(() => {
+    // Lock scroll when component mounts (modal opens)
+    document.body.style.overflow = 'hidden';
+
+    // Unlock scroll when component unmounts (modal closes)
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-[60] flex items-end md:items-center justify-center sm:p-4 md:p-8">
+      {/* Backdrop */}
+      <div 
+        className="absolute inset-0 bg-zinc-900/60 backdrop-blur-sm animate-in fade-in duration-300"
+        onClick={onClose}
+      />
+      
+      {/* Modal Content */}
+      <div className="relative w-full max-w-4xl max-h-[85vh] flex flex-col overflow-hidden rounded-t-[2rem] md:rounded-[2rem] bg-white shadow-2xl animate-in slide-in-from-bottom-8 duration-500">
+        
+        {/* Header */}
+        <div className="flex items-center justify-between border-b border-zinc-100 bg-white px-6 py-4 sticky top-0 z-20">
+          <div>
+            <h3 className="text-lg font-bold text-zinc-900">{project.title}</h3>
+            <p className="text-xs font-bold text-indigo-600 uppercase tracking-wide">{project.role}</p>
+          </div>
+          <button 
+            onClick={onClose}
+            className="rounded-full bg-zinc-100 p-2 text-zinc-500 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+
+        {/* Scrollable Body */}
+        <div className="overflow-y-auto p-6 md:p-10 space-y-10">
+          
+          {/* NAXCO SPECIFIC CONTENT */}
+          {project.key === 'naxco' && (
+             <div className="space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                   <div>
-                     <h4 className="text-xl font-bold text-zinc-900 mb-2">Project Overview</h4>
-                     <p className="text-zinc-600 leading-relaxed">{project.summary}</p>
+                    <h4 className="text-xl font-bold text-zinc-900 mb-4">The Challenge</h4>
+                    <p className="text-zinc-600 leading-relaxed mb-6">
+                      Naxco is a local property maintenance company. Their old site was text-heavy, hard to navigate on mobile, and wasn't generating leads.
+                    </p>
+                    <ul className="space-y-3">
+                      {["Clarify service offering", "Add Trust Signals", "Easy WhatsApp Booking"].map(item => (
+                        <li key={item} className="flex gap-3 text-sm text-zinc-700">
+                          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-indigo-100 text-indigo-600">
+                            <Check className="h-3 w-3" />
+                          </span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    {project.link && (
+                      <a href={project.link} target="_blank" rel="noreferrer" className="mt-8 inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-bold text-white shadow-md hover:bg-indigo-700 transition-all">
+                        Visit Live Site <ExternalLink className="h-4 w-4" />
+                      </a>
+                    )}
                   </div>
+                  <div className="relative aspect-video rounded-xl overflow-hidden bg-zinc-100 border border-zinc-200 shadow-lg">
+                     <Image src="/naxco1.png" alt="Naxco full screen" fill className="object-cover" />
+                  </div>
+                </div>
+
+                <div className="rounded-3xl bg-indigo-50/50 border border-indigo-100 p-6 md:p-8">
+                   <div className="mb-6">
+                      <h4 className="text-lg font-bold text-indigo-900">Before & After</h4>
+                      <p className="text-sm text-indigo-600/80">Drag the slider to see the transformation.</p>
+                   </div>
+                   <ComparisonSlider beforeSrc="/naxold.png" afterSrc="/naxnew.png" />
+                </div>
+             </div>
+          )}
+
+          {/* GENERIC CONTENT FOR OTHER PROJECTS */}
+          {project.key !== 'naxco' && (
+            <div className="max-w-2xl mx-auto text-center space-y-6">
+               <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-zinc-200 shadow-sm">
+                  <Image src={project.image} alt={project.title} fill className="object-cover" />
                </div>
-             )}
-           </div>
-           <div className="border-t border-zinc-100 bg-zinc-50 p-4 md:p-6 text-center shrink-0">
-              <button 
-                onClick={onClose} 
-                className="w-full md:w-auto rounded-xl bg-white border border-zinc-200 text-zinc-700 px-8 py-3 text-sm font-bold shadow-sm hover:bg-zinc-50 hover:text-indigo-600 transition-colors"
-              >
-                Close Project
-              </button>
-           </div>
-         </div>
-       </div>
-     );
+               <div>
+                  <h4 className="text-xl font-bold text-zinc-900 mb-2">Project Overview</h4>
+                  <p className="text-zinc-600 leading-relaxed">{project.summary}</p>
+               </div>
+            </div>
+          )}
+        </div>
+
+        {/* Footer */}
+        <div className="border-t border-zinc-100 bg-zinc-50 p-4 md:p-6 text-center shrink-0">
+           <button 
+             onClick={onClose} 
+             className="w-full md:w-auto rounded-xl bg-white border border-zinc-200 text-zinc-700 px-8 py-3 text-sm font-bold shadow-sm hover:bg-zinc-50 hover:text-indigo-600 transition-colors"
+           >
+             Close Project
+           </button>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function ComparisonSlider({ beforeSrc, afterSrc }: { beforeSrc: string, afterSrc: string }) {
