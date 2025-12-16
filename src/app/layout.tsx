@@ -8,10 +8,16 @@ const manrope = Manrope({
 });
 //hi this was written by a real dudde :D
 
-export const metadata = {
-  title: "Jefferis Software Solutions — Websites & Social",
-  description: "Simple, fast websites and social media that bring you enquiries.",
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Jefferis Software Solutions",
+  description: "Websites & social for small businesses",
+  icons: {
+    icon: "/jsslogo.png", 
+  },
 };
+
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
