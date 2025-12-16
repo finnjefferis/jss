@@ -137,7 +137,7 @@ export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; ch
          <div className={`h-2.5 w-24 rounded bg-zinc-100 transition-all duration-500 ${postsFilled > 1 ? "opacity-0 h-0" : "opacity-100"}`} />
          
          <div className={`transition-all duration-700 ${postsFilled > 1 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-            <p>🚀 Scaling local service biz</p>
+            <p>🚀 Scaling local service businesses</p>
             <p>👇 Get the Growth System</p>
          </div>
       </div>
