@@ -113,9 +113,8 @@ export default function Page() {
           </div>
         )}
 
-        {/* HERO SECTION */}
-        {/* Added 'pb-16' to make room for the bouncing arrow so it doesn't overlap text on small screens */}
-        <section className="relative mb-10 md:mt-20 pb-16 grid min-h-[60vh] grid-cols-1 items-center gap-10 md:min-h-[50vh] md:grid-cols-2">
+     
+        <section className="relative mb-10 md:mt-12 pb-16 grid min-h-[60vh] grid-cols-1 items-center gap-10 md:min-h-[50vh] md:grid-cols-2">
           <HeroText />
           <HeroVisualDesktop />
 
