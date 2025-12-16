@@ -41,7 +41,7 @@ const PILLARS = [
       buttonActive: "bg-indigo-50 text-indigo-700 border-indigo-200",
     },
     features: [
-      "Bespoke Design (No builders)",
+      "Bespoke Design",
       "Lightning Fast Loading",
       "Mobile-First Architecture",
       "SEO Optimized Structure",

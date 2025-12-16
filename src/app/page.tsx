@@ -1,9 +1,7 @@
-
-
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState, useMemo, useRef } from "react"; // Added useRef here just in case components need it
+import { useEffect, useState, useMemo, useRef } from "react"; 
 import { PricingTiers } from "./components/PricingTiers";
 import { ValueProposition } from "./components/ValueProposition";
 import { ContactSection } from './components/ContactUs';
@@ -30,6 +28,12 @@ function Container({ children, className = "" }: { children: React.ReactNode; cl
 }
 
 export default function Page() {
+  // --- STATE FOR MOBILE MENU ---
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Helper to close menu when a link is clicked
+  const handleLinkClick = () => setIsMenuOpen(false);
+
   return (
     <main className="min-h-screen w-full bg-white relative">
       
@@ -37,7 +41,7 @@ export default function Page() {
       <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-indigo-500 via-sky-500 to-indigo-500 z-50"></div>
 
       <Container>
-        <header className="flex items-center justify-between gap-6 py-6 border-b border-zinc-200">
+        <header className="relative flex items-center justify-between gap-6 py-6 border-b border-zinc-200 z-40">
           <h1 className="flex items-center md:text-xl gap-2 text-sm font-semibold tracking-wide">
             <div className="relative h-10 w-9 shrink-0">
               <Image
@@ -52,13 +56,62 @@ export default function Page() {
             <span className="h-4 w-4 rounded-full bg-indigo-500"></span>
             Jefferis Software Solutions
           </h1>
+          
+          {/* DESKTOP CONTACT BUTTON (Hidden on mobile) */}
           <a
             href="https://wa.me/447887034503"
             className="hidden md:inline-flex rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:from-indigo-700 hover:to-indigo-600"
           >
             Contact Us
           </a>
+
+          {/* MOBILE MENU TOGGLE (Visible on mobile only) */}
+          <button 
+            className="md:hidden p-2 -mr-2 text-zinc-600 hover:bg-zinc-100 rounded-md transition"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? (
+              // Close Icon (X)
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              // Menu Icon (Hamburger)
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+              </svg>
+            )}
+          </button>
         </header>
+        
+        {/* MOBILE MENU DROPDOWN */}
+        {/* This sits absolutely positioned below the header */}
+        {isMenuOpen && (
+          <div className="absolute left-0 right-0 top-[88px] z-50 border-b border-zinc-200 bg-white/95 backdrop-blur-md shadow-xl md:hidden animate-in slide-in-from-top-2 duration-200">
+             <Container>
+               <nav className="flex flex-col py-6 gap-4 text-center">
+                 <a href="#process" onClick={handleLinkClick} className="text-sm font-medium text-zinc-600 hover:text-indigo-600 py-2">
+                   The Process
+                 </a>
+                 <a href="#services" onClick={handleLinkClick} className="text-sm font-medium text-zinc-600 hover:text-indigo-600 py-2">
+                   Services & Pricing
+                 </a>
+                 <a href="#recent-work" onClick={handleLinkClick} className="text-sm font-medium text-zinc-600 hover:text-indigo-600 py-2">
+                   Recent Work
+                 </a>
+                 <hr className="border-zinc-100 my-1" />
+                 <a
+                    href="https://wa.me/447887034503"
+                    onClick={handleLinkClick}
+                    className="inline-flex w-full justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-500 px-4 py-3 text-sm font-medium text-white shadow-sm"
+                  >
+                    Contact Us
+                  </a>
+               </nav>
+             </Container>
+          </div>
+        )}
 
         {/* HERO SECTION */}
         {/* Added 'pb-16' to make room for the bouncing arrow so it doesn't overlap text on small screens */}
@@ -106,6 +159,8 @@ export default function Page() {
     </main>
   );
 }
+
+// ... Rest of your existing components (HeroText, RecentWorkSection, etc.) stay exactly the same below ...
 export function HeroText() {
   const [sequence, setSequence] = useState<WordPair[]>(WORD_PAIRS);
   const [pairIndex, setPairIndex] = useState(0);
