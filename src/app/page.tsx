@@ -122,7 +122,7 @@ export default function Page() {
           {/* TINY BOUNCING ARROW */}
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 pb-4">
             <a 
-              href="#services" 
+              href="#process" 
               className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 transition hover:bg-indigo-700 animate-bounce"
               aria-label="Scroll down"
             >
@@ -160,7 +160,6 @@ export default function Page() {
   );
 }
 
-// ... Rest of your existing components (HeroText, RecentWorkSection, etc.) stay exactly the same below ...
 export function HeroText() {
   const [sequence, setSequence] = useState<WordPair[]>(WORD_PAIRS);
   const [pairIndex, setPairIndex] = useState(0);
