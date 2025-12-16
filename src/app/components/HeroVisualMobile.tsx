@@ -13,7 +13,7 @@ const STEPS = [
   { 
     id: "build", 
     title: "2. Build Connection", 
-    text: "We fill your profile with high-quality content that builds trust instantly." 
+    text: "We fill your profile with high-quality content that builds trust immediately." 
   },
   { 
     id: "report", 
