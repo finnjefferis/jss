@@ -62,6 +62,12 @@ export function ValueProposition() {
         {/* GRID: 40% Left / 60% Right (Desktop Only Structure) */}
         <div className="grid grid-cols-1 lg:grid-cols-[40%_60%] gap-12 lg:gap-0 items-start">
           
+          {/* === MOBILE HEADER (Visible only on mobile) === */}
+          {/* This places the text ABOVE the visual on mobile screens */}
+          <div className="block lg:hidden">
+             <SectionHeader />
+          </div>
+
           {/* === LEFT COLUMN (Visual - Desktop Sticky) === */}
           <div className="hidden lg:flex sticky top-0 h-screen self-start flex-col justify-center items-center lg:items-end lg:pr-24">
             <div className="relative w-full max-w-[26rem] lg:max-w-[28rem]">
@@ -83,30 +89,14 @@ export function ValueProposition() {
           <div className="block lg:hidden mb-8">
              <MobileGrowthSwiper />
           </div>
-{/* === RIGHT COLUMN (Content - Desktop Scroll) === */}
+
+          {/* === RIGHT COLUMN (Content - Desktop Scroll) === */}
           {/* Hidden on mobile because the swiper handles the content now */}
           <div className="hidden lg:flex flex-col justify-center items-start lg:pl-0 relative z-20">
             
-            {/* STICKY HEADER FIX:
-               - sticky top-24: Sticks to the top (adjust 24 based on your main nav height).
-               - z-30: Sits above the cards.
-               - bg-white/95: Ensures cards scrolling under it are hidden/blurred.
-               - pb-8: Adds some breathing room at the bottom of the sticky header.
-            */}
+            {/* DESKTOP HEADER (Sticky) */}
             <div className="mb-12 w-full pt-10 lg:pt-20 sticky top-0 z-30 bg-white/95 backdrop-blur-sm pb-8 transition-all">
-              <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.2em] text-indigo-600">
-                The Process
-              </p>
-              <h2 className="mb-6 text-3xl font-bold leading-tight text-zinc-900 md:text-5xl lg:text-6xl">
-                Expert at your trade? <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
-                  Let's tell the world.
-                </span>
-              </h2>
-              <p className="text-base text-zinc-600 md:text-lg leading-relaxed max-w-xl">
-                You do fantastic work, but you're invisible to local customers. 
-                I fix the three broken parts of your digital engine so you can stop chasing leads and start choosing them.
-              </p>
+              <SectionHeader />
               
               {/* Optional: A subtle gradient fade at the bottom of the sticky header */}
               <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-b from-white to-transparent translate-y-full pointer-events-none" />
@@ -125,7 +115,7 @@ export function ValueProposition() {
           </div>
         </div>
 
-        <div className="mt-0 flex justify-center  lg:pr-32">
+        <div className="mt-0 flex justify-center lg:pr-32">
           <a href="#pricing" className="flex flex-col items-center gap-2 text-indigo-600/80 hover:text-indigo-700 transition cursor-pointer group">
              <span className="text-[10px] font-semibold uppercase tracking-widest">See pricing</span>
              <ArrowDown className="h-5 w-5 animate-bounce text-indigo-600 group-hover:translate-y-1 transition" />
@@ -133,6 +123,27 @@ export function ValueProposition() {
         </div>
       </div>
     </section>
+  );
+}
+
+// Reusable Header Component
+function SectionHeader() {
+  return (
+    <>
+      <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.2em] text-indigo-600">
+        The Process
+      </p>
+      <h2 className="mb-6 text-3xl font-bold leading-tight text-zinc-900 md:text-5xl lg:text-6xl">
+        Expert at your trade? <br />
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
+          Let's tell the world.
+        </span>
+      </h2>
+      <p className="text-base text-zinc-600 md:text-lg leading-relaxed max-w-xl">
+        You do fantastic work, but you're invisible to local customers. 
+        I fix the broken parts of your digital engine so you can stop chasing leads and start choosing them.
+      </p>
+    </>
   );
 }
 
