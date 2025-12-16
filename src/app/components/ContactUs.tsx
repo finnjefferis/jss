@@ -42,7 +42,7 @@ export function ContactSection() {
 
           {/* "What happens next" List - Removes Anxiety */}
           <div className="flex flex-col gap-3 items-center lg:items-start">
-             <StepItem text="1. We chat briefly about your goals (No pressure)." />
+             <StepItem text="1. We have a quick chat about your goals" />
              <StepItem text="2. I give you a fixed-price proposal." />
              <StepItem text="3. We build it, launch it, and grow it." />
           </div>
@@ -53,14 +53,14 @@ export function ContactSection() {
         <div className="w-full max-w-md flex-1">
           <div className="relative overflow-hidden rounded-2xl border border-zinc-200 bg-white p-6 shadow-xl shadow-indigo-500/5 md:p-8">
             
-            {/* Header */}
+            
             <div className="mb-6 flex items-center gap-4 border-b border-zinc-100 pb-6">
               <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-zinc-100 border border-zinc-200">
-                 {/* Placeholder for your face - highly recommended to add a real image later */}
+              
                  <div className="h-full w-full flex items-center justify-center bg-indigo-100 text-indigo-600 font-bold text-lg">
                     FJ
                  </div>
-                 {/* <Image src="/finn-face.jpg" alt="Finn" width={48} height={48} /> */}
+                 
               </div>
               <div>
                 <p className="font-bold text-zinc-900">Finlay Jefferis</p>

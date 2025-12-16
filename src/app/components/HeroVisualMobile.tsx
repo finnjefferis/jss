@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { ChevronRight } from "lucide-react";
+import { useState, useRef } from "react";
+import { ChevronRight, ChevronLeft } from "lucide-react";
 import { InstagramGrowthSimulator } from "./InstagramGrowthSimulator";
 
 const STEPS = [
@@ -24,8 +24,7 @@ const STEPS = [
 
 export function MobileGrowthSwiper() {
   const [index, setIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const [hasInteracted, setHasInteracted] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
   
   const activeStep = STEPS[index];
 
@@ -33,28 +32,25 @@ export function MobileGrowthSwiper() {
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
 
+  const startInteraction = () => {
+    setHasStarted(true);
+  };
+
   const next = () => {
+    if (!hasStarted) {
+      startInteraction();
+      return;
+    }
     setIndex((i) => (i + 1) % STEPS.length);
-    if (index === 0) setHasInteracted(true);
-  }
-  const prev = () => {
-    setIndex((i) => (i - 1 + STEPS.length) % STEPS.length);
-    setHasInteracted(true);
   }
 
-  // Auto-play Loop
-  useEffect(() => {
-    if (isPaused) return;
-    const timer = setInterval(() => {
-      next();
-    }, 4000); 
-    return () => clearInterval(timer);
-  }, [index, isPaused]);
+  const prev = () => {
+    if (!hasStarted) return;
+    setIndex((i) => (i - 1 + STEPS.length) % STEPS.length);
+  }
 
   // --- SWIPE HANDLERS ---
   const handleTouchStart = (e: React.TouchEvent) => {
-    setIsPaused(true);
-    setHasInteracted(true);
     touchStartX.current = e.targetTouches[0].clientX;
     touchEndX.current = null;
   };
@@ -64,10 +60,7 @@ export function MobileGrowthSwiper() {
   };
 
   const handleTouchEnd = () => {
-    if (!touchStartX.current || !touchEndX.current) {
-      setTimeout(() => setIsPaused(false), 2000);
-      return;
-    }
+    if (!touchStartX.current || !touchEndX.current) return;
 
     const distance = touchStartX.current - touchEndX.current;
     const minSwipeDistance = 50;
@@ -80,30 +73,41 @@ export function MobileGrowthSwiper() {
 
     touchStartX.current = null;
     touchEndX.current = null;
-    
-    setTimeout(() => setIsPaused(false), 5000);
   };
 
   return (
     <div className="lg:hidden px-4 mb-20 w-full flex justify-center">
+      {/* FIX: Use a standard style tag instead of 'jsx'. 
+        This prevents Next.js from adding random class names that cause hydration errors.
+      */}
+      <style>{`
+        @keyframes gentle-bounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-6px); }
+        }
+      `}</style>
+
       <div 
         className="relative w-full max-w-[20rem] touch-pan-y select-none"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
+        onClick={!hasStarted ? startInteraction : undefined}
       >
         
         {/* The Simulator */}
         <InstagramGrowthSimulator stage={activeStep.id}>
           
-          {/* THE OVERLAY CARD */}
-          <div className="bg-white/95 backdrop-blur-md p-4 rounded-xl shadow-lg border border-zinc-200/60 ring-1 ring-zinc-900/5 relative z-30">
+          {/* === CONTENT CARD (Hidden initially) === */}
+          <div className={`
+             bg-white/95 backdrop-blur-md p-4 rounded-xl shadow-lg border border-zinc-200/60 ring-1 ring-zinc-900/5 relative z-30 mx-2 mb-4 transition-all duration-500
+             ${hasStarted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"}
+          `}>
             <h3 className="font-bold text-zinc-900 text-sm">{activeStep.title}</h3>
             <p className="text-xs text-zinc-600 mt-1 leading-relaxed min-h-[40px]">{activeStep.text}</p>
             
             {/* Controls */}
             <div className="flex items-center justify-between mt-3 pt-3 border-t border-zinc-200/50">
-               {/* Dots */}
                <div className="flex gap-1.5">
                  {STEPS.map((_, i) => (
                    <div 
@@ -113,32 +117,52 @@ export function MobileGrowthSwiper() {
                  ))}
                </div>
                
-               {/* Manual Next Button */}
-               <button 
-                 onClick={(e) => { 
-                   e.stopPropagation(); 
-                   setIsPaused(true);
-                   setHasInteracted(true);
-                   next(); 
-                 }}
-                 className="text-xs font-bold text-indigo-600 flex items-center gap-0.5 active:opacity-50"
-               >
-                 Next <ChevronRight className="h-3 w-3" />
-               </button>
+               <div className="flex items-center gap-3">
+                 <button 
+                   onClick={(e) => { e.stopPropagation(); prev(); }}
+                   className="text-zinc-400 hover:text-zinc-600 active:scale-95 transition p-1"
+                 >
+                   <ChevronLeft className="h-4 w-4" />
+                 </button>
+                 <button 
+                   onClick={(e) => { e.stopPropagation(); next(); }}
+                   className="text-indigo-600 font-bold text-xs flex items-center gap-0.5 active:scale-95 transition"
+                 >
+                   Next <ChevronRight className="h-3 w-3" />
+                 </button>
+               </div>
             </div>
           </div>
 
         </InstagramGrowthSimulator>
 
-        {/* === SWIPE CUE (Purple Center) === */}
-        {index === 0 && !hasInteracted && (
-           <div className="absolute inset-0 z-40 flex items-center justify-center pointer-events-none animate-in fade-in duration-1000 delay-500">
-             {/* The Circle */}
-             <div className="bg-indigo-600/90 backdrop-blur-sm p-4 rounded-full shadow-2xl ring-4 ring-indigo-200/50 animate-pulse">
-                 <ChevronRight className="h-8 w-8 text-white stroke-[3px]" />
+        {/* === INTRO CUE (Floating, no full background) === */}
+        <div 
+          className={`
+            absolute inset-0 z-40 flex flex-col items-center justify-center transition-all duration-500
+            ${!hasStarted ? "opacity-100" : "opacity-0 pointer-events-none"}
+          `}
+        >
+           {/* Bouncing Container - using inline style for animation to avoid class mismatches */}
+           <div 
+             className="flex flex-col items-center cursor-pointer"
+             style={{ animation: 'gentle-bounce 2s infinite ease-in-out' }}
+           >
+             
+             {/* Icon Circle */}
+             <div className="bg-indigo-600 p-3 rounded-full shadow-xl ring-4 ring-white/50 mb-3">
+                 <ChevronRight className="h-6 w-6 text-white stroke-[3px]" />
              </div>
+             
+             {/* Text Pill (White background to ensure contrast against simulator, Purple Text) */}
+             <div className="bg-white/95 px-4 py-1.5 rounded-full shadow-md border border-indigo-100 backdrop-blur-sm">
+                <p className="text-xs font-bold text-indigo-600 uppercase tracking-widest">
+                    Swipe to grow
+                </p>
+             </div>
+             
            </div>
-        )}
+        </div>
         
       </div>
     </div>
