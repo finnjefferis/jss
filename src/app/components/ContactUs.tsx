@@ -68,13 +68,12 @@ export function ContactSection() {
           <h2 className="text-4xl font-bold leading-tight text-zinc-900 md:text-6xl lg:text-7xl mb-6">
             Stop chasing leads. <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
-              Let's clear the chaos.
+              Start growing.
             </span>
           </h2>
 
-          <p className="text-lg md:text-xl text-zinc-600 leading-relaxed mb-10 max-w-2xl mx-auto">
-            You don't need another generic agency. You need a partner who speaks your language. 
-            Let's build a system that brings you work while you sleep.
+          <p className="text-base md:text-xl text-zinc-600 leading-relaxed mb-10 max-w-2xl mx-auto">
+            Build systems that bring you work while you sleep.
           </p>
 
           <div className="flex flex-wrap justify-center gap-3 md:gap-6 mb-10">

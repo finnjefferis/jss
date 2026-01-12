@@ -11,18 +11,16 @@ export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; ch
   const [postsFilled, setPostsFilled] = useState(0);
   const [showReport, setShowReport] = useState(false);
 
-  // Targets (What we want to reach)
+  // Targets
   const targetFollowers = useRef(142);
   const targetPosts = useRef(0);
 
-  // Current Animation Values (Float precision for smoothness)
+  // Current Animation Values
   const currentFollowers = useRef(142);
   const currentPosts = useRef(0);
-
-  // Animation Loop Ref - Fixed TS initialization
   const requestRef = useRef<number | null>(null);
 
-  // --- 1. SET TARGETS BASED ON STAGE ---
+  // --- 1. SET TARGETS ---
   useEffect(() => {
     if (stage === "gap") {
       targetFollowers.current = 0;
@@ -41,11 +39,9 @@ export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; ch
     }
   }, [stage]);
 
-  // --- 2. THE ANIMATION LOOP (LERP) ---
+  // --- 2. ANIMATION LOOP ---
   const animate = () => {
-    // A. Smoothly interpolate Followers
     const diffFollowers = targetFollowers.current - currentFollowers.current;
-    
     if (Math.abs(diffFollowers) < 1) {
       currentFollowers.current = targetFollowers.current;
     } else {
@@ -53,7 +49,6 @@ export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; ch
     }
     setDisplayFollowers(Math.floor(currentFollowers.current));
 
-    // B. Smoothly interpolate Posts
     const diffPosts = targetPosts.current - currentPosts.current;
     if (Math.abs(diffPosts) < 0.1) {
       currentPosts.current = targetPosts.current;
@@ -75,34 +70,9 @@ export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; ch
   // --- RENDER ---
   return (
     <div className="relative mx-auto w-full max-w-xs overflow-hidden rounded-[2.5rem] border-[8px] border-zinc-900 bg-white shadow-2xl shadow-indigo-500/20">
-      {children && (
-         <div className="absolute bottom-4 inset-x-4 z-30 animate-in fade-in slide-in-from-bottom-2 duration-500">
-           {children}
-         </div>
-       )}
-      {/* POP-UP REPORT CARD */}
-      <div className={`
-        absolute inset-0 z-20 flex items-center justify-center bg-black/5 backdrop-blur-[2px] transition-all duration-700
-        ${showReport ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"}
-      `}>
-        <div className="w-4/5 rounded-xl bg-white p-4 shadow-2xl ring-1 ring-zinc-900/5">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="h-8 w-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600">
-              <TrendingUp className="h-5 w-5" />
-            </div>
-            <div>
-              <p className="text-[10px] font-bold uppercase text-zinc-400">Monthly Report</p>
-              <p className="text-sm font-bold text-zinc-900">Performance</p>
-            </div>
-          </div>
-          <div className="space-y-2">
-             <ReportRow label="Reach" value="+14.2k" />
-             <ReportRow label="Engage." value="+850%" />
-             <ReportRow label="Leads" value="24" highlight />
-          </div>
-        </div>
-      </div>
-
+      
+      {/* 1. APP INTERFACE LAYERS (Rendered First) */}
+      
       {/* Fake Status Bar */}
       <div className="flex h-6 w-full items-center justify-between px-6 pt-2">
         <div className="h-2 w-12 rounded-full bg-zinc-100"></div>
@@ -118,7 +88,6 @@ export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; ch
           ${postsFilled > 0 ? "bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-0.5" : "bg-zinc-100"}
         `}>
           <div className="h-full w-full rounded-full bg-zinc-50 relative overflow-hidden flex items-center justify-center" >
-             {/* Profile Pic scales in */}
              <div className={`h-full w-full bg-zinc-200 transition-all duration-500 ${postsFilled > 0 ? "scale-100 opacity-100" : "scale-0 opacity-0"}`} />
           </div>
         </div>
@@ -179,6 +148,39 @@ export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; ch
           </div>
         ))}
       </div>
+
+      {/* 2. OVERLAYS (Rendered Last = On Top) */}
+
+      {/* CHILDREN (User Controls/Text) - Z-30 */}
+      {children && (
+         <div className="absolute bottom-4 inset-x-4 z-30 animate-in fade-in slide-in-from-bottom-2 duration-500">
+           {children}
+         </div>
+       )}
+
+      {/* POP-UP REPORT CARD - MOVED TO BOTTOM & Z-50 */}
+      <div className={`
+        absolute inset-0 z-50 flex items-center justify-center bg-black/5 backdrop-blur-[2px] transition-all duration-700
+        ${showReport ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"}
+      `}>
+        <div className="w-4/5 rounded-xl bg-white p-4 shadow-2xl ring-1 ring-zinc-900/5">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="h-8 w-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600">
+              <TrendingUp className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="text-[10px] font-bold uppercase text-zinc-400">Monthly Report</p>
+              <p className="text-sm font-bold text-zinc-900">Performance</p>
+            </div>
+          </div>
+          <div className="space-y-2">
+             <ReportRow label="Reach" value="+14.2k" />
+             <ReportRow label="Engage." value="+850%" />
+             <ReportRow label="Leads" value="24" highlight />
+          </div>
+        </div>
+      </div>
+
     </div>
   );
 }
