@@ -299,159 +299,146 @@ export function HeroText() {
  
   
 
-  
-  // Shared core slider (logic + handle + images)
-  function NaxcoBeforeAfterSlider({ card }: { card?: boolean }) {
-    const [position, setPosition] = useState(5); // 0–100, almost all old site
+  // DESKTOP: lives in the hero grid, right column
+  function HeroVisualDesktop() {
+    return (
+      <div className="relative hidden items-center justify-center md:flex">
+        <EdivPhoneSlider />
+      </div>
+    );
+  }
+
+  // Phone slider with ediv before/after images
+  function EdivPhoneSlider() {
+    const [position, setPosition] = useState(5);
     const [userInteracted, setUserInteracted] = useState(false);
-  
-    const updatePosition = (
-      clientX: number,
-      element: HTMLDivElement | null
-    ) => {
-      if (!element) return;
-      const rect = element.getBoundingClientRect();
+    const containerRef = useRef<HTMLDivElement | null>(null);
+
+    const updatePositionFromClientX = (clientX: number) => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
       const x = clientX - rect.left;
       const clamped = Math.max(0, Math.min(rect.width, x));
       setPosition((clamped / rect.width) * 100);
     };
-  
+
     const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-      setUserInteracted(true); // cancel auto anim if user grabs it
+      setUserInteracted(true);
       const el = e.currentTarget;
       el.setPointerCapture(e.pointerId);
-      updatePosition(e.clientX, el);
+      updatePositionFromClientX(e.clientX);
     };
-  
+
     const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
       const el = e.currentTarget;
       if (!el.hasPointerCapture(e.pointerId)) return;
-      updatePosition(e.clientX, el);
+      updatePositionFromClientX(e.clientX);
     };
-  
+
     const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
       e.currentTarget.releasePointerCapture(e.pointerId);
     };
-  
-    // Ease-out-back for bounce, clamped so it doesn’t overshoot the track
+
     const easeOutBack = (t: number) => {
       const c1 = 1.3;
       const c3 = c1 + 1;
       return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
     };
-  
+
     useEffect(() => {
       if (userInteracted) return;
-  
-      const start = 5;       // mostly old
-      const end = 100;        // stop just inside right edge
-      const delay = 1100;    // ~1.1s pause
-      const duration = 1500; // ~1.5s slide
-  
+
+      const start = 5;
+      const end = 100;
+      const delay = 1900;
+      const duration = 1500;
+
       let frameId: number | undefined;
       let timeoutId: number | undefined;
       let startTime: number | null = null;
-  
+
       const startAnimation = () => {
         startTime = performance.now();
-  
+
         const animate = (now: number) => {
           if (userInteracted) return;
-  
+
           const elapsed = now - (startTime as number);
           const t = Math.min(1, elapsed / duration);
-  
+
           const easedRaw = easeOutBack(t);
           const eased = Math.max(0, Math.min(1, easedRaw));
-  
+
           const value = start + (end - start) * eased;
           setPosition(value);
-  
+
           if (t < 1) {
             frameId = requestAnimationFrame(animate);
           }
         };
-  
+
         frameId = requestAnimationFrame(animate);
       };
-  
+
       timeoutId = window.setTimeout(startAnimation, delay);
-  
+
       return () => {
         if (timeoutId) window.clearTimeout(timeoutId);
         if (frameId) cancelAnimationFrame(frameId);
       };
     }, [userInteracted]);
-  
-    const sliderClass =
-      "relative mt-2 h-64 md:h-72 w-full overflow-hidden rounded-xl bg-zinc-900 cursor-col-resize select-none touch-none";
-  
-    // Wrapper styling: card on desktop, softer section on mobile
-    const wrapperClass = card
-      ? "relative w-full max-w-lg rounded-2xl border border-zinc-200 bg-white/80 p-4 shadow-xl shadow-indigo-500/10"
-      : "relative w-full rounded-2xl border border-zinc-200 bg-white p-4 shadow-lg shadow-indigo-500/10";
-  
+
     return (
-      <div className={wrapperClass}>
-        {/* subtle glow */}
-        <div className="pointer-events-none absolute inset-0 rounded-2xl bg-[radial-gradient(circle_at_10%_0,rgba(79,70,229,0.12),transparent_55%),radial-gradient(circle_at_90%_100%,rgba(56,189,248,0.12),transparent_55%)]" />
-  
-        <div className="relative flex flex-col gap-3">
-          {/* fake browser chrome */}
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-1.5">
-              <span className="h-2 w-2 rounded-full bg-red-400" />
-              <span className="h-2 w-2 rounded-full bg-amber-400" />
-              <span className="h-2 w-2 rounded-full bg-emerald-400" />
-            </div>
-            <div className="flex-1">
-              <div className="mx-auto h-6 max-w-[70%] rounded-full border border-zinc-200/80 bg-zinc-50/70 px-3 text-[10px] text-zinc-400">
-                Naxco Services — homepage refresh
-              </div>
-            </div>
-          </div>
-  
-          {/* slider “screen” */}
+      <div className="relative">
+        {/* Glow effect behind phone */}
+        <div className="absolute -inset-4 bg-gradient-to-br from-indigo-500/20 via-transparent to-sky-500/20 blur-2xl rounded-full" />
+
+        <div className="relative mx-auto w-72 rounded-[2.5rem] border-4 border-zinc-800 bg-zinc-950 p-2 shadow-2xl shadow-black/50">
+          {/* top notch / speaker */}
+          <div className="mx-auto mb-2 h-4 w-24 rounded-full bg-black/60" />
+
+          {/* "screen" */}
           <div
-            className={sliderClass}
+            ref={containerRef}
+            className="relative w-full aspect-[9/16] overflow-hidden rounded-[1.75rem] bg-white cursor-col-resize select-none touch-none"
             onPointerDown={handlePointerDown}
             onPointerMove={handlePointerMove}
             onPointerUp={handlePointerUp}
             onPointerCancel={handlePointerUp}
+            onDragStart={(e) => e.preventDefault()}
           >
-            {/* OLD SITE — base */}
+            {/* BEFORE — base */}
             <div className="absolute inset-0">
               <Image
-                src="/naxold.png"
-                alt="Naxco old website"
+                src="/edivbefore.png"
+                alt="Website before"
                 fill
                 priority
-                className="object-contain pointer-events-none"
-                sizes="(min-width: 768px) 50vw, 100vw"
-                style={{ backgroundColor: "white" }}
+                draggable={false}
+                className="object-cover object-top pointer-events-none"
+                sizes="300px"
               />
             </div>
-  
-            {/* NEW SITE — clipped to the handle position */}
+
+            {/* AFTER — clipped to handle position */}
             <div
               className="absolute inset-0"
               style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
             >
               <Image
-                src="/naxnew.png"
-                alt="Naxco refreshed website"
+                src="/edivafter.png"
+                alt="Website after"
                 fill
                 priority
-                className="object-contain pointer-events-none"
-                sizes="(min-width: 768px) 50vw, 100vw"
-                style={{ backgroundColor: "white" }}
+                draggable={false}
+                className="object-cover object-top pointer-events-none"
+                sizes="300px"
               />
-              <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-zinc-900/60 via-zinc-900/20 to-transparent" />
             </div>
-  
-            {/* HANDLE – purple line with bulge */}
+
+            {/* HANDLE – purple line + pill */}
             <div
-              className="pointer-events-none absolute inset-y-4 sm:inset-y-6"
+              className="pointer-events-none absolute inset-y-6"
               style={{
                 left: `calc(${position}% - 0.5px)`,
                 transform: "translateX(-50%)",
@@ -459,34 +446,26 @@ export function HeroText() {
             >
               <div className="flex h-full items-center justify-center">
                 <div className="relative flex h-full items-center">
-                  {/* purple vertical line */}
                   <div className="h-full w-[5px] rounded-full bg-gradient-to-b from-indigo-600 via-indigo-500 to-indigo-400 shadow-[0_0_0_1px_rgba(15,23,42,0.5)]" />
-                  {/* central bulge */}
                   <div className="absolute left-1/2 top-1/2 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-indigo-600 shadow-lg shadow-indigo-600/50">
-                    <span className="text-xs font-semibold text-white animate-pulse">
-                      ⇆
-                    </span>
+                    <span className="text-xs font-semibold text-white animate-pulse">⇆</span>
                   </div>
                 </div>
               </div>
             </div>
+
+            {/* Labels - fade in/out based on position */}
+            <span className={`pointer-events-none absolute left-2 top-2 z-10 rounded bg-black/60 px-2 py-1 text-[9px] font-bold uppercase tracking-wider text-white backdrop-blur-sm transition-opacity duration-300 ${position < 50 ? 'opacity-100' : 'opacity-0'}`}>
+              Before
+            </span>
+            <span className={`pointer-events-none absolute right-2 top-2 z-10 rounded bg-black/60 px-2 py-1 text-[9px] font-bold uppercase tracking-wider text-white backdrop-blur-sm transition-opacity duration-300 ${position >= 50 ? 'opacity-100' : 'opacity-0'}`}>
+              After
+            </span>
           </div>
-          <NaxcoLighthouseRow position={position} />
-          {!card && (
-            <p className="text-[11px] text-zinc-500">
-              Starts on the original homepage, then eases into the refreshed design.
-            </p>
-          )}
+
+          {/* bottom bar */}
+          <div className="mx-auto mt-2 h-1 w-16 rounded-full bg-zinc-700" />
         </div>
-      </div>
-    );
-  }
-  
-  // DESKTOP: lives in the hero grid, right column
-  function HeroVisualDesktop() {
-    return (
-      <div className="relative hidden items-center justify-center md:flex">
-        <NaxcoBeforeAfterSlider card />
       </div>
     );
   }
@@ -523,47 +502,6 @@ export function HeroText() {
     );
   }
   
-  
-  function NaxcoLighthouseRow({ position }: { position: number }) {
-    const metrics = [
-      { label: "Performance", from: 71, to: 98 },
-      { label: "Accessibility", from: 86, to: 100 },
-      { label: "Best Practices", from: 100, to: 100 },
-      { label: "SEO", from: 82, to: 100 },
-    ];
-  
-    const updatedMetrics = metrics.map((metric) => {
-      const range = metric.to - metric.from;
-      const updatedScore = metric.from + (range * position) / 100;
-      return { ...metric, adjustedScore: Math.round(updatedScore) };
-    });
-  
-    return (
-      <div className="mt-4">
-        <div className="flex flex-wrap items-center justify-center gap-6">
-          {updatedMetrics.map((metric) => (
-            <LighthouseMetric
-              key={metric.label}
-              label={metric.label}
-              adjustedScore={metric.adjustedScore}
-            />
-          ))}
-        </div>
-        <p className="mt-2 text-center text-[10px] text-zinc-400">
-          Scores as per{" "}
-          <a
-            href="https://pagespeed.web.dev/"
-            target="_blank"
-            rel="noreferrer"
-            className="underline underline-offset-2"
-          >
-            PageSpeed Insights
-          </a>
-          .
-        </p>
-      </div>
-    );
-  }
   
   type LighthouseMetricProps = {
     label: string;

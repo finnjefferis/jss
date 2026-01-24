@@ -5,15 +5,25 @@ import Image from "next/image";
 import { ArrowRight, X, ExternalLink, ChevronRight, Check, ArrowLeft } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 // --- DATA ---
-type ProjectKey = "naxco" | "carbon" | "toolbox" | null;
+type ProjectKey = "naxco" | "edivert" | "carbon" | "toolbox" | null;
 
 const PROJECTS = [
+  {
+    key: "edivert" as const,
+    title: "eDivert",
+    role: "Website Refresh",
+    summary: "Modern refresh for a virtual assistant company. The old site wasn't converting — now it does.",
+    image: "/edivafter.png",
+    alt: "eDivert website",
+    tags: ["Design", "Dev", "SEO"],
+    link: null
+  },
   {
     key: "naxco" as const,
     title: "Naxco Services",
     role: "Website Refresh",
     summary: "Complete homepage rebuild for a local trades business. Focused on trust, clarity, and conversion.",
-    image: "/naxco1.png", 
+    image: "/naxco1.png",
     alt: "Naxco Services website",
     tags: ["Design", "Dev", "Copy"],
     link: "https://naxco-site.vercel.app/"
@@ -44,11 +54,11 @@ export function RecentWorkSection() {
   const [activeProject, setActiveProject] = useState<ProjectKey>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Manual Scroll Buttons
+  // Manual Scroll Buttons - scroll by card width (600px + 24px gap on desktop)
   const scroll = (direction: 'left' | 'right') => {
     if (!scrollRef.current) return;
-    const width = scrollRef.current.clientWidth;
-    scrollRef.current.scrollBy({ left: direction === 'left' ? -width : width, behavior: 'smooth' });
+    const cardWidth = 624; // 600px card + 24px gap
+    scrollRef.current.scrollBy({ left: direction === 'left' ? -cardWidth : cardWidth, behavior: 'smooth' });
   };
 
   return (
@@ -103,9 +113,9 @@ export function RecentWorkSection() {
           <div className="hidden xl:block w-[calc((100vw-72rem)/2-2rem)] flex-shrink-0" />
 
           {PROJECTS.map((project) => (
-            <div 
+            <div
               key={project.key}
-              className="flex-shrink-0 w-[85vw] md:w-[600px] snap-center"
+              className="flex-shrink-0 w-[85vw] md:w-[600px] snap-center [scroll-snap-stop:always]"
             >
               <article 
                 onClick={() => setActiveProject(project.key)}
@@ -251,8 +261,43 @@ function ProjectModal({ isOpen, onClose, project }: { isOpen: boolean; onClose: 
              </div>
           )}
 
+          {/* EDIVERT SPECIFIC CONTENT */}
+          {project.key === 'edivert' && (
+             <div className="space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                  <div>
+                    <h4 className="text-xl font-bold text-zinc-900 mb-4">The Challenge</h4>
+                    <p className="text-zinc-600 leading-relaxed mb-6">
+                      eDivert is a virtual assistant and personal assistant company. Their old website wasn't working for them — outdated design, poor mobile experience, and no enquiries coming through. We refreshed it so it actually converts.
+                    </p>
+                    <ul className="space-y-3">
+                      {["Modern, professional design", "Mobile-first approach", "Clear calls to action"].map(item => (
+                        <li key={item} className="flex gap-3 text-sm text-zinc-700">
+                          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-indigo-100 text-indigo-600">
+                            <Check className="h-3 w-3" />
+                          </span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="relative aspect-video rounded-xl overflow-hidden bg-zinc-100 border border-zinc-200 shadow-lg">
+                     <Image src="/edivafter.png" alt="eDivert new website" fill className="object-cover object-top" />
+                  </div>
+                </div>
+
+                <div className="rounded-3xl bg-indigo-50/50 border border-indigo-100 p-6 md:p-8">
+                   <div className="mb-6">
+                      <h4 className="text-lg font-bold text-indigo-900">Before & After</h4>
+                      <p className="text-sm text-indigo-600/80">Drag the slider to see the transformation.</p>
+                   </div>
+                   <ComparisonSlider beforeSrc="/edivbefore.png" afterSrc="/edivafter.png" />
+                </div>
+             </div>
+          )}
+
           {/* GENERIC CONTENT FOR OTHER PROJECTS */}
-          {project.key !== 'naxco' && (
+          {project.key !== 'naxco' && project.key !== 'edivert' && (
             <div className="max-w-2xl mx-auto text-center space-y-6">
                <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-zinc-200 shadow-sm">
                   <Image src={project.image} alt={project.title} fill className="object-cover" />
