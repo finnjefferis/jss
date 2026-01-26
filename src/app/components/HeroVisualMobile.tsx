@@ -136,11 +136,11 @@ export function MobileGrowthSwiper() {
           <div
             key={i}
             ref={(el) => { triggersRef.current[i] = el; }} // Fixed ref assignment
-            className="h-[80vh] w-full pointer-events-none" // 80vh per step ensures a deliberate swipe
+            className="h-[120vh] w-full pointer-events-none" // 120vh per step for more deliberate scrolling
           />
         ))}
         {/* Extra space at bottom to allow scrolling past the final step smoothly */}
-        <div className="h-[20vh] w-full pointer-events-none" /> 
+        <div className="h-[30vh] w-full pointer-events-none" />
       </div>
 
     </div>
