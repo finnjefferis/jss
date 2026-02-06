@@ -13,8 +13,28 @@ const PROJECTS = [
     title: "eDivert",
     role: "Website Refresh",
     summary: "Modern refresh for a virtual assistant company. The old site wasn't converting — now it does.",
-    image: "/edivafter.png",
+    image: "/edivertnew.png",
     alt: "eDivert website",
+    tags: ["Design", "Dev", "SEO"],
+    link: null
+  },
+    {
+    key: "ivyarch" as const,
+    title: "Ivy Arch Studios",
+    role: "Website Refresh",
+    summary: "New website for a local practice room featuring booking system.",
+    image: "/ivyarch.png",
+    alt: "Ivy Arch Studios website",
+    tags: ["Design", "Dev", "SEO"],
+    link: null
+  },
+    {
+    key: "jmrt" as const,
+    title: "JMRT Photo",
+    role: "Website Refresh",
+    summary: "Bespoke website for a local photographer featuring a full CMS system allowing the client to update their content regularly.",
+    image: "/jmrt.png",
+    alt: "JMRT website",
     tags: ["Design", "Dev", "SEO"],
     link: null
   },
@@ -26,7 +46,7 @@ const PROJECTS = [
     image: "/naxco1.png",
     alt: "Naxco Services website",
     tags: ["Design", "Dev", "Copy"],
-    link: "https://naxco-site.vercel.app/"
+    link: "https://naxco.co.uk"
   },
   {
     key: "toolbox" as const,
