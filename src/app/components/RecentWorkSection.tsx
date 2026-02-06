@@ -16,7 +16,7 @@ const PROJECTS = [
     image: "/edivertnew.png",
     alt: "eDivert website",
     tags: ["Design", "Dev", "SEO"],
-    link: null
+    link: 'https://www.edivert.co.uk/'
   },
     {
     key: "ivyarch" as const,
@@ -26,7 +26,7 @@ const PROJECTS = [
     image: "/ivyarch.png",
     alt: "Ivy Arch Studios website",
     tags: ["Design", "Dev", "SEO"],
-    link: null
+    link: 'https://ivy-arch.vercel.app/'
   },
     {
     key: "jmrt" as const,
@@ -36,7 +36,7 @@ const PROJECTS = [
     image: "/jmrt.png",
     alt: "JMRT website",
     tags: ["Design", "Dev", "SEO"],
-    link: null
+    link: 'https://jmrt-photo.vercel.app/'
   },
   {
     key: "naxco" as const,
