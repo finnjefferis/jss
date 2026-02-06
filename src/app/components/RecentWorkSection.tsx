@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ArrowRight, X, ExternalLink, ChevronRight, Check, ArrowLeft } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 // --- DATA ---
-type ProjectKey = "naxco" | "edivert" | "carbon" | "toolbox" | null;
+type ProjectKey = "naxco" | "edivert" | "carbon" | "toolbox" | "ivy" |"jmrt" |  null;
 
 const PROJECTS = [
   {
@@ -19,7 +19,7 @@ const PROJECTS = [
     link: 'https://www.edivert.co.uk/'
   },
     {
-    key: "ivyarch" as const,
+    key: "ivy" as const,
     title: "Ivy Arch Studios",
     role: "Website Refresh",
     summary: "New website for a local practice room featuring booking system.",
