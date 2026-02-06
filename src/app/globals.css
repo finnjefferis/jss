@@ -1,75 +1,14 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
-html{
+html {
   scroll-behavior: smooth;
-}
-/* --- FORCE LIGHT MODE --- */
-:root {
-  --bg: #ffffff;
-  --text: #1a1a1a;
-  --subtle: #6e6e6e;
-  --border: #e5e5e5;
-  --button-bg: #111111;
-  --button-text: #ffffff;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #ffffff !important;
-    --text: #1a1a1a !important;
-    --subtle: #6e6e6e !important;
-    --border: #e5e5e5 !important;
-    --button-bg: #111111 !important;
-    --button-text: #ffffff !important;
-  }
 }
 
 body {
-  background: var(--bg);
-  color: var(--text);
   font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* ===========================
-   Wireframe hero animation
-   =========================== */
-
-.wire {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: wire-draw 1.1s ease-out forwards;
-}
-
-/* Staggered delays so it "builds" nicely */
-.wire-1  { animation-delay: 0.00s; }
-.wire-2  { animation-delay: 0.06s; }
-.wire-3  { animation-delay: 0.12s; }
-.wire-4  { animation-delay: 0.16s; }
-.wire-5  { animation-delay: 0.20s; }
-.wire-6  { animation-delay: 0.26s; }
-.wire-7  { animation-delay: 0.34s; }
-.wire-8  { animation-delay: 0.42s; }
-.wire-9  { animation-delay: 0.50s; }
-.wire-10 { animation-delay: 0.60s; }
-.wire-11 { animation-delay: 0.70s; }
-.wire-12 { animation-delay: 0.80s; }
-.wire-13 { animation-delay: 0.88s; }
-.wire-14 { animation-delay: 0.96s; }
-.wire-15 { animation-delay: 1.04s; }
-
-@keyframes wire-draw {
-  0% {
-    stroke-dashoffset: 1;
-    opacity: 0;
-  }
-  30% {
-    opacity: 1;
-  }
-  100% {
-    stroke-dashoffset: 0;
-    opacity: 1;
-  }
-}
 /* Hero text fade-up */
 .hero-line {
   opacity: 0;
@@ -88,47 +27,6 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-/* Swapping words animation – fade only, no vertical shift */
-/* Shell: both ghost + real word share same grid cell */
-.swap-shell {
-  display: inline-grid;
-  align-items: baseline;
-  justify-items: center; /* ← CENTER horizontally inside the ghost width */
-}
-
-/* Ghost text: controls width, never visible */
-.swap-ghost {
-  grid-area: 1 / 1;
-  opacity: 0;
-  visibility: hidden;
-  white-space: nowrap;
-}
-
-/* Real animated word: sits on top, centered, fades in */
-.swap-word {
-  grid-area: 1 / 1;
-  display: inline-block;
-  white-space: nowrap;
-  opacity: 0;
-  animation: swap-word-in 0.3s ease-out forwards;
-}
-
-@keyframes swap-word-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-
-/* Cal Sans font for hero heading (make sure the font is loaded in your project) */
-.cal-sans {
-  font-family: "Cal Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
 }
 
 @layer utilities {

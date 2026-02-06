@@ -6,7 +6,6 @@ const manrope = Manrope({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
-//hi this was written by a real dudde :D
 
 import type { Metadata } from "next";
 
@@ -14,15 +13,28 @@ export const metadata: Metadata = {
   title: "Jefferis Software Solutions",
   description: "Websites & social for small businesses",
   icons: {
-    icon: "/jsslogo.png", 
+    icon: "/jsslogo.png",
   },
 };
 
-
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var t = localStorage.getItem('theme');
+                  if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-NH48FM1Q53"></script>
         <script
           dangerouslySetInnerHTML={{
@@ -39,6 +51,5 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         {children}
       </body>
     </html>
-
   );
 }
