@@ -252,14 +252,22 @@ function HeroVisual() {
       </div>
 
       {/* MOBILE — Highlights carousel */}
-      <div className="lg:hidden mt-12">
-        <p className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500 mb-4">
-          Recent highlights
-        </p>
-        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 no-scrollbar -mx-5 px-5">
+      <div className="lg:hidden mt-14">
+        <div className="mb-5">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-400 mb-2">
+            Recent work
+          </p>
+          <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
+            A few sites we&apos;ve recently built and refreshed for small businesses. Swipe to explore.
+          </p>
+        </div>
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 no-scrollbar -mx-5 px-5 pb-2">
           {HERO_SITES.map((site) => (
-            <div key={site.label} className="flex-shrink-0 w-[80vw] max-w-sm snap-center">
+            <div key={site.label} className="flex-shrink-0 w-[85vw] max-w-sm snap-center">
               <BrowserFrame site={site} />
+              <p className="mt-2 text-center text-xs font-medium text-zinc-400 dark:text-zinc-500">
+                {site.label}
+              </p>
             </div>
           ))}
         </div>
