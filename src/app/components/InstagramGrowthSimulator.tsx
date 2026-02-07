@@ -69,13 +69,13 @@ export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; ch
 
   // --- RENDER ---
   return (
-    <div className="relative mx-auto w-full max-w-xs overflow-hidden rounded-[2.5rem] border-[8px] border-zinc-900 bg-white shadow-2xl shadow-indigo-500/20">
+    <div className="relative mx-auto w-full max-w-xs overflow-hidden rounded-[2.5rem] border-[8px] border-zinc-900 dark:border-zinc-700 bg-white dark:bg-zinc-900 shadow-2xl shadow-indigo-500/20">
       
       {/* 1. APP INTERFACE LAYERS (Rendered First) */}
       
       {/* Fake Status Bar */}
       <div className="flex h-6 w-full items-center justify-between px-6 pt-2">
-        <div className="h-2 w-12 rounded-full bg-zinc-100"></div>
+        <div className="h-2 w-12 rounded-full bg-zinc-100 dark:bg-zinc-800"></div>
         <div className="flex gap-1">
           <div className="h-2 w-3 rounded-full bg-zinc-100"></div>
         </div>
@@ -87,7 +87,7 @@ export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; ch
           relative h-16 w-16 shrink-0 overflow-hidden rounded-full border-2 border-white shadow-sm transition-all duration-700
           ${postsFilled > 0 ? "bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-0.5" : "bg-zinc-100"}
         `}>
-          <div className="h-full w-full rounded-full bg-zinc-50 relative overflow-hidden flex items-center justify-center" >
+          <div className="h-full w-full rounded-full bg-zinc-50 dark:bg-zinc-800 relative overflow-hidden flex items-center justify-center" >
              <div className={`h-full w-full bg-zinc-200 transition-all duration-500 ${postsFilled > 0 ? "scale-100 opacity-100" : "scale-0 opacity-0"}`} />
           </div>
         </div>
@@ -101,9 +101,9 @@ export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; ch
       </div>
 
       {/* Bio Lines */}
-      <div className="mt-4 space-y-1 px-5 text-xs font-medium text-zinc-800 leading-tight min-h-[50px]">
-         <div className={`h-2.5 w-32 rounded bg-zinc-100 transition-all duration-500 ${postsFilled > 1 ? "opacity-0 h-0" : "opacity-100"}`} />
-         <div className={`h-2.5 w-24 rounded bg-zinc-100 transition-all duration-500 ${postsFilled > 1 ? "opacity-0 h-0" : "opacity-100"}`} />
+      <div className="mt-4 space-y-1 px-5 text-xs font-medium text-zinc-800 dark:text-zinc-200 leading-tight min-h-[50px]">
+         <div className={`h-2.5 w-32 rounded bg-zinc-100 dark:bg-zinc-800 transition-all duration-500 ${postsFilled > 1 ? "opacity-0 h-0" : "opacity-100"}`} />
+         <div className={`h-2.5 w-24 rounded bg-zinc-100 dark:bg-zinc-800 transition-all duration-500 ${postsFilled > 1 ? "opacity-0 h-0" : "opacity-100"}`} />
          
          <div className={`transition-all duration-700 ${postsFilled > 1 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
             <p>🚀 Scaling local service businesses</p>
@@ -120,7 +120,7 @@ export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; ch
         >
           Learn More
         </a>
-        <div className="flex-1 rounded-lg border border-zinc-200 bg-zinc-50 py-2 text-center text-xs font-semibold text-zinc-700">
+        <div className="flex-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 py-2 text-center text-xs font-semibold text-zinc-700 dark:text-zinc-300">
           Message
         </div>
       </div>
@@ -163,14 +163,14 @@ export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; ch
         absolute inset-0 z-50 flex items-center justify-center bg-black/5 backdrop-blur-[2px] transition-all duration-700
         ${showReport ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"}
       `}>
-        <div className="w-4/5 rounded-xl bg-white p-4 shadow-2xl ring-1 ring-zinc-900/5">
+        <div className="w-4/5 rounded-xl bg-white dark:bg-zinc-900 p-4 shadow-2xl ring-1 ring-zinc-900/5 dark:ring-zinc-700/50">
           <div className="flex items-center gap-3 mb-3">
             <div className="h-8 w-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600">
               <TrendingUp className="h-5 w-5" />
             </div>
             <div>
               <p className="text-[10px] font-bold uppercase text-zinc-400">Monthly Report</p>
-              <p className="text-sm font-bold text-zinc-900">Performance</p>
+              <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">Performance</p>
             </div>
           </div>
           <div className="space-y-2">
@@ -188,7 +188,7 @@ export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; ch
 function StatBox({ label, value, highlight }: { label: string, value: string | number, highlight?: boolean }) {
   return (
     <div className="flex flex-col items-center">
-      <span className={`text-sm font-bold transition-colors duration-300 ${highlight ? "text-indigo-600 scale-110" : "text-zinc-900"}`}>
+      <span className={`text-sm font-bold transition-colors duration-300 ${highlight ? "text-indigo-600 scale-110" : "text-zinc-900 dark:text-zinc-100"}`}>
         {value}
       </span>
       <span className="text-[10px] text-zinc-500">{label}</span>
@@ -200,7 +200,7 @@ function ReportRow({ label, value, highlight }: { label: string, value: string, 
   return (
     <div className="flex items-center justify-between text-xs">
       <span className="text-zinc-500">{label}</span>
-      <span className={`font-semibold ${highlight ? "text-emerald-600" : "text-zinc-900"}`}>{value}</span>
+      <span className={`font-semibold ${highlight ? "text-emerald-600" : "text-zinc-900 dark:text-zinc-100"}`}>{value}</span>
     </div>
   )
 }

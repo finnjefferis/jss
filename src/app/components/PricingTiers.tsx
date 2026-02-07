@@ -84,10 +84,10 @@ export function PricingTiers() {
   return (
     <section className="py-12 md:py-24 ">
       <div className="mb-16 space-y-4 text-center">
-        <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
+        <h2 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 md:text-4xl">
           Three ways I build your business.
         </h2>
-        <p className="mx-auto max-w-2xl text-base text-zinc-600">
+        <p className="mx-auto max-w-2xl text-base text-zinc-600 dark:text-zinc-400">
           I don't just "fix computers." I provide the three pillars every modern business needs to survive: 
           Traffic, Presence, and Efficiency.
         </p>
@@ -157,8 +157,8 @@ function PillarCard({
       className={`
         group relative flex flex-col rounded-3xl border-2 p-8 
         transition-all duration-300 ease-out 
-        ${isActive ? `-translate-y-2 shadow-xl ${t.border} ${t.shadow}` : "border-zinc-200 bg-white hover:bg-zinc-50/50"}
-        bg-white
+        ${isActive ? `-translate-y-2 shadow-xl ${t.border} ${t.shadow}` : "border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-zinc-50/50 dark:hover:bg-zinc-800/50"}
+        bg-white dark:bg-zinc-900
       `}
     >
       {/* Popular Badge */}
@@ -178,22 +178,22 @@ function PillarCard({
 
       {/* Header */}
       <div className="mb-4">
-        <h3 className={`text-xl font-bold transition-colors duration-300 ${isActive ? "text-zinc-900" : "text-zinc-700"}`}>
+        <h3 className={`text-xl font-bold transition-colors duration-300 ${isActive ? "text-zinc-900 dark:text-zinc-100" : "text-zinc-700 dark:text-zinc-300"}`}>
           {pillar.title}
         </h3>
-        <p className="mt-2 text-sm leading-relaxed text-zinc-600">
+        <p className="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
           {pillar.description}
         </p>
       </div>
 
-      <div className="my-6 h-px w-full bg-zinc-100" />
+      <div className="my-6 h-px w-full bg-zinc-100 dark:bg-zinc-800" />
 
       {/* Features List */}
-      <ul className="mb-8 flex-1 space-y-4 text-sm text-zinc-700">
+      <ul className="mb-8 flex-1 space-y-4 text-sm text-zinc-700 dark:text-zinc-300">
         {pillar.features.map((feature) => (
           <li key={feature} className="flex items-start gap-3">
-            <CheckCircle2 className={`h-5 w-5 shrink-0 transition-colors duration-300 ${isActive ? t.check : "text-zinc-300"}`} />
-            <span className={isActive ? "text-zinc-700" : "text-zinc-500"}>{feature}</span>
+            <CheckCircle2 className={`h-5 w-5 shrink-0 transition-colors duration-300 ${isActive ? t.check : "text-zinc-300 dark:text-zinc-600"}`} />
+            <span className={isActive ? "text-zinc-700 dark:text-zinc-300" : "text-zinc-500 dark:text-zinc-500"}>{feature}</span>
           </li>
         ))}
       </ul>
@@ -204,7 +204,7 @@ function PillarCard({
         className={`
           relative flex w-full items-center justify-center gap-2 rounded-xl border px-4 py-3.5 
           text-center text-sm font-semibold transition-all duration-300
-          ${isActive ? t.buttonActive : "bg-white text-zinc-500 border-zinc-200"}
+          ${isActive ? t.buttonActive : "bg-white dark:bg-zinc-900 text-zinc-500 border-zinc-200 dark:border-zinc-700"}
         `}
       >
         <span>{pillar.buttonText}</span>

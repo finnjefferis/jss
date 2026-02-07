@@ -93,7 +93,7 @@ export function RecentWorkSection() {
           <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-indigo-600">
             Selected Projects
           </p>
-          <h2 className="text-3xl font-bold leading-tight text-zinc-900 md:text-4xl lg:text-5xl">
+          <h2 className="text-3xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-4xl lg:text-5xl">
             Digital products that <br className="md:hidden" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
               deliver.
@@ -109,7 +109,7 @@ export function RecentWorkSection() {
         {/* Left Button */}
         <button 
           onClick={() => scroll('left')} 
-          className="absolute left-8 top-1/2 -translate-y-1/2 z-20 hidden md:flex items-center justify-center p-4 rounded-full bg-white/90 backdrop-blur-sm text-indigo-600 border border-white/20 shadow-xl shadow-indigo-900/5 hover:scale-110 hover:bg-white transition-all active:scale-95"
+          className="absolute left-8 top-1/2 -translate-y-1/2 z-20 hidden md:flex items-center justify-center p-4 rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm text-indigo-600 border border-white/20 dark:border-zinc-700/20 shadow-xl shadow-indigo-900/5 hover:scale-110 hover:bg-white dark:hover:bg-zinc-800 transition-all active:scale-95"
           aria-label="Scroll left"
         >
            <ArrowLeft className="h-6 w-6" />
@@ -139,10 +139,10 @@ export function RecentWorkSection() {
             >
               <article 
                 onClick={() => setActiveProject(project.key)}
-                className="group relative h-full flex flex-col overflow-hidden rounded-[2.5rem] border border-zinc-200 bg-white shadow-xl shadow-indigo-500/5 transition-all hover:-translate-y-2 hover:shadow-2xl hover:shadow-indigo-500/15 cursor-pointer ring-0 hover:ring-2 hover:ring-indigo-500/50"
+                className="group relative h-full flex flex-col overflow-hidden rounded-[2.5rem] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-xl shadow-indigo-500/5 transition-all hover:-translate-y-2 hover:shadow-2xl hover:shadow-indigo-500/15 cursor-pointer ring-0 hover:ring-2 hover:ring-indigo-500/50"
               >
                 {/* Image Area */}
-                <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-100">
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-100 dark:bg-zinc-800">
                   <Image
                     src={project.image}
                     alt={project.alt}
@@ -163,10 +163,10 @@ export function RecentWorkSection() {
 
                 {/* Content Area */}
                 <div className="flex flex-1 flex-col p-6 md:p-8">
-                  <h3 className="mb-3 text-2xl font-bold text-zinc-900 group-hover:text-indigo-600 transition-colors">
+                  <h3 className="mb-3 text-2xl font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-indigo-600 transition-colors">
                     {project.title}
                   </h3>
-                  <p className="text-sm md:text-base leading-relaxed text-zinc-600 mb-6">
+                  <p className="text-sm md:text-base leading-relaxed text-zinc-600 dark:text-zinc-400 mb-6">
                     {project.summary}
                   </p>
                   
@@ -222,17 +222,17 @@ function ProjectModal({ isOpen, onClose, project }: { isOpen: boolean; onClose: 
       />
       
       {/* Modal Content */}
-      <div className="relative w-full max-w-4xl max-h-[85vh] flex flex-col overflow-hidden rounded-t-[2rem] md:rounded-[2rem] bg-white shadow-2xl animate-in slide-in-from-bottom-8 duration-500">
-        
+      <div className="relative w-full max-w-4xl max-h-[85vh] flex flex-col overflow-hidden rounded-t-[2rem] md:rounded-[2rem] bg-white dark:bg-zinc-900 shadow-2xl animate-in slide-in-from-bottom-8 duration-500">
+
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-zinc-100 bg-white px-6 py-4 sticky top-0 z-20">
+        <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-6 py-4 sticky top-0 z-20">
           <div>
-            <h3 className="text-lg font-bold text-zinc-900">{project.title}</h3>
+            <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">{project.title}</h3>
             <p className="text-xs font-bold text-indigo-600 uppercase tracking-wide">{project.role}</p>
           </div>
           <button 
             onClick={onClose}
-            className="rounded-full bg-zinc-100 p-2 text-zinc-500 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
+            className="rounded-full bg-zinc-100 dark:bg-zinc-800 p-2 text-zinc-500 dark:text-zinc-400 hover:bg-indigo-50 dark:hover:bg-indigo-950 hover:text-indigo-600 transition-colors"
           >
             <X className="h-5 w-5" />
           </button>
@@ -246,13 +246,13 @@ function ProjectModal({ isOpen, onClose, project }: { isOpen: boolean; onClose: 
              <div className="space-y-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                   <div>
-                    <h4 className="text-xl font-bold text-zinc-900 mb-4">The Challenge</h4>
-                    <p className="text-zinc-600 leading-relaxed mb-6">
+                    <h4 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-4">The Challenge</h4>
+                    <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6">
                       Naxco is a local property maintenance company. Their old site was text-heavy, hard to navigate on mobile, and wasn't generating leads.
                     </p>
                     <ul className="space-y-3">
                       {["Clarify service offering", "Add Trust Signals", "Easy WhatsApp Booking"].map(item => (
-                        <li key={item} className="flex gap-3 text-sm text-zinc-700">
+                        <li key={item} className="flex gap-3 text-sm text-zinc-700 dark:text-zinc-300">
                           <span className="flex h-5 w-5 items-center justify-center rounded-full bg-indigo-100 text-indigo-600">
                             <Check className="h-3 w-3" />
                           </span>
@@ -271,9 +271,9 @@ function ProjectModal({ isOpen, onClose, project }: { isOpen: boolean; onClose: 
                   </div>
                 </div>
 
-                <div className="rounded-3xl bg-indigo-50/50 border border-indigo-100 p-6 md:p-8">
+                <div className="rounded-3xl bg-indigo-50/50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900 p-6 md:p-8">
                    <div className="mb-6">
-                      <h4 className="text-lg font-bold text-indigo-900">Before & After</h4>
+                      <h4 className="text-lg font-bold text-indigo-900 dark:text-indigo-300">Before & After</h4>
                       <p className="text-sm text-indigo-600/80">Drag the slider to see the transformation.</p>
                    </div>
                    <ComparisonSlider beforeSrc="/naxold.png" afterSrc="/naxnew.png" />
@@ -286,13 +286,13 @@ function ProjectModal({ isOpen, onClose, project }: { isOpen: boolean; onClose: 
              <div className="space-y-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                   <div>
-                    <h4 className="text-xl font-bold text-zinc-900 mb-4">The Challenge</h4>
-                    <p className="text-zinc-600 leading-relaxed mb-6">
+                    <h4 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-4">The Challenge</h4>
+                    <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6">
                       eDivert is a virtual assistant and personal assistant company. Their old website wasn't working for them — outdated design, poor mobile experience, and no enquiries coming through. We refreshed it so it actually converts.
                     </p>
                     <ul className="space-y-3">
                       {["Modern, professional design", "Mobile-first approach", "Clear calls to action"].map(item => (
-                        <li key={item} className="flex gap-3 text-sm text-zinc-700">
+                        <li key={item} className="flex gap-3 text-sm text-zinc-700 dark:text-zinc-300">
                           <span className="flex h-5 w-5 items-center justify-center rounded-full bg-indigo-100 text-indigo-600">
                             <Check className="h-3 w-3" />
                           </span>
@@ -306,9 +306,9 @@ function ProjectModal({ isOpen, onClose, project }: { isOpen: boolean; onClose: 
                   </div>
                 </div>
 
-                <div className="rounded-3xl bg-indigo-50/50 border border-indigo-100 p-6 md:p-8">
+                <div className="rounded-3xl bg-indigo-50/50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900 p-6 md:p-8">
                    <div className="mb-6">
-                      <h4 className="text-lg font-bold text-indigo-900">Before & After</h4>
+                      <h4 className="text-lg font-bold text-indigo-900 dark:text-indigo-300">Before & After</h4>
                       <p className="text-sm text-indigo-600/80">Drag the slider to see the transformation.</p>
                    </div>
                    <ComparisonSlider beforeSrc="/edivbefore.png" afterSrc="/edivafter.png" />
@@ -323,18 +323,18 @@ function ProjectModal({ isOpen, onClose, project }: { isOpen: boolean; onClose: 
                   <Image src={project.image} alt={project.title} fill className="object-cover" />
                </div>
                <div>
-                  <h4 className="text-xl font-bold text-zinc-900 mb-2">Project Overview</h4>
-                  <p className="text-zinc-600 leading-relaxed">{project.summary}</p>
+                  <h4 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-2">Project Overview</h4>
+                  <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">{project.summary}</p>
                </div>
             </div>
           )}
         </div>
 
         {/* Footer */}
-        <div className="border-t border-zinc-100 bg-zinc-50 p-4 md:p-6 text-center shrink-0">
-           <button 
-             onClick={onClose} 
-             className="w-full md:w-auto rounded-xl bg-white border border-zinc-200 text-zinc-700 px-8 py-3 text-sm font-bold shadow-sm hover:bg-zinc-50 hover:text-indigo-600 transition-colors"
+        <div className="border-t border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 p-4 md:p-6 text-center shrink-0">
+           <button
+             onClick={onClose}
+             className="w-full md:w-auto rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 px-8 py-3 text-sm font-bold shadow-sm hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-indigo-600 transition-colors"
            >
              Close Project
            </button>

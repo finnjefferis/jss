@@ -1,20 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState, useMemo, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { PricingTiers } from "./components/PricingTiers";
 import { ValueProposition } from "./components/ValueProposition";
 import { ContactSection } from './components/ContactUs';
 import { RecentWorkSection } from "./components/RecentWorkSection";
 
-type WordPair = { from: string; to: string };
-
-const WORD_PAIRS: WordPair[] = [
-  { from: "clicks",     to: "enquiries." },
-  { from: "visits",     to: "bookings." },
-  { from: "chaos",      to: "clarity." },
-  { from: "DIY",        to: "done-for-you." },
-];
+const ROTATE_WORDS = ["convert.", "impress.", "grow.", "last."];
 
 function Container({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
@@ -142,16 +135,53 @@ export default function Page() {
         )}
       </Container>
 
-      {/* HERO — Text Only */}
-      <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
-        {/* Background gradient orbs */}
+      {/* HERO */}
+      <section className="relative py-20 md:py-28 lg:py-36 overflow-hidden">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/10 dark:bg-indigo-500/5 rounded-full blur-3xl" />
           <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-violet-500/10 dark:bg-violet-500/5 rounded-full blur-3xl" />
         </div>
 
         <Container className="relative z-10">
-          <HeroContent />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+            {/* LEFT — Text */}
+            <div>
+              <p className="mb-6 text-xs font-bold uppercase tracking-[0.25em] text-indigo-600 dark:text-indigo-400 hero-line hero-delay-1">
+                Web Design & Bespoke Software
+              </p>
+
+              <h2 className="text-4xl font-extrabold leading-[1.15] text-zinc-900 dark:text-white sm:text-5xl lg:text-6xl hero-line hero-delay-1">
+                Websites that<br />
+                <RotatingWord />
+              </h2>
+
+              <p className="mt-6 text-lg text-zinc-500 dark:text-zinc-400 md:text-xl max-w-xl hero-line hero-delay-2">
+                We build new sites, refresh outdated ones, and develop bespoke software for small businesses across the UK.
+              </p>
+
+              <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center hero-line hero-delay-3">
+                <a
+                  href="https://wa.me/447887034503?text=Hi%20Finn%2C%20I'd%20like%20a%20FREE%20website%20audit."
+                  className="inline-flex items-center justify-center rounded-xl bg-indigo-600 px-8 py-4 text-sm font-bold text-white shadow-lg shadow-indigo-600/25 transition hover:bg-indigo-700 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  Book a free website audit
+                </a>
+                <a
+                  href="#recent-work"
+                  className="text-sm font-semibold text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                >
+                  See recent projects &rarr;
+                </a>
+              </div>
+            </div>
+
+            {/* RIGHT — Browser Mockup */}
+            <div className="hero-line hero-delay-3">
+              <HeroVisual />
+            </div>
+
+          </div>
         </Container>
       </section>
 
@@ -175,113 +205,110 @@ export default function Page() {
   );
 }
 
-function HeroContent() {
-  const [sequence] = useState<WordPair[]>(WORD_PAIRS);
-  const [pairIndex, setPairIndex] = useState(0);
-  const [textFrom, setTextFrom] = useState("");
-  const [textTo, setTextTo] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [typingSpeed, setTypingSpeed] = useState(100);
+const HERO_SITES = [
+  { src: "/naxnew.png", alt: "Naxco website", label: "naxco.co.uk", href: "https://naxco.co.uk", rotate: "-rotate-3", z: "z-10", pos: "top-0 left-0 w-[75%]" },
+  { src: "/edivertnew.png", alt: "eDivert website", label: "edivert.co.uk", href: "https://www.edivert.co.uk/", rotate: "rotate-2", z: "z-20", pos: "top-[15%] right-0 w-[75%]" },
+  { src: "/ivyarch.png", alt: "Ivy Arch Studios website", label: "ivyarchstudios.co.uk", href: "https://ivy-arch.vercel.app/", rotate: "-rotate-1", z: "z-30", pos: "top-[55%] left-[10%] w-[70%]" },
+];
 
-  const { maxFrom, maxTo } = useMemo(() => {
-    return WORD_PAIRS.reduce(
-      (acc, pair) => ({
-        maxFrom: pair.from.length > acc.maxFrom.length ? pair.from : acc.maxFrom,
-        maxTo: pair.to.length > acc.maxTo.length ? pair.to : acc.maxTo,
-      }),
-      { maxFrom: "", maxTo: "" }
-    );
-  }, []);
+function BrowserFrame({ site, className = "" }: { site: typeof HERO_SITES[number]; className?: string }) {
+  return (
+    <a href={site.href} target="_blank" rel="noopener noreferrer" className={`block group ${className}`}>
+      <div className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 shadow-xl overflow-hidden transition-shadow group-hover:shadow-2xl">
+        <div className="flex items-center gap-1.5 px-3 py-2 border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/50">
+          <span className="h-2 w-2 rounded-full bg-red-400" />
+          <span className="h-2 w-2 rounded-full bg-amber-400" />
+          <span className="h-2 w-2 rounded-full bg-emerald-400" />
+          <div className="ml-2 flex-1">
+            <div className="max-w-[50%] h-3.5 rounded bg-zinc-100 dark:bg-zinc-700 flex items-center justify-center">
+              <span className="text-[8px] text-zinc-400 dark:text-zinc-500 truncate">{site.label}</span>
+            </div>
+          </div>
+        </div>
+        <div className="relative aspect-[16/10] w-full bg-zinc-100 dark:bg-zinc-800">
+          <Image src={site.src} alt={site.alt} fill className="object-cover object-top" sizes="400px" />
+        </div>
+      </div>
+    </a>
+  );
+}
+
+function HeroVisual() {
+  return (
+    <>
+      {/* DESKTOP — Stacked frames */}
+      <div className="hidden lg:block relative">
+        <div className="absolute -inset-8 bg-gradient-to-tr from-indigo-200/30 dark:from-indigo-900/15 to-violet-200/30 dark:to-violet-900/15 rounded-3xl blur-3xl -z-10" />
+        <div className="relative aspect-[4/3]">
+          {HERO_SITES.map((site) => (
+            <div
+              key={site.label}
+              className={`absolute ${site.pos} ${site.z} ${site.rotate} transition-transform duration-500 hover:rotate-0 hover:scale-105`}
+            >
+              <BrowserFrame site={site} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* MOBILE — Highlights carousel */}
+      <div className="lg:hidden mt-12">
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500 mb-4">
+          Recent highlights
+        </p>
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 no-scrollbar -mx-5 px-5">
+          {HERO_SITES.map((site) => (
+            <div key={site.label} className="flex-shrink-0 w-[80vw] max-w-sm snap-center">
+              <BrowserFrame site={site} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}
+
+function RotatingWord() {
+  const [index, setIndex] = useState(0);
+  const [text, setText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    const currentPair = sequence[pairIndex];
-    const isLastPair = pairIndex === sequence.length - 1;
+    const word = ROTATE_WORDS[index];
+    const isComplete = text === word;
+    const isEmpty = text === "";
+    const isLast = index === ROTATE_WORDS.length - 1;
 
-    const handleTyping = () => {
-      const fullFrom = currentPair.from;
-      const fullTo = currentPair.to;
-      const isFullFrom = textFrom === fullFrom;
-      const isFullTo = textTo === fullTo;
-      const isFullyTyped = isFullFrom && isFullTo;
-      const isFullyDeleted = textFrom === '' && textTo === '';
+    if (isComplete && isLast) return;
 
+    const timer = setTimeout(() => {
       if (isDeleting) {
-        setTextFrom((prev) => prev.slice(0, -1));
-        setTextTo((prev) => prev.slice(0, -1));
-        setTypingSpeed(50);
-        if (isFullyDeleted) {
+        setText((prev) => prev.slice(0, -1));
+        if (isEmpty) {
           setIsDeleting(false);
-          setPairIndex((prev) => prev + 1);
-          setTypingSpeed(100);
+          setIndex((prev) => prev + 1);
         }
       } else {
-        if (!isFullFrom) setTextFrom(fullFrom.slice(0, textFrom.length + 1));
-        if (!isFullTo) setTextTo(fullTo.slice(0, textTo.length + 1));
-        setTypingSpeed(100);
-        if (isFullyTyped) {
-          if (isLastPair) return;
+        setText(word.slice(0, text.length + 1));
+        if (isComplete) {
           setTimeout(() => setIsDeleting(true), 2000);
         }
       }
-    };
+    }, isDeleting ? 40 : 90);
 
-    const timer = setTimeout(handleTyping, typingSpeed);
     return () => clearTimeout(timer);
-  }, [textFrom, textTo, isDeleting, pairIndex, sequence, typingSpeed]);
+  }, [text, isDeleting, index]);
 
-  const currentFrom = sequence[pairIndex]?.from ?? '';
-  const currentTo = sequence[pairIndex]?.to ?? '';
+  const word = ROTATE_WORDS[index];
+  const isLast = index === ROTATE_WORDS.length - 1;
+  const showCursor = !isLast || isDeleting || text !== word;
 
   return (
-    <div className="text-center max-w-4xl mx-auto">
-      <div className="hero-line hero-delay-1">
-        <p className="text-xs font-bold uppercase tracking-[0.25em] text-indigo-600 dark:text-indigo-400">
-          Websites & social for small businesses
-        </p>
-      </div>
-
-      <h2 className="mt-8 text-5xl font-extrabold leading-[1.08] text-zinc-900 dark:text-white md:text-7xl lg:text-8xl hero-line hero-delay-2">
-        Turn{' '}
-        <span className="relative inline-grid grid-cols-1 text-center min-w-[6ch]">
-          <span className="invisible col-start-1 row-start-1 whitespace-pre">{maxFrom}</span>
-          <span className="col-start-1 row-start-1 underline decoration-zinc-200 dark:decoration-zinc-700 decoration-4 underline-offset-8">
-            {textFrom}
-            {(pairIndex !== sequence.length - 1 || isDeleting || textFrom !== currentFrom) && (
-              <span className="animate-pulse font-light text-zinc-400 dark:text-zinc-600">|</span>
-            )}
-          </span>
-        </span>
-        
-        into{' '}
-        <span className="relative inline-grid grid-cols-1 text-center min-w-[8ch]">
-          <span className="invisible col-start-1 row-start-1 whitespace-pre">{maxTo}</span>
-          <span className="col-start-1 row-start-1 text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-violet-500">
-            {textTo}
-            {(pairIndex !== sequence.length - 1 || isDeleting || textTo !== currentTo) && (
-              <span className="animate-pulse font-light text-indigo-300  dark:text-indigo-600">|</span>
-            )}
-          </span>
-        </span>
-      </h2>
-
-      <p className="mt-8 text-lg text-zinc-500 dark:text-zinc-400 md:text-xl max-w-2xl mx-auto hero-line hero-delay-3">
-        We rebuild outdated websites into fast, professional sites that actually bring in customers.
-      </p>
-
-      <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-center hero-line hero-delay-4">
-        <a
-          href="https://wa.me/447887034503?text=Hi%20Finn%2C%20I'd%20like%20a%20FREE%20website%20audit."
-          className="inline-flex items-center justify-center rounded-xl bg-indigo-600 px-8 py-4 text-sm font-bold text-white shadow-lg shadow-indigo-600/25 transition hover:bg-indigo-700 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
-        >
-          Book a free website audit
-        </a>
-        <a
-          href="#recent-work"
-          className="text-sm font-semibold text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-        >
-          See recent projects &rarr;
-        </a>
-      </div>
-    </div>
+    <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-violet-500">
+      {text}
+      {showCursor && (
+        <span className="animate-pulse text-indigo-400 dark:text-indigo-500">|</span>
+      )}
+    </span>
   );
 }
