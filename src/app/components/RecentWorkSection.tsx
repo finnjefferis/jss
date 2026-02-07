@@ -72,6 +72,7 @@ const PROJECTS = [
 
 export function RecentWorkSection() {
   const [activeProject, setActiveProject] = useState<ProjectKey>(null);
+  const [activeCard, setActiveCard] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   // Manual Scroll Buttons - scroll by card width (600px + 24px gap on desktop)
@@ -80,6 +81,22 @@ export function RecentWorkSection() {
     const cardWidth = 624; // 600px card + 24px gap
     scrollRef.current.scrollBy({ left: direction === 'left' ? -cardWidth : cardWidth, behavior: 'smooth' });
   };
+
+  // Track active card on mobile for indicators
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+    const handleScroll = () => {
+      const scrollLeft = container.scrollLeft;
+      const cardWidth = container.firstElementChild?.nextElementSibling
+        ? (container.firstElementChild.nextElementSibling as HTMLElement).offsetWidth + 24
+        : container.clientWidth * 0.85 + 24;
+      const index = Math.round(scrollLeft / cardWidth);
+      setActiveCard(Math.min(index, PROJECTS.length - 1));
+    };
+    container.addEventListener('scroll', handleScroll, { passive: true });
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <section id="recent-work" className="mb-24 md:mb-32 overflow-hidden relative py-12">
@@ -99,6 +116,10 @@ export function RecentWorkSection() {
               deliver.
             </span>
           </h2>
+          <p className="mt-3 text-sm text-zinc-400 dark:text-zinc-500 md:hidden flex items-center gap-2">
+            Swipe to explore {PROJECTS.length} projects
+            <ArrowRight className="h-3.5 w-3.5 animate-pulse" />
+          </p>
         </div>
       </div>
 
@@ -183,6 +204,16 @@ export function RecentWorkSection() {
           
           {/* Spacer for right alignment */}
           <div className="hidden xl:block w-[calc((100vw-72rem)/2-2rem)] flex-shrink-0" />
+        </div>
+
+        {/* Mobile dot indicators */}
+        <div className="flex justify-center gap-1.5 md:hidden mt-2">
+          {PROJECTS.map((_, i) => (
+            <div
+              key={i}
+              className={`h-1.5 rounded-full transition-all duration-300 ${i === activeCard ? 'w-6 bg-indigo-600' : 'w-1.5 bg-zinc-200 dark:bg-zinc-700'}`}
+            />
+          ))}
         </div>
       </div>
 
