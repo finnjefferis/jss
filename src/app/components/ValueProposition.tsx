@@ -1,36 +1,36 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { ScanEye, Link, TrendingUp, ArrowUpRight, ArrowDown } from "lucide-react";
-import { InstagramGrowthSimulator } from "./InstagramGrowthSimulator";
-import { MobileGrowthSwiper } from "./HeroVisualMobile"; 
+import { ScanEye, Paintbrush, TrendingUp, ArrowDown } from "lucide-react";
+import { WebsiteTransformSimulator } from "./WebsiteTransformSimulator";
+import { MobileGrowthSwiper } from "./HeroVisualMobile";
 
 const CARDS = [
   {
     id: "gap",
     icon: ScanEye,
-    title: "1. I spot the gaps",
-    description: "I review your current setup to see where you are losing customers. Whether it's a slow site, zero Google presence, or a confusing booking process, I find the leak.",
+    title: "1. I audit your site",
+    description: "I review your current website and find exactly what's costing you customers — slow load times, confusing layout, no mobile experience, or missing calls to action.",
     proof: {
-      label: "Local Electrician",
-      metricName: "Google Maps Views",
-      before: "34",
-      after: "890",
-      change: "+2,500%",
+      label: "Naxco Services",
+      metricName: "Page Load Time",
+      before: "8.2s",
+      after: "0.6s",
+      change: "14x Faster",
       color: "text-emerald-600",
     },
   },
   {
     id: "build",
-    icon: Link,
-    title: "2. I build the connection",
-    description: "I build you a bespoke Growth System—a fast website + active social media—that connects your real-world quality to online customers.",
+    icon: Paintbrush,
+    title: "2. I design & build",
+    description: "I design a clean, modern site from scratch — no templates, no page builders. Fast, mobile-first, and built to actually convert visitors into enquiries.",
     proof: {
-      label: "HR Consultant",
-      metricName: "Site Load Speed",
-      before: "6s",
-      after: "0.6s",
-      change: "10x Faster",
+      label: "eDivert",
+      metricName: "Bounce Rate",
+      before: "78%",
+      after: "32%",
+      change: "-59%",
       color: "text-emerald-600",
     },
   },
@@ -38,9 +38,9 @@ const CARDS = [
     id: "report",
     icon: TrendingUp,
     title: "3. I prove the results",
-    description: "You don't just pay a fee and hope for the best. Every month, you get a clear report showing exactly how your new system is performing.",
+    description: "You don't just get a pretty site and a wave goodbye. You get real data showing how your new website is performing — traffic, enquiries, speed, and rankings.",
     proof: {
-      label: "Car Valeting",
+      label: "Naxco Services",
       metricName: "Monthly Enquiries",
       before: "2",
       after: "14",
@@ -71,16 +71,7 @@ export function ValueProposition() {
           {/* === LEFT COLUMN (Visual - Desktop Sticky) === */}
           <div className="hidden lg:flex sticky top-0 h-screen self-start flex-col justify-center items-center lg:items-end lg:pr-24">
             <div className="relative w-full max-w-[26rem] lg:max-w-[28rem]">
-               <div className="absolute -right-4 top-10 z-20 hidden xl:block animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-500">
-                  <div className="rounded-xl border border-white/50 dark:border-zinc-700/50 bg-white/80 dark:bg-zinc-900/80 p-4 shadow-xl backdrop-blur-md">
-                     <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Total Reach</p>
-                     <div className="flex items-baseline gap-1">
-                        <span className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">+14k</span>
-                        <ArrowUpRight className="h-4 w-4 text-emerald-500" />
-                     </div>
-                  </div>
-               </div>
-               <InstagramGrowthSimulator stage={activeId} />
+               <WebsiteTransformSimulator stage={activeId} />
                <div className="absolute inset-0 -z-10 bg-gradient-to-tr from-indigo-100 dark:from-indigo-950 to-purple-50 dark:to-purple-950 blur-2xl rounded-full opacity-60 transform scale-110" />
             </div>
           </div>

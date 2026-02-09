@@ -1,75 +1,16 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { Check, Copy, MessageCircle, ArrowRight, Star, Mail, ChevronLeft, ChevronRight } from "lucide-react";
-
-const REVIEWS = [
-  {
-    name: "Karl Couling",
-    initial: "K",
-    color: "#EF6C00",
-    text: "JSS have done a great job at updating my website. I have asked them to manage the social media also. Good service",
-    badge: "New",
-  },
-  {
-    name: "Clare Gale",
-    initial: "C",
-    color: "#7C3AED",
-    text: "Finley is very professional and easy to talk to. He quickly grasped the problem and found a timely solution to resolve it. I would not hesitate to recommend Finley and he will be my first contact should I need help in the future. Highly recommended!",
-    badge: "Local Guide",
-  },
-];
+import { useState } from "react";
+import { Check, Copy, MessageCircle, ArrowRight, Mail } from "lucide-react";
 
 export function ContactSection() {
   const [copied, setCopied] = useState(false);
-  const [isReviewVisible, setIsReviewVisible] = useState(false);
-  const [activeReview, setActiveReview] = useState(0);
-  const reviewRef = useRef<HTMLDivElement>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText("hello@jefferissoftware.co.uk");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
-
-  const scrollToReview = (direction: 'left' | 'right') => {
-    if (!scrollRef.current) return;
-    const width = scrollRef.current.clientWidth;
-    scrollRef.current.scrollBy({ left: direction === 'left' ? -width : width, behavior: 'smooth' });
-  };
-
-  // Track which review is visible
-  useEffect(() => {
-    const container = scrollRef.current;
-    if (!container) return;
-
-    const handleScroll = () => {
-      const scrollLeft = container.scrollLeft;
-      const width = container.clientWidth;
-      const index = Math.round(scrollLeft / width);
-      setActiveReview(Math.min(index, REVIEWS.length - 1));
-    };
-
-    container.addEventListener('scroll', handleScroll);
-    return () => container.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsReviewVisible(true);
-          if (reviewRef.current) observer.unobserve(reviewRef.current);
-        }
-      },
-      { threshold: 0.2 }
-    );
-    if (reviewRef.current) observer.observe(reviewRef.current);
-    return () => {
-        if (reviewRef.current) observer.unobserve(reviewRef.current);
-    };
-  }, []);
 
   return (
     <section id="contact" className="relative py-20 md:py-28 bg-white dark:bg-zinc-950 overflow-hidden transition-colors">
@@ -117,74 +58,6 @@ export function ContactSection() {
           <div className="absolute -inset-1 bg-gradient-to-b from-indigo-100 dark:from-indigo-950/50 to-transparent rounded-[2.5rem] blur-xl opacity-70 -z-10" />
 
           <div className="relative overflow-hidden rounded-[2.5rem] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 md:p-10 shadow-2xl shadow-indigo-500/10">
-
-            {/* Swipeable Reviews */}
-            <div ref={reviewRef} className="mb-8 relative">
-              <div
-                ref={scrollRef}
-                className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-4 no-scrollbar -mx-6 px-6 md:-mx-10 md:px-10"
-              >
-                {REVIEWS.map((r, i) => (
-                  <div
-                    key={i}
-                    className="flex-shrink-0 w-full snap-center [scroll-snap-stop:always]"
-                  >
-                    <div className="bg-zinc-50/50 dark:bg-zinc-800/50 p-6 rounded-3xl border border-zinc-100 dark:border-zinc-700 relative overflow-hidden h-[200px] flex flex-col">
-                      <div className="flex items-center gap-3 mb-3 relative z-10">
-                        <div
-                          className="h-10 w-10 shrink-0 rounded-full flex items-center justify-center text-white text-sm font-bold shadow-sm ring-2 ring-white/50"
-                          style={{ backgroundColor: r.color }}
-                        >
-                          {r.initial}
-                        </div>
-                        <div>
-                          <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100 leading-none">{r.name}</p>
-                          <div className="flex items-center gap-2 mt-1.5">
-                            <div className="flex gap-0.5">
-                              {[...Array(5)].map((_, j) => (
-                                <Star key={j} className={`h-3 w-3 fill-amber-400 text-amber-400 ${isReviewVisible ? 'animate-in zoom-in-50 fade-in duration-300' : 'opacity-0'}`} style={{ animationDelay: `${j * 100}ms` }} />
-                              ))}
-                            </div>
-                            <span className="text-[10px] text-zinc-400 font-medium">{r.badge}</span>
-                          </div>
-                        </div>
-                      </div>
-                      <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed italic relative z-10 overflow-y-auto flex-1">
-                        &quot;{r.text}&quot;
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Navigation */}
-              <div className="flex items-center justify-between mt-4">
-                <button
-                  onClick={() => scrollToReview('left')}
-                  className="p-2 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 hover:bg-indigo-100 dark:hover:bg-indigo-950 hover:text-indigo-600 transition-colors"
-                  aria-label="Previous review"
-                >
-                  <ChevronLeft className="h-4 w-4" />
-                </button>
-
-                <div className="flex gap-2">
-                  {REVIEWS.map((_, i) => (
-                    <div
-                      key={i}
-                      className={`h-2 rounded-full transition-all ${i === activeReview ? 'w-6 bg-indigo-600' : 'w-2 bg-zinc-200 dark:bg-zinc-700'}`}
-                    />
-                  ))}
-                </div>
-
-                <button
-                  onClick={() => scrollToReview('right')}
-                  className="p-2 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 hover:bg-indigo-100 dark:hover:bg-indigo-950 hover:text-indigo-600 transition-colors"
-                  aria-label="Next review"
-                >
-                  <ChevronRight className="h-4 w-4" />
-                </button>
-              </div>
-            </div>
 
             {/* WhatsApp */}
             <div className="mb-6">

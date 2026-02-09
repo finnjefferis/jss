@@ -2,23 +2,23 @@
 
 import { useState, useRef, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
-import { InstagramGrowthSimulator } from "./InstagramGrowthSimulator";
+import { WebsiteTransformSimulator } from "./WebsiteTransformSimulator";
 
 const STEPS = [
-  { 
-    id: "gap", 
-    title: "1. Spot the Gaps", 
-    text: "I audit your current setup to see exactly where you're losing customers." 
+  {
+    id: "gap",
+    title: "1. Audit Your Site",
+    text: "I review your current website and find what's costing you customers."
   },
-  { 
-    id: "build", 
-    title: "2. Build Connection", 
-    text: "We fill your profile with high-quality content that builds trust instantly." 
+  {
+    id: "build",
+    title: "2. Design & Build",
+    text: "I design a clean, modern site from scratch — fast, mobile-first, built to convert."
   },
-  { 
-    id: "report", 
-    title: "3. Prove Results", 
-    text: "You get monthly reports showing real leads, not just vanity metrics." 
+  {
+    id: "report",
+    title: "3. Prove Results",
+    text: "You get real data showing how your new website is performing."
   }
 ];
 
@@ -79,7 +79,7 @@ export function MobileGrowthSwiper() {
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
         
         <div className="relative w-full max-w-[20rem] px-4">
-           <InstagramGrowthSimulator stage={activeStep.id}>
+           <WebsiteTransformSimulator stage={activeStep.id}>
              {/* CARD OVERLAY */}
              <div className="bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md p-4 rounded-xl shadow-lg border border-zinc-200/60 dark:border-zinc-700/60 ring-1 ring-zinc-900/5 dark:ring-zinc-700/50 relative z-30 mx-2 mb-4 transition-all duration-300">
                 <div className="flex items-center justify-between mb-1">
@@ -103,7 +103,7 @@ export function MobileGrowthSwiper() {
                   />
                 </div>
               </div>
-           </InstagramGrowthSimulator>
+           </WebsiteTransformSimulator>
 
            {/* SCROLL CUE (Fades out after start) */}
            <div 
@@ -121,7 +121,7 @@ export function MobileGrowthSwiper() {
                  </div>
                  <div className="bg-white/95 px-4 py-1.5 rounded-full shadow-md border border-indigo-100 backdrop-blur-sm">
                     <p className="text-xs font-bold text-indigo-600 uppercase tracking-widest">
-                        Scroll to grow
+                        Scroll to transform
                     </p>
                  </div>
                </div>

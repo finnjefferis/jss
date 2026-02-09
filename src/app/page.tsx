@@ -6,6 +6,10 @@ import { PricingTiers } from "./components/PricingTiers";
 import { ValueProposition } from "./components/ValueProposition";
 import { ContactSection } from './components/ContactUs';
 import { RecentWorkSection } from "./components/RecentWorkSection";
+import { ClientLogos } from "./components/ClientLogos";
+import { ReviewsSection } from "./components/ReviewsSection";
+import { AboutSection } from "./components/AboutSection";
+import { FAQSection } from "./components/FAQSection";
 
 const ROTATE_WORDS = ["convert.", "impress.", "grow.", "last."];
 
@@ -185,14 +189,24 @@ export default function Page() {
         </Container>
       </section>
 
+      <ClientLogos />
+
       <ValueProposition />
+
+      <RecentWorkSection />
+
+      <ReviewsSection />
 
       <Container>
         <section id="services" className="mb-28">
           <PricingTiers />
         </section>
+      </Container>
 
-        <RecentWorkSection />
+      <AboutSection />
+
+      <Container>
+        <FAQSection />
         <ContactSection />
       </Container>
 
