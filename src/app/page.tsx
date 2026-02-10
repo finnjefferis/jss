@@ -300,19 +300,20 @@ function HeroVisual() {
       </div>
 
       {/* MOBILE — Highlights carousel */}
-      <div className="lg:hidden mt-8 hero-line hero-delay-3">
-        <div className="mb-3">
-          <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
-            Some{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
-              highlights.
-            </span>
-          </h3>
-          <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
-            Recent websites built for small businesses. Swipe to explore.
-          </p>
-        </div>
+      <div className="lg:hidden mt-4 hero-line hero-delay-3">
+        <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-2">
+          Some{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
+            highlights.
+          </span>
+        </h3>
         <MobileHeroCarousel />
+        <div className="flex flex-col items-center gap-1 mt-8 text-indigo-600 dark:text-indigo-400">
+          <span className="text-xs font-semibold tracking-wide">Scroll to explore</span>
+          <svg className="h-4 w-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
       </div>
     </>
   );

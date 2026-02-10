@@ -39,7 +39,7 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
   const isReport = animProgress >= 75;
 
   return (
-    <div className="relative mx-auto w-full max-w-[24rem] lg:max-w-[17rem]">
+    <div className="relative mx-auto w-[310px] lg:w-auto lg:max-w-[17rem]">
       {/* Phone Frame */}
       <div className="relative overflow-hidden rounded-[2.5rem] border-[6px] border-zinc-900 dark:border-zinc-700 bg-zinc-900 dark:bg-zinc-800 shadow-2xl shadow-zinc-900/40 dark:shadow-black/50">
 
@@ -69,14 +69,14 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
             ) : (
               <Search className="h-3 w-3 text-zinc-500 shrink-0" />
             )}
-            <span className={`text-[10px] font-medium transition-all duration-500 ${isReport ? "text-white/90" : "text-zinc-500"}`}>
+            <span className={`text-[10px] font-medium transition-colors duration-500 ${isReport ? "text-white/90" : "text-zinc-500"}`}>
               {isReport ? "yourbusiness.co.uk" : isBuild ? "yourbusiness.co.uk" : "Search or enter website"}
             </span>
           </div>
         </div>
 
         {/* Screen Content */}
-        <div className="relative bg-white dark:bg-zinc-900 h-[240px] lg:h-[420px] overflow-hidden">
+        <div className="relative bg-white dark:bg-zinc-900 h-[450px] lg:h-[420px] overflow-hidden">
 
           {/* ====== STAGE 1: NO WEBSITE ====== */}
           <div className={`absolute inset-0 transition-opacity duration-700 ${isGap ? "opacity-100" : "opacity-0 pointer-events-none"}`}>

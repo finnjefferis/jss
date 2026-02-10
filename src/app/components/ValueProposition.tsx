@@ -57,7 +57,7 @@ export function ValueProposition() {
     <section className="relative py-16 md:py-24 bg-white dark:bg-zinc-950 transition-colors" id="process">
       <div className="pointer-events-none absolute -left-48 top-40 h-96 w-96 rounded-full bg-indigo-50/80 dark:bg-indigo-950/40 blur-3xl mix-blend-multiply dark:mix-blend-normal opacity-70" />
       
-      <div className="mx-auto w-full max-w-[1440px] px-4 md:px-8 lg:px-12 relative z-10">
+      <div className="mx-auto w-full max-w-[1440px] px-2 md:px-8 lg:px-12 relative z-10">
         
         {/* GRID: 40% Left / 60% Right (Desktop Only Structure) */}
         <div className="grid grid-cols-1 lg:grid-cols-[40%_60%] gap-4 lg:gap-0 items-start">
@@ -72,7 +72,7 @@ export function ValueProposition() {
           </div>
 
           {/* === MOBILE SWIPER (Replaces Visual + Cards on Mobile) === */}
-          <div className="block lg:hidden mb-8">
+          <div className="block lg:hidden -mt-4">
              <MobileGrowthSwiper />
           </div>
 

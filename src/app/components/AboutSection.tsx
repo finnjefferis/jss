@@ -30,12 +30,12 @@ export function AboutSection() {
       <div className="mx-auto max-w-6xl px-5 md:px-8">
 
         {/* Eyebrow */}
-        <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-400 text-center">
+        <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-400 lg:text-center">
           Who we are
         </p>
 
         {/* Title — reverted */}
-        <h2 className="text-3xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-4xl lg:text-[3.25rem] lg:leading-[1.15] mb-6 text-center max-w-3xl mx-auto">
+        <h2 className="text-3xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-4xl lg:text-[3.25rem] lg:leading-[1.15] mb-6 text-left lg:text-center max-w-3xl lg:mx-auto">
           You&apos;re brilliant at what you do.
           <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
@@ -44,7 +44,7 @@ export function AboutSection() {
         </h2>
 
         {/* Copy */}
-        <div className="max-w-2xl mx-auto space-y-4 text-base md:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed mb-14 text-center">
+        <div className="max-w-2xl lg:mx-auto space-y-4 text-base md:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed mb-14 text-left lg:text-center">
           <p>
             Over 60% of your visitors are on their phone. If your site is slow to load,
             hard to navigate, or just doesn&apos;t feel right on a small screen — that&apos;s
