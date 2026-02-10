@@ -78,10 +78,10 @@ export function MobileGrowthSwiper() {
       {/* This stays pinned to the screen while you scroll through the container */}
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
         
-        <div className="relative w-full max-w-[20rem] px-4">
-           <WebsiteTransformSimulator stage={activeStep.id}>
-             {/* CARD OVERLAY */}
-             <div className="bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md p-4 rounded-xl shadow-lg border border-zinc-200/60 dark:border-zinc-700/60 ring-1 ring-zinc-900/5 dark:ring-zinc-700/50 relative z-30 mx-2 mb-4 transition-all duration-300">
+        <div className="relative w-full max-w-[20rem] px-4 flex flex-col items-center">
+           {/* Card — sits above the phone */}
+           <div className="w-full mb-4 z-20">
+             <div className="bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md p-4 rounded-xl shadow-lg border border-zinc-200/60 dark:border-zinc-700/60 ring-1 ring-zinc-900/5 dark:ring-zinc-700/50 transition-all duration-300">
                 <div className="flex items-center justify-between mb-1">
                    <h3 className="font-bold text-zinc-900 dark:text-zinc-100 text-sm transition-all duration-300">
                      {activeStep.title}
@@ -90,20 +90,25 @@ export function MobileGrowthSwiper() {
                      {activeIndex + 1} / 3
                    </span>
                 </div>
-                
+
                 <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed min-h-[40px] transition-all duration-300">
                   {activeStep.text}
                 </p>
-                
+
                 {/* Progress Bar */}
                 <div className="mt-3 h-1 w-full rounded-full bg-zinc-100 dark:bg-zinc-800 overflow-hidden">
-                  <div 
+                  <div
                     className="h-full bg-indigo-600 transition-all duration-500 ease-out"
                     style={{ width: `${((activeIndex + 1) / STEPS.length) * 100}%` }}
                   />
                 </div>
               </div>
-           </WebsiteTransformSimulator>
+           </div>
+
+           {/* Phone */}
+           <div className="relative z-10">
+             <WebsiteTransformSimulator stage={activeStep.id} />
+           </div>
 
            {/* SCROLL CUE (Fades out after start) */}
            <div 

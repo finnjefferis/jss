@@ -1,12 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { PricingTiers } from "./components/PricingTiers";
 import { ValueProposition } from "./components/ValueProposition";
 import { ContactSection } from './components/ContactUs';
 import { RecentWorkSection } from "./components/RecentWorkSection";
-import { ClientLogos } from "./components/ClientLogos";
 import { ReviewsSection } from "./components/ReviewsSection";
 import { AboutSection } from "./components/AboutSection";
 import { FAQSection } from "./components/FAQSection";
@@ -140,7 +139,7 @@ export default function Page() {
       </Container>
 
       {/* HERO */}
-      <section className="relative py-20 md:py-28 lg:py-36 overflow-hidden">
+      <section className="relative pt-10 pb-20 md:py-28 lg:py-36 overflow-hidden">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/10 dark:bg-indigo-500/5 rounded-full blur-3xl" />
           <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-violet-500/10 dark:bg-violet-500/5 rounded-full blur-3xl" />
@@ -151,7 +150,7 @@ export default function Page() {
 
             {/* LEFT — Text */}
             <div>
-              <p className="mb-6 text-xs font-bold uppercase tracking-[0.25em] text-indigo-600 dark:text-indigo-400 hero-line hero-delay-1">
+              <p className="mb-3 text-xs font-bold uppercase tracking-[0.25em] text-indigo-600 dark:text-indigo-400 hero-line hero-delay-1">
                 Web Design & Bespoke Software
               </p>
 
@@ -188,8 +187,6 @@ export default function Page() {
           </div>
         </Container>
       </section>
-
-      <ClientLogos />
 
       <ValueProposition />
 
@@ -266,27 +263,113 @@ function HeroVisual() {
       </div>
 
       {/* MOBILE — Highlights carousel */}
-      <div className="lg:hidden mt-14">
-        <div className="mb-5">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-400 mb-2">
-            Recent work
-          </p>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
-            A few sites we&apos;ve recently built and refreshed for small businesses. Swipe to explore.
+      <div className="lg:hidden mt-8">
+        <div className="mb-3">
+          <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+            Some{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
+              highlights.
+            </span>
+          </h3>
+          <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+            Recent websites built for small businesses. Swipe to explore.
           </p>
         </div>
-        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 no-scrollbar -mx-5 px-5 pb-2">
-          {HERO_SITES.map((site) => (
-            <div key={site.label} className="flex-shrink-0 w-[85vw] max-w-sm snap-center">
+        <MobileHeroCarousel />
+      </div>
+    </>
+  );
+}
+
+function MobileHeroCarousel() {
+  const [activeIndex, setActiveIndex] = useState(2);
+  const pointerStartX = useRef(0);
+  const isDragging = useRef(false);
+
+  // Startup: step through each card — 2 → 1 → 0
+  useEffect(() => {
+    const t1 = setTimeout(() => setActiveIndex(1), 250);
+    const t2 = setTimeout(() => setActiveIndex(0), 600);
+    return () => { clearTimeout(t1); clearTimeout(t2); };
+  }, []);
+
+  // Pointer swipe
+  const handlePointerDown = (e: React.PointerEvent) => {
+    pointerStartX.current = e.clientX;
+    isDragging.current = true;
+  };
+  const handlePointerUp = (e: React.PointerEvent) => {
+    if (!isDragging.current) return;
+    isDragging.current = false;
+    const diff = e.clientX - pointerStartX.current;
+    if (Math.abs(diff) > 30) {
+      if (diff < 0 && activeIndex < HERO_SITES.length - 1) setActiveIndex(activeIndex + 1);
+      if (diff > 0 && activeIndex > 0) setActiveIndex(activeIndex - 1);
+    }
+  };
+
+  // Trackpad two-finger swipe
+  const wheelTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const wheelDelta = useRef(0);
+  const handleWheel = useCallback((e: React.WheelEvent) => {
+    wheelDelta.current += e.deltaX;
+    if (wheelTimeout.current) clearTimeout(wheelTimeout.current);
+    wheelTimeout.current = setTimeout(() => {
+      if (Math.abs(wheelDelta.current) > 30) {
+        if (wheelDelta.current > 0 && activeIndex < HERO_SITES.length - 1) setActiveIndex(activeIndex + 1);
+        if (wheelDelta.current < 0 && activeIndex > 0) setActiveIndex(activeIndex - 1);
+      }
+      wheelDelta.current = 0;
+    }, 80);
+  }, [activeIndex]);
+
+  return (
+    <div
+      className="relative touch-pan-y"
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={() => { isDragging.current = false; }}
+      onWheel={handleWheel}
+    >
+      <div className="relative h-[320px] w-full overflow-visible">
+        {HERO_SITES.map((site, i) => {
+          const offset = i - activeIndex;
+          const angle = offset * 18;
+          const isActive = i === activeIndex;
+
+          return (
+            <div
+              key={site.label}
+              className="absolute left-1/2 bottom-0 w-[78vw] max-w-[320px] cursor-pointer transition-all duration-700 ease-out"
+              style={{
+                transform: `translateX(-50%) rotate(${angle}deg) translateY(${isActive ? -14 : 0}px) scale(${isActive ? 1 : 0.88})`,
+                transformOrigin: "50% 350%",
+                zIndex: isActive ? 30 : 20 - Math.abs(offset),
+                opacity: isActive ? 1 : 0.5,
+                filter: isActive ? "none" : "saturate(0.5)",
+              }}
+              onClick={() => setActiveIndex(i)}
+            >
               <BrowserFrame site={site} />
-              <p className="mt-2 text-center text-xs font-medium text-zinc-400 dark:text-zinc-500">
+              <p className={`mt-2 text-center text-[11px] font-medium transition-colors duration-300 ${isActive ? "text-zinc-600 dark:text-zinc-300" : "text-zinc-400 dark:text-zinc-500"}`}>
                 {site.label}
               </p>
             </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
-    </>
+
+      {/* Dot indicators */}
+      <div className="flex justify-center gap-1.5 mt-4">
+        {HERO_SITES.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setActiveIndex(i)}
+            className={`h-1.5 rounded-full transition-all duration-300 ${i === activeIndex ? "w-6 bg-indigo-600" : "w-1.5 bg-zinc-200 dark:bg-zinc-700"}`}
+          />
+        ))}
+      </div>
+    </div>
   );
 }
 

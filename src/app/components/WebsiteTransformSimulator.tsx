@@ -39,7 +39,7 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
   const isReport = animProgress >= 75;
 
   return (
-    <div className="relative mx-auto w-full max-w-[17rem]">
+    <div className="relative mx-auto w-full max-w-[20rem]">
       {/* Phone Frame */}
       <div className="relative overflow-hidden rounded-[2.5rem] border-[6px] border-zinc-900 dark:border-zinc-700 bg-zinc-900 dark:bg-zinc-800 shadow-2xl shadow-zinc-900/40 dark:shadow-black/50">
 
@@ -76,7 +76,7 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
         </div>
 
         {/* Screen Content */}
-        <div className="relative bg-white dark:bg-zinc-900 min-h-[420px] overflow-hidden">
+        <div className="relative bg-white dark:bg-zinc-900 min-h-[320px] overflow-hidden">
 
           {/* ====== STAGE 1: NO WEBSITE ====== */}
           <div className={`absolute inset-0 transition-all duration-700 ${isGap ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
