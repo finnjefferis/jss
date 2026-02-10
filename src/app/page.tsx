@@ -180,7 +180,7 @@ export default function Page() {
             </div>
 
             {/* RIGHT — Browser Mockup */}
-            <div className="hero-line hero-delay-3">
+            <div>
               <HeroVisual />
             </div>
 
@@ -240,25 +240,67 @@ function BrowserFrame({ site, className = "" }: { site: typeof HERO_SITES[number
 }
 
 function HeroVisual() {
+  const [dropped, setDropped] = useState<number[]>([]);
+  const [animDone, setAnimDone] = useState(false);
+
+  // Final rotations in degrees (matching rotate-2, -rotate-3, -rotate-1)
+  const finalRotations = [2, -3, -1];
+  // Starting rotations — more extreme, like cards tossed from above
+  const startRotations = [22, -20, 14];
+
+  useEffect(() => {
+    const timers = [
+      setTimeout(() => setDropped(prev => [...prev, 0]), 90),
+      setTimeout(() => setDropped(prev => [...prev, 1]), 170),
+      setTimeout(() => setDropped(prev => [...prev, 2]), 250),
+      setTimeout(() => setAnimDone(true), 1100),
+    ];
+    return () => timers.forEach(clearTimeout);
+  }, []);
+
   return (
     <>
-      {/* DESKTOP — Stacked frames */}
+      {/* DESKTOP — Cards dealt onto page */}
       <div className="hidden lg:block relative">
         <div className="absolute -inset-8 bg-gradient-to-tr from-indigo-200/30 dark:from-indigo-900/15 to-violet-200/30 dark:to-violet-900/15 rounded-3xl blur-3xl -z-10" />
         <div className="relative aspect-[4/3]">
-          {HERO_SITES.map((site) => (
-            <div
-              key={site.label}
-              className={`absolute ${site.pos} ${site.z} ${site.rotate} transition-transform duration-500 hover:rotate-0 hover:scale-105`}
-            >
-              <BrowserFrame site={site} />
-            </div>
-          ))}
+          {HERO_SITES.map((site, i) => {
+            const isDropped = dropped.includes(i);
+
+            // After animation completes, use pure Tailwind for hover support
+            if (animDone) {
+              return (
+                <div
+                  key={site.label}
+                  className={`absolute ${site.pos} ${site.z} ${site.rotate} transition-transform duration-500 hover:rotate-0 hover:scale-105`}
+                >
+                  <BrowserFrame site={site} />
+                </div>
+              );
+            }
+
+            return (
+              <div
+                key={site.label}
+                className={`absolute ${site.pos} ${site.z}`}
+                style={{
+                  transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                  opacity: isDropped ? 1 : 0,
+                  transform: isDropped
+                    ? `rotate(${finalRotations[i]}deg)`
+                    : `translateY(-200px) rotate(${startRotations[i]}deg) scale(0.9)`,
+                  filter: isDropped ? 'none' : 'blur(2px)',
+                }}
+              >
+                <BrowserFrame site={site} />
+              </div>
+            );
+          })}
         </div>
       </div>
 
       {/* MOBILE — Highlights carousel */}
-      <div className="lg:hidden mt-8">
+      <div className="lg:hidden mt-8 hero-line hero-delay-3">
         <div className="mb-3">
           <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
             Some{" "}

@@ -1,20 +1,27 @@
 "use client";
 
-import { Check, ArrowRight } from "lucide-react";
+import { Check, ArrowRight, Zap, TrendingUp, Star, Globe } from "lucide-react";
 
 const DIFFERENTIATORS = [
   {
     title: "One person, start to finish",
-    text: "No agencies. No account managers. You deal directly with the person designing and building your site.",
+    text: "No agencies. No account managers. You deal directly with the person building your site.",
   },
   {
     title: "Built to convert, not just look pretty",
-    text: "Every design decision is made to drive enquiries. Fast load times, clear calls to action, mobile-first.",
+    text: "Every decision drives enquiries. Fast load times, clear calls to action, mobile-first.",
   },
   {
     title: "Real results you can measure",
-    text: "You get data showing exactly how your site is performing — traffic, rankings, speed, and enquiries.",
+    text: "Traffic, rankings, speed, enquiries — you see exactly how your site performs.",
   },
+];
+
+const METRICS = [
+  { icon: Zap, value: "98", label: "PageSpeed score", color: "text-emerald-600 dark:text-emerald-400", bg: "bg-emerald-100 dark:bg-emerald-950", delay: "0s" },
+  { icon: Star, value: "5.0", label: "Google rating", color: "text-amber-500", bg: "bg-amber-100 dark:bg-amber-950", delay: "1.2s" },
+  { icon: TrendingUp, value: "3x", label: "More enquiries", color: "text-indigo-600 dark:text-indigo-400", bg: "bg-indigo-100 dark:bg-indigo-950", delay: "0.6s" },
+  { icon: Globe, value: "<1s", label: "Load time", color: "text-violet-600 dark:text-violet-400", bg: "bg-violet-100 dark:bg-violet-950", delay: "1.8s" },
 ];
 
 export function AboutSection() {
@@ -22,79 +29,110 @@ export function AboutSection() {
     <section id="about" className="py-16 md:py-24 bg-white dark:bg-zinc-950 transition-colors">
       <div className="mx-auto max-w-6xl px-5 md:px-8">
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        {/* Eyebrow */}
+        <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-400 text-center">
+          Who we are
+        </p>
 
-          {/* LEFT — Copy */}
-          <div>
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-400">
-              Who I am
-            </p>
-            <h2 className="text-3xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-4xl lg:text-5xl mb-6">
-              You&apos;re brilliant at what you do.{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
-                Your website should be too.
-              </span>
-            </h2>
+        {/* Title — reverted */}
+        <h2 className="text-3xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-4xl lg:text-[3.25rem] lg:leading-[1.15] mb-6 text-center max-w-3xl mx-auto">
+          You&apos;re brilliant at what you do.
+          <br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
+            Your website should be too.
+          </span>
+        </h2>
 
-            <div className="space-y-4 text-base text-zinc-600 dark:text-zinc-400 leading-relaxed mb-8">
-              <p>
-                Most small businesses lose customers before anyone even picks up the phone. The site loads slowly, looks
-                dated, or doesn&apos;t exist at all. Meanwhile the competitor down the road — the one with the clean,
-                modern site — gets the call instead.
-              </p>
-              <p>
-                I&apos;m Finlay, the person behind Jefferis Software Solutions. I build websites that work as hard as
-                you do: fast, professional, and designed to turn visitors into paying customers.
-              </p>
-            </div>
+        {/* Copy */}
+        <div className="max-w-2xl mx-auto space-y-4 text-base md:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed mb-14 text-center">
+          <p>
+            Over 60% of your visitors are on their phone. If your site is slow to load,
+            hard to navigate, or just doesn&apos;t feel right on a small screen — that&apos;s
+            friction. And friction costs you enquiries.
+          </p>
+          <p>
+            I build sites that feel effortless on every device. Fast, clean, and designed
+            to make it as easy as possible for someone to pick up the phone or fill in a form.
+            No jargon, no six-month timelines. Just one developer who gets it done.
+          </p>
+        </div>
 
-            {/* Differentiators */}
-            <div className="space-y-4 mb-8">
-              {DIFFERENTIATORS.map((item) => (
-                <div key={item.title} className="flex gap-3">
-                  <div className="mt-1 h-5 w-5 shrink-0 rounded-full bg-indigo-100 dark:bg-indigo-950 flex items-center justify-center">
-                    <Check className="h-3 w-3 text-indigo-600 dark:text-indigo-400" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">{item.title}</p>
-                    <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">{item.text}</p>
-                  </div>
+        {/* Floating metrics composition — centred */}
+        <div className="relative h-[280px] md:h-[320px] max-w-md mx-auto mb-14">
+          <div className="absolute -inset-4 bg-gradient-to-tr from-indigo-100 dark:from-indigo-950/40 to-violet-100 dark:to-violet-950/40 rounded-3xl blur-2xl opacity-60 -z-10" />
+
+          {/* Mini browser mockup */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[65%] max-w-[240px]">
+            <div className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 shadow-2xl overflow-hidden">
+              <div className="flex items-center gap-1.5 px-3 py-2 border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/50">
+                <span className="h-2 w-2 rounded-full bg-red-400" />
+                <span className="h-2 w-2 rounded-full bg-amber-400" />
+                <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                <div className="ml-2 flex-1">
+                  <div className="h-3 rounded bg-zinc-100 dark:bg-zinc-700 w-3/5" />
                 </div>
-              ))}
+              </div>
+              <div className="p-4 space-y-2.5">
+                <div className="h-3 rounded bg-zinc-100 dark:bg-zinc-800 w-4/5" />
+                <div className="h-2 rounded bg-zinc-100 dark:bg-zinc-800 w-full" />
+                <div className="h-2 rounded bg-zinc-100 dark:bg-zinc-800 w-3/4" />
+                <div className="h-8 rounded-lg bg-gradient-to-r from-indigo-500 to-violet-500 w-2/5 mt-3" />
+                <div className="h-2 rounded bg-zinc-100 dark:bg-zinc-800 w-full mt-2" />
+                <div className="h-2 rounded bg-zinc-100 dark:bg-zinc-800 w-5/6" />
+              </div>
             </div>
-
-            <a
-              href="https://wa.me/447887034503?text=Hi%20Finn%2C%20I'd%20like%20a%20FREE%20website%20audit."
-              className="group inline-flex items-center gap-2 text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors"
-            >
-              Get a free website audit
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </a>
           </div>
 
-          {/* RIGHT — Photo + Stats */}
-          <div className="relative">
-            <div className="absolute -inset-4 bg-gradient-to-tr from-indigo-100 dark:from-indigo-950/40 to-violet-100 dark:to-violet-950/40 rounded-3xl blur-2xl opacity-60 -z-10" />
-
-            {/* Photo placeholder */}
-            <div className="w-full mb-8">
-              <div className="w-full h-64 md:h-72 overflow-hidden rounded-2xl bg-zinc-200 dark:bg-zinc-800 shadow-xl" />
-            </div>
-
-            {/* Stats grid */}
-            <div className="grid grid-cols-3 gap-3">
-              {[
-                { value: "20+", label: "Sites built" },
-                { value: "5+", label: "Years exp." },
-                { value: "100%", label: "Direct contact" },
-              ].map((stat) => (
-                <div key={stat.label} className="rounded-xl border border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-800/30 p-4 text-center">
-                  <p className="text-xl font-bold text-zinc-900 dark:text-zinc-100">{stat.value}</p>
-                  <p className="text-[11px] text-zinc-500 dark:text-zinc-400 font-medium">{stat.label}</p>
+          {/* Floating metric cards */}
+          {METRICS.map((m, i) => {
+            const positions = [
+              "top-2 left-0",
+              "top-4 right-0",
+              "bottom-8 -left-2",
+              "bottom-2 right-0",
+            ];
+            return (
+              <div
+                key={m.label}
+                className={`absolute ${positions[i]} animate-[float_5s_ease-in-out_infinite] rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 shadow-lg px-3 py-2.5 flex items-center gap-2`}
+                style={{ animationDelay: m.delay }}
+              >
+                <div className={`h-8 w-8 rounded-lg ${m.bg} flex items-center justify-center`}>
+                  <m.icon className={`h-4 w-4 ${m.color}`} />
                 </div>
-              ))}
+                <div>
+                  <p className={`text-lg font-bold leading-none ${m.color}`}>{m.value}</p>
+                  <p className="text-[10px] text-zinc-500 dark:text-zinc-400">{m.label}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Differentiators row */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+          {DIFFERENTIATORS.map((item) => (
+            <div key={item.title} className="flex gap-3">
+              <div className="mt-1 h-5 w-5 shrink-0 rounded-full bg-indigo-100 dark:bg-indigo-950 flex items-center justify-center">
+                <Check className="h-3 w-3 text-indigo-600 dark:text-indigo-400" />
+              </div>
+              <div>
+                <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">{item.title}</p>
+                <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">{item.text}</p>
+              </div>
             </div>
-          </div>
+          ))}
+        </div>
+
+        {/* CTA */}
+        <div className="text-center">
+          <a
+            href="https://wa.me/447887034503?text=Hi%20Finn%2C%20I'd%20like%20a%20FREE%20website%20audit."
+            className="group inline-flex items-center gap-2 text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors"
+          >
+            Get a free website audit
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </a>
         </div>
       </div>
     </section>
