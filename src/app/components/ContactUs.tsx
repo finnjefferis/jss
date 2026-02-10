@@ -1,9 +1,16 @@
 "use client";
 
-import { useState } from "react";
-import { Check, Copy, MessageCircle, ArrowRight, Mail, Star } from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
+import { Check, Copy, MessageCircle, ArrowRight, Mail, Star, ChevronLeft, ChevronRight } from "lucide-react";
 
 const REVIEWS = [
+  {
+    name: "Stewart Dunne",
+    initial: "S",
+    color: "#1E88E5",
+    role: "Local Guide",
+    text: "Working with Finlay and the Team at Jefferis Software this past few weeks has been a great experience. From our first meeting I felt Finlay understood what we are trying to achieve and whilst he followed the brief, he also added valuable suggestions that have enhanced our site both in web browser and especially on smart phones. He also was able to adopt software to meet our particular needs and leave my team with a better daily operating platform. The project completed on time and to budget - also a great win for us. I highly recommend the Jefferis Software team for your future website developments.",
+  },
   {
     name: "Karl Couling",
     initial: "K",
@@ -22,12 +29,29 @@ const REVIEWS = [
 
 export function ContactSection() {
   const [copied, setCopied] = useState(false);
+  const [reviewIndex, setReviewIndex] = useState(0);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText("hello@jefferissoftware.co.uk");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
+
+  const prevReview = useCallback(() => {
+    setReviewIndex((prev) => (prev === 0 ? REVIEWS.length - 1 : prev - 1));
+  }, []);
+
+  const nextReview = useCallback(() => {
+    setReviewIndex((prev) => (prev === REVIEWS.length - 1 ? 0 : prev + 1));
+  }, []);
+
+  // Auto-advance every 8 seconds
+  useEffect(() => {
+    const timer = setInterval(nextReview, 8000);
+    return () => clearInterval(timer);
+  }, [nextReview]);
+
+  const review = REVIEWS[reviewIndex];
 
   return (
     <section id="contact" className="relative py-16 md:py-28 bg-white dark:bg-zinc-950 overflow-hidden transition-colors">
@@ -53,35 +77,69 @@ export function ContactSection() {
           </p>
         </div>
 
-        {/* Reviews */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-          {REVIEWS.map((review) => (
+        {/* Review Carousel */}
+        <div className="mb-10">
+          <div className="relative rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 overflow-hidden">
+            {/* Sliding track */}
             <div
-              key={review.name}
-              className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 p-5"
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{ transform: `translateX(-${reviewIndex * 100}%)` }}
             >
-              <div className="flex items-center gap-3 mb-3">
-                <div
-                  className="h-9 w-9 shrink-0 rounded-full flex items-center justify-center text-white text-sm font-bold"
-                  style={{ backgroundColor: review.color }}
-                >
-                  {review.initial}
+              {REVIEWS.map((r) => (
+                <div key={r.name} className="w-full shrink-0 p-6 md:p-8">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div
+                      className="h-10 w-10 shrink-0 rounded-full flex items-center justify-center text-white text-sm font-bold"
+                      style={{ backgroundColor: r.color }}
+                    >
+                      {r.initial}
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">{r.name}</p>
+                      <p className="text-xs text-zinc-500 dark:text-zinc-400">{r.role}</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-0.5 mb-3">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
+                    ))}
+                  </div>
+                  <div className="min-h-[180px] md:min-h-[140px]">
+                    <p className="text-sm md:text-base text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                      &quot;{r.text}&quot;
+                    </p>
+                  </div>
                 </div>
-                <div className="min-w-0">
-                  <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100 truncate">{review.name}</p>
-                  <p className="text-xs text-zinc-500 dark:text-zinc-400">{review.role}</p>
-                </div>
-              </div>
-              <div className="flex gap-0.5 mb-2">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-3 w-3 fill-amber-400 text-amber-400" />
+              ))}
+            </div>
+
+            {/* Navigation */}
+            <div className="flex items-center justify-between px-6 md:px-8 pb-5 pt-0">
+              <div className="flex gap-1.5">
+                {REVIEWS.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setReviewIndex(i)}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${i === reviewIndex ? "w-6 bg-indigo-600" : "w-1.5 bg-zinc-300 dark:bg-zinc-600"}`}
+                  />
                 ))}
               </div>
-              <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed line-clamp-4">
-                &quot;{review.text}&quot;
-              </p>
+              <div className="flex gap-1.5">
+                <button
+                  onClick={prevReview}
+                  className="h-8 w-8 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 flex items-center justify-center text-zinc-400 hover:text-indigo-600 hover:border-indigo-200 dark:hover:border-indigo-800 transition-colors"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={nextReview}
+                  className="h-8 w-8 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 flex items-center justify-center text-zinc-400 hover:text-indigo-600 hover:border-indigo-200 dark:hover:border-indigo-800 transition-colors"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </button>
+              </div>
             </div>
-          ))}
+          </div>
         </div>
 
         {/* Google rating */}

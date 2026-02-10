@@ -308,7 +308,7 @@ function HeroVisual() {
           </span>
         </h3>
         <MobileHeroCarousel />
-        <div className="flex flex-col items-center gap-1 mt-8 text-indigo-600 dark:text-indigo-400">
+        <div className="flex flex-col items-center gap-1 mt-16 text-indigo-600 dark:text-indigo-400">
           <span className="text-xs font-semibold tracking-wide">Scroll to explore</span>
           <svg className="h-4 w-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
