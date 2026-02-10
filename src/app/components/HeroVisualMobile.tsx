@@ -78,7 +78,7 @@ export function MobileGrowthSwiper() {
       {/* This stays pinned to the screen while you scroll through the container */}
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
         
-        <div className="relative w-full max-w-[20rem] px-4 flex flex-col items-center">
+        <div className="relative w-full max-w-[28rem] px-2 flex flex-col items-center">
            {/* Card — sits above the phone */}
            <div className="w-full mb-4 z-20">
              <div className="bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md p-4 rounded-xl shadow-lg border border-zinc-200/60 dark:border-zinc-700/60 ring-1 ring-zinc-900/5 dark:ring-zinc-700/50 transition-all duration-300">

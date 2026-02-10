@@ -39,7 +39,7 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
   const isReport = animProgress >= 75;
 
   return (
-    <div className="relative mx-auto w-full max-w-[20rem]">
+    <div className="relative mx-auto w-full max-w-[24rem] lg:max-w-[17rem]">
       {/* Phone Frame */}
       <div className="relative overflow-hidden rounded-[2.5rem] border-[6px] border-zinc-900 dark:border-zinc-700 bg-zinc-900 dark:bg-zinc-800 shadow-2xl shadow-zinc-900/40 dark:shadow-black/50">
 
@@ -76,10 +76,10 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
         </div>
 
         {/* Screen Content */}
-        <div className="relative bg-white dark:bg-zinc-900 min-h-[320px] overflow-hidden">
+        <div className="relative bg-white dark:bg-zinc-900 h-[240px] lg:h-[420px] overflow-hidden">
 
           {/* ====== STAGE 1: NO WEBSITE ====== */}
-          <div className={`absolute inset-0 transition-all duration-700 ${isGap ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+          <div className={`absolute inset-0 transition-opacity duration-700 ${isGap ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
             <div className="flex flex-col items-center justify-center h-full px-6 text-center">
               <div className="h-16 w-16 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center mb-5">
                 <Globe className="h-8 w-8 text-zinc-300 dark:text-zinc-600" />
@@ -108,7 +108,7 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
           </div>
 
           {/* ====== STAGE 2: BUILDING ====== */}
-          <div className={`absolute inset-0 transition-all duration-700 ${isBuild ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+          <div className={`absolute inset-0 transition-opacity duration-700 ${isBuild ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
             {/* Wireframe nav */}
             <div className="px-4 py-3 border-b border-dashed border-indigo-200 dark:border-indigo-800">
               <div className="flex items-center justify-between">
@@ -160,7 +160,7 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
           </div>
 
           {/* ====== STAGE 3: FINISHED SITE ====== */}
-          <div className={`absolute inset-0 transition-all duration-700 ${isReport ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+          <div className={`absolute inset-0 transition-opacity duration-700 ${isReport ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
             {/* Modern nav */}
             <div className="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800">
               <div className="flex items-center justify-between">

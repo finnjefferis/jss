@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { ScanEye, Paintbrush, TrendingUp, ArrowDown } from "lucide-react";
+import { ScanEye, Paintbrush, TrendingUp } from "lucide-react";
 import { WebsiteTransformSimulator } from "./WebsiteTransformSimulator";
 import { MobileGrowthSwiper } from "./HeroVisualMobile";
 
@@ -60,13 +60,8 @@ export function ValueProposition() {
       <div className="mx-auto w-full max-w-[1440px] px-4 md:px-8 lg:px-12 relative z-10">
         
         {/* GRID: 40% Left / 60% Right (Desktop Only Structure) */}
-        <div className="grid grid-cols-1 lg:grid-cols-[40%_60%] gap-12 lg:gap-0 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[40%_60%] gap-4 lg:gap-0 items-start">
           
-          {/* === MOBILE HEADER (Visible only on mobile) === */}
-          {/* This places the text ABOVE the visual on mobile screens */}
-          <div className="block lg:hidden">
-             <SectionHeader />
-          </div>
 
           {/* === LEFT COLUMN (Visual - Desktop Sticky) === */}
           <div className="hidden lg:flex sticky top-0 h-screen self-start flex-col justify-center items-center lg:items-end lg:pr-24">
@@ -106,12 +101,6 @@ export function ValueProposition() {
           </div>
         </div>
 
-        <div className="mt-0 flex justify-center lg:pr-32">
-          <a href="#pricing" className="flex flex-col items-center gap-2 text-indigo-600/80 hover:text-indigo-700 transition cursor-pointer group">
-             <span className="text-[10px] font-semibold uppercase tracking-widest">See plans</span>
-             <ArrowDown className="h-5 w-5 animate-bounce text-indigo-600 group-hover:translate-y-1 transition" />
-          </a>
-        </div>
       </div>
     </section>
   );

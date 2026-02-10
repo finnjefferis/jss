@@ -2,12 +2,12 @@
 
 import Image from "next/image";
 import { useEffect, useState, useCallback, useRef } from "react";
-import { PricingTiers } from "./components/PricingTiers";
 import { ValueProposition } from "./components/ValueProposition";
 import { ContactSection } from './components/ContactUs';
 import { RecentWorkSection } from "./components/RecentWorkSection";
-import { ReviewsSection } from "./components/ReviewsSection";
+
 import { AboutSection } from "./components/AboutSection";
+import { AboutMeSection } from "./components/AboutMeSection";
 import { FAQSection } from "./components/FAQSection";
 
 const ROTATE_WORDS = ["convert.", "impress.", "grow.", "last."];
@@ -190,22 +190,17 @@ export default function Page() {
 
       <ValueProposition />
 
+      <AboutSection />
+
       <RecentWorkSection />
 
-      <ReviewsSection />
-
-      <Container>
-        <section id="services" className="mb-28">
-          <PricingTiers />
-        </section>
-      </Container>
-
-      <AboutSection />
+      <AboutMeSection />
 
       <Container>
         <FAQSection />
-        <ContactSection />
       </Container>
+
+      <ContactSection />
 
       <footer className="border-t border-zinc-200 dark:border-zinc-800 py-8 text-center text-xs text-zinc-500">
         <Container>
@@ -217,8 +212,8 @@ export default function Page() {
 }
 
 const HERO_SITES = [
-  { src: "/naxnew.png", alt: "Naxco website", label: "naxco.co.uk", href: "https://naxco.co.uk", rotate: "-rotate-3", z: "z-10", pos: "top-0 left-0 w-[75%]" },
   { src: "/edivertnew.png", alt: "eDivert website", label: "edivert.co.uk", href: "https://www.edivert.co.uk/", rotate: "rotate-2", z: "z-20", pos: "top-[15%] right-0 w-[75%]" },
+  { src: "/naxnew.png", alt: "Naxco website", label: "naxco.co.uk", href: "https://naxco.co.uk", rotate: "-rotate-3", z: "z-10", pos: "top-0 left-0 w-[75%]" },
   { src: "/ivyarch.png", alt: "Ivy Arch Studios website", label: "ivyarchstudios.co.uk", href: "https://ivy-arch.vercel.app/", rotate: "-rotate-1", z: "z-30", pos: "top-[55%] left-[10%] w-[70%]" },
 ];
 
