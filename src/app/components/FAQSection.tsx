@@ -34,41 +34,44 @@ export function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="py-16 md:py-24">
-      <div className="mx-auto max-w-3xl px-5 md:px-8">
-        <div className="text-center mb-12">
+    <section id="faq" className="py-16 md:py-24 bg-zinc-50/50 dark:bg-zinc-900/30">
+      <div className="mx-auto max-w-6xl px-5 md:px-8">
+        <div className="mb-10">
           <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-400">
-            FAQ
+            Got questions?
           </p>
-          <h2 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 md:text-4xl">
-            Common questions, straight answers.
+          <h2 className="text-3xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-4xl">
+            Straight{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
+              answers.
+            </span>
           </h2>
         </div>
 
-        <div className="space-y-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
           {FAQS.map((faq, i) => {
             const isOpen = openIndex === i;
             return (
               <div
                 key={i}
-                className={`rounded-2xl border transition-colors ${isOpen ? "border-indigo-200 dark:border-indigo-800 bg-indigo-50/30 dark:bg-indigo-950/20" : "border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900"}`}
+                className={`rounded-2xl border-2 transition-all cursor-pointer ${isOpen ? "border-indigo-500 dark:border-indigo-500 bg-white dark:bg-zinc-900 shadow-lg shadow-indigo-500/10" : "border-zinc-200 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-md"}`}
+                onClick={() => setOpenIndex(isOpen ? null : i)}
               >
                 <button
-                  onClick={() => setOpenIndex(isOpen ? null : i)}
-                  className="flex w-full items-center justify-between gap-4 p-5 md:p-6 text-left"
+                  className="flex w-full items-center justify-between gap-4 px-5 py-4 md:px-6 md:py-5 text-left"
                 >
-                  <span className="text-sm md:text-base font-semibold text-zinc-900 dark:text-zinc-100">
+                  <span className={`text-sm font-semibold transition-colors ${isOpen ? "text-indigo-600 dark:text-indigo-400" : "text-zinc-900 dark:text-zinc-100"}`}>
                     {faq.q}
                   </span>
                   <ChevronDown
-                    className={`h-5 w-5 shrink-0 text-zinc-400 transition-transform duration-300 ${isOpen ? "rotate-180 text-indigo-600" : ""}`}
+                    className={`h-4 w-4 shrink-0 transition-all duration-300 ${isOpen ? "rotate-180 text-indigo-600" : "text-zinc-400"}`}
                   />
                 </button>
                 <div
                   className={`grid transition-all duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
                 >
                   <div className="overflow-hidden">
-                    <p className="px-5 md:px-6 pb-5 md:pb-6 text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                    <p className="px-5 md:px-6 pb-5 md:pb-6 text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
                       {faq.a}
                     </p>
                   </div>

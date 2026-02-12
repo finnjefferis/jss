@@ -196,9 +196,7 @@ export default function Page() {
 
       <AboutMeSection />
 
-      <Container>
-        <FAQSection />
-      </Container>
+      <FAQSection />
 
       <ContactSection />
 
