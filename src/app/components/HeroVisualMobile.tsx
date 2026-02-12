@@ -6,19 +6,22 @@ import { WebsiteTransformSimulator } from "./WebsiteTransformSimulator";
 const STEPS = [
   {
     id: "gap",
-    title: "1. Audit Your Site",
-    text: "I review your current website and find what's costing you customers."
+    title: "Find the gaps.",
+    text: "We audit your site and find what's costing you customers.",
+    step: "01",
   },
   {
     id: "build",
-    title: "2. Design & Build",
-    text: "I design a clean, modern site from scratch — fast, mobile-first, built to convert."
+    title: "Build it right.",
+    text: "Clean, fast, mobile-first. Designed to convert.",
+    step: "02",
   },
   {
     id: "report",
-    title: "3. Prove Results",
-    text: "You get real data showing how your new website is performing."
-  }
+    title: "Prove it works.",
+    text: "Real data. More traffic, more enquiries, more growth.",
+    step: "03",
+  },
 ];
 
 export function MobileGrowthSwiper() {
@@ -27,32 +30,37 @@ export function MobileGrowthSwiper() {
   const triggersRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    const observers: IntersectionObserver[] = [];
+    const handleScroll = () => {
+      const triggers = triggersRef.current;
+      if (!triggers[0]) return;
 
-    triggersRef.current.forEach((trigger, index) => {
-      if (!trigger) return;
+      const viewportCenter = window.innerHeight / 2;
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setActiveIndex(index);
-            }
-          });
-        },
-        {
-          rootMargin: "-45% 0px -45% 0px",
-          threshold: 0,
+      // Find which trigger's center is closest to viewport center
+      let targetIndex = 0;
+      let closestDist = Infinity;
+
+      triggers.forEach((trigger, i) => {
+        if (!trigger) return;
+        const rect = trigger.getBoundingClientRect();
+        const triggerCenter = rect.top + rect.height / 2;
+        const dist = Math.abs(triggerCenter - viewportCenter);
+        if (dist < closestDist) {
+          closestDist = dist;
+          targetIndex = i;
         }
-      );
+      });
 
-      observer.observe(trigger);
-      observers.push(observer);
-    });
-
-    return () => {
-      observers.forEach((obs) => obs.disconnect());
+      // Only advance/retreat by 1 step at a time — never skip stages
+      setActiveIndex((prev) => {
+        if (targetIndex > prev) return prev + 1;
+        if (targetIndex < prev) return prev - 1;
+        return prev;
+      });
     };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const activeStep = STEPS[activeIndex];
@@ -61,37 +69,50 @@ export function MobileGrowthSwiper() {
     <div className="lg:hidden relative">
 
       {/* STICKY STAGE */}
-      <div className="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden">
+      <div className="sticky top-0 h-[100dvh] flex flex-col items-center pt-6 overflow-hidden">
 
         {/* Card at top */}
-        <div className="w-full px-4 mb-3 z-20 shrink-0">
-          <div className="bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md p-3 rounded-xl shadow-lg border border-zinc-200/60 dark:border-zinc-700/60 ring-1 ring-zinc-900/5 dark:ring-zinc-700/50 transition-all duration-300">
-            <div className="flex items-center justify-between mb-1">
-              <h3 className="font-bold text-zinc-900 dark:text-zinc-100 text-sm transition-all duration-300">
-                {activeStep.title}
-              </h3>
-              <span className="text-[10px] font-medium text-zinc-400 uppercase tracking-widest">
-                {activeIndex + 1} / 3
+        <div className="w-full px-4 mb-4 z-20 shrink-0">
+          <div className="bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md p-4 rounded-2xl shadow-lg border border-zinc-200/60 dark:border-zinc-700/60 transition-all duration-300">
+            <div className="flex items-center gap-3 mb-2">
+              <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 tabular-nums">
+                {activeStep.step}
               </span>
+              <div className="flex gap-1">
+                {STEPS.map((_, i) => (
+                  <div
+                    key={i}
+                    className={`h-1 rounded-full transition-all duration-500 ${i <= activeIndex ? "w-6 bg-indigo-600" : "w-3 bg-zinc-200 dark:bg-zinc-700"}`}
+                  />
+                ))}
+              </div>
             </div>
 
-            <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed min-h-[28px] transition-all duration-300">
+            <h3 className="font-bold text-zinc-900 dark:text-zinc-100 text-lg leading-tight transition-all duration-300">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
+                {activeStep.title}
+              </span>
+            </h3>
+
+            <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mt-1 min-h-[48px] transition-all duration-300">
               {activeStep.text}
             </p>
-
-            {/* Progress Bar */}
-            <div className="mt-2 h-1 w-full rounded-full bg-zinc-100 dark:bg-zinc-800 overflow-hidden">
-              <div
-                className="h-full bg-indigo-600 transition-all duration-500 ease-out"
-                style={{ width: `${((activeIndex + 1) / STEPS.length) * 100}%` }}
-              />
-            </div>
           </div>
         </div>
 
         {/* Phone */}
-        <div className="relative z-10 shrink-0">
+        <div className="relative z-10">
           <WebsiteTransformSimulator stage={activeStep.id} />
+
+          {/* Swipe down indicator — hangs off bottom of phone */}
+          <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 z-30 animate-bounce pointer-events-none">
+            <div className="flex items-center gap-2 bg-indigo-600 rounded-full px-5 py-2.5 shadow-xl shadow-indigo-600/40">
+              <span className="text-xs font-bold uppercase tracking-wider text-white">Scroll</span>
+              <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </div>
         </div>
       </div>
 

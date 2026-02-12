@@ -13,7 +13,7 @@ export function AboutMeSection() {
             <div className="absolute -inset-4 bg-gradient-to-tr from-indigo-100 dark:from-indigo-950/40 to-violet-100 dark:to-violet-950/40 rounded-3xl blur-2xl opacity-60 -z-10" />
             <div className="relative w-full h-72 md:h-80 lg:h-96 overflow-hidden rounded-2xl bg-zinc-200 dark:bg-zinc-800 shadow-xl">
               <Image
-                src="/finlay.jpg"
+                src="/finlays.jpg"
                 alt="Finlay Jefferis"
                 fill
                 className="object-cover object-top"

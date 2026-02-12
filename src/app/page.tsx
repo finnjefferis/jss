@@ -188,9 +188,9 @@ export default function Page() {
         </Container>
       </section>
 
-      <ValueProposition />
-
       <AboutSection />
+
+      <ValueProposition />
 
       <RecentWorkSection />
 
@@ -299,18 +299,22 @@ function HeroVisual() {
 
       {/* MOBILE — Highlights carousel */}
       <div className="lg:hidden mt-4 hero-line hero-delay-3">
-        <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-2">
+        <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-1">
           Some{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
             highlights.
           </span>
         </h3>
-        <MobileHeroCarousel />
-        <div className="flex flex-col items-center gap-1 mt-16 text-indigo-600 dark:text-indigo-400">
-          <span className="text-xs font-semibold tracking-wide">Scroll to explore</span>
-          <svg className="h-4 w-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-          </svg>
+        <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-3">Real projects, real results.</p>
+        <div className="relative">
+          <MobileHeroCarousel />
+          <div className="absolute top-2 left-1/2 -translate-x-1/2 z-40 pointer-events-none">
+            <span className="inline-flex items-center gap-1 text-indigo-500/50 text-[10px] font-semibold uppercase tracking-wider">
+              <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
+              Swipe
+              <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+            </span>
+          </div>
         </div>
       </div>
     </>
