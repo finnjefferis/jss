@@ -49,11 +49,11 @@ export function AboutMeSection() {
             <div className="space-y-4 text-base text-zinc-600 dark:text-zinc-400 leading-relaxed">
               <p>
                 I&apos;m the person behind Jefferis Software Solutions. When you work with me, you deal directly
-                with the person designing and building your site — no account managers, no outsourcing, no middle-men.
+                with the person designing and building your site. No account managers, no outsourcing, no middle-men.
               </p>
               <p>
                 I specialise in helping small businesses look professional online. Whether that&apos;s a brand new
-                website, a refresh of an outdated one, or bespoke software to streamline how you work — I handle the lot.
+                website, a refresh of an outdated one, or bespoke software to streamline how you work. I handle the lot.
               </p>
               <p>
                 Based in the UK, I&apos;ve worked with tradespeople, consultants, photographers, and startups. I keep

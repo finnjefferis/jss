@@ -6,7 +6,7 @@ import { ChevronDown } from "lucide-react";
 const FAQS = [
   {
     q: "How much does a website cost?",
-    a: "Every project is different, but most small business websites start from around £500. You'll get a fixed quote upfront after a quick chat — no surprises, no hidden fees. I'll always work within your budget.",
+    a: "Every project is different, but most small business websites start from around £500. You'll get a fixed quote upfront after a quick chat. No surprises, no hidden fees. I'll always work within your budget.",
   },
   {
     q: "How long does it take to build?",
@@ -18,14 +18,14 @@ const FAQS = [
   },
   {
     q: "Do you handle hosting and domains?",
-    a: "Yes. I can set up and manage your hosting, domain, and email so you don't have to worry about the technical side. Everything stays in your name — you always own it.",
+    a: "Yes. I can set up and manage your hosting, domain, and email so you don't have to worry about the technical side. Everything stays in your name. You always own it.",
   },
   {
     q: "What if I don't like the design?",
     a: "You'll see the design before anything goes live and get revision rounds included in every project. I work closely with you throughout, so there are no big surprises at the end.",
   },
   {
-    q: "I already have a website — can you just improve it?",
+    q: "I already have a website. Can you just improve it?",
     a: "Of course. Website refreshes are one of my most popular services. I'll audit what you have, identify what's not working, and give it a modern overhaul that actually converts visitors into customers.",
   },
 ];

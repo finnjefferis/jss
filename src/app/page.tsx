@@ -73,7 +73,7 @@ export default function Page() {
                 fill
                 sizes="40px"
                 priority
-                className="rounded-lg"
+                className="rounded-lg dark:invert"
               />
             </div>
             <span className="h-4 w-4 rounded-full bg-indigo-500"></span>

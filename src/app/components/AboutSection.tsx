@@ -13,7 +13,7 @@ const DIFFERENTIATORS = [
   },
   {
     title: "Real results you can measure",
-    text: "Traffic, rankings, speed, enquiries — you see exactly how your site performs.",
+    text: "Traffic, rankings, speed, enquiries. You see exactly how your site performs.",
   },
 ];
 

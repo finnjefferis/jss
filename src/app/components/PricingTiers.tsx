@@ -30,7 +30,7 @@ const PILLARS = [
     id: "web",
     popular: true,
     title: "Bespoke Websites",
-    description: "High-quality, creative sites designed to elevate your brand. No templates—just fast, responsive code.",
+    description: "High-quality, creative sites designed to elevate your brand. No templates, just fast, responsive code.",
     icon: Monitor,
     theme: {
       border: "border-indigo-600",

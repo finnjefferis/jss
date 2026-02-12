@@ -12,7 +12,7 @@ const PROJECTS = [
     key: "edivert" as const,
     title: "eDivert",
     role: "Website Refresh",
-    summary: "Modern refresh for a virtual assistant company. The old site wasn't converting — now it does.",
+    summary: "Modern refresh for a virtual assistant company. The old site wasn't converting. Now it does.",
     image: "/edivertnew.png",
     alt: "eDivert website",
     tags: ["Design", "Dev", "SEO"],
@@ -319,7 +319,7 @@ function ProjectModal({ isOpen, onClose, project }: { isOpen: boolean; onClose: 
                   <div>
                     <h4 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-4">The Challenge</h4>
                     <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6">
-                      eDivert is a virtual assistant and personal assistant company. Their old website wasn't working for them — outdated design, poor mobile experience, and no enquiries coming through. We refreshed it so it actually converts.
+                      eDivert is a virtual assistant and personal assistant company. Their old website wasn't working for them. Outdated design, poor mobile experience, and no enquiries coming through. We refreshed it so it actually converts.
                     </p>
                     <ul className="space-y-3">
                       {["Modern, professional design", "Mobile-first approach", "Clear calls to action"].map(item => (
