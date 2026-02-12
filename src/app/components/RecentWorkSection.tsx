@@ -78,7 +78,7 @@ export function RecentWorkSection() {
   // Manual Scroll Buttons - scroll by card width (600px + 24px gap on desktop)
   const scroll = (direction: 'left' | 'right') => {
     if (!scrollRef.current) return;
-    const cardWidth = 624; // 600px card + 24px gap
+    const cardWidth = 464; // 440px card + 24px gap
     scrollRef.current.scrollBy({ left: direction === 'left' ? -cardWidth : cardWidth, behavior: 'smooth' });
   };
 
@@ -110,7 +110,7 @@ export function RecentWorkSection() {
           <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-indigo-600">
             Selected Projects
           </p>
-          <h2 className="text-3xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-4xl lg:text-5xl">
+          <h2 className="text-3xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-4xl">
             Digital products that <br className="md:hidden" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
               deliver.
@@ -156,11 +156,11 @@ export function RecentWorkSection() {
           {PROJECTS.map((project) => (
             <div
               key={project.key}
-              className="flex-shrink-0 w-[85vw] md:w-[600px] snap-center [scroll-snap-stop:always]"
+              className="flex-shrink-0 w-[85vw] md:w-[440px] snap-center [scroll-snap-stop:always]"
             >
               <article 
                 onClick={() => setActiveProject(project.key)}
-                className="group relative h-full flex flex-col overflow-hidden rounded-[2.5rem] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-xl shadow-indigo-500/5 transition-all hover:-translate-y-2 hover:shadow-2xl hover:shadow-indigo-500/15 cursor-pointer ring-0 hover:ring-2 hover:ring-indigo-500/50"
+                className="group relative h-full flex flex-col overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-xl shadow-indigo-500/5 transition-all hover:-translate-y-2 hover:shadow-2xl hover:shadow-indigo-500/15 cursor-pointer ring-0 hover:ring-2 hover:ring-indigo-500/50"
               >
                 {/* Image Area */}
                 <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-100 dark:bg-zinc-800">
@@ -183,11 +183,11 @@ export function RecentWorkSection() {
                 </div>
 
                 {/* Content Area */}
-                <div className="flex flex-1 flex-col p-6 md:p-8">
-                  <h3 className="mb-3 text-2xl font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-indigo-600 transition-colors">
+                <div className="flex flex-1 flex-col p-5 md:p-6">
+                  <h3 className="mb-2 text-lg font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-indigo-600 transition-colors">
                     {project.title}
                   </h3>
-                  <p className="text-sm md:text-base leading-relaxed text-zinc-600 dark:text-zinc-400 mb-6">
+                  <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 mb-4">
                     {project.summary}
                   </p>
                   

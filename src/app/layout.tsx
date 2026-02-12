@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Manrope } from "next/font/google";
 import type { ReactNode } from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -35,20 +36,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             `,
           }}
         />
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-NH48FM1Q53"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-NH48FM1Q53');
-            `,
-          }}
-        />
       </head>
       <body className={manrope.className}>
         {children}
+        <Analytics />
       </body>
     </html>
   );

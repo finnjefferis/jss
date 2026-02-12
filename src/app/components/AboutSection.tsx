@@ -44,18 +44,11 @@ export function AboutSection() {
         </h2>
 
         {/* Copy */}
-        <div className="max-w-2xl lg:mx-auto space-y-4 text-base md:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed mb-14 text-left lg:text-center">
-          <p>
-            Over 60% of your visitors are on their phone. If your site is slow to load,
-            hard to navigate, or just doesn&apos;t feel right on a small screen — that&apos;s
-            friction. And friction costs you enquiries.
-          </p>
-          <p>
-            I build sites that feel effortless on every device. Fast, clean, and designed
-            to make it as easy as possible for someone to pick up the phone or fill in a form.
-            No jargon, no six-month timelines. Just one developer who gets it done.
-          </p>
-        </div>
+        <p className="max-w-2xl lg:mx-auto text-base md:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed mb-14 text-left lg:text-center">
+          A great website does the heavy lifting for you. It builds trust before the first
+          conversation, works flawlessly on any device, and makes getting in touch feel effortless.
+          Less friction, more enquiries, more growth.
+        </p>
 
         {/* Floating metrics composition — centred */}
         <div className="relative h-[280px] md:h-[320px] max-w-md mx-auto mb-14">
