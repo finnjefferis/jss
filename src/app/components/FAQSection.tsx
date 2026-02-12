@@ -34,7 +34,7 @@ export function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="py-16 md:py-24 bg-zinc-50/50 dark:bg-zinc-900/30">
+    <section id="faq" className="py-16 md:py-24 bg-white dark:bg-zinc-950">
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <div className="mb-10">
           <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-400">

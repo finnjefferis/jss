@@ -4,8 +4,8 @@ import Image from "next/image";
 
 export function AboutMeSection() {
   return (
-    <section className="py-16 md:py-24 bg-zinc-50/50 dark:bg-zinc-900/30 transition-colors">
-      <div className="mx-auto max-w-6xl px-5 md:px-8">
+    <section className="relative py-16 md:py-24 bg-white dark:bg-zinc-950 transition-colors">
+      <div className="mx-auto max-w-6xl px-5 md:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
           {/* LEFT — Photo */}
