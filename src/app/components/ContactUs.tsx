@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Check, Copy, MessageCircle, ArrowRight, Mail, Star, ChevronLeft, ChevronRight } from "lucide-react";
 
 const REVIEWS = [
@@ -25,11 +25,20 @@ const REVIEWS = [
     role: "Local Guide",
     text: "Finley is very professional and easy to talk to. He quickly grasped the problem and found a timely solution to resolve it. I would not hesitate to recommend Finley and he will be my first contact should I need help in the future. Highly recommended!",
   },
+  {
+    name: "Ivy Arch Studios",
+    initial: "I",
+    color: "#10B981",
+    role: "Google Review",
+    text: "Good work quickly done diligently and effectively.",
+  },
 ];
 
 export function ContactSection() {
   const [copied, setCopied] = useState(false);
   const [reviewIndex, setReviewIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText("hello@jefferissoftware.co.uk");
@@ -45,11 +54,24 @@ export function ContactSection() {
     setReviewIndex((prev) => (prev === REVIEWS.length - 1 ? 0 : prev + 1));
   }, []);
 
-  // Auto-advance every 8 seconds
+  // Track visibility
   useEffect(() => {
+    const el = carouselRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  // Auto-advance only when visible
+  useEffect(() => {
+    if (!isVisible) return;
     const timer = setInterval(nextReview, 8000);
     return () => clearInterval(timer);
-  }, [nextReview]);
+  }, [nextReview, isVisible]);
 
   const review = REVIEWS[reviewIndex];
 
@@ -78,7 +100,7 @@ export function ContactSection() {
         </div>
 
         {/* Review Carousel */}
-        <div className="mb-10">
+        <div className="mb-10" ref={carouselRef}>
           <div className="relative rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 overflow-hidden">
             {/* Sliding track */}
             <div
