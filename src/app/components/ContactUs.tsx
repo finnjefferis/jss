@@ -126,7 +126,7 @@ export function ContactSection() {
                       <Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
                     ))}
                   </div>
-                  <div className="min-h-[180px] md:min-h-[140px]">
+                  <div className="h-[180px] md:h-[140px] overflow-y-auto">
                     <p className="text-sm md:text-base text-zinc-600 dark:text-zinc-400 leading-relaxed">
                       &quot;{r.text}&quot;
                     </p>

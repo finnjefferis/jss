@@ -58,6 +58,10 @@ export function ValueProposition() {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
+    // Only run on desktop — mobile uses MobileGrowthSwiper's own scroll handler
+    const mq = window.matchMedia("(min-width: 1024px)");
+    if (!mq.matches) return;
+
     const handleScroll = () => {
       const refs = cardRefs.current;
       if (!refs[0]) return;

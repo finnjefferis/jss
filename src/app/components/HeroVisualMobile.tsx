@@ -69,7 +69,7 @@ export function MobileGrowthSwiper() {
     <div className="lg:hidden relative">
 
       {/* STICKY STAGE */}
-      <div className="sticky top-0 h-[100dvh] flex flex-col items-center pt-6 overflow-hidden">
+      <div className="sticky top-0 h-[100svh] flex flex-col items-center pt-6 overflow-hidden">
 
         {/* Card at top */}
         <div className="w-full px-4 mb-4 z-20 shrink-0">
@@ -117,7 +117,7 @@ export function MobileGrowthSwiper() {
       </div>
 
       {/* INVISIBLE TRIGGERS */}
-      <div className="relative -mt-[100vh] z-0">
+      <div className="relative -mt-[100svh] z-0">
         {STEPS.map((_, i) => (
           <div
             key={i}

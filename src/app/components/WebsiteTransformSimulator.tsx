@@ -76,7 +76,7 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
         </div>
 
         {/* Screen Content */}
-        <div className="relative bg-white dark:bg-zinc-900 h-[380px] max-h-[calc(100dvh-280px)] lg:h-[420px] lg:max-h-none overflow-hidden">
+        <div className="relative bg-white dark:bg-zinc-900 h-[380px] max-h-[calc(100svh-280px)] lg:h-[420px] lg:max-h-none overflow-hidden">
 
           {/* ====== STAGE 1: NO WEBSITE ====== */}
           <div className={`absolute inset-0 transition-opacity duration-700 ${isGap ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
