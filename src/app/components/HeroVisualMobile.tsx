@@ -122,10 +122,10 @@ export function MobileGrowthSwiper() {
           <div
             key={i}
             ref={(el) => { triggersRef.current[i] = el; }}
-            className="h-[120vh] w-full pointer-events-none"
+            className="h-[120svh] w-full pointer-events-none"
           />
         ))}
-        <div className="h-[30vh] w-full pointer-events-none" />
+        <div className="h-[30svh] w-full pointer-events-none" />
       </div>
 
     </div>
