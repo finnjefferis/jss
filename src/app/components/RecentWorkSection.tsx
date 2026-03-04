@@ -16,6 +16,7 @@ const PROJECTS = [
     image: "/edivertnew.png",
     alt: "eDivert website",
     tags: ["Design", "Dev", "SEO"],
+    href: "/work/edivert",
   },
   {
     key: "ivy" as ProjectKey,
@@ -25,6 +26,7 @@ const PROJECTS = [
     image: "/ivyarch.png",
     alt: "Ivy Arch Studios website",
     tags: ["Design", "Dev", "SEO"],
+    href: "/work/ivy",
   },
   {
     key: "jmrt" as ProjectKey,
@@ -34,6 +36,7 @@ const PROJECTS = [
     image: "/jmrt.png",
     alt: "JMRT website",
     tags: ["Design", "Dev", "SEO"],
+    href: "/work/jmrt",
   },
   {
     key: "naxco" as ProjectKey,
@@ -43,6 +46,7 @@ const PROJECTS = [
     image: "/naxco1.png",
     alt: "Naxco Services website",
     tags: ["Design", "Dev", "Copy"],
+    href: "/work/naxco",
   },
   {
     key: "toolbox" as ProjectKey,
@@ -52,6 +56,7 @@ const PROJECTS = [
     image: "/gtoolbox.png",
     alt: "Toolbox platform dashboard",
     tags: [".NET MVC", "Data", "Reporting"],
+    href: "/work/toolbox",
   },
   {
     key: "carbon" as ProjectKey,
@@ -61,6 +66,7 @@ const PROJECTS = [
     image: "/calc.png",
     alt: "Carbon calculator application",
     tags: ["React", "CRM Sync", "PDF Gen"],
+    href: "/work/carbon",
   },
 ];
 
@@ -141,7 +147,7 @@ export function RecentWorkSection() {
               key={project.key}
               className="flex-shrink-0 w-[85vw] md:w-[440px] snap-center [scroll-snap-stop:always]"
             >
-              <Link href={`/work/${project.key}`} className="block h-full">
+              <Link href={project.href} className="block h-full">
                 <article className="group relative h-full flex flex-col overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 shadow-xl shadow-indigo-500/5 transition-all hover:-translate-y-2 hover:shadow-2xl hover:shadow-indigo-500/15 ring-0 hover:ring-2 hover:ring-indigo-500/50">
 
                   <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-100 dark:bg-zinc-800">
