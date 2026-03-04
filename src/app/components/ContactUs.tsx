@@ -76,7 +76,7 @@ export function ContactSection() {
   const review = REVIEWS[reviewIndex];
 
   return (
-    <section id="contact" className="relative py-16 md:py-28 bg-white dark:bg-zinc-950 overflow-hidden transition-colors">
+    <section id="contact" className="relative py-16 md:py-28 bg-zinc-50 dark:bg-zinc-950 overflow-hidden transition-colors">
 
       {/* Background Decor */}
       <div className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 h-[600px] w-[90%] bg-gradient-to-b from-indigo-50/60 dark:from-indigo-950/30 to-transparent blur-3xl opacity-60" />
@@ -85,7 +85,7 @@ export function ContactSection() {
 
         {/* Headline */}
         <div className="text-center mb-10 md:mb-14">
-          <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-indigo-600">
+          <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-amber-600">
             Ready to start?
           </p>
           <h2 className="text-3xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-5xl lg:text-6xl mb-4">
@@ -179,7 +179,7 @@ export function ContactSection() {
         <div className="relative">
           <div className="absolute -inset-1 bg-gradient-to-b from-indigo-100 dark:from-indigo-950/50 to-transparent rounded-3xl blur-xl opacity-70 -z-10" />
 
-          <div className="relative overflow-hidden rounded-2xl md:rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 md:p-8 shadow-xl">
+          <div className="relative overflow-hidden rounded-2xl md:rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 p-5 md:p-8 shadow-xl">
 
             {/* WhatsApp */}
             <div className="mb-5">
@@ -215,7 +215,7 @@ export function ContactSection() {
               </div>
               <button
                 onClick={handleCopyEmail}
-                className="h-9 w-full sm:w-auto px-4 flex items-center justify-center gap-2 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 text-xs font-bold text-zinc-500 shadow-sm hover:text-indigo-600 hover:border-indigo-200 dark:hover:border-indigo-800 active:scale-95 transition-all"
+                className="h-9 w-full sm:w-auto px-4 flex items-center justify-center gap-2 rounded-lg bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 text-xs font-bold text-zinc-500 shadow-sm hover:text-indigo-600 hover:border-indigo-200 dark:hover:border-indigo-800 active:scale-95 transition-all"
               >
                 {copied ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
                 {copied ? "Copied" : "Copy"}

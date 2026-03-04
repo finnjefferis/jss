@@ -34,10 +34,10 @@ export function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="py-16 md:py-24 bg-white dark:bg-zinc-950">
+    <section id="faq" className="py-16 md:py-24 bg-zinc-50 dark:bg-zinc-950">
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <div className="mb-10">
-          <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-400">
+          <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400">
             Got questions?
           </p>
           <h2 className="text-3xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-4xl">
@@ -54,7 +54,7 @@ export function FAQSection() {
             return (
               <div
                 key={i}
-                className={`rounded-2xl border-2 transition-all cursor-pointer ${isOpen ? "border-indigo-500 dark:border-indigo-500 bg-white dark:bg-zinc-900 shadow-lg shadow-indigo-500/10" : "border-zinc-200 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-md"}`}
+                className={`rounded-2xl border-2 transition-all cursor-pointer ${isOpen ? "border-indigo-500 dark:border-indigo-500 bg-zinc-50 dark:bg-zinc-900 shadow-lg shadow-indigo-500/10" : "border-zinc-200 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-md"}`}
                 onClick={() => setOpenIndex(isOpen ? null : i)}
               >
                 <button

@@ -96,7 +96,7 @@ export function ValueProposition() {
   const activeId = CARDS[activeIndex].id;
 
   return (
-    <section className="relative py-16 md:py-24 bg-white dark:bg-zinc-950 transition-colors" id="process">
+    <section className="relative py-16 md:py-24 bg-zinc-50 dark:bg-zinc-950 transition-colors" id="process">
       <div className="pointer-events-none absolute -left-48 top-40 h-96 w-96 rounded-full bg-indigo-50/80 dark:bg-indigo-950/40 blur-3xl mix-blend-multiply dark:mix-blend-normal opacity-70" />
 
       <div className="mx-auto w-full max-w-[1440px] px-2 md:px-8 lg:px-12 relative z-10">
@@ -150,7 +150,7 @@ export function ValueProposition() {
 function SectionHeader() {
   return (
     <>
-      <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.2em] text-indigo-600">
+      <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.2em] text-amber-600">
         The Process
       </p>
       <h2 className="mb-6 text-3xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-5xl lg:text-6xl">
@@ -172,7 +172,7 @@ function ValueCard({ card, isActive }: { card: typeof CARDS[0]; isActive: boolea
   return (
     <div
       className={`
-        w-full rounded-3xl border p-8 shadow-xl transition-all duration-300 bg-white dark:bg-zinc-900
+        w-full rounded-3xl border p-8 shadow-xl transition-all duration-300 bg-zinc-50 dark:bg-zinc-900
         ${isActive ? "border-indigo-100 dark:border-indigo-900 ring-1 ring-indigo-50 dark:ring-indigo-950" : "border-transparent shadow-none"}
       `}
     >

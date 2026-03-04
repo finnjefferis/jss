@@ -24,7 +24,7 @@ export function ReviewsSection() {
     <section className="py-16 md:py-24 bg-zinc-50/50 dark:bg-zinc-900/30">
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <div className="text-center mb-12">
-          <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-400">
+          <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400">
             Client Reviews
           </p>
           <h2 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 md:text-4xl">
@@ -48,7 +48,7 @@ export function ReviewsSection() {
           {REVIEWS.map((review) => (
             <div
               key={review.name}
-              className="break-inside-avoid rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm hover:shadow-md transition-shadow"
+              className="break-inside-avoid rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 p-6 shadow-sm hover:shadow-md transition-shadow"
             >
               <div className="flex items-center gap-3 mb-4">
                 <div

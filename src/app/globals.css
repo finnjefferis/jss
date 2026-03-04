@@ -1,7 +1,36 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ─── Warm colour system ─────────────────────────────────────
+   Override the default cold zinc palette with warm stone values.
+   Every zinc-* utility in every component instantly becomes warm
+   without touching a single JSX file.
+──────────────────────────────────────────────────────────── */
+@theme {
+  --color-zinc-50:  #fafaf9;
+  --color-zinc-100: #f5f4f2;
+  --color-zinc-200: #e7e5e0;
+  --color-zinc-300: #d6d3d1;
+  --color-zinc-400: #a8a29e;
+  --color-zinc-500: #78716c;
+  --color-zinc-600: #57534e;
+  --color-zinc-700: #44403c;
+  --color-zinc-800: #292524;
+  --color-zinc-900: #1c1917;
+  --color-zinc-950: #0c0a09;
+}
+
+/* ─── Base ───────────────────────────────────────────────── */
 html {
+  scroll-behavior: auto;
+  background-color: #f9f7f4;
+}
+
+html.dark {
+  background-color: #0c0a09;
+}
+
+html:focus-within {
   scroll-behavior: smooth;
 }
 
@@ -9,18 +38,40 @@ body {
   font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* Hero text fade-up */
+/* ─── Grain texture overlay ──────────────────────────────────
+   Subtle film-grain adds editorial depth and prevents the
+   "sterile screen" look. Fixed + pointer-events:none = invisible
+   to interaction, always present.
+──────────────────────────────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.032;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23grain)'/%3E%3C/svg%3E");
+  background-size: 400px 400px;
+  mix-blend-mode: multiply;
+}
+
+html.dark body::before {
+  mix-blend-mode: screen;
+  opacity: 0.025;
+}
+
+/* ─── Hero text fade-up ──────────────────────────────────── */
 .hero-line {
   opacity: 0;
-  transform: translateY(10px);
-  animation: hero-fade-up 0.6s ease-out forwards;
+  transform: translateY(12px);
+  animation: hero-fade-up 0.65s ease-out forwards;
 }
 
 .hero-delay-1 { animation-delay: 0.05s; }
-.hero-delay-2 { animation-delay: 0.15s; }
-.hero-delay-3 { animation-delay: 0.25s; }
-.hero-delay-4 { animation-delay: 0.35s; }
-.hero-delay-5 { animation-delay: 0.45s; }
+.hero-delay-2 { animation-delay: 0.18s; }
+.hero-delay-3 { animation-delay: 0.32s; }
+.hero-delay-4 { animation-delay: 0.46s; }
+.hero-delay-5 { animation-delay: 0.60s; }
 
 @keyframes hero-fade-up {
   to {
@@ -29,20 +80,17 @@ body {
   }
 }
 
-/* Floating bob for metric cards */
+/* ─── Float animation (metric cards) ────────────────────── */
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+  50%       { transform: translateY(-8px); }
 }
 
+/* ─── Scrollbar hiding ───────────────────────────────────── */
 @layer utilities {
-  /* Hide scrollbar for Chrome, Safari and Opera */
-  .no-scrollbar::-webkit-scrollbar {
-      display: none;
-  }
-  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar {
-      -ms-overflow-style: none;  /* IE and Edge */
-      scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }

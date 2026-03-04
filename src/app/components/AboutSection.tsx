@@ -26,11 +26,11 @@ const METRICS = [
 
 export function AboutSection() {
   return (
-    <section id="about" className="py-16 md:py-24 bg-white dark:bg-zinc-950 transition-colors">
+    <section id="about" className="py-16 md:py-24 bg-zinc-50 dark:bg-zinc-950 transition-colors">
       <div className="mx-auto max-w-6xl px-5 md:px-8">
 
         {/* Eyebrow */}
-        <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-400 lg:text-center">
+        <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400 lg:text-center">
           Who we are
         </p>
 
@@ -56,7 +56,7 @@ export function AboutSection() {
 
           {/* Mini browser mockup */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[65%] max-w-[240px]">
-            <div className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 shadow-2xl overflow-hidden">
+            <div className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 shadow-2xl overflow-hidden">
               <div className="flex items-center gap-1.5 px-3 py-2 border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/50">
                 <span className="h-2 w-2 rounded-full bg-red-400" />
                 <span className="h-2 w-2 rounded-full bg-amber-400" />
@@ -87,7 +87,7 @@ export function AboutSection() {
             return (
               <div
                 key={m.label}
-                className={`absolute ${positions[i]} animate-[float_5s_ease-in-out_infinite] rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 shadow-lg px-3 py-2.5 flex items-center gap-2`}
+                className={`absolute ${positions[i]} animate-[float_5s_ease-in-out_infinite] rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 shadow-lg px-3 py-2.5 flex items-center gap-2`}
                 style={{ animationDelay: m.delay }}
               >
                 <div className={`h-8 w-8 rounded-lg ${m.bg} flex items-center justify-center`}>
@@ -120,10 +120,10 @@ export function AboutSection() {
         {/* CTA */}
         <div className="text-center">
           <a
-            href="https://wa.me/447887034503?text=Hi%20Finn%2C%20I'd%20like%20a%20FREE%20website%20audit."
+            href="#services"
             className="group inline-flex items-center gap-2 text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors"
           >
-            Get a free website audit
+            See packages &amp; pricing
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </a>
         </div>

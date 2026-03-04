@@ -69,7 +69,7 @@ export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; ch
 
   // --- RENDER ---
   return (
-    <div className="relative mx-auto w-full max-w-xs overflow-hidden rounded-[2.5rem] border-[8px] border-zinc-900 dark:border-zinc-700 bg-white dark:bg-zinc-900 shadow-2xl shadow-indigo-500/20">
+    <div className="relative mx-auto w-full max-w-xs overflow-hidden rounded-[2.5rem] border-[8px] border-zinc-900 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 shadow-2xl shadow-indigo-500/20">
       
       {/* 1. APP INTERFACE LAYERS (Rendered First) */}
       
@@ -163,7 +163,7 @@ export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; ch
         absolute inset-0 z-50 flex items-center justify-center bg-black/5 backdrop-blur-[2px] transition-all duration-700
         ${showReport ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"}
       `}>
-        <div className="w-4/5 rounded-xl bg-white dark:bg-zinc-900 p-4 shadow-2xl ring-1 ring-zinc-900/5 dark:ring-zinc-700/50">
+        <div className="w-4/5 rounded-xl bg-zinc-50 dark:bg-zinc-900 p-4 shadow-2xl ring-1 ring-zinc-900/5 dark:ring-zinc-700/50">
           <div className="flex items-center gap-3 mb-3">
             <div className="h-8 w-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600">
               <TrendingUp className="h-5 w-5" />

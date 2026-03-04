@@ -1,215 +1,211 @@
 "use client";
 
+import Link from "next/link";
+import { Check, ArrowRight, Zap, BarChart3, ShoppingBag, Cpu } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
-import { CheckCircle2, Megaphone, Monitor, Cpu, ArrowRight } from "lucide-react";
 
-const PILLARS = [
+const TIERS = [
   {
-    id: "social",
-    title: "Social & Ads",
-    description: "Stop shouting into the void. We create a professional online presence that drives real eyes to your business.",
-    icon: Megaphone,
-    theme: {
-      border: "border-pink-500",
-      shadow: "shadow-pink-500/15",
-      iconBg: "bg-pink-50",
-      iconText: "text-pink-600",
-      check: "text-pink-500",
-      buttonActive: "bg-pink-50 text-pink-600 border-pink-200",
-    },
+    id: "essential",
+    name: "Essential",
+    price: "£445",
+    tagline: "Get online fast.",
+    description: "For businesses that just need a clean, professional presence. Done properly, done fast.",
+    Icon: Zap,
     features: [
-      "Professional Brand Presence",
-      "Targeted Ad Campaigns",
-      "Monthly Growth Reports",
-      "Content Strategy Suggestions",
+      "Up to 5 pages",
+      "Mobile-first design",
+      "Contact form",
+      "Basic SEO setup",
+      "1 round of revisions",
+      "7–10 day delivery",
     ],
-    cta: "Hi Finn, I need help with my Socials and Ads.",
-    buttonText: "Start Growing",
+    cta: "Get started",
+    highlight: false,
+    note: "Fixed scope. No CMS.",
   },
   {
-    id: "web",
-    popular: true,
-    title: "Bespoke Websites",
-    description: "High-quality, creative sites designed to elevate your brand. No templates, just fast, responsive code.",
-    icon: Monitor,
-    theme: {
-      border: "border-indigo-600",
-      shadow: "shadow-indigo-500/15",
-      iconBg: "bg-indigo-50",
-      iconText: "text-indigo-600",
-      check: "text-indigo-600",
-      buttonActive: "bg-indigo-50 text-indigo-700 border-indigo-200",
-    },
+    id: "business",
+    name: "Business",
+    price: "£1,095",
+    tagline: "Built to grow.",
+    description: "Everything in Essential, plus CMS access so you can keep your site fresh without touching code.",
+    Icon: BarChart3,
     features: [
-      "Bespoke Design",
-      "Lightning Fast Loading",
-      "Mobile-First Architecture",
-      "SEO Optimized Structure",
+      "Everything in Essential",
+      "CMS access (edit your content)",
+      "Blog / news section",
+      "Editable service pages",
+      "Recorded training session",
+      "Priority support",
     ],
-    cta: "Hi Finn, I'm looking for a new Bespoke Website.",
-    buttonText: "Get a Proposal",
+    cta: "Get started",
+    highlight: true,
+    note: "Most popular",
   },
   {
-    id: "software",
-    title: "Custom Software",
-    description: "Solve complex problems. We build integrations and tools that save you time and automate your workflow.",
-    icon: Cpu,
-    theme: {
-      border: "border-sky-500",
-      shadow: "shadow-sky-500/15",
-      iconBg: "bg-sky-50",
-      iconText: "text-sky-600",
-      check: "text-sky-500",
-      buttonActive: "bg-sky-50 text-sky-600 border-sky-200",
-    },
+    id: "commerce",
+    name: "Commerce",
+    price: "£1,990+",
+    tagline: "Built to sell.",
+    description: "For businesses selling products online. Full e-commerce with payments, inventory, and automation.",
+    Icon: ShoppingBag,
     features: [
-      "CRM & API Integrations",
-      "AI & Automation Tools",
-      "Custom Booking Systems",
-      "Secured via Microsoft Azure",
+      "Everything in Business",
+      "E-commerce setup",
+      "Payment integration",
+      "Product management",
+      "Email confirmations",
+      "Ongoing support available",
     ],
-    cta: "Hi Finn, I have a Custom Software project in mind.",
-    buttonText: "Discuss Project",
+    cta: "Discuss your store",
+    highlight: false,
+    note: "Price varies by scope.",
   },
 ];
 
-export function PricingTiers() {
-  // 'web' is default for Desktop. null is passed to start logic, but logic falls back to 'web'.
-  // We track strictly what is being interacted with.
-  const [activeId, setActiveId] = useState<string | null>(null);
-
-  // The effective ID is either what is hovered/scrolled, OR 'web' as a fallback
-  const effectiveId = activeId || "web";
-
-  return (
-    <section className="py-12 md:py-24 ">
-      <div className="mb-16 space-y-4 text-center">
-        <h2 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 md:text-4xl">
-          Three ways I build your business.
-        </h2>
-        <p className="mx-auto max-w-2xl text-base text-zinc-600 dark:text-zinc-400">
-          I don't just "fix computers." I provide the three pillars every modern business needs to survive: 
-          Traffic, Presence, and Efficiency.
-        </p>
-      </div>
-
-      <div className="grid gap-8 md:grid-cols-3 md:items-stretch lg:gap-8">
-        {PILLARS.map((pillar) => (
-          <PillarCard 
-            key={pillar.id} 
-            pillar={pillar} 
-            isActive={effectiveId === pillar.id}
-            setActiveId={setActiveId}
-          />
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function PillarCard({ 
-  pillar, 
-  isActive, 
-  setActiveId 
-}: { 
-  pillar: typeof PILLARS[0]; 
-  isActive: boolean;
-  setActiveId: (id: string | null) => void;
-}) {
-  const Icon = pillar.icon;
-  const t = pillar.theme;
+function TierCard({ tier }: { tier: typeof TIERS[0] }) {
+  const [hovered, setHovered] = useState(false);
+  const [iconVisible, setIconVisible] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+  const { Icon } = tier;
 
-  // MOBILE SCROLL DETECTION
   useEffect(() => {
-    // 1. Check if device supports hover (Desktop). 
-    // If it DOES support hover, we abort this logic to prevent scroll hijacking the mouse.
-    const isMobile = window.matchMedia("(hover: none)").matches;
-    if (!isMobile) return;
-
+    const el = cardRef.current;
+    if (!el) return;
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          // If 60% of the card is visible, make it active
-          if (entry.isIntersecting) {
-            setActiveId(pillar.id);
-          }
-        });
-      },
-      { 
-        threshold: 0.6, // Trigger when 60% visible
-        rootMargin: "-10% 0px -10% 0px" // Slight buffer
-      } 
+      ([entry]) => { if (entry.isIntersecting) { setIconVisible(true); observer.disconnect(); } },
+      { threshold: 0.3 }
     );
-
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
-    }
-
+    observer.observe(el);
     return () => observer.disconnect();
-  }, [pillar.id, setActiveId]);
+  }, []);
 
   return (
     <div
       ref={cardRef}
-      onMouseEnter={() => setActiveId(pillar.id)}
-      onMouseLeave={() => setActiveId(null)} // Reverts to "web" via parent logic
-      className={`
-        group relative flex flex-col rounded-3xl border-2 p-8 
-        transition-all duration-300 ease-out 
-        ${isActive ? `-translate-y-2 shadow-xl ${t.border} ${t.shadow}` : "border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-zinc-50/50 dark:hover:bg-zinc-800/50"}
-        bg-white dark:bg-zinc-900
-      `}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className={`relative flex flex-col rounded-3xl border-2 p-6 md:p-8 transition-all duration-300 cursor-default
+        ${hovered
+          ? "border-indigo-600 bg-indigo-600 shadow-2xl shadow-indigo-600/30 -translate-y-1"
+          : tier.highlight
+            ? "border-indigo-400 dark:border-indigo-500 bg-zinc-50 dark:bg-zinc-900 shadow-xl shadow-indigo-500/15 md:-translate-y-1"
+            : "border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900"
+        }`}
     >
-      {/* Popular Badge */}
-      {pillar.popular && (
-        <div className={`
-          absolute -top-4 left-1/2 -translate-x-1/2 rounded-full px-4 py-1 text-xs font-bold uppercase tracking-wide text-white shadow-sm transition-opacity duration-300
-          ${isActive ? "opacity-100 bg-indigo-600" : "opacity-0"}
-        `}>
+      {tier.highlight && !hovered && (
+        <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-indigo-600 text-white px-4 py-1 text-xs font-bold uppercase tracking-wide shadow-md whitespace-nowrap">
           Most Popular
         </div>
       )}
 
       {/* Icon */}
-      <div className={`mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl transition-colors duration-300 ${t.iconBg} ${t.iconText}`}>
-        <Icon className="h-6 w-6" />
+      <div className={`mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl transition-all duration-500
+        ${iconVisible ? "opacity-100 scale-100" : "opacity-0 scale-50"}
+        ${hovered ? "bg-white/20" : "bg-indigo-50 dark:bg-indigo-950/50"}
+      `}>
+        <Icon className={`h-6 w-6 transition-colors duration-300 ${hovered ? "text-white" : "text-indigo-600 dark:text-indigo-400"}`} />
       </div>
 
-      {/* Header */}
-      <div className="mb-4">
-        <h3 className={`text-xl font-bold transition-colors duration-300 ${isActive ? "text-zinc-900 dark:text-zinc-100" : "text-zinc-700 dark:text-zinc-300"}`}>
-          {pillar.title}
-        </h3>
-        <p className="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-          {pillar.description}
+      <div className="mb-5">
+        <p className={`text-xs font-bold uppercase tracking-wider mb-1 transition-colors duration-300 ${hovered ? "text-indigo-200" : "text-indigo-600 dark:text-indigo-400"}`}>
+          {tier.name}
+        </p>
+        <p className={`text-4xl font-extrabold mb-1 transition-colors duration-300 ${hovered ? "text-white" : "text-zinc-900 dark:text-zinc-100"}`}>
+          {tier.price}
+        </p>
+        <p className={`text-sm font-semibold mb-3 transition-colors duration-300 ${hovered ? "text-indigo-100" : "text-zinc-500 dark:text-zinc-400"}`}>
+          {tier.tagline}
+        </p>
+        <p className={`text-sm leading-relaxed transition-colors duration-300 ${hovered ? "text-indigo-100" : "text-zinc-500 dark:text-zinc-400"}`}>
+          {tier.description}
         </p>
       </div>
 
-      <div className="my-6 h-px w-full bg-zinc-100 dark:bg-zinc-800" />
+      <div className={`h-px w-full mb-5 transition-colors duration-300 ${hovered ? "bg-indigo-500" : "bg-zinc-100 dark:bg-zinc-800"}`} />
 
-      {/* Features List */}
-      <ul className="mb-8 flex-1 space-y-4 text-sm text-zinc-700 dark:text-zinc-300">
-        {pillar.features.map((feature) => (
-          <li key={feature} className="flex items-start gap-3">
-            <CheckCircle2 className={`h-5 w-5 shrink-0 transition-colors duration-300 ${isActive ? t.check : "text-zinc-300 dark:text-zinc-600"}`} />
-            <span className={isActive ? "text-zinc-700 dark:text-zinc-300" : "text-zinc-500 dark:text-zinc-500"}>{feature}</span>
+      <ul className="flex-1 space-y-3 mb-7">
+        {tier.features.map((f) => (
+          <li key={f} className="flex items-start gap-3 text-sm">
+            <Check className={`h-4 w-4 shrink-0 mt-0.5 transition-colors duration-300 ${hovered ? "text-indigo-200" : "text-indigo-600 dark:text-indigo-400"}`} />
+            <span className={`transition-colors duration-300 ${hovered ? "text-indigo-50" : "text-zinc-700 dark:text-zinc-300"}`}>{f}</span>
           </li>
         ))}
       </ul>
 
-      {/* CTA Button */}
-      <a
-        href={`https://wa.me/447887034503?text=${encodeURIComponent(pillar.cta)}`}
-        className={`
-          relative flex w-full items-center justify-center gap-2 rounded-xl border px-4 py-3.5 
-          text-center text-sm font-semibold transition-all duration-300
-          ${isActive ? t.buttonActive : "bg-white dark:bg-zinc-900 text-zinc-500 border-zinc-200 dark:border-zinc-700"}
-        `}
-      >
-        <span>{pillar.buttonText}</span>
-        <ArrowRight className={`h-4 w-4 transition-transform ${isActive ? "group-hover:translate-x-1" : ""}`} />
-      </a>
+      <div className="space-y-2">
+        <Link
+          href={`/packages/${tier.id}`}
+          className={`flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3.5 text-sm font-bold transition-all duration-300
+            ${hovered
+              ? "bg-white text-indigo-600 hover:bg-indigo-50 shadow-lg"
+              : "bg-indigo-600 text-white hover:bg-indigo-700 shadow-md shadow-indigo-600/20"
+            }`}
+        >
+          {tier.cta}
+          <ArrowRight className="h-4 w-4" />
+        </Link>
+        {tier.note && (
+          <p className={`text-center text-[11px] transition-colors duration-300 ${hovered ? "text-indigo-300" : "text-zinc-400 dark:text-zinc-500"}`}>
+            {tier.note}
+          </p>
+        )}
+      </div>
     </div>
+  );
+}
+
+export function PricingTiers() {
+  return (
+    <section id="services" className="py-16 md:py-24 bg-zinc-50 dark:bg-zinc-950 transition-colors">
+      <div className="mx-auto max-w-6xl px-5 md:px-8">
+
+        <div className="text-center mb-16">
+          <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-amber-600">
+            Packages & Pricing
+          </p>
+          <h2 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 md:text-4xl lg:text-5xl mb-4">
+            Professional website.{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
+              Live in a week.
+            </span>
+          </h2>
+          <p className="text-base text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto">
+            Fixed prices. Fixed scope. No surprises. Pick the package that fits, and we&apos;ll have it live before you know it.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 md:items-start">
+          {TIERS.map((tier) => (
+            <TierCard key={tier.id} tier={tier} />
+          ))}
+        </div>
+
+        {/* Software callout */}
+        <Link
+          href="/software"
+          className="group rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-6 hover:border-indigo-300 dark:hover:border-indigo-700 hover:shadow-md transition-all duration-300"
+        >
+          <div className="flex-shrink-0 h-14 w-14 rounded-2xl bg-indigo-50 dark:bg-indigo-950 flex items-center justify-center group-hover:bg-indigo-100 dark:group-hover:bg-indigo-900 transition-colors duration-300">
+            <Cpu className="h-7 w-7 text-indigo-600 dark:text-indigo-400" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 mb-1">Custom Software</p>
+            <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 mb-1">Need more than a website?</h3>
+            <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
+              Internal tools, dashboards, CRM integrations, automation. If a process is eating your time, we build something to fix it.
+            </p>
+          </div>
+          <div className="flex-shrink-0">
+            <span className="inline-flex items-center gap-2 rounded-xl border border-zinc-200 dark:border-zinc-700 group-hover:border-indigo-300 dark:group-hover:border-indigo-600 px-5 py-3 text-sm font-semibold text-zinc-700 dark:text-zinc-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-all duration-300 whitespace-nowrap">
+              See what we build
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </span>
+          </div>
+        </Link>
+
+      </div>
+    </section>
   );
 }

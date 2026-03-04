@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export function AboutMeSection() {
   return (
-    <section className="relative py-16 md:py-24 bg-white dark:bg-zinc-950 transition-colors">
+    <section className="relative py-16 md:py-24 bg-zinc-50 dark:bg-zinc-950 transition-colors">
       <div className="mx-auto max-w-6xl px-5 md:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
@@ -40,7 +40,7 @@ export function AboutMeSection() {
 
           {/* RIGHT — Bio */}
           <div>
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-400">
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400">
               About me
             </p>
             <h2 className="text-3xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-4xl mb-6">
@@ -68,7 +68,7 @@ export function AboutMeSection() {
                 { value: "5+", label: "Years exp." },
                 { value: "100%", label: "Direct contact" },
               ].map((stat) => (
-                <div key={stat.label} className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 text-center">
+                <div key={stat.label} className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 p-4 text-center">
                   <p className="text-xl font-bold text-zinc-900 dark:text-zinc-100">{stat.value}</p>
                   <p className="text-[11px] text-zinc-500 dark:text-zinc-400 font-medium">{stat.label}</p>
                 </div>
