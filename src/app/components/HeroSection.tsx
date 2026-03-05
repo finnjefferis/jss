@@ -253,7 +253,7 @@ export function HeroSection() {
               <RotatingWord />
             </h2>
             <p className="mt-6 text-lg text-zinc-500 dark:text-zinc-400 md:text-xl max-w-xl hero-line hero-delay-2">
-              Most small business sites sit online doing nothing. Yours should be your hardest-working salesperson, generating enquiries while you sleep.
+              Your website should be winning you clients. If it isn't, we'll fix that.
             </p>
             <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center hero-line hero-delay-3">
               <a
