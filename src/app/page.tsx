@@ -6,7 +6,6 @@ import { ContactSection } from "./components/ContactUs";
 import { RecentWorkSection } from "./components/RecentWorkSection";
 import { AboutSection } from "./components/AboutSection";
 import { AboutMeSection } from "./components/AboutMeSection";
-import { FAQSection } from "./components/FAQSection";
 import { Footer } from "./components/Footer";
 
 export default function Page() {
@@ -29,8 +28,6 @@ export default function Page() {
       <RecentWorkSection />
 
       <AboutMeSection />
-
-      <FAQSection />
 
       <ContactSection />
 

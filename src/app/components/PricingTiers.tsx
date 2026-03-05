@@ -192,9 +192,9 @@ export function PricingTiers() {
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 mb-1">Custom Software</p>
-            <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 mb-1">Need more than a website?</h3>
+            <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 mb-1">Development is the easy bit.</h3>
             <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
-              Internal tools, dashboards, CRM integrations, automation. If a process is eating your time, we build something to fix it.
+              Deploying it securely and marketing it correctly — that's where most projects fall apart. That's exactly where we shine.
             </p>
           </div>
           <div className="flex-shrink-0">
