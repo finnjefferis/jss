@@ -4,6 +4,18 @@ import Link from "next/link";
 import { Check, ArrowRight, Zap, BarChart3, ShoppingBag, Cpu } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 
+function useIsMobile() {
+  const [mobile, setMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    setMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+  return mobile;
+}
+
 const TIERS = [
   {
     id: "essential",
@@ -66,8 +78,10 @@ const TIERS = [
 
 function TierCard({ tier }: { tier: typeof TIERS[0] }) {
   const [hovered, setHovered] = useState(false);
+  const [mobileFocused, setMobileFocused] = useState(false);
   const [iconVisible, setIconVisible] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
   const { Icon } = tier;
 
   useEffect(() => {
@@ -81,20 +95,35 @@ function TierCard({ tier }: { tier: typeof TIERS[0] }) {
     return () => observer.disconnect();
   }, []);
 
+  // Mobile: light up card when centered in viewport
+  useEffect(() => {
+    if (!isMobile) { setMobileFocused(false); return; }
+    const el = cardRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setMobileFocused(entry.isIntersecting),
+      { threshold: 0.6 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [isMobile]);
+
+  const active = hovered || mobileFocused;
+
   return (
     <div
       ref={cardRef}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className={`relative flex flex-col rounded-3xl border-2 p-6 md:p-8 transition-all duration-300 cursor-default
-        ${hovered
+        ${active
           ? "border-indigo-600 bg-indigo-600 shadow-2xl shadow-indigo-600/30 -translate-y-1"
           : tier.highlight
             ? "border-indigo-400 dark:border-indigo-500 bg-zinc-50 dark:bg-zinc-900 shadow-xl shadow-indigo-500/15 md:-translate-y-1"
             : "border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900"
         }`}
     >
-      {tier.highlight && !hovered && (
+      {tier.highlight && !active && (
         <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-indigo-600 text-white px-4 py-1 text-xs font-bold uppercase tracking-wide shadow-md whitespace-nowrap">
           Most Popular
         </div>
@@ -103,33 +132,33 @@ function TierCard({ tier }: { tier: typeof TIERS[0] }) {
       {/* Icon */}
       <div className={`mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl transition-all duration-500
         ${iconVisible ? "opacity-100 scale-100" : "opacity-0 scale-50"}
-        ${hovered ? "bg-white/20" : "bg-indigo-50 dark:bg-indigo-950/50"}
+        ${active ? "bg-white/20" : "bg-indigo-50 dark:bg-indigo-950/50"}
       `}>
-        <Icon className={`h-6 w-6 transition-colors duration-300 ${hovered ? "text-white" : "text-indigo-600 dark:text-indigo-400"}`} />
+        <Icon className={`h-6 w-6 transition-colors duration-300 ${active ? "text-white" : "text-indigo-600 dark:text-indigo-400"}`} />
       </div>
 
       <div className="mb-5">
-        <p className={`text-xs font-bold uppercase tracking-wider mb-1 transition-colors duration-300 ${hovered ? "text-indigo-200" : "text-indigo-600 dark:text-indigo-400"}`}>
+        <p className={`text-xs font-bold uppercase tracking-wider mb-1 transition-colors duration-300 ${active ? "text-indigo-200" : "text-indigo-600 dark:text-indigo-400"}`}>
           {tier.name}
         </p>
-        <p className={`text-4xl font-extrabold mb-1 transition-colors duration-300 ${hovered ? "text-white" : "text-zinc-900 dark:text-zinc-100"}`}>
+        <p className={`text-4xl font-extrabold mb-1 transition-colors duration-300 ${active ? "text-white" : "text-zinc-900 dark:text-zinc-100"}`}>
           {tier.price}
         </p>
-        <p className={`text-sm font-semibold mb-3 transition-colors duration-300 ${hovered ? "text-indigo-100" : "text-zinc-500 dark:text-zinc-400"}`}>
+        <p className={`text-sm font-semibold mb-3 transition-colors duration-300 ${active ? "text-indigo-100" : "text-zinc-500 dark:text-zinc-400"}`}>
           {tier.tagline}
         </p>
-        <p className={`text-sm leading-relaxed transition-colors duration-300 ${hovered ? "text-indigo-100" : "text-zinc-500 dark:text-zinc-400"}`}>
+        <p className={`text-sm leading-relaxed transition-colors duration-300 ${active ? "text-indigo-100" : "text-zinc-500 dark:text-zinc-400"}`}>
           {tier.description}
         </p>
       </div>
 
-      <div className={`h-px w-full mb-5 transition-colors duration-300 ${hovered ? "bg-indigo-500" : "bg-zinc-100 dark:bg-zinc-800"}`} />
+      <div className={`h-px w-full mb-5 transition-colors duration-300 ${active ? "bg-indigo-500" : "bg-zinc-100 dark:bg-zinc-800"}`} />
 
       <ul className="flex-1 space-y-3 mb-7">
         {tier.features.map((f) => (
           <li key={f} className="flex items-start gap-3 text-sm">
-            <Check className={`h-4 w-4 shrink-0 mt-0.5 transition-colors duration-300 ${hovered ? "text-indigo-200" : "text-indigo-600 dark:text-indigo-400"}`} />
-            <span className={`transition-colors duration-300 ${hovered ? "text-indigo-50" : "text-zinc-700 dark:text-zinc-300"}`}>{f}</span>
+            <Check className={`h-4 w-4 shrink-0 mt-0.5 transition-colors duration-300 ${active ? "text-indigo-200" : "text-indigo-600 dark:text-indigo-400"}`} />
+            <span className={`transition-colors duration-300 ${active ? "text-indigo-50" : "text-zinc-700 dark:text-zinc-300"}`}>{f}</span>
           </li>
         ))}
       </ul>
@@ -147,12 +176,65 @@ function TierCard({ tier }: { tier: typeof TIERS[0] }) {
           <ArrowRight className="h-4 w-4" />
         </Link>
         {tier.note && (
-          <p className={`text-center text-[11px] transition-colors duration-300 ${hovered ? "text-indigo-300" : "text-zinc-400 dark:text-zinc-500"}`}>
+          <p className={`text-center text-[11px] transition-colors duration-300 ${active ? "text-indigo-300" : "text-zinc-400 dark:text-zinc-500"}`}>
             {tier.note}
           </p>
         )}
       </div>
     </div>
+  );
+}
+
+function SoftwareCallout() {
+  const [focused, setFocused] = useState(false);
+  const ref = useRef<HTMLAnchorElement>(null);
+  const isMobile = useIsMobile();
+
+  useEffect(() => {
+    if (!isMobile) { setFocused(false); return; }
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setFocused(entry.isIntersecting),
+      { threshold: 0.6 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [isMobile]);
+
+  return (
+    <Link
+      ref={ref}
+      href="/software"
+      className={`group rounded-2xl border bg-zinc-50 dark:bg-zinc-900 p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-6 hover:border-indigo-300 dark:hover:border-indigo-700 hover:shadow-md transition-all duration-300 ${
+        focused
+          ? "border-indigo-400 dark:border-indigo-500 shadow-md shadow-indigo-500/10"
+          : "border-zinc-200 dark:border-zinc-800"
+      }`}
+    >
+      <div className={`flex-shrink-0 h-14 w-14 rounded-2xl flex items-center justify-center transition-colors duration-300 ${
+        focused ? "bg-indigo-100 dark:bg-indigo-900" : "bg-indigo-50 dark:bg-indigo-950"
+      } group-hover:bg-indigo-100 dark:group-hover:bg-indigo-900`}>
+        <Cpu className="h-7 w-7 text-indigo-600 dark:text-indigo-400" />
+      </div>
+      <div className="flex-1 min-w-0">
+        <p className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 mb-1">Custom Software</p>
+        <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 mb-1">Development is the easy bit.</h3>
+        <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
+          Deploying it securely and marketing it correctly — that&apos;s where most projects fall apart. That&apos;s exactly where we shine.
+        </p>
+      </div>
+      <div className="flex-shrink-0">
+        <span className={`inline-flex items-center gap-2 rounded-xl border px-5 py-3 text-sm font-semibold transition-all duration-300 whitespace-nowrap group-hover:border-indigo-300 dark:group-hover:border-indigo-600 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 ${
+          focused
+            ? "border-indigo-300 dark:border-indigo-600 text-indigo-600 dark:text-indigo-400"
+            : "border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300"
+        }`}>
+          See what we build
+          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+        </span>
+      </div>
+    </Link>
   );
 }
 
@@ -183,27 +265,7 @@ export function PricingTiers() {
         </div>
 
         {/* Software callout */}
-        <Link
-          href="/software"
-          className="group rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-6 hover:border-indigo-300 dark:hover:border-indigo-700 hover:shadow-md transition-all duration-300"
-        >
-          <div className="flex-shrink-0 h-14 w-14 rounded-2xl bg-indigo-50 dark:bg-indigo-950 flex items-center justify-center group-hover:bg-indigo-100 dark:group-hover:bg-indigo-900 transition-colors duration-300">
-            <Cpu className="h-7 w-7 text-indigo-600 dark:text-indigo-400" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 mb-1">Custom Software</p>
-            <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 mb-1">Development is the easy bit.</h3>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
-              Deploying it securely and marketing it correctly — that's where most projects fall apart. That's exactly where we shine.
-            </p>
-          </div>
-          <div className="flex-shrink-0">
-            <span className="inline-flex items-center gap-2 rounded-xl border border-zinc-200 dark:border-zinc-700 group-hover:border-indigo-300 dark:group-hover:border-indigo-600 px-5 py-3 text-sm font-semibold text-zinc-700 dark:text-zinc-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-all duration-300 whitespace-nowrap">
-              See what we build
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </span>
-          </div>
-        </Link>
+        <SoftwareCallout />
 
       </div>
     </section>
