@@ -20,7 +20,7 @@ function ThemeToggle() {
   return (
     <button
       onClick={toggle}
-      className="relative h-9 w-16 rounded-full border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2"
+      className="relative h-9 w-16 rounded-full border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-coral-500 focus-visible:ring-offset-2"
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
     >
       {/* Sun icon — left side */}
@@ -65,7 +65,7 @@ export function NavHeader() {
               className="rounded-lg dark:invert"
             />
           </div>
-          <span className="h-4 w-4 rounded-full bg-rose-500" />
+          <span className="h-4 w-4 rounded-full bg-coral-500" />
           Jefferis Software Solutions
         </a>
 
@@ -74,7 +74,7 @@ export function NavHeader() {
 
           <a
             href="https://wa.me/447887034503"
-            className="hidden md:inline-flex rounded-md bg-gradient-to-r from-rose-600 to-rose-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:from-rose-700 hover:to-rose-600"
+            className="hidden md:inline-flex rounded-md bg-gradient-to-r from-coral-600 to-coral-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:from-coral-700 hover:to-coral-600"
           >
             Contact Us
           </a>
@@ -101,20 +101,20 @@ export function NavHeader() {
         <div className="absolute left-0 right-0 top-[88px] z-50 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50/95 dark:bg-zinc-950/95 backdrop-blur-md shadow-xl md:hidden animate-in slide-in-from-top-2 duration-200">
           <div className="mx-auto max-w-6xl px-5 md:px-8 lg:px-10">
             <nav className="flex flex-col py-6 gap-4 text-center">
-              <a href="#process" onClick={handleLinkClick} className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 py-2">
+              <a href="#process" onClick={handleLinkClick} className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-coral-600 dark:hover:text-coral-400 py-2">
                 The Process
               </a>
-              <a href="#services" onClick={handleLinkClick} className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 py-2">
+              <a href="#services" onClick={handleLinkClick} className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-coral-600 dark:hover:text-coral-400 py-2">
                 Services
               </a>
-              <a href="#recent-work" onClick={handleLinkClick} className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 py-2">
+              <a href="#recent-work" onClick={handleLinkClick} className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-coral-600 dark:hover:text-coral-400 py-2">
                 Recent Work
               </a>
               <hr className="border-zinc-100 dark:border-zinc-800 my-1" />
               <a
                 href="https://wa.me/447887034503"
                 onClick={handleLinkClick}
-                className="inline-flex w-full justify-center rounded-md bg-gradient-to-r from-rose-600 to-rose-500 px-4 py-3 text-sm font-medium text-white shadow-sm"
+                className="inline-flex w-full justify-center rounded-md bg-gradient-to-r from-coral-600 to-coral-500 px-4 py-3 text-sm font-medium text-white shadow-sm"
               >
                 Contact Us
               </a>

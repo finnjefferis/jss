@@ -138,7 +138,7 @@ export function RecentWorkSection() {
   return (
     <section id="recent-work" className="mb-24 md:mb-32 overflow-hidden relative py-12">
 
-      <div className="pointer-events-none absolute right-0 top-20 h-96 w-96 bg-rose-500/5 blur-2xl rounded-full -z-10" />
+      <div className="pointer-events-none absolute right-0 top-20 h-96 w-96 bg-coral-500/5 blur-2xl rounded-full -z-10" />
 
       <div ref={headerRef} className="mx-auto max-w-6xl px-5 md:px-8 mb-12">
         <div className="max-w-3xl">
@@ -147,7 +147,7 @@ export function RecentWorkSection() {
           </p>
           <h2 data-reveal style={{ opacity: 0 }} className="text-3xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-4xl">
             Digital products that{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-pink-600 inline-block" data-gradient style={{ opacity: 0 }}>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-600 to-pink-600 inline-block" data-gradient style={{ opacity: 0 }}>
               deliver.
             </span>
           </h2>
@@ -162,7 +162,7 @@ export function RecentWorkSection() {
 
         <button
           onClick={() => scroll("left")}
-          className="absolute left-8 top-1/2 -translate-y-1/2 z-20 hidden md:flex items-center justify-center p-4 rounded-full bg-white dark:bg-zinc-900 text-rose-600 border border-zinc-200 dark:border-zinc-700 shadow-xl shadow-rose-900/5 hover:scale-110 hover:bg-white dark:hover:bg-zinc-800 transition-all active:scale-95"
+          className="absolute left-8 top-1/2 -translate-y-1/2 z-20 hidden md:flex items-center justify-center p-4 rounded-full bg-white dark:bg-zinc-900 text-coral-600 border border-zinc-200 dark:border-zinc-700 shadow-xl shadow-coral-900/5 hover:scale-110 hover:bg-white dark:hover:bg-zinc-800 transition-all active:scale-95"
           aria-label="Scroll left"
         >
           <ArrowLeft className="h-6 w-6" />
@@ -170,7 +170,7 @@ export function RecentWorkSection() {
 
         <button
           onClick={() => scroll("right")}
-          className="absolute right-8 top-1/2 -translate-y-1/2 z-20 hidden md:flex items-center justify-center p-4 rounded-full bg-rose-600 text-white shadow-xl shadow-rose-600/20 hover:scale-110 hover:bg-rose-700 transition-all active:scale-95"
+          className="absolute right-8 top-1/2 -translate-y-1/2 z-20 hidden md:flex items-center justify-center p-4 rounded-full bg-coral-600 text-white shadow-xl shadow-coral-600/20 hover:scale-110 hover:bg-coral-700 transition-all active:scale-95"
           aria-label="Scroll right"
         >
           <ArrowRight className="h-6 w-6" />
@@ -190,7 +190,7 @@ export function RecentWorkSection() {
               className="flex-shrink-0 w-[85vw] md:w-[440px] snap-center [scroll-snap-stop:always]"
             >
               <Link href={project.href} className="block h-full">
-                <article className="group relative h-full flex flex-col overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 shadow-md md:shadow-xl md:shadow-rose-500/5 md:transition-[transform,box-shadow] md:hover:-translate-y-2 md:hover:shadow-2xl md:hover:shadow-rose-500/15 md:ring-0 md:hover:ring-2 md:hover:ring-rose-500/50" style={{ contain: "layout style paint" }}>
+                <article className="group relative h-full flex flex-col overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 shadow-md md:shadow-xl md:shadow-coral-500/5 md:transition-[transform,box-shadow] md:hover:-translate-y-2 md:hover:shadow-2xl md:hover:shadow-coral-500/15 md:ring-0 md:hover:ring-2 md:hover:ring-coral-500/50" style={{ contain: "layout style paint" }}>
 
                   <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-100 dark:bg-zinc-800">
                     <Image
@@ -204,7 +204,7 @@ export function RecentWorkSection() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                     <div className="absolute top-5 left-5 flex flex-wrap gap-2">
                       {project.tags.map((tag) => (
-                        <span key={tag} className="bg-white px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider text-rose-700 border border-rose-100 shadow-sm">
+                        <span key={tag} className="bg-white px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider text-coral-700 border border-coral-100 shadow-sm">
                           {tag}
                         </span>
                       ))}
@@ -212,15 +212,15 @@ export function RecentWorkSection() {
                   </div>
 
                   <div className="flex flex-1 flex-col p-5 md:p-6">
-                    <p className="text-[10px] font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400 mb-1">{project.role}</p>
-                    <h3 className="mb-2 text-lg font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-rose-600 transition-colors">
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-coral-600 dark:text-coral-400 mb-1">{project.role}</p>
+                    <h3 className="mb-2 text-lg font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-coral-600 transition-colors">
                       {project.title}
                     </h3>
                     <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 mb-4">
                       {project.summary}
                     </p>
-                    <div className="mt-auto flex items-center gap-2 text-sm font-bold text-rose-600">
-                      <span className="border-b-2 border-rose-100 group-hover:border-rose-600 transition-colors pb-0.5">
+                    <div className="mt-auto flex items-center gap-2 text-sm font-bold text-coral-600">
+                      <span className="border-b-2 border-coral-100 group-hover:border-coral-600 transition-colors pb-0.5">
                         View Case Study
                       </span>
                       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -239,7 +239,7 @@ export function RecentWorkSection() {
           {PROJECTS.map((_, i) => (
             <div
               key={i}
-              className={`h-1.5 rounded-full transition-all duration-300 ${i === activeCard ? "w-6 bg-rose-600" : "w-1.5 bg-zinc-200 dark:bg-zinc-700"}`}
+              className={`h-1.5 rounded-full transition-all duration-300 ${i === activeCard ? "w-6 bg-coral-600" : "w-1.5 bg-zinc-200 dark:bg-zinc-700"}`}
             />
           ))}
         </div>

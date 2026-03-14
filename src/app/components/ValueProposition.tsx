@@ -140,7 +140,7 @@ export function ValueProposition() {
 
   return (
     <section className="relative py-16 md:py-24 bg-zinc-50 dark:bg-zinc-950 transition-colors" id="process">
-      <div className="pointer-events-none absolute -left-48 top-40 h-96 w-96 rounded-full bg-rose-50/60 dark:bg-rose-950/40 blur-2xl opacity-70" />
+      <div className="pointer-events-none absolute -left-48 top-40 h-96 w-96 rounded-full bg-coral-50/60 dark:bg-coral-950/40 blur-2xl opacity-70" />
 
       <div className="mx-auto w-full max-w-[1440px] px-2 md:px-8 lg:px-12 relative z-10">
 
@@ -150,7 +150,7 @@ export function ValueProposition() {
           <div className="hidden lg:flex sticky top-0 h-screen self-start flex-col justify-center items-center lg:items-end lg:pr-24">
             <div className="relative w-full max-w-[26rem] lg:max-w-[28rem]">
                <WebsiteTransformSimulator stage={activeId} />
-               <div className="absolute inset-0 -z-10 bg-gradient-to-tr from-rose-100 dark:from-rose-950 to-pink-50 dark:to-pink-950 blur-2xl rounded-full opacity-60 transform scale-110" />
+               <div className="absolute inset-0 -z-10 bg-gradient-to-tr from-coral-100 dark:from-coral-950 to-pink-50 dark:to-pink-950 blur-2xl rounded-full opacity-60 transform scale-110" />
             </div>
           </div>
 
@@ -198,7 +198,7 @@ function SectionHeader() {
       </p>
       <h2 data-reveal style={{ opacity: 0 }} className="mb-6 text-3xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-5xl lg:text-6xl">
         How we get you{" "}
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-pink-600 inline-block" data-gradient style={{ opacity: 0 }}>
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-600 to-pink-600 inline-block" data-gradient style={{ opacity: 0 }}>
           results.
         </span>
       </h2>
@@ -216,7 +216,7 @@ function ValueCard({ card, isActive }: { card: typeof CARDS[0]; isActive: boolea
     <div
       className={`
         w-full rounded-3xl border p-8 shadow-xl transition-all duration-300 bg-zinc-50 dark:bg-zinc-900
-        ${isActive ? "border-rose-100 dark:border-rose-900 ring-1 ring-rose-50 dark:ring-rose-950" : "border-transparent shadow-none"}
+        ${isActive ? "border-coral-100 dark:border-coral-900 ring-1 ring-coral-50 dark:ring-coral-950" : "border-transparent shadow-none"}
       `}
     >
       <div className="flex flex-col gap-6">
@@ -224,17 +224,17 @@ function ValueCard({ card, isActive }: { card: typeof CARDS[0]; isActive: boolea
           <div
             className={`
               inline-flex h-14 w-14 items-center justify-center rounded-2xl transition-colors duration-300
-              ${isActive ? "bg-rose-600 text-white" : "bg-zinc-100 dark:bg-zinc-800 text-zinc-400"}
+              ${isActive ? "bg-coral-600 text-white" : "bg-zinc-100 dark:bg-zinc-800 text-zinc-400"}
             `}
           >
             <Icon className="h-7 w-7" />
           </div>
-          <span className="text-xs font-bold text-rose-600 dark:text-rose-400 tabular-nums">{card.step}</span>
+          <span className="text-xs font-bold text-coral-600 dark:text-coral-400 tabular-nums">{card.step}</span>
         </div>
 
         <div>
           <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-3">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-pink-600">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-600 to-pink-600">
               {card.title}
             </span>
           </h3>
@@ -245,7 +245,7 @@ function ValueCard({ card, isActive }: { card: typeof CARDS[0]; isActive: boolea
 
         <div className={`
            mt-2 flex items-center justify-between border-t border-dashed pt-4
-           ${isActive ? "border-rose-200 dark:border-rose-800" : "border-zinc-200 dark:border-zinc-700"}
+           ${isActive ? "border-coral-200 dark:border-coral-800" : "border-zinc-200 dark:border-zinc-700"}
         `}>
            <div>
              <span className="text-[10px] uppercase text-zinc-400 font-bold tracking-wider">Metric</span>

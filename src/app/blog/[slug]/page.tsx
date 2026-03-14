@@ -130,7 +130,7 @@ export default async function BlogPostPage({
       <main className="mx-auto max-w-3xl px-5 md:px-8 py-12 md:py-20">
         <Link
           href="/blog"
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-500 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors mb-8"
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-500 dark:text-zinc-400 hover:text-coral-600 dark:hover:text-coral-400 transition-colors mb-8"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to blog
@@ -142,7 +142,7 @@ export default async function BlogPostPage({
               {post.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full bg-rose-50 dark:bg-rose-950 px-3 py-1 text-xs font-semibold text-rose-600 dark:text-rose-400"
+                  className="rounded-full bg-coral-50 dark:bg-coral-950 px-3 py-1 text-xs font-semibold text-coral-600 dark:text-coral-400"
                 >
                   {tag}
                 </span>

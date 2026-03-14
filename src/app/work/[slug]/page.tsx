@@ -125,7 +125,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
     <main className="min-h-screen bg-zinc-50 dark:bg-zinc-950 transition-colors">
 
       {/* Top bar */}
-      <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-rose-500 via-pink-500 to-rose-500 z-50" />
+      <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-coral-500 via-pink-500 to-coral-500 z-50" />
 
       {/* Nav */}
       <div className="mx-auto max-w-4xl px-5 md:px-8 pt-8 pb-4">
@@ -138,7 +138,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         <header className="mb-12 pt-4">
           <div className="flex flex-wrap gap-2 mb-4">
             {project.tags.map((tag) => (
-              <span key={tag} className="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-rose-50 dark:bg-rose-950/50 text-rose-700 dark:text-rose-300 border border-rose-100 dark:border-rose-900">
+              <span key={tag} className="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-coral-50 dark:bg-coral-950/50 text-coral-700 dark:text-coral-300 border border-coral-100 dark:border-coral-900">
                 {tag}
               </span>
             ))}
@@ -168,7 +168,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                 href={project.externalLink}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-6 inline-flex items-center gap-2 rounded-lg bg-rose-600 px-5 py-2.5 text-sm font-bold text-white shadow-md hover:bg-rose-700 transition-all"
+                className="mt-6 inline-flex items-center gap-2 rounded-lg bg-coral-600 px-5 py-2.5 text-sm font-bold text-white shadow-md hover:bg-coral-700 transition-all"
               >
                 Visit live site <ExternalLink className="h-4 w-4" />
               </a>
@@ -181,7 +181,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             <ul className="space-y-3">
               {project.outcomes.map((item) => (
                 <li key={item} className="flex gap-3 text-sm text-zinc-700 dark:text-zinc-300">
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-rose-100 dark:bg-rose-950 text-rose-600 dark:text-rose-400">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-coral-100 dark:bg-coral-950 text-coral-600 dark:text-coral-400">
                     <Check className="h-3 w-3" />
                   </span>
                   {item}
@@ -227,8 +227,8 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                     { Icon: Layers, title: "Powered by Payload CMS", body: "Built on Payload 3 with a PostgreSQL database. Full admin panel, media uploads via Vercel Blob, and a GraphQL API under the hood." },
                   ].map(({ Icon, title, body }) => (
                     <div key={title} className="flex gap-4 rounded-xl border border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50 p-5">
-                      <div className="flex-shrink-0 h-8 w-8 rounded-lg bg-rose-50 dark:bg-rose-950 flex items-center justify-center">
-                        <Icon className="h-4 w-4 text-rose-600 dark:text-rose-400" />
+                      <div className="flex-shrink-0 h-8 w-8 rounded-lg bg-coral-50 dark:bg-coral-950 flex items-center justify-center">
+                        <Icon className="h-4 w-4 text-coral-600 dark:text-coral-400" />
                       </div>
                       <div>
                         <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100 mb-1">{title}</p>
@@ -258,7 +258,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         )}
 
         {/* CTA */}
-        <div className="rounded-2xl border border-rose-100 dark:border-rose-900 bg-rose-50/50 dark:bg-rose-950/30 p-8 text-center">
+        <div className="rounded-2xl border border-coral-100 dark:border-coral-900 bg-coral-50/50 dark:bg-coral-950/30 p-8 text-center">
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-600 mb-3">
             {isSoftware ? "Need something similar?" : "Want results like this?"}
           </p>
@@ -272,7 +272,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           </p>
           <a
             href="https://wa.me/447887034503?text=Hi%20Finn%2C%20I%27d%20like%20to%20discuss%20a%20project."
-            className="inline-flex items-center gap-2 rounded-xl bg-rose-600 px-8 py-3.5 text-sm font-bold text-white shadow-lg shadow-rose-600/25 hover:bg-rose-700 hover:scale-[1.02] transition-all"
+            className="inline-flex items-center gap-2 rounded-xl bg-coral-600 px-8 py-3.5 text-sm font-bold text-white shadow-lg shadow-coral-600/25 hover:bg-coral-700 hover:scale-[1.02] transition-all"
           >
             Discuss your project
           </a>

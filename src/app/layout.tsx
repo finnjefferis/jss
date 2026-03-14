@@ -1,12 +1,19 @@
 import "./globals.css";
-import { Manrope } from "next/font/google";
+import { Sora, Space_Grotesk } from "next/font/google";
 import type { ReactNode } from "react";
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 
-const manrope = Manrope({
+const sora = Sora({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-heading",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-body",
 });
 
 const SITE_URL = "https://jefferissoftware.co.uk";
@@ -191,7 +198,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={manrope.className}>
+      <body className={`${sora.variable} ${spaceGrotesk.variable}`}>
         {children}
         <Analytics />
       </body>

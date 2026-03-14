@@ -92,7 +92,7 @@ function MobileHeroCarousel() {
           <button
             key={i}
             onClick={() => setActiveIndex(i)}
-            className={`h-1.5 rounded-full transition-all duration-300 ${i === activeIndex ? "w-6 bg-rose-600" : "w-1.5 bg-zinc-200 dark:bg-zinc-700"}`}
+            className={`h-1.5 rounded-full transition-all duration-300 ${i === activeIndex ? "w-6 bg-coral-600" : "w-1.5 bg-zinc-200 dark:bg-zinc-700"}`}
           />
         ))}
       </div>
@@ -126,7 +126,7 @@ function HeroVisual() {
     <>
       {/* DESKTOP */}
       <div className="hidden lg:block relative">
-        <div className="absolute -inset-8 bg-gradient-to-tr from-rose-200/20 dark:from-rose-900/10 to-pink-200/20 dark:to-pink-900/10 rounded-3xl blur-xl -z-10" />
+        <div className="absolute -inset-8 bg-gradient-to-tr from-coral-200/20 dark:from-coral-900/10 to-pink-200/20 dark:to-pink-900/10 rounded-3xl blur-xl -z-10" />
         <div className="relative aspect-[4/3]">
           {HERO_SITES.map((site, i) => (
             <div
@@ -147,7 +147,7 @@ function HeroVisual() {
       <div className="lg:hidden mt-4" data-hero-line style={{ opacity: 0 }}>
         <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-1">
           Some{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-pink-600" data-gradient>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-600 to-pink-600" data-gradient>
             highlights.
           </span>
         </h3>
@@ -155,7 +155,7 @@ function HeroVisual() {
         <div className="relative">
           <MobileHeroCarousel />
           <div className="absolute top-2 left-1/2 -translate-x-1/2 z-40 pointer-events-none">
-            <span className="inline-flex items-center gap-1 text-rose-500/50 text-[10px] font-semibold uppercase tracking-wider">
+            <span className="inline-flex items-center gap-1 text-coral-500/50 text-[10px] font-semibold uppercase tracking-wider">
               <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
               Swipe
               <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
@@ -214,9 +214,9 @@ function RotatingWord() {
   }, []);
 
   return (
-    <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-pink-500">
+    <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-500 to-pink-500">
       <span ref={textRef} />
-      <span ref={cursorRef} className="animate-pulse text-rose-400 dark:text-rose-500">|</span>
+      <span ref={cursorRef} className="animate-pulse text-coral-400 dark:text-coral-500">|</span>
     </span>
   );
 }
@@ -256,7 +256,7 @@ export function HeroSection() {
   return (
     <section ref={sectionRef} className="relative pt-10 pb-20 md:py-28 lg:py-36 overflow-hidden">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-rose-500/5 dark:bg-rose-500/3 rounded-full blur-xl" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-coral-500/5 dark:bg-coral-500/3 rounded-full blur-xl" />
         <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-pink-500/5 dark:bg-pink-500/3 rounded-full blur-xl" />
       </div>
 
@@ -268,7 +268,7 @@ export function HeroSection() {
             <p data-hero-line style={{ opacity: 0 }} className="mb-3 text-xs font-bold uppercase tracking-[0.25em] text-amber-600 dark:text-amber-400">
               Small business websites · UK
             </p>
-            <h2 data-hero-line style={{ opacity: 0 }} className="text-4xl font-extrabold leading-[1.15] text-zinc-900 dark:text-white sm:text-5xl lg:text-6xl">
+            <h2 data-hero-line style={{ opacity: 0 }} className="text-5xl font-black leading-[1.08] tracking-tight text-zinc-900 dark:text-white sm:text-6xl lg:text-7xl">
               Websites that<br />
               <RotatingWord />
             </h2>
@@ -278,13 +278,13 @@ export function HeroSection() {
             <div data-hero-line style={{ opacity: 0 }} className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
               <a
                 href="#services"
-                className="inline-flex items-center justify-center rounded-xl bg-rose-600 px-8 py-4 text-sm font-bold text-white shadow-md transition-colors hover:bg-rose-700"
+                className="inline-flex items-center justify-center rounded-xl bg-coral-600 px-8 py-4 text-sm font-bold text-white shadow-md transition-colors hover:bg-coral-700"
               >
                 See packages & pricing
               </a>
               <a
                 href="#recent-work"
-                className="text-sm font-semibold text-zinc-500 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                className="text-sm font-semibold text-zinc-500 dark:text-zinc-400 hover:text-coral-600 dark:hover:text-coral-400 transition-colors"
               >
                 See recent work &rarr;
               </a>

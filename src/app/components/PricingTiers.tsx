@@ -364,11 +364,11 @@ function PackageQuiz() {
   return (
     <div className="relative">
       {/* Subtle glow behind the card */}
-      <div className="pointer-events-none absolute -inset-3 rounded-[2rem] bg-gradient-to-b from-rose-500/10 via-pink-500/5 to-transparent blur-xl" />
+      <div className="pointer-events-none absolute -inset-3 rounded-[2rem] bg-gradient-to-b from-coral-500/10 via-pink-500/5 to-transparent blur-xl" />
 
       <div
         ref={containerRef}
-        className="relative rounded-3xl border border-rose-200 dark:border-rose-900/40 bg-gradient-to-b from-white via-white to-rose-50/50 dark:from-zinc-950 dark:via-zinc-950 dark:to-rose-950/20 shadow-lg overflow-visible"
+        className="relative rounded-3xl border border-coral-200 dark:border-coral-900/40 bg-gradient-to-b from-white via-white to-coral-50/50 dark:from-zinc-950 dark:via-zinc-950 dark:to-coral-950/20 shadow-lg overflow-visible"
       >
         {/* Progress bar */}
         <div className="h-1.5 bg-zinc-100 dark:bg-zinc-900 rounded-t-3xl overflow-hidden">
@@ -378,7 +378,7 @@ function PackageQuiz() {
             style={{
               background: phase === "result"
                 ? "linear-gradient(90deg, #10b981, #34d399)"
-                : "linear-gradient(90deg, #f43f5e, #ec4899)",
+                : "linear-gradient(90deg, #F97066, #FB923C)",
             }}
           />
         </div>
@@ -389,7 +389,7 @@ function PackageQuiz() {
           {phase === "question" && currentQuestion && (
             <div ref={questionRef}>
               <div data-q-heading style={{ opacity: 0 }} className="text-center">
-                <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-rose-400 mb-3">
+                <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-coral-400 mb-3">
                   Question {step + 1} of {QUESTIONS.length}
                 </p>
                 <h3 className="text-2xl md:text-3xl font-extrabold text-zinc-900 dark:text-white mb-8 leading-tight">
@@ -406,8 +406,8 @@ function PackageQuiz() {
                     style={{ opacity: 0 }}
                     className={`group text-left rounded-2xl border p-5 active:scale-[0.97] transition-transform duration-150
                       ${answers[currentQuestion.step] === opt.value
-                        ? "border-rose-500 bg-rose-500/10"
-                        : "border-zinc-200 dark:border-zinc-800 hover:border-rose-300 dark:hover:border-rose-700"
+                        ? "border-coral-500 bg-coral-500/10"
+                        : "border-zinc-200 dark:border-zinc-800 hover:border-coral-300 dark:hover:border-coral-700"
                       }`}
                     onMouseEnter={(e) => {
                       if (window.matchMedia("(hover: hover)").matches) {
@@ -422,7 +422,7 @@ function PackageQuiz() {
                   >
                     <p className={`text-sm font-bold mb-1.5 transition-colors ${
                       answers[currentQuestion.step] === opt.value
-                        ? "text-rose-500"
+                        ? "text-coral-500"
                         : "text-zinc-800 dark:text-zinc-100 group-hover:text-zinc-900 dark:group-hover:text-white"
                     }`}>
                       {opt.label}
@@ -466,16 +466,16 @@ function PackageQuiz() {
 
                   <div
                     data-r style={{ opacity: 0 }}
-                    className="rounded-2xl border border-rose-500/20 bg-rose-500/5 p-6 mb-4 max-w-md mx-auto transition-colors duration-200 hover:bg-rose-600 hover:border-rose-600 group/plan cursor-default"
+                    className="rounded-2xl border border-coral-500/20 bg-coral-500/5 p-6 mb-4 max-w-md mx-auto transition-colors duration-200 hover:bg-coral-600 hover:border-coral-600 group/plan cursor-default"
                     onMouseEnter={(e) => animate(e.currentTarget, { scale: 1.04, translateY: -6, duration: 300, ease: "outExpo" })}
                     onMouseLeave={(e) => animate(e.currentTarget, { scale: 1, translateY: 0, duration: 400, ease: "outExpo" })}
-                    onTouchStart={(e) => { e.currentTarget.classList.add("bg-rose-600", "border-rose-600"); animate(e.currentTarget, { scale: 1.02, duration: 200, ease: "outQuart" }); }}
-                    onTouchEnd={(e) => { e.currentTarget.classList.remove("bg-rose-600", "border-rose-600"); animate(e.currentTarget, { scale: 1, duration: 300, ease: "outQuart" }); }}
+                    onTouchStart={(e) => { e.currentTarget.classList.add("bg-coral-600", "border-coral-600"); animate(e.currentTarget, { scale: 1.02, duration: 200, ease: "outQuart" }); }}
+                    onTouchEnd={(e) => { e.currentTarget.classList.remove("bg-coral-600", "border-coral-600"); animate(e.currentTarget, { scale: 1, duration: 300, ease: "outQuart" }); }}
                   >
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-rose-400 mb-2 group-hover/plan:text-rose-200">Monthly plan</p>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-coral-400 mb-2 group-hover/plan:text-coral-200">Monthly plan</p>
                     <p className="text-2xl font-extrabold text-zinc-900 dark:text-white mb-1 group-hover/plan:text-white">{result.primary.monthly.price}</p>
-                    <p className="text-xs text-zinc-500 mb-4 group-hover/plan:text-rose-200">{result.primary.monthly.name} plan</p>
-                    <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed group-hover/plan:text-rose-100">{result.primary.monthly.description}</p>
+                    <p className="text-xs text-zinc-500 mb-4 group-hover/plan:text-coral-200">{result.primary.monthly.name} plan</p>
+                    <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed group-hover/plan:text-coral-100">{result.primary.monthly.description}</p>
                   </div>
 
                   <p data-r style={{ opacity: 0 }} className="text-xs text-zinc-400 dark:text-zinc-500 mb-8 text-center">
@@ -485,7 +485,7 @@ function PackageQuiz() {
                   <div data-r style={{ opacity: 0 }} className="flex flex-wrap gap-3 justify-center">
                     <Link
                       href="/#contact"
-                      className="inline-flex items-center gap-2 rounded-xl bg-rose-600 hover:bg-rose-700 px-7 py-3.5 text-sm font-bold text-white transition-colors"
+                      className="inline-flex items-center gap-2 rounded-xl bg-coral-600 hover:bg-coral-700 px-7 py-3.5 text-sm font-bold text-white transition-colors"
                     >
                       Get started
                       <ArrowRight className="h-4 w-4" />
@@ -518,35 +518,35 @@ function PackageQuiz() {
 
                   <div data-r style={{ opacity: 0 }} className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                     <div
-                      className="rounded-2xl border border-rose-500/20 bg-rose-500/5 p-6 transition-colors duration-200 hover:bg-rose-600 hover:border-rose-600 group/build cursor-default"
+                      className="rounded-2xl border border-coral-500/20 bg-coral-500/5 p-6 transition-colors duration-200 hover:bg-coral-600 hover:border-coral-600 group/build cursor-default"
                       onMouseEnter={(e) => animate(e.currentTarget, { scale: 1.04, translateY: -6, duration: 300, ease: "outExpo" })}
                       onMouseLeave={(e) => animate(e.currentTarget, { scale: 1, translateY: 0, duration: 400, ease: "outExpo" })}
                     >
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-rose-400 mb-2 group-hover/build:text-rose-200">Website build</p>
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-coral-400 mb-2 group-hover/build:text-coral-200">Website build</p>
                       <p className="text-2xl font-extrabold text-zinc-900 dark:text-white mb-1 group-hover/build:text-white">
                         {result.primary.build!.price}
-                        <span className="text-sm font-normal text-zinc-500 ml-2 group-hover/build:text-rose-200">one-off</span>
+                        <span className="text-sm font-normal text-zinc-500 ml-2 group-hover/build:text-coral-200">one-off</span>
                       </p>
-                      <p className="text-xs text-zinc-500 mb-4 group-hover/build:text-rose-200">{result.primary.build!.name} package</p>
+                      <p className="text-xs text-zinc-500 mb-4 group-hover/build:text-coral-200">{result.primary.build!.name} package</p>
                       <ul className="space-y-2">
                         {result.primary.build!.features.map((f) => (
                           <li key={f} className="flex items-start gap-2.5 text-sm">
-                            <Check className="h-3.5 w-3.5 shrink-0 mt-0.5 text-rose-500 group-hover/build:text-rose-200" />
-                            <span className="text-zinc-600 dark:text-zinc-300 group-hover/build:text-rose-50">{f}</span>
+                            <Check className="h-3.5 w-3.5 shrink-0 mt-0.5 text-coral-500 group-hover/build:text-coral-200" />
+                            <span className="text-zinc-600 dark:text-zinc-300 group-hover/build:text-coral-50">{f}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
 
                     <div
-                      className="rounded-2xl border border-rose-500/20 bg-rose-500/5 p-6 transition-colors duration-200 hover:bg-rose-600 hover:border-rose-600 group/monthly cursor-default"
+                      className="rounded-2xl border border-coral-500/20 bg-coral-500/5 p-6 transition-colors duration-200 hover:bg-coral-600 hover:border-coral-600 group/monthly cursor-default"
                       onMouseEnter={(e) => animate(e.currentTarget, { scale: 1.04, translateY: -6, duration: 300, ease: "outExpo" })}
                       onMouseLeave={(e) => animate(e.currentTarget, { scale: 1, translateY: 0, duration: 400, ease: "outExpo" })}
                     >
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-rose-400 mb-2 group-hover/monthly:text-rose-200">Monthly plan</p>
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-coral-400 mb-2 group-hover/monthly:text-coral-200">Monthly plan</p>
                       <p className="text-2xl font-extrabold text-zinc-900 dark:text-white mb-1 group-hover/monthly:text-white">{result.primary.monthly.price}</p>
-                      <p className="text-xs text-zinc-500 mb-4 group-hover/monthly:text-rose-200">{result.primary.monthly.name} plan</p>
-                      <p className="text-sm text-zinc-500 dark:text-zinc-400 group-hover/monthly:text-rose-100">{result.primary.monthly.description}</p>
+                      <p className="text-xs text-zinc-500 mb-4 group-hover/monthly:text-coral-200">{result.primary.monthly.name} plan</p>
+                      <p className="text-sm text-zinc-500 dark:text-zinc-400 group-hover/monthly:text-coral-100">{result.primary.monthly.description}</p>
                     </div>
                   </div>
 
@@ -557,7 +557,7 @@ function PackageQuiz() {
                   <div data-r style={{ opacity: 0 }} className="flex flex-wrap gap-3 mt-8 justify-center">
                     <Link
                       href="/#contact"
-                      className="inline-flex items-center gap-2 rounded-xl bg-rose-600 hover:bg-rose-700 px-7 py-3.5 text-sm font-bold text-white transition-colors"
+                      className="inline-flex items-center gap-2 rounded-xl bg-coral-600 hover:bg-coral-700 px-7 py-3.5 text-sm font-bold text-white transition-colors"
                     >
                       Get started
                       <ArrowRight className="h-4 w-4" />
@@ -650,26 +650,26 @@ function TierCard({ tier }: { tier: typeof TIERS[0] }) {
       onMouseLeave={() => setHovered(false)}
       className={`relative flex flex-col rounded-3xl border-2 p-6 md:p-8 transition-colors duration-300 cursor-default
         ${active
-          ? "border-rose-600 bg-rose-600 shadow-lg -translate-y-1"
+          ? "border-coral-600 bg-coral-600 shadow-lg -translate-y-1"
           : tier.highlight
-            ? "border-rose-400 dark:border-rose-500 bg-zinc-50 dark:bg-zinc-900 shadow-md md:-translate-y-1"
+            ? "border-coral-400 dark:border-coral-500 bg-zinc-50 dark:bg-zinc-900 shadow-md md:-translate-y-1"
             : "border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900"
         }`}
     >
       {tier.highlight && !active && (
-        <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-rose-600 text-white px-4 py-1 text-xs font-bold uppercase tracking-wide shadow-md whitespace-nowrap">
+        <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-coral-600 text-white px-4 py-1 text-xs font-bold uppercase tracking-wide shadow-md whitespace-nowrap">
           Most Popular
         </div>
       )}
 
       <div ref={iconRef} className={`mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl
-        ${active ? "bg-white/20" : "bg-rose-50 dark:bg-rose-950/50"}
+        ${active ? "bg-white/20" : "bg-coral-50 dark:bg-coral-950/50"}
       `} style={{ opacity: 0 }}>
-        <Icon className={`h-6 w-6 transition-colors duration-300 ${active ? "text-white" : "text-rose-600 dark:text-rose-400"}`} />
+        <Icon className={`h-6 w-6 transition-colors duration-300 ${active ? "text-white" : "text-coral-600 dark:text-coral-400"}`} />
       </div>
 
       <div className="mb-5">
-        <p className={`text-xs font-bold uppercase tracking-wider mb-1 transition-colors duration-300 ${active ? "text-rose-200" : "text-rose-600 dark:text-rose-400"}`}>
+        <p className={`text-xs font-bold uppercase tracking-wider mb-1 transition-colors duration-300 ${active ? "text-coral-200" : "text-coral-600 dark:text-coral-400"}`}>
           {tier.name}
         </p>
         <p className={`text-4xl font-extrabold mb-1 transition-colors duration-300 ${active ? "text-white" : "text-zinc-900 dark:text-zinc-100"}`}>
@@ -679,27 +679,27 @@ function TierCard({ tier }: { tier: typeof TIERS[0] }) {
           <span
             ref={(el) => { highlightRefs.current[0] = el; }}
             className="highlight-bg"
-            style={{ background: active ? "rgba(255,255,255,0.2)" : "rgba(244,63,94,0.15)", transform: "scaleX(0)" }}
+            style={{ background: active ? "rgba(255,255,255,0.2)" : "rgba(99,102,241,0.15)", transform: "scaleX(0)" }}
           />
           <span className="relative">{tier.tagline}</span>
         </p>
-        <p className={`text-sm leading-relaxed transition-colors duration-300 ${active ? "text-rose-100" : "text-zinc-500 dark:text-zinc-400"}`}>
+        <p className={`text-sm leading-relaxed transition-colors duration-300 ${active ? "text-coral-100" : "text-zinc-500 dark:text-zinc-400"}`}>
           {tier.description}
         </p>
       </div>
 
-      <div className={`h-px w-full mb-5 transition-colors duration-300 ${active ? "bg-rose-500" : "bg-zinc-100 dark:bg-zinc-800"}`} />
+      <div className={`h-px w-full mb-5 transition-colors duration-300 ${active ? "bg-coral-500" : "bg-zinc-100 dark:bg-zinc-800"}`} />
 
       <ul className="flex-1 space-y-3 mb-7">
         {tier.features.map((f, fi) => (
           <li key={f} className="flex items-start gap-3 text-sm">
-            <Check className={`h-4 w-4 shrink-0 mt-0.5 transition-colors duration-300 ${active ? "text-rose-200" : "text-rose-600 dark:text-rose-400"}`} />
-            <span className={`transition-colors duration-300 relative ${active ? "text-rose-50" : "text-zinc-700 dark:text-zinc-300"}`}>
+            <Check className={`h-4 w-4 shrink-0 mt-0.5 transition-colors duration-300 ${active ? "text-coral-200" : "text-coral-600 dark:text-coral-400"}`} />
+            <span className={`transition-colors duration-300 relative ${active ? "text-coral-50" : "text-zinc-700 dark:text-zinc-300"}`}>
               {fi === 0 && (
                 <span
                   ref={(el) => { highlightRefs.current[1] = el; }}
                   className="highlight-bg"
-                  style={{ background: active ? "rgba(255,255,255,0.15)" : "rgba(244,63,94,0.1)", transform: "scaleX(0)" }}
+                  style={{ background: active ? "rgba(255,255,255,0.15)" : "rgba(99,102,241,0.1)", transform: "scaleX(0)" }}
                 />
               )}
               <span className="relative">{f}</span>
@@ -713,15 +713,15 @@ function TierCard({ tier }: { tier: typeof TIERS[0] }) {
           href={`/packages/${tier.id}`}
           className={`flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3.5 text-sm font-bold transition-colors duration-300
             ${active
-              ? "bg-white text-rose-600 hover:bg-rose-50"
-              : "bg-rose-600 text-white hover:bg-rose-700"
+              ? "bg-white text-coral-600 hover:bg-coral-50"
+              : "bg-coral-600 text-white hover:bg-coral-700"
             }`}
         >
           {tier.cta}
           <ArrowRight className="h-4 w-4" />
         </Link>
         {tier.note && (
-          <p className={`text-center text-[11px] transition-colors duration-300 ${active ? "text-rose-300" : "text-zinc-400 dark:text-zinc-500"}`}>
+          <p className={`text-center text-[11px] transition-colors duration-300 ${active ? "text-coral-300" : "text-zinc-400 dark:text-zinc-500"}`}>
             {tier.note}
           </p>
         )}
@@ -753,16 +753,16 @@ function SoftwareCallout() {
     <Link
       ref={ref}
       href="/software"
-      className={`group rounded-2xl border bg-zinc-50 dark:bg-zinc-900 p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-6 hover:border-rose-300 dark:hover:border-rose-700 transition-colors duration-300 ${
+      className={`group rounded-2xl border bg-zinc-50 dark:bg-zinc-900 p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-6 hover:border-coral-300 dark:hover:border-coral-700 transition-colors duration-300 ${
         focused
-          ? "border-rose-400 dark:border-rose-500"
+          ? "border-coral-400 dark:border-coral-500"
           : "border-zinc-200 dark:border-zinc-800"
       }`}
     >
       <div className={`flex-shrink-0 h-14 w-14 rounded-2xl flex items-center justify-center transition-colors duration-300 ${
-        focused ? "bg-rose-100 dark:bg-rose-900" : "bg-rose-50 dark:bg-rose-950"
-      } group-hover:bg-rose-100 dark:group-hover:bg-rose-900`}>
-        <Cpu className="h-7 w-7 text-rose-600 dark:text-rose-400" />
+        focused ? "bg-coral-100 dark:bg-coral-900" : "bg-coral-50 dark:bg-coral-950"
+      } group-hover:bg-coral-100 dark:group-hover:bg-coral-900`}>
+        <Cpu className="h-7 w-7 text-coral-600 dark:text-coral-400" />
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 mb-1">Custom Software</p>
@@ -772,9 +772,9 @@ function SoftwareCallout() {
         </p>
       </div>
       <div className="flex-shrink-0">
-        <span className={`inline-flex items-center gap-2 rounded-xl border px-5 py-3 text-sm font-semibold transition-colors duration-300 whitespace-nowrap group-hover:border-rose-300 dark:group-hover:border-rose-600 group-hover:text-rose-600 dark:group-hover:text-rose-400 ${
+        <span className={`inline-flex items-center gap-2 rounded-xl border px-5 py-3 text-sm font-semibold transition-colors duration-300 whitespace-nowrap group-hover:border-coral-300 dark:group-hover:border-coral-600 group-hover:text-coral-600 dark:group-hover:text-coral-400 ${
           focused
-            ? "border-rose-300 dark:border-rose-600 text-rose-600 dark:text-rose-400"
+            ? "border-coral-300 dark:border-coral-600 text-coral-600 dark:text-coral-400"
             : "border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300"
         }`}>
           See what we build
@@ -811,13 +811,13 @@ function MonthlyPlanCard({ plan }: { plan: typeof MONTHLY_PLANS[0] }) {
       onMouseLeave={() => { setActive(false); if (cardRef.current) animate(cardRef.current, { scale: 1, translateY: 0, duration: 400, ease: "outExpo" }); }}
       className={`rounded-2xl border p-6 transition-colors duration-200 cursor-default ${
         active
-          ? "bg-rose-600 border-rose-600"
+          ? "bg-coral-600 border-coral-600"
           : "border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900"
       }`}
     >
-      <p className={`text-xs font-bold uppercase tracking-wider mb-1 transition-colors duration-200 ${active ? "text-rose-200" : "text-rose-500 dark:text-rose-400"}`}>{plan.name}</p>
+      <p className={`text-xs font-bold uppercase tracking-wider mb-1 transition-colors duration-200 ${active ? "text-coral-200" : "text-coral-500 dark:text-coral-400"}`}>{plan.name}</p>
       <p className={`text-2xl font-extrabold mb-2 transition-colors duration-200 ${active ? "text-white" : "text-zinc-900 dark:text-white"}`}>{plan.price}</p>
-      <p className={`text-sm leading-relaxed transition-colors duration-200 ${active ? "text-rose-100" : "text-zinc-500 dark:text-zinc-400"}`}>{plan.description}</p>
+      <p className={`text-sm leading-relaxed transition-colors duration-200 ${active ? "text-coral-100" : "text-zinc-500 dark:text-zinc-400"}`}>{plan.description}</p>
     </div>
   );
 }
@@ -846,7 +846,7 @@ function FullMenu({ className = "mt-16", label }: { className?: string; label?: 
     <div className={className}>
       <button
         onClick={() => setOpen(!open)}
-        className="mx-auto flex items-center gap-2 text-sm font-semibold text-zinc-500 hover:text-rose-400 transition-colors"
+        className="mx-auto flex items-center gap-2 text-sm font-semibold text-zinc-500 hover:text-coral-400 transition-colors"
       >
         {open ? "Hide packages" : (label || "View all packages & monthly plans")}
         <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
@@ -930,7 +930,7 @@ export function PricingTiers() {
           </p>
           <h2 data-reveal style={{ opacity: 0 }} className="text-3xl font-bold text-zinc-900 dark:text-white md:text-4xl lg:text-5xl mb-4">
             Not sure what you need?{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-pink-500 inline-block pb-1" data-gradient style={{ opacity: 0 }}>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-500 to-pink-500 inline-block pb-1" data-gradient style={{ opacity: 0 }}>
               We&apos;ll figure it out.
             </span>
           </h2>

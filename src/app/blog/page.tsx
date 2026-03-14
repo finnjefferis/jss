@@ -69,7 +69,7 @@ export default function BlogPage() {
           </p>
           <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 md:text-4xl">
             Tips &amp; insights for{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-pink-600">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-600 to-pink-600">
               small businesses.
             </span>
           </h1>
@@ -84,7 +84,7 @@ export default function BlogPage() {
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="group rounded-2xl border-2 border-zinc-200 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 p-6 md:p-8 transition-all hover:border-rose-500 dark:hover:border-rose-500 hover:shadow-lg hover:shadow-rose-500/10"
+              className="group rounded-2xl border-2 border-zinc-200 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 p-6 md:p-8 transition-all hover:border-coral-500 dark:hover:border-coral-500 hover:shadow-lg hover:shadow-coral-500/10"
             >
               <div className="flex flex-wrap items-center gap-3 text-xs text-zinc-400 dark:text-zinc-500 mb-3">
                 <span className="flex items-center gap-1">
@@ -100,7 +100,7 @@ export default function BlogPage() {
                   {post.readTime}
                 </span>
               </div>
-              <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors mb-2">
+              <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-coral-600 dark:group-hover:text-coral-400 transition-colors mb-2">
                 {post.title}
               </h2>
               <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">
@@ -117,7 +117,7 @@ export default function BlogPage() {
                     </span>
                   ))}
                 </div>
-                <span className="flex items-center gap-1 text-sm font-medium text-rose-600 dark:text-rose-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                <span className="flex items-center gap-1 text-sm font-medium text-coral-600 dark:text-coral-400 opacity-0 group-hover:opacity-100 transition-opacity">
                   Read
                   <ArrowRight className="h-4 w-4" />
                 </span>

@@ -48,7 +48,7 @@ export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; ch
 
         if (followerElRef.current) {
           followerElRef.current.textContent = f.toLocaleString();
-          followerElRef.current.className = `text-sm font-bold ${f > 1000 ? "text-rose-600 scale-110" : "text-zinc-900 dark:text-zinc-100"}`;
+          followerElRef.current.className = `text-sm font-bold ${f > 1000 ? "text-coral-600 scale-110" : "text-zinc-900 dark:text-zinc-100"}`;
         }
         if (postElRef.current) {
           postElRef.current.textContent = String(p);
@@ -64,7 +64,7 @@ export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; ch
               cell.classList.add("scale-100", "opacity-100");
               if (!cell.querySelector(".grid-fill")) {
                 const fill = document.createElement("div");
-                fill.className = `grid-fill absolute inset-0 opacity-80 ${i % 2 === 0 ? "bg-rose-100" : "bg-pink-100"}`;
+                fill.className = `grid-fill absolute inset-0 opacity-80 ${i % 2 === 0 ? "bg-coral-100" : "bg-pink-100"}`;
                 cell.appendChild(fill);
               }
             } else {
@@ -96,7 +96,7 @@ export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; ch
 
         // CTA button
         if (ctaRef.current) {
-          ctaRef.current.className = `flex-1 rounded-lg py-2 text-center text-xs font-bold text-white shadow-sm ${p > 0 ? "bg-rose-600 hover:bg-rose-700" : "bg-zinc-300 pointer-events-none"}`;
+          ctaRef.current.className = `flex-1 rounded-lg py-2 text-center text-xs font-bold text-white shadow-sm ${p > 0 ? "bg-coral-600 hover:bg-coral-700" : "bg-zinc-300 pointer-events-none"}`;
         }
       },
     });
@@ -127,7 +127,7 @@ export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; ch
   }, [stage]);
 
   return (
-    <div className="relative mx-auto w-full max-w-xs overflow-hidden rounded-[2.5rem] border-[8px] border-zinc-900 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 shadow-2xl shadow-rose-500/20">
+    <div className="relative mx-auto w-full max-w-xs overflow-hidden rounded-[2.5rem] border-[8px] border-zinc-900 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 shadow-2xl shadow-coral-500/20">
 
       {/* Fake Status Bar */}
       <div className="flex h-6 w-full items-center justify-between px-6 pt-2">

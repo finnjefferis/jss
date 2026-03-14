@@ -31,7 +31,7 @@ export function ComparisonSlider({ beforeSrc, afterSrc }: { beforeSrc: string; a
       <div className="absolute inset-0 overflow-hidden" style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}>
         <Image src={afterSrc} alt="After" fill className="object-contain bg-white" draggable={false} />
       </div>
-      <div className="absolute top-4 left-4 z-10 rounded-full bg-rose-600/90 px-3 py-1 text-[10px] font-bold text-white backdrop-blur-md">
+      <div className="absolute top-4 left-4 z-10 rounded-full bg-coral-600/90 px-3 py-1 text-[10px] font-bold text-white backdrop-blur-md">
         New Design
       </div>
 
@@ -39,7 +39,7 @@ export function ComparisonSlider({ beforeSrc, afterSrc }: { beforeSrc: string; a
         className="absolute inset-y-0 w-1 bg-white shadow-[0_0_20px_rgba(0,0,0,0.5)]"
         style={{ left: `${position}%` }}
       >
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-rose-600 border-2 border-white shadow-lg flex items-center justify-center">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-coral-600 border-2 border-white shadow-lg flex items-center justify-center">
           <div className="flex gap-0.5">
             <ChevronRight className="h-4 w-4 text-white rotate-180" />
             <ChevronRight className="h-4 w-4 text-white" />

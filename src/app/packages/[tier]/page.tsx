@@ -237,7 +237,7 @@ export default async function PackagePage({
 
   return (
     <main className="min-h-screen bg-zinc-50 dark:bg-zinc-950 transition-colors">
-      <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-rose-500 via-pink-500 to-rose-500 z-50" />
+      <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-coral-500 via-pink-500 to-coral-500 z-50" />
 
       <div className="mx-auto max-w-6xl px-5 md:px-8 pt-8 pb-4">
         <BackButton />
@@ -246,7 +246,7 @@ export default async function PackagePage({
       {/* Hero */}
       <section className="relative py-14 md:py-20 overflow-hidden">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-rose-500/6 rounded-full blur-3xl" />
+          <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-coral-500/6 rounded-full blur-3xl" />
           <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-sky-500/6 rounded-full blur-3xl" />
         </div>
         <div className="mx-auto max-w-6xl px-5 md:px-8 relative z-10">
@@ -254,8 +254,8 @@ export default async function PackagePage({
             {/* Left: headline + CTA */}
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-rose-50 dark:bg-rose-950/50">
-                  <Icon className="h-5 w-5 text-rose-600 dark:text-rose-400" />
+                <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-coral-50 dark:bg-coral-950/50">
+                  <Icon className="h-5 w-5 text-coral-600 dark:text-coral-400" />
                 </div>
                 <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400">
                   {pkg.name} package
@@ -270,7 +270,7 @@ export default async function PackagePage({
               <div className="flex flex-wrap gap-2.5 mb-8">
                 {pkg.trustSignals.map((s) => (
                   <span key={s} className="inline-flex items-center gap-1.5 rounded-full border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-3.5 py-1.5 text-xs font-semibold text-zinc-600 dark:text-zinc-400">
-                    <Check className="h-3 w-3 text-rose-500" />
+                    <Check className="h-3 w-3 text-coral-500" />
                     {s}
                   </span>
                 ))}
@@ -279,7 +279,7 @@ export default async function PackagePage({
                 href={BOOKING_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl bg-rose-600 px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-rose-600/25 hover:bg-rose-700 hover:scale-[1.02] transition-all"
+                className="inline-flex items-center gap-2 rounded-xl bg-coral-600 px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-coral-600/25 hover:bg-coral-700 hover:scale-[1.02] transition-all"
               >
                 <Calendar className="h-4 w-4" />
                 Book your free discovery call
@@ -288,14 +288,14 @@ export default async function PackagePage({
 
             {/* Right: package summary card */}
             <div className="hidden lg:flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden">
-              <div className="bg-rose-600 px-6 py-5">
+              <div className="bg-coral-600 px-6 py-5">
                 <p className="text-3xl font-extrabold text-white">{pkg.price}</p>
-                <p className="text-sm text-rose-200 mt-1">{pkg.tagline}</p>
+                <p className="text-sm text-coral-200 mt-1">{pkg.tagline}</p>
               </div>
               <div className="px-6 py-5 space-y-3">
                 {pkg.includes.slice(0, 5).map((item) => (
                   <div key={item.title} className="flex items-start gap-2.5">
-                    <Check className="h-4 w-4 shrink-0 mt-0.5 text-rose-500" />
+                    <Check className="h-4 w-4 shrink-0 mt-0.5 text-coral-500" />
                     <span className="text-sm text-zinc-700 dark:text-zinc-300">{item.title}</span>
                   </div>
                 ))}
@@ -327,8 +327,8 @@ export default async function PackagePage({
                 key={item.title}
                 className="flex gap-4 rounded-xl border border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 p-5"
               >
-                <div className="flex-shrink-0 mt-0.5 h-5 w-5 rounded-full bg-rose-100 dark:bg-rose-950 flex items-center justify-center">
-                  <Check className="h-3 w-3 text-rose-600 dark:text-rose-400" />
+                <div className="flex-shrink-0 mt-0.5 h-5 w-5 rounded-full bg-coral-100 dark:bg-coral-950 flex items-center justify-center">
+                  <Check className="h-3 w-3 text-coral-600 dark:text-coral-400" />
                 </div>
                 <div>
                   <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100 mb-1">{item.title}</p>
@@ -364,7 +364,7 @@ export default async function PackagePage({
                 />
                 <div className="absolute top-4 left-4 flex gap-2 flex-wrap">
                   {pkg.example.tags.map((tag) => (
-                    <span key={tag} className="bg-white px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-rose-700 border border-rose-100 shadow-sm">
+                    <span key={tag} className="bg-white px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-coral-700 border border-coral-100 shadow-sm">
                       {tag}
                     </span>
                   ))}
@@ -375,7 +375,7 @@ export default async function PackagePage({
             {/* Story + quote */}
             <div className="flex flex-col gap-6">
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400 mb-1">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-coral-600 dark:text-coral-400 mb-1">
                   {pkg.example.clientType}
                 </p>
                 <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-3">
@@ -393,18 +393,18 @@ export default async function PackagePage({
                   </p>
                 )}
               </div>
-              <div className="rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-100 dark:border-rose-900 p-5">
-                <Quote className="h-5 w-5 text-rose-300 dark:text-rose-700 mb-3" />
+              <div className="rounded-xl bg-coral-50 dark:bg-coral-950/40 border border-coral-100 dark:border-coral-900 p-5">
+                <Quote className="h-5 w-5 text-coral-300 dark:text-coral-700 mb-3" />
                 <p className="text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed italic mb-3">
                   &ldquo;{pkg.example.quote}&rdquo;
                 </p>
-                <p className="text-xs font-bold text-rose-600 dark:text-rose-400">
+                <p className="text-xs font-bold text-coral-600 dark:text-coral-400">
                   &mdash; {pkg.example.clientName}
                 </p>
               </div>
               <Link
                 href={`/work/${pkg.example.slug}`}
-                className="inline-flex items-center gap-2 text-sm font-bold text-rose-600 dark:text-rose-400 hover:text-rose-700 transition-colors"
+                className="inline-flex items-center gap-2 text-sm font-bold text-coral-600 dark:text-coral-400 hover:text-coral-700 transition-colors"
               >
                 View full case study
                 <ArrowRight className="h-4 w-4" />
@@ -431,7 +431,7 @@ export default async function PackagePage({
               <div className="space-y-6">
                 {pkg.process.map((step) => (
                   <div key={step.step} className="flex gap-5">
-                    <div className="flex-shrink-0 h-10 w-10 rounded-full bg-rose-600 flex items-center justify-center text-xs font-bold text-white tabular-nums z-10 relative">
+                    <div className="flex-shrink-0 h-10 w-10 rounded-full bg-coral-600 flex items-center justify-center text-xs font-bold text-white tabular-nums z-10 relative">
                       {step.step}
                     </div>
                     <div className="flex-1 pt-1.5 pb-2">
@@ -524,28 +524,28 @@ export default async function PackagePage({
       {/* CTA */}
       <section className="py-14 md:py-20 border-t border-zinc-100 dark:border-zinc-900">
         <div className="mx-auto max-w-6xl px-5 md:px-8">
-          <div className="rounded-3xl bg-gradient-to-br from-rose-600 to-pink-700 p-8 md:p-14 text-center relative overflow-hidden">
+          <div className="rounded-3xl bg-gradient-to-br from-coral-600 to-pink-700 p-8 md:p-14 text-center relative overflow-hidden">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(255,255,255,0.08),_transparent_60%)]" />
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-rose-200 mb-3">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-coral-200 mb-3">
               Ready to get started?
             </p>
             <h2 className="text-2xl md:text-3xl font-extrabold text-white mb-3">
               Book your free discovery call.
             </h2>
-            <p className="text-rose-100 text-sm leading-relaxed max-w-md mx-auto mb-8">
+            <p className="text-coral-100 text-sm leading-relaxed max-w-md mx-auto mb-8">
               30 minutes. No sales pressure. We talk through your project, confirm it&apos;s the right fit, and map out exactly what happens next. If it&apos;s not right for you, we&apos;ll say so.
             </p>
             <a
               href={BOOKING_URL}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl bg-white px-8 py-4 text-sm font-bold text-rose-700 shadow-xl hover:bg-rose-50 hover:scale-[1.02] transition-all"
+              className="inline-flex items-center gap-2 rounded-xl bg-white px-8 py-4 text-sm font-bold text-coral-700 shadow-xl hover:bg-coral-50 hover:scale-[1.02] transition-all"
             >
               <Calendar className="h-4 w-4" />
               Schedule a time that works for you
               <ArrowRight className="h-4 w-4" />
             </a>
-            <p className="mt-5 text-xs text-rose-300">
+            <p className="mt-5 text-xs text-coral-300">
               Prefer a different way?{" "}
               <Link href="/#contact" className="underline hover:text-white transition-colors">
                 Get in touch here.

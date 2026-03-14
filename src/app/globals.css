@@ -18,6 +18,19 @@
   --color-zinc-800: #292524;
   --color-zinc-900: #1c1917;
   --color-zinc-950: #0c0a09;
+
+  /* ─── Coral accent palette (warm pink-coral) ─── */
+  --color-coral-50:  #FFF3F1;
+  --color-coral-100: #FFE4DF;
+  --color-coral-200: #FFCDC5;
+  --color-coral-300: #FFAda0;
+  --color-coral-400: #FF7F6E;
+  --color-coral-500: #F95D4F;
+  --color-coral-600: #E63F35;
+  --color-coral-700: #C23028;
+  --color-coral-800: #A02C26;
+  --color-coral-900: #852B27;
+  --color-coral-950: #491210;
 }
 
 /* ─── Base ───────────────────────────────────────────────── */
@@ -35,7 +48,11 @@ html:focus-within {
 }
 
 body {
-  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading), -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 /* ─── Grain texture overlay ──────────────────────────────────

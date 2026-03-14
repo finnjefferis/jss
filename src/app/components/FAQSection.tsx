@@ -61,16 +61,16 @@ function FAQItem({ faq, isOpen, onToggle }: { faq: typeof FAQS[0]; isOpen: boole
 
   return (
     <div
-      className={`rounded-2xl border-2 cursor-pointer transition-colors ${isOpen ? "border-rose-500 dark:border-rose-500 bg-zinc-50 dark:bg-zinc-900 shadow-lg shadow-rose-500/10" : "border-zinc-200 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-md"}`}
+      className={`rounded-2xl border-2 cursor-pointer transition-colors ${isOpen ? "border-coral-500 dark:border-coral-500 bg-zinc-50 dark:bg-zinc-900 shadow-lg shadow-coral-500/10" : "border-zinc-200 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-md"}`}
       onClick={onToggle}
     >
       <button className="flex w-full items-center justify-between gap-4 px-5 py-4 md:px-6 md:py-5 text-left">
-        <span className={`text-sm font-semibold transition-colors ${isOpen ? "text-rose-600 dark:text-rose-400" : "text-zinc-900 dark:text-zinc-100"}`}>
+        <span className={`text-sm font-semibold transition-colors ${isOpen ? "text-coral-600 dark:text-coral-400" : "text-zinc-900 dark:text-zinc-100"}`}>
           {faq.q}
         </span>
         <ChevronDown
           ref={chevronRef}
-          className={`h-4 w-4 shrink-0 ${isOpen ? "text-rose-600" : "text-zinc-400"}`}
+          className={`h-4 w-4 shrink-0 ${isOpen ? "text-coral-600" : "text-zinc-400"}`}
         />
       </button>
       <div ref={contentRef} className="overflow-hidden" style={{ height: 0, opacity: 0, display: "none" }}>
@@ -132,7 +132,7 @@ export function FAQSection() {
           </p>
           <h2 data-reveal style={{ opacity: 0 }} className="text-3xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-4xl">
             Straight{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-pink-600 inline-block" data-gradient style={{ opacity: 0 }}>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-600 to-pink-600 inline-block" data-gradient style={{ opacity: 0 }}>
               answers.
             </span>
           </h2>
