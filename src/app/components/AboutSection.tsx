@@ -122,7 +122,7 @@ export function AboutSection() {
           Brilliant at what you do?
           <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-600 to-pink-600 inline-block" data-gradient style={{ "--gd": 300 } as React.CSSProperties}>
-            Your website should say so.
+            Your website should be too.
           </span>
         </h2>
 

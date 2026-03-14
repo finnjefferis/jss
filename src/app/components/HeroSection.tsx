@@ -103,6 +103,16 @@ function MobileHeroCarousel() {
 }
 
 function HeroVisual() {
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // After drop animation finishes, remove animation so CSS transition can take over for hover
+  const handleAnimationEnd = (i: number) => {
+    const el = cardRefs.current[i];
+    if (!el) return;
+    el.classList.remove("hero-card-drop");
+    el.style.transform = `rotate(${HERO_SITES[i].rotate}deg) scale(1)`;
+  };
+
   return (
     <>
       {/* DESKTOP */}
@@ -112,13 +122,14 @@ function HeroVisual() {
           {HERO_SITES.map((site, i) => (
             <div
               key={site.label}
+              ref={(el) => { cardRefs.current[i] = el; }}
               className={`absolute ${site.pos} ${site.z} hero-card-drop hero-card-hover`}
               style={{
                 "--start-rot": `${START_ROTATIONS[i]}deg`,
                 "--end-rot": `${site.rotate}deg`,
                 "--drop-delay": `${150 + i * 200}ms`,
-                transform: `rotate(${site.rotate}deg)`,
               } as React.CSSProperties}
+              onAnimationEnd={() => handleAnimationEnd(i)}
             >
               <BrowserFrame site={site} />
             </div>

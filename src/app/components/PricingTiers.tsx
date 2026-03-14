@@ -697,36 +697,21 @@ function SoftwareCallout() {
 /* ─── Monthly plan card ─── */
 
 function MonthlyPlanCard({ plan }: { plan: typeof MONTHLY_PLANS[0] }) {
-  const [active, setActive] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
-  const isMobile = useIsMobile();
-
-  useEffect(() => {
-    if (!isMobile) { setActive(false); return; }
-    const el = cardRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setActive(entry.isIntersecting),
-      { threshold: 0.6 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [isMobile]);
+  const [hovered, setHovered] = useState(false);
 
   return (
     <div
-      ref={cardRef}
-      onMouseEnter={() => setActive(true)}
-      onMouseLeave={() => setActive(false)}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       className={`rounded-2xl border p-6 transition-all duration-200 cursor-default card-hover-lift ${
-        active
+        hovered
           ? "bg-coral-600 border-coral-600"
           : "border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900"
       }`}
     >
-      <p className={`text-xs font-bold uppercase tracking-wider mb-1 transition-colors duration-200 ${active ? "text-coral-200" : "text-coral-500 dark:text-coral-400"}`}>{plan.name}</p>
-      <p className={`text-2xl font-extrabold mb-2 transition-colors duration-200 ${active ? "text-white" : "text-zinc-900 dark:text-white"}`}>{plan.price}</p>
-      <p className={`text-sm leading-relaxed transition-colors duration-200 ${active ? "text-coral-100" : "text-zinc-500 dark:text-zinc-400"}`}>{plan.description}</p>
+      <p className={`text-xs font-bold uppercase tracking-wider mb-1 transition-colors duration-200 ${hovered ? "text-coral-200" : "text-coral-500 dark:text-coral-400"}`}>{plan.name}</p>
+      <p className={`text-2xl font-extrabold mb-2 transition-colors duration-200 ${hovered ? "text-white" : "text-zinc-900 dark:text-white"}`}>{plan.price}</p>
+      <p className={`text-sm leading-relaxed transition-colors duration-200 ${hovered ? "text-coral-100" : "text-zinc-500 dark:text-zinc-400"}`}>{plan.description}</p>
     </div>
   );
 }

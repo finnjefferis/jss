@@ -130,11 +130,11 @@ html.dark body::before {
   animation-delay: var(--drop-delay, 0ms);
 }
 
-/* Hero card hover */
+/* Hero card hover — transition only works after animation class is removed via onAnimationEnd */
 .hero-card-hover {
   transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
 }
-.hero-card-hover:hover {
+.hero-card-hover:not(.hero-card-drop):hover {
   transform: rotate(0deg) scale(1.05) !important;
 }
 
@@ -357,6 +357,10 @@ html.dark body::before {
 
 .collapsible-menu > div {
   overflow: hidden;
+}
+
+.collapsible-menu.open > div {
+  overflow: visible;
 }
 
 /* URL bar text fade */
