@@ -16,7 +16,7 @@ const HERO_SITES = [
 function BrowserFrame({ site, className = "" }: { site: typeof HERO_SITES[number]; className?: string }) {
   return (
     <Link href={site.href} className={`block group ${className}`}>
-      <div className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 shadow-xl overflow-hidden transition-shadow group-hover:shadow-2xl">
+      <div className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 shadow-md overflow-hidden">
         <div className="flex items-center gap-1.5 px-3 py-2 border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/50">
           <span className="h-2 w-2 rounded-full bg-red-400" />
           <span className="h-2 w-2 rounded-full bg-amber-400" />
@@ -114,7 +114,6 @@ function MobileHeroCarousel() {
               style={{
                 transformOrigin: "50% 350%",
                 zIndex: isActive ? 30 : 20 - Math.abs(offset),
-                filter: isActive ? "none" : "saturate(0.5)",
               }}
               onClick={() => setActiveIndex(i)}
             >
@@ -154,8 +153,8 @@ function HeroVisual() {
         translateY: [-200, 0],
         rotate: [`${startRotations[i]}deg`, `${HERO_SITES[i].rotate}deg`],
         scale: [0.9, 1],
-        duration: 1200,
-        ease: "outElastic(1, 0.8)",
+        duration: 900,
+        ease: "outExpo",
         delay: 150 + i * 200,
       });
     });
@@ -165,7 +164,7 @@ function HeroVisual() {
     <>
       {/* DESKTOP */}
       <div className="hidden lg:block relative">
-        <div className="absolute -inset-8 bg-gradient-to-tr from-rose-200/30 dark:from-rose-900/15 to-pink-200/30 dark:to-pink-900/15 rounded-3xl blur-2xl -z-10" />
+        <div className="absolute -inset-8 bg-gradient-to-tr from-rose-200/20 dark:from-rose-900/10 to-pink-200/20 dark:to-pink-900/10 rounded-3xl blur-xl -z-10" />
         <div className="relative aspect-[4/3]">
           {HERO_SITES.map((site, i) => (
             <div
@@ -207,38 +206,55 @@ function HeroVisual() {
 }
 
 function RotatingWord() {
-  const [index, setIndex] = useState(0);
-  const [text, setText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
+  const textRef = useRef<HTMLSpanElement>(null);
+  const cursorRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    const word = ROTATE_WORDS[index];
-    const isComplete = text === word;
-    const isEmpty = text === "";
-    const isLast = index === ROTATE_WORDS.length - 1;
-    if (isComplete && isLast) return;
+    let wordIdx = 0;
+    let charIdx = 0;
+    let deleting = false;
+    let timer: ReturnType<typeof setTimeout>;
 
-    const timer = setTimeout(() => {
-      if (isDeleting) {
-        setText((prev) => prev.slice(0, -1));
-        if (isEmpty) { setIsDeleting(false); setIndex((prev) => prev + 1); }
+    function tick() {
+      const word = ROTATE_WORDS[wordIdx];
+      const isLast = wordIdx === ROTATE_WORDS.length - 1;
+
+      if (deleting) {
+        charIdx--;
+        if (charIdx <= 0) {
+          charIdx = 0;
+          deleting = false;
+          wordIdx++;
+        }
       } else {
-        setText(word.slice(0, text.length + 1));
-        if (isComplete) { setTimeout(() => setIsDeleting(true), 2000); }
+        charIdx++;
+        if (charIdx >= word.length) {
+          charIdx = word.length;
+          if (isLast) {
+            // Done — hide cursor
+            if (cursorRef.current) cursorRef.current.style.display = "none";
+            if (textRef.current) textRef.current.textContent = word;
+            return;
+          }
+          // Pause then delete
+          timer = setTimeout(() => { deleting = true; tick(); }, 2000);
+          if (textRef.current) textRef.current.textContent = word;
+          return;
+        }
       }
-    }, isDeleting ? 40 : 90);
 
+      if (textRef.current) textRef.current.textContent = ROTATE_WORDS[wordIdx].slice(0, charIdx);
+      timer = setTimeout(tick, deleting ? 40 : 90);
+    }
+
+    tick();
     return () => clearTimeout(timer);
-  }, [text, isDeleting, index]);
-
-  const word = ROTATE_WORDS[index];
-  const isLast = index === ROTATE_WORDS.length - 1;
-  const showCursor = !isLast || isDeleting || text !== word;
+  }, []);
 
   return (
     <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-pink-500">
-      {text}
-      {showCursor && <span className="animate-pulse text-rose-400 dark:text-rose-500">|</span>}
+      <span ref={textRef} />
+      <span ref={cursorRef} className="animate-pulse text-rose-400 dark:text-rose-500">|</span>
     </span>
   );
 }
@@ -277,9 +293,9 @@ export function HeroSection() {
 
   return (
     <section ref={sectionRef} className="relative pt-10 pb-20 md:py-28 lg:py-36 overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 will-change-auto">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-rose-500/10 dark:bg-rose-500/5 rounded-full blur-2xl" />
-        <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-pink-500/10 dark:bg-pink-500/5 rounded-full blur-2xl" />
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-rose-500/5 dark:bg-rose-500/3 rounded-full blur-xl" />
+        <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-pink-500/5 dark:bg-pink-500/3 rounded-full blur-xl" />
       </div>
 
       <div className="mx-auto max-w-6xl px-5 md:px-8 lg:px-10 relative z-10">
@@ -300,7 +316,7 @@ export function HeroSection() {
             <div data-hero-line style={{ opacity: 0 }} className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
               <a
                 href="#services"
-                className="inline-flex items-center justify-center rounded-xl bg-rose-600 px-8 py-4 text-sm font-bold text-white shadow-lg shadow-rose-600/25 transition hover:bg-rose-700 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
+                className="inline-flex items-center justify-center rounded-xl bg-rose-600 px-8 py-4 text-sm font-bold text-white shadow-md transition-colors hover:bg-rose-700"
               >
                 See packages & pricing
               </a>

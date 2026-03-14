@@ -363,12 +363,15 @@ function PackageQuiz() {
 
   return (
     <div className="relative">
+      {/* Subtle glow behind the card */}
+      <div className="pointer-events-none absolute -inset-3 rounded-[2rem] bg-gradient-to-b from-rose-500/10 via-pink-500/5 to-transparent blur-xl" />
+
       <div
         ref={containerRef}
-        className="relative rounded-3xl border border-zinc-200 dark:border-zinc-800/80 bg-white dark:bg-zinc-950 overflow-hidden shadow-lg"
+        className="relative rounded-3xl border border-rose-200 dark:border-rose-900/40 bg-gradient-to-b from-white via-white to-rose-50/50 dark:from-zinc-950 dark:via-zinc-950 dark:to-rose-950/20 shadow-lg overflow-visible"
       >
         {/* Progress bar */}
-        <div className="h-1 bg-zinc-100 dark:bg-zinc-900">
+        <div className="h-1.5 bg-zinc-100 dark:bg-zinc-900 rounded-t-3xl overflow-hidden">
           <div
             ref={barRef}
             className="h-full rounded-r-full w-0"
@@ -385,7 +388,7 @@ function PackageQuiz() {
           {/* ── Questions ── */}
           {phase === "question" && currentQuestion && (
             <div ref={questionRef}>
-              <div data-q-heading style={{ opacity: 0 }}>
+              <div data-q-heading style={{ opacity: 0 }} className="text-center">
                 <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-rose-400 mb-3">
                   Question {step + 1} of {QUESTIONS.length}
                 </p>
@@ -426,7 +429,7 @@ function PackageQuiz() {
               {step > 0 && (
                 <button
                   onClick={goBack}
-                  className="mt-5 flex items-center gap-1.5 text-sm text-zinc-500 hover:text-zinc-300 transition-colors"
+                  className="mt-5 mx-auto flex items-center gap-1.5 text-sm text-zinc-500 hover:text-zinc-300 transition-colors"
                 >
                   <ArrowRight className="h-3.5 w-3.5 rotate-180" />
                   Back
@@ -440,38 +443,40 @@ function PackageQuiz() {
             <div ref={resultRef}>
               {result.primary.managedOnly ? (
                 <>
-                  {/* Managed-only — show 3 monthly tiers */}
-                  <div data-r style={{ opacity: 0 }} className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-4 py-1.5 mb-6">
-                    <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">No rebuild needed</span>
+                  {/* Managed-only — recommended monthly plan */}
+                  <div className="text-center md:text-left">
+                    <div data-r style={{ opacity: 0 }} className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-4 py-1.5 mb-6">
+                      <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                      <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">No rebuild needed</span>
+                    </div>
                   </div>
 
-                  <h3 data-r style={{ opacity: 0 }} className="text-2xl md:text-3xl font-extrabold text-zinc-900 dark:text-white mb-2">
+                  <h3 data-r style={{ opacity: 0 }} className="text-2xl md:text-3xl font-extrabold text-zinc-900 dark:text-white mb-2 text-center md:text-left">
                     We&apos;ll look after it.
                   </h3>
-                  <p data-r style={{ opacity: 0 }} className="text-sm text-zinc-500 dark:text-zinc-400 mb-8 max-w-lg">
+                  <p data-r style={{ opacity: 0 }} className="text-sm text-zinc-500 dark:text-zinc-400 mb-8 max-w-lg text-center md:text-left">
                     {result.primary.reason}
                   </p>
 
                   <div
                     data-r style={{ opacity: 0 }}
-                    className="rounded-2xl border border-rose-500/20 bg-rose-500/5 p-6 mb-4 max-w-md"
-                    onMouseEnter={(e) => animate(e.currentTarget, { scale: 1.02, translateY: -4, duration: 250, ease: "outQuart" })}
-                    onMouseLeave={(e) => animate(e.currentTarget, { scale: 1, translateY: 0, duration: 350, ease: "outQuart" })}
-                    onTouchStart={(e) => animate(e.currentTarget, { scale: 1.02, duration: 200, ease: "outQuart" })}
-                    onTouchEnd={(e) => animate(e.currentTarget, { scale: 1, duration: 300, ease: "outQuart" })}
+                    className="rounded-2xl border border-rose-500/20 bg-rose-500/5 p-6 mb-4 max-w-md mx-auto transition-colors duration-200 hover:bg-rose-600 hover:border-rose-600 group/plan cursor-default"
+                    onMouseEnter={(e) => animate(e.currentTarget, { scale: 1.04, translateY: -6, duration: 300, ease: "outExpo" })}
+                    onMouseLeave={(e) => animate(e.currentTarget, { scale: 1, translateY: 0, duration: 400, ease: "outExpo" })}
+                    onTouchStart={(e) => { e.currentTarget.classList.add("bg-rose-600", "border-rose-600"); animate(e.currentTarget, { scale: 1.02, duration: 200, ease: "outQuart" }); }}
+                    onTouchEnd={(e) => { e.currentTarget.classList.remove("bg-rose-600", "border-rose-600"); animate(e.currentTarget, { scale: 1, duration: 300, ease: "outQuart" }); }}
                   >
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-rose-400 mb-2">Monthly plan</p>
-                    <p className="text-2xl font-extrabold text-zinc-900 dark:text-white mb-1">{result.primary.monthly.price}</p>
-                    <p className="text-xs text-zinc-500 mb-4">{result.primary.monthly.name} plan</p>
-                    <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">{result.primary.monthly.description}</p>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-rose-400 mb-2 group-hover/plan:text-rose-200">Monthly plan</p>
+                    <p className="text-2xl font-extrabold text-zinc-900 dark:text-white mb-1 group-hover/plan:text-white">{result.primary.monthly.price}</p>
+                    <p className="text-xs text-zinc-500 mb-4 group-hover/plan:text-rose-200">{result.primary.monthly.name} plan</p>
+                    <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed group-hover/plan:text-rose-100">{result.primary.monthly.description}</p>
                   </div>
 
-                  <p data-r style={{ opacity: 0 }} className="text-xs text-zinc-400 dark:text-zinc-500 mb-8">
+                  <p data-r style={{ opacity: 0 }} className="text-xs text-zinc-400 dark:text-zinc-500 mb-8 text-center">
                     Hosting, SSL &amp; backups included as standard.
                   </p>
 
-                  <div data-r style={{ opacity: 0 }} className="flex flex-wrap gap-3">
+                  <div data-r style={{ opacity: 0 }} className="flex flex-wrap gap-3 justify-center">
                     <Link
                       href="/#contact"
                       className="inline-flex items-center gap-2 rounded-xl bg-rose-600 hover:bg-rose-700 px-7 py-3.5 text-sm font-bold text-white transition-colors"
@@ -491,53 +496,51 @@ function PackageQuiz() {
               ) : (
                 <>
                   {/* Full recommendation */}
-                  <div data-r style={{ opacity: 0 }} className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-4 py-1.5 mb-6">
-                    <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">Recommended for you</span>
+                  <div className="text-center">
+                    <div data-r style={{ opacity: 0 }} className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-4 py-1.5 mb-6">
+                      <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                      <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">Recommended for you</span>
+                    </div>
                   </div>
 
-                  <h3 data-r style={{ opacity: 0 }} className="text-2xl md:text-3xl font-extrabold text-zinc-900 dark:text-white mb-2">
+                  <h3 data-r style={{ opacity: 0 }} className="text-2xl md:text-3xl font-extrabold text-zinc-900 dark:text-white mb-2 text-center">
                     {result.primary.build!.name} + {result.primary.monthly.name}
                   </h3>
-                  <p data-r style={{ opacity: 0 }} className="text-sm text-zinc-500 dark:text-zinc-400 mb-8 max-w-lg">
+                  <p data-r style={{ opacity: 0 }} className="text-sm text-zinc-500 dark:text-zinc-400 mb-8 max-w-lg mx-auto text-center">
                     {result.primary.reason}
                   </p>
 
                   <div data-r style={{ opacity: 0 }} className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                     <div
-                      className="rounded-2xl border border-rose-500/20 bg-rose-500/5 p-6"
-                      onMouseEnter={(e) => animate(e.currentTarget, { scale: 1.03, translateY: -4, duration: 250, ease: "outQuart" })}
-                      onMouseLeave={(e) => animate(e.currentTarget, { scale: 1, translateY: 0, duration: 350, ease: "outQuart" })}
-                      onTouchStart={(e) => animate(e.currentTarget, { scale: 1.02, duration: 200, ease: "outQuart" })}
-                      onTouchEnd={(e) => animate(e.currentTarget, { scale: 1, duration: 300, ease: "outQuart" })}
+                      className="rounded-2xl border border-rose-500/20 bg-rose-500/5 p-6 transition-colors duration-200 hover:bg-rose-600 hover:border-rose-600 group/build cursor-default"
+                      onMouseEnter={(e) => animate(e.currentTarget, { scale: 1.04, translateY: -6, duration: 300, ease: "outExpo" })}
+                      onMouseLeave={(e) => animate(e.currentTarget, { scale: 1, translateY: 0, duration: 400, ease: "outExpo" })}
                     >
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-rose-400 mb-2">Website build</p>
-                      <p className="text-2xl font-extrabold text-zinc-900 dark:text-white mb-1">
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-rose-400 mb-2 group-hover/build:text-rose-200">Website build</p>
+                      <p className="text-2xl font-extrabold text-zinc-900 dark:text-white mb-1 group-hover/build:text-white">
                         {result.primary.build!.price}
-                        <span className="text-sm font-normal text-zinc-500 ml-2">one-off</span>
+                        <span className="text-sm font-normal text-zinc-500 ml-2 group-hover/build:text-rose-200">one-off</span>
                       </p>
-                      <p className="text-xs text-zinc-500 mb-4">{result.primary.build!.name} package</p>
+                      <p className="text-xs text-zinc-500 mb-4 group-hover/build:text-rose-200">{result.primary.build!.name} package</p>
                       <ul className="space-y-2">
                         {result.primary.build!.features.map((f) => (
                           <li key={f} className="flex items-start gap-2.5 text-sm">
-                            <Check className="h-3.5 w-3.5 shrink-0 mt-0.5 text-rose-500" />
-                            <span className="text-zinc-600 dark:text-zinc-300">{f}</span>
+                            <Check className="h-3.5 w-3.5 shrink-0 mt-0.5 text-rose-500 group-hover/build:text-rose-200" />
+                            <span className="text-zinc-600 dark:text-zinc-300 group-hover/build:text-rose-50">{f}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
 
                     <div
-                      className="rounded-2xl border border-rose-500/20 bg-rose-500/5 p-6"
-                      onMouseEnter={(e) => animate(e.currentTarget, { scale: 1.03, translateY: -4, duration: 250, ease: "outQuart" })}
-                      onMouseLeave={(e) => animate(e.currentTarget, { scale: 1, translateY: 0, duration: 350, ease: "outQuart" })}
-                      onTouchStart={(e) => animate(e.currentTarget, { scale: 1.02, duration: 200, ease: "outQuart" })}
-                      onTouchEnd={(e) => animate(e.currentTarget, { scale: 1, duration: 300, ease: "outQuart" })}
+                      className="rounded-2xl border border-rose-500/20 bg-rose-500/5 p-6 transition-colors duration-200 hover:bg-rose-600 hover:border-rose-600 group/monthly cursor-default"
+                      onMouseEnter={(e) => animate(e.currentTarget, { scale: 1.04, translateY: -6, duration: 300, ease: "outExpo" })}
+                      onMouseLeave={(e) => animate(e.currentTarget, { scale: 1, translateY: 0, duration: 400, ease: "outExpo" })}
                     >
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-rose-400 mb-2">Monthly plan</p>
-                      <p className="text-2xl font-extrabold text-zinc-900 dark:text-white mb-1">{result.primary.monthly.price}</p>
-                      <p className="text-xs text-zinc-500 mb-4">{result.primary.monthly.name} plan</p>
-                      <p className="text-sm text-zinc-500 dark:text-zinc-400">{result.primary.monthly.description}</p>
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-rose-400 mb-2 group-hover/monthly:text-rose-200">Monthly plan</p>
+                      <p className="text-2xl font-extrabold text-zinc-900 dark:text-white mb-1 group-hover/monthly:text-white">{result.primary.monthly.price}</p>
+                      <p className="text-xs text-zinc-500 mb-4 group-hover/monthly:text-rose-200">{result.primary.monthly.name} plan</p>
+                      <p className="text-sm text-zinc-500 dark:text-zinc-400 group-hover/monthly:text-rose-100">{result.primary.monthly.description}</p>
                     </div>
                   </div>
 
@@ -545,7 +548,7 @@ function PackageQuiz() {
                     <FullMenu className="mt-0" label="Or explore a different combination" />
                   </div>
 
-                  <div data-r style={{ opacity: 0 }} className="flex flex-wrap gap-3 mt-8">
+                  <div data-r style={{ opacity: 0 }} className="flex flex-wrap gap-3 mt-8 justify-center">
                     <Link
                       href="/#contact"
                       className="inline-flex items-center gap-2 rounded-xl bg-rose-600 hover:bg-rose-700 px-7 py-3.5 text-sm font-bold text-white transition-colors"
@@ -823,15 +826,15 @@ function FullMenu({ className = "mt-16", label }: { className?: string; label?: 
           {MONTHLY_PLANS.map((plan) => (
             <div
               key={plan.id}
-              className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors"
-              onMouseEnter={(e) => animate(e.currentTarget, { scale: 1.03, translateY: -4, duration: 250, ease: "outQuart" })}
-              onMouseLeave={(e) => animate(e.currentTarget, { scale: 1, translateY: 0, duration: 350, ease: "outQuart" })}
-              onTouchStart={(e) => animate(e.currentTarget, { scale: 1.02, duration: 200, ease: "outQuart" })}
-              onTouchEnd={(e) => animate(e.currentTarget, { scale: 1, duration: 300, ease: "outQuart" })}
+              className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 transition-colors duration-200 hover:bg-rose-600 hover:border-rose-600 group/card cursor-default"
+              onMouseEnter={(e) => animate(e.currentTarget, { scale: 1.04, translateY: -6, duration: 300, ease: "outExpo" })}
+              onMouseLeave={(e) => animate(e.currentTarget, { scale: 1, translateY: 0, duration: 400, ease: "outExpo" })}
+              onTouchStart={(e) => { e.currentTarget.classList.add("bg-rose-600", "border-rose-600"); animate(e.currentTarget, { scale: 1.02, duration: 200, ease: "outQuart" }); }}
+              onTouchEnd={(e) => { e.currentTarget.classList.remove("bg-rose-600", "border-rose-600"); animate(e.currentTarget, { scale: 1, duration: 300, ease: "outQuart" }); }}
             >
-              <p className="text-xs font-bold uppercase tracking-wider text-rose-500 dark:text-rose-400 mb-1">{plan.name}</p>
-              <p className="text-2xl font-extrabold text-zinc-900 dark:text-white mb-2">{plan.price}</p>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">{plan.description}</p>
+              <p className="text-xs font-bold uppercase tracking-wider text-rose-500 dark:text-rose-400 mb-1 group-hover/card:text-rose-200">{plan.name}</p>
+              <p className="text-2xl font-extrabold text-zinc-900 dark:text-white mb-2 group-hover/card:text-white">{plan.price}</p>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed group-hover/card:text-rose-100">{plan.description}</p>
             </div>
           ))}
         </div>
