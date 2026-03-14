@@ -44,8 +44,19 @@ export async function generateMetadata({
   };
 }
 
-function renderContent(blocks: string[]) {
-  return blocks.map((block, i) => {
+function renderContent(content: string | string[]) {
+  // New format: single HTML string
+  if (typeof content === "string") {
+    return (
+      <div
+        className="prose prose-zinc dark:prose-invert max-w-none [&>h2]:text-xl [&>h2]:font-bold [&>h2]:text-zinc-900 dark:[&>h2]:text-zinc-100 [&>h2]:mt-10 [&>h2]:mb-4 [&>p]:text-zinc-600 dark:[&>p]:text-zinc-400 [&>p]:leading-relaxed [&>p]:mb-4"
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
+    );
+  }
+
+  // Legacy format: string[] blocks
+  return content.map((block, i) => {
     if (block.startsWith("## ")) {
       return (
         <h2

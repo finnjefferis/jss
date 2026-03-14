@@ -1,11 +1,5 @@
-export type BlogPost = {
-  slug: string;
-  title: string;
-  description: string;
-  date: string;
-  readTime: string;
-  tags: string[];
-  content: string[];
-};
+import { getAllPosts, type BlogPost } from "@/lib/posts";
 
-export const POSTS: BlogPost[] = [];
+export type { BlogPost };
+
+export const POSTS: BlogPost[] = getAllPosts();
