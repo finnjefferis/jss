@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { POSTS } from "./blog/posts";
 
-const SITE_URL = "https://jefferissoftware.co.uk";
+const SITE_URL = "https://www.jefferissoftware.co.uk";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const blogEntries: MetadataRoute.Sitemap = POSTS.length
@@ -17,7 +17,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     { url: SITE_URL, lastModified: new Date("2026-03-13"), priority: 1 },
-    { url: `${SITE_URL}/packages/essential`, lastModified: new Date("2026-03-01"), priority: 0.9 },
     { url: `${SITE_URL}/packages/business`, lastModified: new Date("2026-03-01"), priority: 0.9 },
     { url: `${SITE_URL}/packages/commerce`, lastModified: new Date("2026-03-01"), priority: 0.9 },
     { url: `${SITE_URL}/software`, lastModified: new Date("2026-03-01"), priority: 0.8 },

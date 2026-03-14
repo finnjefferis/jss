@@ -7,6 +7,12 @@ import { Check, ArrowRight, BarChart3, Cpu, Zap, Database, RefreshCw, FileText, 
 export const metadata: Metadata = {
   title: "Custom Software Development",
   description: "Bespoke internal tools, dashboards, CRM integrations and automation for UK businesses. Built to save time and surface real data.",
+  alternates: { canonical: "/software" },
+  openGraph: {
+    title: "Custom Software Development | Jefferis Software Solutions",
+    description: "Bespoke internal tools, dashboards, CRM integrations and automation for UK businesses. Built to save time and surface real data.",
+    url: "/software",
+  },
 };
 
 const CAPABILITIES = [

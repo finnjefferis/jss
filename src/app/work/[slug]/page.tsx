@@ -108,9 +108,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const project = PROJECTS[slug as ProjectSlug];
   if (!project) return {};
+  const title = `${project.title}: ${project.role}`;
   return {
-    title: `${project.title}: ${project.role}`,
+    title,
     description: project.summary,
+    alternates: { canonical: `/work/${slug}` },
+    openGraph: {
+      title: `${title} | Jefferis Software Solutions`,
+      description: project.summary,
+      url: `/work/${slug}`,
+    },
   };
 }
 

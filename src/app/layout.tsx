@@ -16,7 +16,7 @@ const spaceGrotesk = Space_Grotesk({
   variable: "--font-body",
 });
 
-const SITE_URL = "https://jefferissoftware.co.uk";
+const SITE_URL = "https://www.jefferissoftware.co.uk";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -26,16 +26,6 @@ export const metadata: Metadata = {
   },
   description:
     "Jefferis Software Solutions builds fast, modern websites and bespoke software for small businesses across the UK. Real results: more traffic, more enquiries, more growth.",
-  keywords: [
-    "web design UK",
-    "small business website design",
-    "web developer UK",
-    "bespoke software UK",
-    "website redesign",
-    "mobile-first web design",
-    "affordable web design UK",
-    "bespoke web applications UK",
-  ],
   authors: [{ name: "Jefferis Software Solutions", url: SITE_URL }],
   creator: "Jefferis Software Solutions",
   openGraph: {
@@ -63,7 +53,7 @@ export const metadata: Metadata = {
     images: [`${SITE_URL}/og-image.png`],
   },
   alternates: {
-    canonical: SITE_URL,
+    canonical: "/",
   },
   icons: {
     icon: "/jsslogo.png",

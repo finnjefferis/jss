@@ -268,10 +268,10 @@ export function HeroSection() {
             <p data-hero-line style={{ opacity: 0 }} className="mb-3 text-xs font-bold uppercase tracking-[0.25em] text-amber-600 dark:text-amber-400">
               Small business websites · UK
             </p>
-            <h2 data-hero-line style={{ opacity: 0 }} className="text-5xl font-black leading-[1.08] tracking-tight text-zinc-900 dark:text-white sm:text-6xl lg:text-7xl">
+            <h1 data-hero-line style={{ opacity: 0 }} className="text-5xl font-black leading-[1.08] tracking-tight text-zinc-900 dark:text-white sm:text-6xl lg:text-7xl">
               Websites that<br />
               <RotatingWord />
-            </h2>
+            </h1>
             <p data-hero-line style={{ opacity: 0 }} className="mt-6 text-lg text-zinc-500 dark:text-zinc-400 md:text-xl max-w-xl">
               Your website should be winning you clients. If it isn't, we'll fix that.
             </p>

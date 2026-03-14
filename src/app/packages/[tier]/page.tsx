@@ -218,9 +218,17 @@ export async function generateMetadata({
   const { tier } = await params;
   const pkg = PACKAGES[tier];
   if (!pkg) return {};
+  const title = `${pkg.name} Website Package — ${pkg.price}`;
+  const description = `${pkg.headline} ${pkg.subheadline}`;
   return {
-    title: `${pkg.name} Website Package — ${pkg.price}`,
-    description: `${pkg.headline} ${pkg.subheadline}`,
+    title,
+    description,
+    alternates: { canonical: `/packages/${tier}` },
+    openGraph: {
+      title: `${title} | Jefferis Software Solutions`,
+      description,
+      url: `/packages/${tier}`,
+    },
   };
 }
 
