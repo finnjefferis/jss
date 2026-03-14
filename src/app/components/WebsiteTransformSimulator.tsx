@@ -11,24 +11,31 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
   const targetProgress = useRef(0);
   const currentProgress = useRef(0);
 
-  useEffect(() => {
-    if (stage === "gap") targetProgress.current = 0;
-    else if (stage === "build") targetProgress.current = 50;
-    else if (stage === "report") targetProgress.current = 100;
-  }, [stage]);
-
-  useEffect(() => {
+  const startAnimation = () => {
+    if (requestRef.current) return;
     const animate = () => {
       const diff = targetProgress.current - currentProgress.current;
       if (Math.abs(diff) < 0.5) {
         currentProgress.current = targetProgress.current;
-      } else {
-        currentProgress.current += diff * 0.04;
+        setAnimProgress(currentProgress.current);
+        requestRef.current = null;
+        return;
       }
+      currentProgress.current += diff * 0.04;
       setAnimProgress(currentProgress.current);
       requestRef.current = requestAnimationFrame(animate);
     };
     requestRef.current = requestAnimationFrame(animate);
+  };
+
+  useEffect(() => {
+    if (stage === "gap") targetProgress.current = 0;
+    else if (stage === "build") targetProgress.current = 50;
+    else if (stage === "report") targetProgress.current = 100;
+    startAnimation();
+  }, [stage]);
+
+  useEffect(() => {
     return () => {
       if (requestRef.current) cancelAnimationFrame(requestRef.current);
     };
@@ -125,20 +132,20 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
               {/* Wireframe hero */}
               <div className="border-2 border-dashed border-rose-200 dark:border-rose-800 rounded-xl p-5 mb-3">
                 <div className="space-y-2 mb-3">
-                  <div className="h-3 w-3/4 rounded bg-rose-200 dark:bg-rose-800 animate-pulse" />
-                  <div className="h-3 w-1/2 rounded bg-rose-200 dark:bg-rose-800 animate-pulse" />
+                  <div className="h-3 w-3/4 rounded bg-rose-200 dark:bg-rose-800" />
+                  <div className="h-3 w-1/2 rounded bg-rose-200 dark:bg-rose-800" />
                 </div>
                 <div className="space-y-1.5 mb-3">
                   <div className="h-1.5 w-full rounded bg-rose-100 dark:bg-rose-900" />
                   <div className="h-1.5 w-4/5 rounded bg-rose-100 dark:bg-rose-900" />
                 </div>
-                <div className="h-7 w-20 rounded-lg bg-rose-400 dark:bg-rose-600 animate-pulse" />
+                <div className="h-7 w-20 rounded-lg bg-rose-400 dark:bg-rose-600" />
               </div>
 
               {/* Wireframe cards */}
               <div className="grid grid-cols-2 gap-2">
                 {[0, 1, 2, 3].map((i) => (
-                  <div key={i} className="border border-dashed border-rose-200 dark:border-rose-800 rounded-lg p-2.5 animate-pulse" style={{ animationDelay: `${i * 150}ms` }}>
+                  <div key={i} className="border border-dashed border-rose-200 dark:border-rose-800 rounded-lg p-2.5" style={{ animationDelay: `${i * 150}ms` }}>
                     <div className="h-6 w-6 rounded bg-rose-100 dark:bg-rose-900 mb-1.5" />
                     <div className="h-1.5 w-full rounded bg-rose-100 dark:bg-rose-900 mb-1" />
                     <div className="h-1.5 w-3/4 rounded bg-rose-100 dark:bg-rose-900" />
@@ -154,7 +161,7 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
                 <p className="text-[10px] font-bold text-rose-700 dark:text-rose-300">Building your new site...</p>
               </div>
               <div className="h-1.5 rounded-full bg-rose-100 dark:bg-rose-900 overflow-hidden">
-                <div className="h-full bg-rose-500 rounded-full animate-pulse" style={{ width: "65%" }} />
+                <div className="h-full bg-rose-500 rounded-full" style={{ width: "65%" }} />
               </div>
             </div>
           </div>

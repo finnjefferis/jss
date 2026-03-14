@@ -50,9 +50,8 @@ body::before {
   pointer-events: none;
   z-index: 9998;
   opacity: 0.04;
-  background-image: url("/grain.png");
-  background-size: 256px 256px;
-  will-change: transform;
+  background-image: url("/grain.webp");
+  background-size: 200px 200px;
 }
 
 html.dark body::before {

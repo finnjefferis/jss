@@ -22,10 +22,10 @@ export function AboutMeSection() {
             </div>
 
             {/* Floating credential */}
-            <div className="absolute -bottom-4 right-4 md:-right-4 z-10 rounded-xl border border-white/60 dark:border-zinc-700/60 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md px-4 py-3 shadow-lg">
+            <div className="absolute -bottom-4 right-4 md:-right-4 z-10 rounded-xl border border-white/60 dark:border-zinc-700/60 bg-white dark:bg-zinc-900 px-4 py-3 shadow-lg">
               <div className="flex items-center gap-2.5">
                 <span className="relative flex h-2.5 w-2.5 shrink-0">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-40" />
                   <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
                 </span>
                 <div>

@@ -113,7 +113,7 @@ export function RecentWorkSection() {
           </h2>
           <p className="mt-3 text-sm text-zinc-400 dark:text-zinc-500 md:hidden flex items-center gap-2">
             Swipe to explore {PROJECTS.length} projects
-            <ArrowRight className="h-3.5 w-3.5 animate-pulse" />
+            <ArrowRight className="h-3.5 w-3.5" />
           </p>
         </div>
       </div>
@@ -122,7 +122,7 @@ export function RecentWorkSection() {
 
         <button
           onClick={() => scroll("left")}
-          className="absolute left-8 top-1/2 -translate-y-1/2 z-20 hidden md:flex items-center justify-center p-4 rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm text-rose-600 border border-white/20 dark:border-zinc-700/20 shadow-xl shadow-rose-900/5 hover:scale-110 hover:bg-white dark:hover:bg-zinc-800 transition-all active:scale-95"
+          className="absolute left-8 top-1/2 -translate-y-1/2 z-20 hidden md:flex items-center justify-center p-4 rounded-full bg-white dark:bg-zinc-900 text-rose-600 border border-zinc-200 dark:border-zinc-700 shadow-xl shadow-rose-900/5 hover:scale-110 hover:bg-white dark:hover:bg-zinc-800 transition-all active:scale-95"
           aria-label="Scroll left"
         >
           <ArrowLeft className="h-6 w-6" />
@@ -148,7 +148,7 @@ export function RecentWorkSection() {
               className="flex-shrink-0 w-[85vw] md:w-[440px] snap-center [scroll-snap-stop:always]"
             >
               <Link href={project.href} className="block h-full">
-                <article className="group relative h-full flex flex-col overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 shadow-xl shadow-rose-500/5 transition-all hover:-translate-y-2 hover:shadow-2xl hover:shadow-rose-500/15 ring-0 hover:ring-2 hover:ring-rose-500/50">
+                <article className="group relative h-full flex flex-col overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 shadow-xl shadow-rose-500/5 transition-[transform,box-shadow] hover:-translate-y-2 hover:shadow-2xl hover:shadow-rose-500/15 ring-0 hover:ring-2 hover:ring-rose-500/50">
 
                   <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-100 dark:bg-zinc-800">
                     <Image
@@ -160,7 +160,7 @@ export function RecentWorkSection() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                     <div className="absolute top-5 left-5 flex flex-wrap gap-2">
                       {project.tags.map((tag) => (
-                        <span key={tag} className="backdrop-blur-md bg-white/95 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider text-rose-700 border border-rose-100 shadow-sm">
+                        <span key={tag} className="bg-white px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider text-rose-700 border border-rose-100 shadow-sm">
                           {tag}
                         </span>
                       ))}

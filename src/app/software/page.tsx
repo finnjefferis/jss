@@ -174,7 +174,7 @@ export default function SoftwarePage() {
                       <Image src={project.image} alt={project.title} fill className="object-cover object-top transition duration-500 group-hover:scale-105" />
                       <div className="absolute top-4 left-4 flex flex-wrap gap-2">
                         {project.tags.map((tag) => (
-                          <span key={tag} className="backdrop-blur-md bg-white/90 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-rose-700 border border-rose-100 shadow-sm">
+                          <span key={tag} className="bg-white px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-rose-700 border border-rose-100 shadow-sm">
                             {tag}
                           </span>
                         ))}

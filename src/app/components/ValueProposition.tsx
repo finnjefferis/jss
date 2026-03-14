@@ -97,7 +97,7 @@ export function ValueProposition() {
 
   return (
     <section className="relative py-16 md:py-24 bg-zinc-50 dark:bg-zinc-950 transition-colors" id="process">
-      <div className="pointer-events-none absolute -left-48 top-40 h-96 w-96 rounded-full bg-rose-50/80 dark:bg-rose-950/40 blur-3xl mix-blend-multiply dark:mix-blend-normal opacity-70" />
+      <div className="pointer-events-none absolute -left-48 top-40 h-96 w-96 rounded-full bg-rose-50/60 dark:bg-rose-950/40 blur-3xl opacity-70" />
 
       <div className="mx-auto w-full max-w-[1440px] px-2 md:px-8 lg:px-12 relative z-10">
 
@@ -120,7 +120,7 @@ export function ValueProposition() {
           <div className="hidden lg:flex flex-col justify-center items-start lg:pl-0 relative z-20">
 
             {/* DESKTOP HEADER (Sticky) */}
-            <div className="mb-12 w-full pt-10 lg:pt-20 sticky top-0 z-30 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-sm pb-8 transition-all">
+            <div className="mb-12 w-full pt-10 lg:pt-20 sticky top-0 z-30 bg-zinc-50 dark:bg-zinc-950 pb-8 transition-colors">
               <SectionHeader />
               <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-b from-white dark:from-zinc-950 to-transparent translate-y-full pointer-events-none" />
             </div>

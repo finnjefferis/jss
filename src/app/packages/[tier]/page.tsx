@@ -359,7 +359,7 @@ export default async function PackagePage({
                 />
                 <div className="absolute top-4 left-4 flex gap-2 flex-wrap">
                   {pkg.example.tags.map((tag) => (
-                    <span key={tag} className="backdrop-blur-md bg-white/90 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-rose-700 border border-rose-100 shadow-sm">
+                    <span key={tag} className="bg-white px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-rose-700 border border-rose-100 shadow-sm">
                       {tag}
                     </span>
                   ))}

@@ -40,32 +40,38 @@ export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; ch
   }, [stage]);
 
   // --- 2. ANIMATION LOOP ---
-  const animate = () => {
+  const animateRef = useRef<() => void>(undefined);
+  animateRef.current = () => {
     const diffFollowers = targetFollowers.current - currentFollowers.current;
-    if (Math.abs(diffFollowers) < 1) {
-      currentFollowers.current = targetFollowers.current;
-    } else {
-      currentFollowers.current += diffFollowers * 0.05;
-    }
-    setDisplayFollowers(Math.floor(currentFollowers.current));
-
     const diffPosts = targetPosts.current - currentPosts.current;
-    if (Math.abs(diffPosts) < 0.1) {
-      currentPosts.current = targetPosts.current;
-    } else {
-      currentPosts.current += diffPosts * 0.08; 
-    }
-    setPostsFilled(Math.floor(currentPosts.current));
+    const settled = Math.abs(diffFollowers) < 1 && Math.abs(diffPosts) < 0.1;
 
-    requestRef.current = requestAnimationFrame(animate);
+    if (settled) {
+      currentFollowers.current = targetFollowers.current;
+      currentPosts.current = targetPosts.current;
+      setDisplayFollowers(Math.floor(currentFollowers.current));
+      setPostsFilled(Math.floor(currentPosts.current));
+      requestRef.current = null;
+      return;
+    }
+
+    currentFollowers.current += diffFollowers * 0.05;
+    currentPosts.current += diffPosts * 0.08;
+    setDisplayFollowers(Math.floor(currentFollowers.current));
+    setPostsFilled(Math.floor(currentPosts.current));
+    requestRef.current = requestAnimationFrame(() => animateRef.current?.());
   };
 
+  // Start animation when stage changes
   useEffect(() => {
-    requestRef.current = requestAnimationFrame(animate);
+    if (!requestRef.current) {
+      requestRef.current = requestAnimationFrame(() => animateRef.current?.());
+    }
     return () => {
       if (requestRef.current) cancelAnimationFrame(requestRef.current);
+      requestRef.current = null;
     };
-  }, []);
+  }, [stage]);
 
   // --- RENDER ---
   return (
