@@ -458,6 +458,79 @@ html.dark body::before {
   background: radial-gradient(ellipse at center, var(--tw-gradient-from), var(--tw-gradient-via), var(--tw-gradient-to));
 }
 
+/* ─── Tiptap editor ──────────────────────────────────────── */
+.tiptap {
+  outline: none;
+}
+
+.tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: #57534e;
+  pointer-events: none;
+  height: 0;
+}
+
+.tiptap pre {
+  background: #1c1917;
+  color: #e7e5e0;
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.8125rem;
+  overflow-x: auto;
+}
+
+.tiptap pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+.tiptap img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+}
+
+.tiptap img.ProseMirror-selectednode {
+  outline: 2px solid #E63F35;
+  border-radius: 0.5rem;
+}
+
+.tiptap mark {
+  background-color: #E63F35;
+  color: white;
+  border-radius: 0.125rem;
+  padding: 0.125rem 0.25rem;
+}
+
+.tiptap blockquote {
+  border-left: 3px solid #E63F35;
+  padding-left: 1rem;
+  color: #a8a29e;
+  font-style: italic;
+}
+
+.tiptap hr {
+  border: none;
+  border-top: 1px solid #44403c;
+  margin: 1.5rem 0;
+}
+
+/* Syntax highlighting for code blocks */
+.tiptap .hljs-comment,
+.tiptap .hljs-quote { color: #78716c; }
+.tiptap .hljs-keyword,
+.tiptap .hljs-selector-tag { color: #FF7F6E; }
+.tiptap .hljs-string,
+.tiptap .hljs-addition { color: #34d399; }
+.tiptap .hljs-number { color: #c084fc; }
+.tiptap .hljs-built_in,
+.tiptap .hljs-title { color: #60a5fa; }
+.tiptap .hljs-attr { color: #fbbf24; }
+
 /* ─── Scrollbar hiding ───────────────────────────────────── */
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar { display: none; }

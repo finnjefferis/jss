@@ -1,6 +1,10 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, lazy, Suspense } from "react";
+
+const RichTextEditor = lazy(() =>
+  import("./RichTextEditor").then((m) => ({ default: m.RichTextEditor })),
+);
 
 type BlogPost = {
   slug: string;
@@ -141,7 +145,6 @@ function PostEditor({
   );
   const [selectedTags, setSelectedTags] = useState<string[]>(post?.tags ?? []);
   const [content, setContent] = useState(post?.content ?? "");
-  const [tab, setTab] = useState<"edit" | "preview">("edit");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
@@ -283,46 +286,20 @@ function PostEditor({
         />
       </div>
 
-      {/* Content editor with tabs */}
+      {/* Rich text editor */}
       <div>
-        <div className="flex items-center gap-1 mb-2">
-          <button
-            onClick={() => setTab("edit")}
-            className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
-              tab === "edit"
-                ? "bg-zinc-700 text-zinc-100"
-                : "text-zinc-400 hover:text-zinc-200"
-            }`}
-          >
-            Edit HTML
-          </button>
-          <button
-            onClick={() => setTab("preview")}
-            className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
-              tab === "preview"
-                ? "bg-zinc-700 text-zinc-100"
-                : "text-zinc-400 hover:text-zinc-200"
-            }`}
-          >
-            Preview
-          </button>
-        </div>
-
-        {tab === "edit" ? (
-          <textarea
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            rows={20}
-            spellCheck={false}
-            placeholder="Paste or write your HTML content here..."
-            className="w-full rounded-lg bg-zinc-800 border border-zinc-700 px-4 py-3 text-sm text-zinc-100 font-mono leading-relaxed focus:outline-none focus:ring-2 focus:ring-coral-500 resize-y"
-          />
-        ) : (
-          <div
-            className="rounded-lg bg-white border border-zinc-700 px-8 py-6 min-h-[300px] prose prose-zinc max-w-none text-zinc-900"
-            dangerouslySetInnerHTML={{ __html: content }}
-          />
-        )}
+        <label className="block text-xs font-medium text-zinc-400 mb-2">
+          Content
+        </label>
+        <Suspense
+          fallback={
+            <div className="rounded-xl border border-zinc-700 bg-zinc-900 h-[460px] flex items-center justify-center text-zinc-500 text-sm">
+              Loading editor...
+            </div>
+          }
+        >
+          <RichTextEditor content={content} onChange={setContent} />
+        </Suspense>
       </div>
     </div>
   );
