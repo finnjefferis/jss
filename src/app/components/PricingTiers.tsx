@@ -404,15 +404,21 @@ function PackageQuiz() {
                     data-q-option
                     onClick={() => pickAnswer(opt.value)}
                     style={{ opacity: 0 }}
-                    className={`group text-left rounded-2xl border p-5
+                    className={`group text-left rounded-2xl border p-5 active:scale-[0.97] transition-transform duration-150
                       ${answers[currentQuestion.step] === opt.value
                         ? "border-rose-500 bg-rose-500/10"
-                        : "border-zinc-200 dark:border-zinc-800"
+                        : "border-zinc-200 dark:border-zinc-800 hover:border-rose-300 dark:hover:border-rose-700"
                       }`}
-                    onMouseEnter={(e) => animate(e.currentTarget, { scale: 1.03, translateY: -2, duration: 200, ease: "outQuart" })}
-                    onMouseLeave={(e) => animate(e.currentTarget, { scale: 1, translateY: 0, duration: 300, ease: "outQuart" })}
-                    onMouseDown={(e) => animate(e.currentTarget, { scale: 0.97, duration: 100, ease: "inQuart" })}
-                    onMouseUp={(e) => animate(e.currentTarget, { scale: 1.03, duration: 200, ease: "outQuart" })}
+                    onMouseEnter={(e) => {
+                      if (window.matchMedia("(hover: hover)").matches) {
+                        animate(e.currentTarget, { scale: 1.03, translateY: -2, duration: 200, ease: "outQuart" });
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (window.matchMedia("(hover: hover)").matches) {
+                        animate(e.currentTarget, { scale: 1, translateY: 0, duration: 300, ease: "outQuart" });
+                      }
+                    }}
                   >
                     <p className={`text-sm font-bold mb-1.5 transition-colors ${
                       answers[currentQuestion.step] === opt.value
@@ -779,6 +785,43 @@ function SoftwareCallout() {
   );
 }
 
+/* ─── Monthly plan card (hover + touch safe) ─── */
+
+function MonthlyPlanCard({ plan }: { plan: typeof MONTHLY_PLANS[0] }) {
+  const [active, setActive] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
+
+  useEffect(() => {
+    if (!isMobile) { setActive(false); return; }
+    const el = cardRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setActive(entry.isIntersecting),
+      { threshold: 0.6 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [isMobile]);
+
+  return (
+    <div
+      ref={cardRef}
+      onMouseEnter={() => { setActive(true); if (cardRef.current) animate(cardRef.current, { scale: 1.04, translateY: -6, duration: 300, ease: "outExpo" }); }}
+      onMouseLeave={() => { setActive(false); if (cardRef.current) animate(cardRef.current, { scale: 1, translateY: 0, duration: 400, ease: "outExpo" }); }}
+      className={`rounded-2xl border p-6 transition-colors duration-200 cursor-default ${
+        active
+          ? "bg-rose-600 border-rose-600"
+          : "border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900"
+      }`}
+    >
+      <p className={`text-xs font-bold uppercase tracking-wider mb-1 transition-colors duration-200 ${active ? "text-rose-200" : "text-rose-500 dark:text-rose-400"}`}>{plan.name}</p>
+      <p className={`text-2xl font-extrabold mb-2 transition-colors duration-200 ${active ? "text-white" : "text-zinc-900 dark:text-white"}`}>{plan.price}</p>
+      <p className={`text-sm leading-relaxed transition-colors duration-200 ${active ? "text-rose-100" : "text-zinc-500 dark:text-zinc-400"}`}>{plan.description}</p>
+    </div>
+  );
+}
+
 /* ─── Full menu (collapsible) ─── */
 
 function FullMenu({ className = "mt-16", label }: { className?: string; label?: string }) {
@@ -824,18 +867,7 @@ function FullMenu({ className = "mt-16", label }: { className?: string; label?: 
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           {MONTHLY_PLANS.map((plan) => (
-            <div
-              key={plan.id}
-              className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 transition-colors duration-200 hover:bg-rose-600 hover:border-rose-600 group/card cursor-default"
-              onMouseEnter={(e) => animate(e.currentTarget, { scale: 1.04, translateY: -6, duration: 300, ease: "outExpo" })}
-              onMouseLeave={(e) => animate(e.currentTarget, { scale: 1, translateY: 0, duration: 400, ease: "outExpo" })}
-              onTouchStart={(e) => { e.currentTarget.classList.add("bg-rose-600", "border-rose-600"); animate(e.currentTarget, { scale: 1.02, duration: 200, ease: "outQuart" }); }}
-              onTouchEnd={(e) => { e.currentTarget.classList.remove("bg-rose-600", "border-rose-600"); animate(e.currentTarget, { scale: 1, duration: 300, ease: "outQuart" }); }}
-            >
-              <p className="text-xs font-bold uppercase tracking-wider text-rose-500 dark:text-rose-400 mb-1 group-hover/card:text-rose-200">{plan.name}</p>
-              <p className="text-2xl font-extrabold text-zinc-900 dark:text-white mb-2 group-hover/card:text-white">{plan.price}</p>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed group-hover/card:text-rose-100">{plan.description}</p>
-            </div>
+            <MonthlyPlanCard key={plan.id} plan={plan} />
           ))}
         </div>
         <p className="text-center text-sm text-zinc-500">
