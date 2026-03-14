@@ -39,12 +39,21 @@ export const metadata: Metadata = {
     title: "Web Design for Small Businesses UK | Jefferis Software Solutions",
     description:
       "Fast, modern websites and bespoke software for small businesses across the UK. Proven results.",
+    images: [
+      {
+        url: `${SITE_URL}/og-image.png`,
+        width: 1200,
+        height: 630,
+        alt: "Jefferis Software Solutions — Web Design for Small Businesses UK",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Web Design for Small Businesses UK | Jefferis Software Solutions",
     description:
       "Fast, modern websites and bespoke software for small businesses across the UK. Proven results.",
+    images: [`${SITE_URL}/og-image.png`],
   },
   alternates: {
     canonical: SITE_URL,
@@ -64,29 +73,109 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  name: "Jefferis Software Solutions",
-  description:
-    "Web design and bespoke software development for small businesses across the UK.",
-  url: SITE_URL,
-  telephone: "+447887034503",
-  email: "hello@jefferissoftware.co.uk",
-  areaServed: {
-    "@type": "Country",
-    name: "United Kingdom",
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${SITE_URL}/#organization`,
+    name: "Jefferis Software Solutions",
+    url: SITE_URL,
+    logo: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/jsslogo.png`,
+    },
+    description:
+      "Web design and bespoke software development for small businesses across the UK.",
+    telephone: "+447887034503",
+    email: "hello@jefferissoftware.co.uk",
+    areaServed: {
+      "@type": "Country",
+      name: "United Kingdom",
+    },
+    founder: {
+      "@type": "Person",
+      "@id": `${SITE_URL}/#founder`,
+      name: "Finlay Jefferis",
+      jobTitle: "Founder & Developer",
+      worksFor: { "@id": `${SITE_URL}/#organization` },
+    },
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: "+447887034503",
+      email: "hello@jefferissoftware.co.uk",
+      contactType: "customer service",
+      availableLanguage: "English",
+    },
+    sameAs: [
+      "https://www.linkedin.com/company/jefferis-software-solutions",
+      "https://github.com/finlayjefferis",
+    ],
   },
-  serviceType: ["Web Design", "Web Development", "Bespoke Software Development"],
-  priceRange: "££",
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "5",
-    reviewCount: "4",
-    bestRating: "5",
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
+    name: "Jefferis Software Solutions",
+    url: SITE_URL,
+    publisher: { "@id": `${SITE_URL}/#organization` },
   },
-  sameAs: [],
-};
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "@id": `${SITE_URL}/#business`,
+    name: "Jefferis Software Solutions",
+    url: SITE_URL,
+    telephone: "+447887034503",
+    email: "hello@jefferissoftware.co.uk",
+    description:
+      "Web design and bespoke software development for small businesses across the UK.",
+    image: `${SITE_URL}/jsslogo.png`,
+    areaServed: {
+      "@type": "Country",
+      name: "United Kingdom",
+    },
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Web Design & Software Services",
+      itemListElement: [
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Web Design",
+            description:
+              "Custom website design for small businesses across the UK. Mobile-first, conversion-focused.",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Web Development",
+            description:
+              "Full-stack web development using modern technologies. CMS integration, SEO setup, and performance optimisation.",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Bespoke Software Development",
+            description:
+              "Custom internal tools, dashboards, CRM integrations, and workflow automation for UK businesses.",
+          },
+        },
+      ],
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "5",
+      reviewCount: "4",
+      bestRating: "5",
+      worstRating: "1",
+    },
+  },
+];
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

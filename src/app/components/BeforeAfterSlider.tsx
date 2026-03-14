@@ -50,7 +50,7 @@ export function BeforeAfterSlider({ beforeSrc, afterSrc, alt }: BeforeAfterSlide
           className="absolute inset-y-0 z-20 w-1 bg-white shadow-[0_0_10px_rgba(0,0,0,0.3)] pointer-events-none"
           style={{ left: `${sliderPosition}%` }}
         >
-          <div className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-indigo-500 p-1.5 shadow-sm">
+          <div className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-rose-500 p-1.5 shadow-sm">
             <svg className="h-3 w-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M8 9l-4 3 4 3m8-3l4 3-4 3" />
             </svg>

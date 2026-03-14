@@ -69,7 +69,7 @@ export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; ch
 
   // --- RENDER ---
   return (
-    <div className="relative mx-auto w-full max-w-xs overflow-hidden rounded-[2.5rem] border-[8px] border-zinc-900 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 shadow-2xl shadow-indigo-500/20">
+    <div className="relative mx-auto w-full max-w-xs overflow-hidden rounded-[2.5rem] border-[8px] border-zinc-900 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 shadow-2xl shadow-rose-500/20">
       
       {/* 1. APP INTERFACE LAYERS (Rendered First) */}
       
@@ -116,7 +116,7 @@ export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; ch
         <a 
           href="#contact"
           className={`flex-1 rounded-lg py-2 text-center text-xs font-bold text-white shadow-sm transition-all duration-500 
-          ${postsFilled > 0 ? "bg-indigo-600 hover:bg-indigo-700" : "bg-zinc-300 pointer-events-none"}`}
+          ${postsFilled > 0 ? "bg-rose-600 hover:bg-rose-700" : "bg-zinc-300 pointer-events-none"}`}
         >
           Learn More
         </a>
@@ -138,7 +138,7 @@ export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; ch
             {i < postsFilled && (
               <div className={`
                  absolute inset-0 opacity-80 animate-in zoom-in duration-500
-                 ${i % 2 === 0 ? "bg-indigo-100" : "bg-purple-100"}
+                 ${i % 2 === 0 ? "bg-rose-100" : "bg-pink-100"}
               `}>
                  <div className="absolute bottom-1 left-1">
                     <Heart className="h-3 w-3 fill-white text-white/50" />
@@ -188,7 +188,7 @@ export function InstagramGrowthSimulator({ stage, children }: { stage: Stage; ch
 function StatBox({ label, value, highlight }: { label: string, value: string | number, highlight?: boolean }) {
   return (
     <div className="flex flex-col items-center">
-      <span className={`text-sm font-bold transition-colors duration-300 ${highlight ? "text-indigo-600 scale-110" : "text-zinc-900 dark:text-zinc-100"}`}>
+      <span className={`text-sm font-bold transition-colors duration-300 ${highlight ? "text-rose-600 scale-110" : "text-zinc-900 dark:text-zinc-100"}`}>
         {value}
       </span>
       <span className="text-[10px] text-zinc-500">{label}</span>

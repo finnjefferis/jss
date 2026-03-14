@@ -10,7 +10,7 @@ export function AboutMeSection() {
 
           {/* LEFT — Photo */}
           <div className="relative w-full max-w-sm mx-auto lg:max-w-none">
-            <div className="absolute -inset-4 bg-gradient-to-tr from-indigo-100 dark:from-indigo-950/40 to-violet-100 dark:to-violet-950/40 rounded-3xl blur-2xl opacity-60 -z-10" />
+            <div className="absolute -inset-4 bg-gradient-to-tr from-rose-100 dark:from-rose-950/40 to-pink-100 dark:to-pink-950/40 rounded-3xl blur-2xl opacity-60 -z-10" />
             <div className="relative w-full h-72 md:h-80 lg:h-96 overflow-hidden rounded-2xl bg-zinc-200 dark:bg-zinc-800 shadow-xl">
               <Image
                 src="/finlays.jpg"

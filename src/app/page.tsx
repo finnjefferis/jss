@@ -13,7 +13,7 @@ export default function Page() {
     <main className="min-h-screen w-full bg-zinc-50 dark:bg-zinc-950 relative transition-colors">
 
       {/* Top accent bar */}
-      <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-indigo-500 via-sky-500 to-indigo-500 z-50" />
+      <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-rose-500 via-pink-500 to-rose-500 z-50" />
 
       <NavHeader />
 

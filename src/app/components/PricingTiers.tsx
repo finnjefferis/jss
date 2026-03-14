@@ -117,14 +117,14 @@ function TierCard({ tier }: { tier: typeof TIERS[0] }) {
       onMouseLeave={() => setHovered(false)}
       className={`relative flex flex-col rounded-3xl border-2 p-6 md:p-8 transition-all duration-300 cursor-default
         ${active
-          ? "border-indigo-600 bg-indigo-600 shadow-2xl shadow-indigo-600/30 -translate-y-1"
+          ? "border-rose-600 bg-rose-600 shadow-2xl shadow-rose-600/30 -translate-y-1"
           : tier.highlight
-            ? "border-indigo-400 dark:border-indigo-500 bg-zinc-50 dark:bg-zinc-900 shadow-xl shadow-indigo-500/15 md:-translate-y-1"
+            ? "border-rose-400 dark:border-rose-500 bg-zinc-50 dark:bg-zinc-900 shadow-xl shadow-rose-500/15 md:-translate-y-1"
             : "border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900"
         }`}
     >
       {tier.highlight && !active && (
-        <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-indigo-600 text-white px-4 py-1 text-xs font-bold uppercase tracking-wide shadow-md whitespace-nowrap">
+        <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-rose-600 text-white px-4 py-1 text-xs font-bold uppercase tracking-wide shadow-md whitespace-nowrap">
           Most Popular
         </div>
       )}
@@ -132,33 +132,33 @@ function TierCard({ tier }: { tier: typeof TIERS[0] }) {
       {/* Icon */}
       <div className={`mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl transition-all duration-500
         ${iconVisible ? "opacity-100 scale-100" : "opacity-0 scale-50"}
-        ${active ? "bg-white/20" : "bg-indigo-50 dark:bg-indigo-950/50"}
+        ${active ? "bg-white/20" : "bg-rose-50 dark:bg-rose-950/50"}
       `}>
-        <Icon className={`h-6 w-6 transition-colors duration-300 ${active ? "text-white" : "text-indigo-600 dark:text-indigo-400"}`} />
+        <Icon className={`h-6 w-6 transition-colors duration-300 ${active ? "text-white" : "text-rose-600 dark:text-rose-400"}`} />
       </div>
 
       <div className="mb-5">
-        <p className={`text-xs font-bold uppercase tracking-wider mb-1 transition-colors duration-300 ${active ? "text-indigo-200" : "text-indigo-600 dark:text-indigo-400"}`}>
+        <p className={`text-xs font-bold uppercase tracking-wider mb-1 transition-colors duration-300 ${active ? "text-rose-200" : "text-rose-600 dark:text-rose-400"}`}>
           {tier.name}
         </p>
         <p className={`text-4xl font-extrabold mb-1 transition-colors duration-300 ${active ? "text-white" : "text-zinc-900 dark:text-zinc-100"}`}>
           {tier.price}
         </p>
-        <p className={`text-sm font-semibold mb-3 transition-colors duration-300 ${active ? "text-indigo-100" : "text-zinc-500 dark:text-zinc-400"}`}>
+        <p className={`text-sm font-semibold mb-3 transition-colors duration-300 ${active ? "text-rose-100" : "text-zinc-500 dark:text-zinc-400"}`}>
           {tier.tagline}
         </p>
-        <p className={`text-sm leading-relaxed transition-colors duration-300 ${active ? "text-indigo-100" : "text-zinc-500 dark:text-zinc-400"}`}>
+        <p className={`text-sm leading-relaxed transition-colors duration-300 ${active ? "text-rose-100" : "text-zinc-500 dark:text-zinc-400"}`}>
           {tier.description}
         </p>
       </div>
 
-      <div className={`h-px w-full mb-5 transition-colors duration-300 ${active ? "bg-indigo-500" : "bg-zinc-100 dark:bg-zinc-800"}`} />
+      <div className={`h-px w-full mb-5 transition-colors duration-300 ${active ? "bg-rose-500" : "bg-zinc-100 dark:bg-zinc-800"}`} />
 
       <ul className="flex-1 space-y-3 mb-7">
         {tier.features.map((f) => (
           <li key={f} className="flex items-start gap-3 text-sm">
-            <Check className={`h-4 w-4 shrink-0 mt-0.5 transition-colors duration-300 ${active ? "text-indigo-200" : "text-indigo-600 dark:text-indigo-400"}`} />
-            <span className={`transition-colors duration-300 ${active ? "text-indigo-50" : "text-zinc-700 dark:text-zinc-300"}`}>{f}</span>
+            <Check className={`h-4 w-4 shrink-0 mt-0.5 transition-colors duration-300 ${active ? "text-rose-200" : "text-rose-600 dark:text-rose-400"}`} />
+            <span className={`transition-colors duration-300 ${active ? "text-rose-50" : "text-zinc-700 dark:text-zinc-300"}`}>{f}</span>
           </li>
         ))}
       </ul>
@@ -168,15 +168,15 @@ function TierCard({ tier }: { tier: typeof TIERS[0] }) {
           href={`/packages/${tier.id}`}
           className={`flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3.5 text-sm font-bold transition-all duration-300
             ${active
-              ? "bg-white text-indigo-600 hover:bg-indigo-50 shadow-lg"
-              : "bg-indigo-600 text-white hover:bg-indigo-700 shadow-md shadow-indigo-600/20"
+              ? "bg-white text-rose-600 hover:bg-rose-50 shadow-lg"
+              : "bg-rose-600 text-white hover:bg-rose-700 shadow-md shadow-rose-600/20"
             }`}
         >
           {tier.cta}
           <ArrowRight className="h-4 w-4" />
         </Link>
         {tier.note && (
-          <p className={`text-center text-[11px] transition-colors duration-300 ${active ? "text-indigo-300" : "text-zinc-400 dark:text-zinc-500"}`}>
+          <p className={`text-center text-[11px] transition-colors duration-300 ${active ? "text-rose-300" : "text-zinc-400 dark:text-zinc-500"}`}>
             {tier.note}
           </p>
         )}
@@ -206,16 +206,16 @@ function SoftwareCallout() {
     <Link
       ref={ref}
       href="/software"
-      className={`group rounded-2xl border bg-zinc-50 dark:bg-zinc-900 p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-6 hover:border-indigo-300 dark:hover:border-indigo-700 hover:shadow-md transition-all duration-300 ${
+      className={`group rounded-2xl border bg-zinc-50 dark:bg-zinc-900 p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-6 hover:border-rose-300 dark:hover:border-rose-700 hover:shadow-md transition-all duration-300 ${
         focused
-          ? "border-indigo-400 dark:border-indigo-500 shadow-md shadow-indigo-500/10"
+          ? "border-rose-400 dark:border-rose-500 shadow-md shadow-rose-500/10"
           : "border-zinc-200 dark:border-zinc-800"
       }`}
     >
       <div className={`flex-shrink-0 h-14 w-14 rounded-2xl flex items-center justify-center transition-colors duration-300 ${
-        focused ? "bg-indigo-100 dark:bg-indigo-900" : "bg-indigo-50 dark:bg-indigo-950"
-      } group-hover:bg-indigo-100 dark:group-hover:bg-indigo-900`}>
-        <Cpu className="h-7 w-7 text-indigo-600 dark:text-indigo-400" />
+        focused ? "bg-rose-100 dark:bg-rose-900" : "bg-rose-50 dark:bg-rose-950"
+      } group-hover:bg-rose-100 dark:group-hover:bg-rose-900`}>
+        <Cpu className="h-7 w-7 text-rose-600 dark:text-rose-400" />
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 mb-1">Custom Software</p>
@@ -225,9 +225,9 @@ function SoftwareCallout() {
         </p>
       </div>
       <div className="flex-shrink-0">
-        <span className={`inline-flex items-center gap-2 rounded-xl border px-5 py-3 text-sm font-semibold transition-all duration-300 whitespace-nowrap group-hover:border-indigo-300 dark:group-hover:border-indigo-600 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 ${
+        <span className={`inline-flex items-center gap-2 rounded-xl border px-5 py-3 text-sm font-semibold transition-all duration-300 whitespace-nowrap group-hover:border-rose-300 dark:group-hover:border-rose-600 group-hover:text-rose-600 dark:group-hover:text-rose-400 ${
           focused
-            ? "border-indigo-300 dark:border-indigo-600 text-indigo-600 dark:text-indigo-400"
+            ? "border-rose-300 dark:border-rose-600 text-rose-600 dark:text-rose-400"
             : "border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300"
         }`}>
           See what we build
@@ -249,7 +249,7 @@ export function PricingTiers() {
           </p>
           <h2 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 md:text-4xl lg:text-5xl mb-4">
             Professional website.{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-pink-600">
               Live in a week.
             </span>
           </h2>

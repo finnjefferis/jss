@@ -21,8 +21,8 @@ const DIFFERENTIATORS = [
 const METRICS = [
   { icon: Zap, value: "98", label: "PageSpeed score", color: "text-emerald-600 dark:text-emerald-400", bg: "bg-emerald-100 dark:bg-emerald-950", delay: "0s" },
   { icon: Star, value: "5.0", label: "Google rating", color: "text-amber-500", bg: "bg-amber-100 dark:bg-amber-950", delay: "1.2s" },
-  { icon: TrendingUp, value: "3x", label: "More enquiries", color: "text-indigo-600 dark:text-indigo-400", bg: "bg-indigo-100 dark:bg-indigo-950", delay: "0.6s" },
-  { icon: Globe, value: "<1s", label: "Load time", color: "text-violet-600 dark:text-violet-400", bg: "bg-violet-100 dark:bg-violet-950", delay: "1.8s" },
+  { icon: TrendingUp, value: "3x", label: "More enquiries", color: "text-rose-600 dark:text-rose-400", bg: "bg-rose-100 dark:bg-rose-950", delay: "0.6s" },
+  { icon: Globe, value: "<1s", label: "Load time", color: "text-pink-600 dark:text-pink-400", bg: "bg-pink-100 dark:bg-pink-950", delay: "1.8s" },
 ];
 
 // Each card's final position class + the translate offset that brings it back to center
@@ -50,7 +50,7 @@ function MetricsVisual() {
 
   return (
     <div ref={ref} className="relative h-[280px] md:h-[320px] max-w-md mx-auto mb-14">
-      <div className="absolute -inset-4 bg-gradient-to-tr from-indigo-100 dark:from-indigo-950/40 to-violet-100 dark:to-violet-950/40 rounded-3xl blur-2xl opacity-60 -z-10" />
+      <div className="absolute -inset-4 bg-gradient-to-tr from-rose-100 dark:from-rose-950/40 to-pink-100 dark:to-pink-950/40 rounded-3xl blur-2xl opacity-60 -z-10" />
 
       {/* Mini browser mockup — the "behind" element, sits at z-10 */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[65%] max-w-[240px] z-10">
@@ -67,7 +67,7 @@ function MetricsVisual() {
             <div className="h-3 rounded bg-zinc-100 dark:bg-zinc-800 w-4/5" />
             <div className="h-2 rounded bg-zinc-100 dark:bg-zinc-800 w-full" />
             <div className="h-2 rounded bg-zinc-100 dark:bg-zinc-800 w-3/4" />
-            <div className="h-8 rounded-lg bg-gradient-to-r from-indigo-500 to-violet-500 w-2/5 mt-3" />
+            <div className="h-8 rounded-lg bg-gradient-to-r from-rose-500 to-pink-500 w-2/5 mt-3" />
             <div className="h-2 rounded bg-zinc-100 dark:bg-zinc-800 w-full mt-2" />
             <div className="h-2 rounded bg-zinc-100 dark:bg-zinc-800 w-5/6" />
           </div>
@@ -114,7 +114,7 @@ export function AboutSection() {
         <h2 className="text-2xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-4xl lg:text-[3.25rem] lg:leading-[1.15] mb-6 text-left lg:text-center max-w-3xl lg:mx-auto">
           Brilliant at what you do?
           <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-pink-600">
             Your website should say so.
           </span>
         </h2>
@@ -133,8 +133,8 @@ export function AboutSection() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
           {DIFFERENTIATORS.map((item) => (
             <div key={item.title} className="flex gap-3">
-              <div className="mt-1 h-5 w-5 shrink-0 rounded-full bg-indigo-100 dark:bg-indigo-950 flex items-center justify-center">
-                <Check className="h-3 w-3 text-indigo-600 dark:text-indigo-400" />
+              <div className="mt-1 h-5 w-5 shrink-0 rounded-full bg-rose-100 dark:bg-rose-950 flex items-center justify-center">
+                <Check className="h-3 w-3 text-rose-600 dark:text-rose-400" />
               </div>
               <div>
                 <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">{item.title}</p>
@@ -148,7 +148,7 @@ export function AboutSection() {
         <div className="text-center">
           <a
             href="#services"
-            className="group inline-flex items-center gap-2 text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors"
+            className="group inline-flex items-center gap-2 text-sm font-bold text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 transition-colors"
           >
             See packages &amp; pricing
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

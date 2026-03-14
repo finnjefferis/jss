@@ -95,9 +95,9 @@ export function ContactSection() {
     >
       {/* Background effects */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-400/30 dark:via-indigo-500/50 to-transparent" />
-        <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] bg-indigo-500/5 dark:bg-indigo-600/8 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 -right-32 w-[400px] h-[400px] bg-violet-500/5 dark:bg-violet-600/8 rounded-full blur-[120px]" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-rose-400/30 dark:via-rose-500/50 to-transparent" />
+        <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] bg-rose-500/5 dark:bg-rose-600/8 rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/4 -right-32 w-[400px] h-[400px] bg-pink-500/5 dark:bg-pink-600/8 rounded-full blur-[120px]" />
         <div
           className="absolute inset-0 opacity-[0.02] dark:opacity-[0.03]"
           style={{
@@ -118,7 +118,7 @@ export function ContactSection() {
           </p>
           <h2 className="text-4xl font-extrabold leading-tight text-zinc-900 dark:text-white md:text-5xl lg:text-6xl mb-5">
             Let&apos;s build something{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-pink-600 dark:from-rose-400 dark:to-pink-400">
               that works.
             </span>
           </h2>
@@ -149,20 +149,20 @@ export function ContactSection() {
                   <button
                     key={i}
                     onClick={() => setReviewIndex(i)}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${i === reviewIndex ? "w-5 bg-indigo-600 dark:bg-indigo-500" : "w-1.5 bg-zinc-300 dark:bg-zinc-600 hover:bg-zinc-400 dark:hover:bg-zinc-500"}`}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${i === reviewIndex ? "w-5 bg-rose-600 dark:bg-rose-500" : "w-1.5 bg-zinc-300 dark:bg-zinc-600 hover:bg-zinc-400 dark:hover:bg-zinc-500"}`}
                   />
                 ))}
               </div>
               <div className="flex gap-1.5">
                 <button
                   onClick={prevReview}
-                  className="h-8 w-8 rounded-lg border border-zinc-200 dark:border-zinc-700/50 bg-white dark:bg-zinc-800 flex items-center justify-center text-zinc-400 dark:text-zinc-500 hover:text-indigo-600 dark:hover:text-white hover:border-indigo-200 dark:hover:border-indigo-500/40 transition-colors"
+                  className="h-8 w-8 rounded-lg border border-zinc-200 dark:border-zinc-700/50 bg-white dark:bg-zinc-800 flex items-center justify-center text-zinc-400 dark:text-zinc-500 hover:text-rose-600 dark:hover:text-white hover:border-rose-200 dark:hover:border-rose-500/40 transition-colors"
                 >
                   <ChevronLeft className="h-4 w-4" />
                 </button>
                 <button
                   onClick={nextReview}
-                  className="h-8 w-8 rounded-lg border border-zinc-200 dark:border-zinc-700/50 bg-white dark:bg-zinc-800 flex items-center justify-center text-zinc-400 dark:text-zinc-500 hover:text-indigo-600 dark:hover:text-white hover:border-indigo-200 dark:hover:border-indigo-500/40 transition-colors"
+                  className="h-8 w-8 rounded-lg border border-zinc-200 dark:border-zinc-700/50 bg-white dark:bg-zinc-800 flex items-center justify-center text-zinc-400 dark:text-zinc-500 hover:text-rose-600 dark:hover:text-white hover:border-rose-200 dark:hover:border-rose-500/40 transition-colors"
                 >
                   <ChevronRight className="h-4 w-4" />
                 </button>
@@ -178,7 +178,7 @@ export function ContactSection() {
               {REVIEWS.map((r) => (
                 <div key={r.name} className="w-full shrink-0 px-6 md:px-10 py-6 md:py-8">
                   <div className="flex flex-col md:flex-row md:items-start gap-5 md:gap-8">
-                    <Quote className="h-8 w-8 text-indigo-400/20 dark:text-indigo-500/25 shrink-0 hidden md:block" />
+                    <Quote className="h-8 w-8 text-rose-400/20 dark:text-rose-500/25 shrink-0 hidden md:block" />
                     <div className="flex-1 min-w-0">
                       <p className="text-base md:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed italic line-clamp-4">
                         &quot;{r.text}&quot;
@@ -208,7 +208,7 @@ export function ContactSection() {
               <button
                 key={i}
                 onClick={() => setReviewIndex(i)}
-                className={`h-1.5 rounded-full transition-all duration-300 ${i === reviewIndex ? "w-5 bg-indigo-600 dark:bg-indigo-500" : "w-1.5 bg-zinc-300 dark:bg-zinc-600 hover:bg-zinc-400 dark:hover:bg-zinc-500"}`}
+                className={`h-1.5 rounded-full transition-all duration-300 ${i === reviewIndex ? "w-5 bg-rose-600 dark:bg-rose-500" : "w-1.5 bg-zinc-300 dark:bg-zinc-600 hover:bg-zinc-400 dark:hover:bg-zinc-500"}`}
               />
             ))}
           </div>
@@ -219,7 +219,7 @@ export function ContactSection() {
           className={`max-w-3xl mx-auto transition-all duration-700 delay-300 ${sectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
         >
           <div className="relative">
-            <div className="absolute -inset-1 bg-gradient-to-b from-indigo-400/15 dark:from-indigo-500/20 via-violet-400/8 dark:via-violet-500/10 to-transparent rounded-[28px] blur-xl opacity-60" />
+            <div className="absolute -inset-1 bg-gradient-to-b from-rose-400/15 dark:from-rose-500/20 via-pink-400/8 dark:via-pink-500/10 to-transparent rounded-[28px] blur-xl opacity-60" />
 
             <div className="relative rounded-3xl border border-zinc-200 dark:border-zinc-700/50 bg-white dark:bg-zinc-800/80 backdrop-blur-sm p-6 md:p-8 shadow-xl dark:shadow-2xl">
 
@@ -227,7 +227,7 @@ export function ContactSection() {
               <div className="mb-6">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2.5">
-                    <CalendarDays className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
+                    <CalendarDays className="h-4 w-4 text-rose-600 dark:text-rose-400" />
                     <p className="text-xs font-bold uppercase tracking-wider text-zinc-400">
                       Free discovery call · 30 min
                     </p>
@@ -243,9 +243,9 @@ export function ContactSection() {
                   href={BOOKING_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative flex w-full items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-indigo-500 px-6 py-5 text-lg font-bold text-white shadow-lg shadow-indigo-600/25 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-600/30 hover:scale-[1.01] active:scale-[0.99] overflow-hidden"
+                  className="group relative flex w-full items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-rose-600 to-rose-500 px-6 py-5 text-lg font-bold text-white shadow-lg shadow-rose-600/25 transition-all duration-300 hover:shadow-xl hover:shadow-rose-600/30 hover:scale-[1.01] active:scale-[0.99] overflow-hidden"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-violet-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-rose-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <span className="relative flex items-center gap-3">
                     <span>Book a call</span>
                     <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
@@ -270,7 +270,7 @@ export function ContactSection() {
                 </div>
                 <button
                   onClick={handleCopyEmail}
-                  className="h-10 w-full sm:w-auto px-5 flex items-center justify-center gap-2 rounded-lg bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700/50 text-xs font-bold text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 dark:hover:text-white hover:border-indigo-200 dark:hover:border-indigo-500/50 active:scale-95 transition-all duration-200"
+                  className="h-10 w-full sm:w-auto px-5 flex items-center justify-center gap-2 rounded-lg bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700/50 text-xs font-bold text-zinc-500 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-white hover:border-rose-200 dark:hover:border-rose-500/50 active:scale-95 transition-all duration-200"
                 >
                   {copied ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
                   {copied ? "Copied" : "Copy"}

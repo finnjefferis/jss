@@ -42,7 +42,7 @@ export function FAQSection() {
           </p>
           <h2 className="text-3xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-4xl">
             Straight{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-pink-600">
               answers.
             </span>
           </h2>
@@ -54,17 +54,17 @@ export function FAQSection() {
             return (
               <div
                 key={i}
-                className={`rounded-2xl border-2 transition-all cursor-pointer ${isOpen ? "border-indigo-500 dark:border-indigo-500 bg-zinc-50 dark:bg-zinc-900 shadow-lg shadow-indigo-500/10" : "border-zinc-200 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-md"}`}
+                className={`rounded-2xl border-2 transition-all cursor-pointer ${isOpen ? "border-rose-500 dark:border-rose-500 bg-zinc-50 dark:bg-zinc-900 shadow-lg shadow-rose-500/10" : "border-zinc-200 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-md"}`}
                 onClick={() => setOpenIndex(isOpen ? null : i)}
               >
                 <button
                   className="flex w-full items-center justify-between gap-4 px-5 py-4 md:px-6 md:py-5 text-left"
                 >
-                  <span className={`text-sm font-semibold transition-colors ${isOpen ? "text-indigo-600 dark:text-indigo-400" : "text-zinc-900 dark:text-zinc-100"}`}>
+                  <span className={`text-sm font-semibold transition-colors ${isOpen ? "text-rose-600 dark:text-rose-400" : "text-zinc-900 dark:text-zinc-100"}`}>
                     {faq.q}
                   </span>
                   <ChevronDown
-                    className={`h-4 w-4 shrink-0 transition-all duration-300 ${isOpen ? "rotate-180 text-indigo-600" : "text-zinc-400"}`}
+                    className={`h-4 w-4 shrink-0 transition-all duration-300 ${isOpen ? "rotate-180 text-rose-600" : "text-zinc-400"}`}
                   />
                 </button>
                 <div

@@ -112,7 +112,7 @@ function MobileHeroCarousel() {
           <button
             key={i}
             onClick={() => setActiveIndex(i)}
-            className={`h-1.5 rounded-full transition-all duration-300 ${i === activeIndex ? "w-6 bg-indigo-600" : "w-1.5 bg-zinc-200 dark:bg-zinc-700"}`}
+            className={`h-1.5 rounded-full transition-all duration-300 ${i === activeIndex ? "w-6 bg-rose-600" : "w-1.5 bg-zinc-200 dark:bg-zinc-700"}`}
           />
         ))}
       </div>
@@ -140,7 +140,7 @@ function HeroVisual() {
     <>
       {/* DESKTOP */}
       <div className="hidden lg:block relative">
-        <div className="absolute -inset-8 bg-gradient-to-tr from-indigo-200/30 dark:from-indigo-900/15 to-violet-200/30 dark:to-violet-900/15 rounded-3xl blur-3xl -z-10" />
+        <div className="absolute -inset-8 bg-gradient-to-tr from-rose-200/30 dark:from-rose-900/15 to-pink-200/30 dark:to-pink-900/15 rounded-3xl blur-3xl -z-10" />
         <div className="relative aspect-[4/3]">
           {HERO_SITES.map((site, i) => {
             const isDropped = dropped.includes(i);
@@ -175,7 +175,7 @@ function HeroVisual() {
       <div className="lg:hidden mt-4 hero-line hero-delay-3">
         <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-1">
           Some{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-pink-600">
             highlights.
           </span>
         </h3>
@@ -183,7 +183,7 @@ function HeroVisual() {
         <div className="relative">
           <MobileHeroCarousel />
           <div className="absolute top-2 left-1/2 -translate-x-1/2 z-40 pointer-events-none">
-            <span className="inline-flex items-center gap-1 text-indigo-500/50 text-[10px] font-semibold uppercase tracking-wider">
+            <span className="inline-flex items-center gap-1 text-rose-500/50 text-[10px] font-semibold uppercase tracking-wider">
               <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
               Swipe
               <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
@@ -225,9 +225,9 @@ function RotatingWord() {
   const showCursor = !isLast || isDeleting || text !== word;
 
   return (
-    <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-violet-500">
+    <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-pink-500">
       {text}
-      {showCursor && <span className="animate-pulse text-indigo-400 dark:text-indigo-500">|</span>}
+      {showCursor && <span className="animate-pulse text-rose-400 dark:text-rose-500">|</span>}
     </span>
   );
 }
@@ -236,8 +236,8 @@ export function HeroSection() {
   return (
     <section className="relative pt-10 pb-20 md:py-28 lg:py-36 overflow-hidden">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/10 dark:bg-indigo-500/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-violet-500/10 dark:bg-violet-500/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-rose-500/10 dark:bg-rose-500/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-pink-500/10 dark:bg-pink-500/5 rounded-full blur-3xl" />
       </div>
 
       <div className="mx-auto max-w-6xl px-5 md:px-8 lg:px-10 relative z-10">
@@ -258,13 +258,13 @@ export function HeroSection() {
             <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center hero-line hero-delay-3">
               <a
                 href="#services"
-                className="inline-flex items-center justify-center rounded-xl bg-indigo-600 px-8 py-4 text-sm font-bold text-white shadow-lg shadow-indigo-600/25 transition hover:bg-indigo-700 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
+                className="inline-flex items-center justify-center rounded-xl bg-rose-600 px-8 py-4 text-sm font-bold text-white shadow-lg shadow-rose-600/25 transition hover:bg-rose-700 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
               >
                 See packages & pricing
               </a>
               <a
                 href="#recent-work"
-                className="text-sm font-semibold text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                className="text-sm font-semibold text-zinc-500 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
               >
                 See recent work &rarr;
               </a>

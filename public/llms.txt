@@ -1,0 +1,39 @@
+# Jefferis Software Solutions
+
+> Web design and bespoke software development for small businesses across the UK.
+
+Jefferis Software Solutions builds fast, modern, conversion-focused websites for small businesses. Founded by Finlay Jefferis, the company offers direct client-developer relationships with no agency middlemen. Based in the UK with 5+ years of experience and 20+ sites built.
+
+## Services
+
+- Web Design: Custom websites for small businesses, starting from £445
+- Web Development: Mobile-first, performance-optimised sites built with modern tech
+- Bespoke Software: Internal tools, dashboards, CRM integrations, and automation
+- E-commerce: Full online stores with payment integration, from £1,990
+
+## Packages
+
+- Essential (£445): Up to 5 pages, mobile-first, 7-10 day delivery
+- Business (£1,095): Everything in Essential + CMS access, blog, editable pages
+- Commerce (£1,990+): Everything in Business + e-commerce, Stripe payments, product management
+
+## Links
+
+- Homepage: https://jefferissoftware.co.uk
+- Blog: https://jefferissoftware.co.uk/blog
+- Essential Package: https://jefferissoftware.co.uk/packages/essential
+- Business Package: https://jefferissoftware.co.uk/packages/business
+- Commerce Package: https://jefferissoftware.co.uk/packages/commerce
+- Custom Software: https://jefferissoftware.co.uk/software
+
+## Blog Posts
+
+- 5 Signs Your Small Business Website Needs a Redesign: https://jefferissoftware.co.uk/blog/5-signs-your-small-business-website-needs-a-redesign
+- How Much Does a Small Business Website Cost in the UK in 2026?: https://jefferissoftware.co.uk/blog/how-much-does-a-small-business-website-cost-uk
+- WordPress vs Custom Website — Which Is Better for Your Small Business?: https://jefferissoftware.co.uk/blog/wordpress-vs-custom-website-small-business
+
+## Contact
+
+- Email: hello@jefferissoftware.co.uk
+- Phone: +447887034503
+- WhatsApp: https://wa.me/447887034503

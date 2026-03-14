@@ -75,21 +75,21 @@ export function MobileGrowthSwiper() {
         <div className="w-full px-4 mb-4 z-20 shrink-0">
           <div className="bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md p-4 rounded-2xl shadow-lg border border-zinc-200/60 dark:border-zinc-700/60 transition-all duration-300">
             <div className="flex items-center gap-3 mb-2">
-              <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 tabular-nums">
+              <span className="text-xs font-bold text-rose-600 dark:text-rose-400 tabular-nums">
                 {activeStep.step}
               </span>
               <div className="flex gap-1">
                 {STEPS.map((_, i) => (
                   <div
                     key={i}
-                    className={`h-1 rounded-full transition-all duration-500 ${i <= activeIndex ? "w-6 bg-indigo-600" : "w-3 bg-zinc-200 dark:bg-zinc-700"}`}
+                    className={`h-1 rounded-full transition-all duration-500 ${i <= activeIndex ? "w-6 bg-rose-600" : "w-3 bg-zinc-200 dark:bg-zinc-700"}`}
                   />
                 ))}
               </div>
             </div>
 
             <h3 className="font-bold text-zinc-900 dark:text-zinc-100 text-lg leading-tight transition-all duration-300">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-pink-600">
                 {activeStep.title}
               </span>
             </h3>
@@ -106,7 +106,7 @@ export function MobileGrowthSwiper() {
 
           {/* Swipe down indicator — hangs off bottom of phone */}
           <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 z-30 animate-bounce pointer-events-none">
-            <div className="flex items-center gap-2 bg-indigo-600 rounded-full px-5 py-2.5 shadow-xl shadow-indigo-600/40">
+            <div className="flex items-center gap-2 bg-rose-600 rounded-full px-5 py-2.5 shadow-xl shadow-rose-600/40">
               <span className="text-xs font-bold uppercase tracking-wider text-white">Scroll</span>
               <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />

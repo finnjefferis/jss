@@ -110,51 +110,51 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
           {/* ====== STAGE 2: BUILDING ====== */}
           <div className={`absolute inset-0 transition-opacity duration-700 ${isBuild ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
             {/* Wireframe nav */}
-            <div className="px-4 py-3 border-b border-dashed border-indigo-200 dark:border-indigo-800">
+            <div className="px-4 py-3 border-b border-dashed border-rose-200 dark:border-rose-800">
               <div className="flex items-center justify-between">
-                <div className="h-3 w-16 rounded bg-indigo-200 dark:bg-indigo-800" />
+                <div className="h-3 w-16 rounded bg-rose-200 dark:bg-rose-800" />
                 <div className="flex gap-2">
-                  <div className="h-2 w-6 bg-indigo-100 dark:bg-indigo-900 rounded" />
-                  <div className="h-2 w-6 bg-indigo-100 dark:bg-indigo-900 rounded" />
-                  <div className="h-2 w-6 bg-indigo-100 dark:bg-indigo-900 rounded" />
+                  <div className="h-2 w-6 bg-rose-100 dark:bg-rose-900 rounded" />
+                  <div className="h-2 w-6 bg-rose-100 dark:bg-rose-900 rounded" />
+                  <div className="h-2 w-6 bg-rose-100 dark:bg-rose-900 rounded" />
                 </div>
               </div>
             </div>
 
             <div className="p-4">
               {/* Wireframe hero */}
-              <div className="border-2 border-dashed border-indigo-200 dark:border-indigo-800 rounded-xl p-5 mb-3">
+              <div className="border-2 border-dashed border-rose-200 dark:border-rose-800 rounded-xl p-5 mb-3">
                 <div className="space-y-2 mb-3">
-                  <div className="h-3 w-3/4 rounded bg-indigo-200 dark:bg-indigo-800 animate-pulse" />
-                  <div className="h-3 w-1/2 rounded bg-indigo-200 dark:bg-indigo-800 animate-pulse" />
+                  <div className="h-3 w-3/4 rounded bg-rose-200 dark:bg-rose-800 animate-pulse" />
+                  <div className="h-3 w-1/2 rounded bg-rose-200 dark:bg-rose-800 animate-pulse" />
                 </div>
                 <div className="space-y-1.5 mb-3">
-                  <div className="h-1.5 w-full rounded bg-indigo-100 dark:bg-indigo-900" />
-                  <div className="h-1.5 w-4/5 rounded bg-indigo-100 dark:bg-indigo-900" />
+                  <div className="h-1.5 w-full rounded bg-rose-100 dark:bg-rose-900" />
+                  <div className="h-1.5 w-4/5 rounded bg-rose-100 dark:bg-rose-900" />
                 </div>
-                <div className="h-7 w-20 rounded-lg bg-indigo-400 dark:bg-indigo-600 animate-pulse" />
+                <div className="h-7 w-20 rounded-lg bg-rose-400 dark:bg-rose-600 animate-pulse" />
               </div>
 
               {/* Wireframe cards */}
               <div className="grid grid-cols-2 gap-2">
                 {[0, 1, 2, 3].map((i) => (
-                  <div key={i} className="border border-dashed border-indigo-200 dark:border-indigo-800 rounded-lg p-2.5 animate-pulse" style={{ animationDelay: `${i * 150}ms` }}>
-                    <div className="h-6 w-6 rounded bg-indigo-100 dark:bg-indigo-900 mb-1.5" />
-                    <div className="h-1.5 w-full rounded bg-indigo-100 dark:bg-indigo-900 mb-1" />
-                    <div className="h-1.5 w-3/4 rounded bg-indigo-100 dark:bg-indigo-900" />
+                  <div key={i} className="border border-dashed border-rose-200 dark:border-rose-800 rounded-lg p-2.5 animate-pulse" style={{ animationDelay: `${i * 150}ms` }}>
+                    <div className="h-6 w-6 rounded bg-rose-100 dark:bg-rose-900 mb-1.5" />
+                    <div className="h-1.5 w-full rounded bg-rose-100 dark:bg-rose-900 mb-1" />
+                    <div className="h-1.5 w-3/4 rounded bg-rose-100 dark:bg-rose-900" />
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Build progress */}
-            <div className="absolute bottom-3 left-3 right-3 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-200 dark:border-indigo-800 p-3">
+            <div className="absolute bottom-3 left-3 right-3 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800 p-3">
               <div className="flex items-center gap-2 mb-2">
-                <Zap className="h-4 w-4 text-indigo-600 dark:text-indigo-400 shrink-0" />
-                <p className="text-[10px] font-bold text-indigo-700 dark:text-indigo-300">Building your new site...</p>
+                <Zap className="h-4 w-4 text-rose-600 dark:text-rose-400 shrink-0" />
+                <p className="text-[10px] font-bold text-rose-700 dark:text-rose-300">Building your new site...</p>
               </div>
-              <div className="h-1.5 rounded-full bg-indigo-100 dark:bg-indigo-900 overflow-hidden">
-                <div className="h-full bg-indigo-500 rounded-full animate-pulse" style={{ width: "65%" }} />
+              <div className="h-1.5 rounded-full bg-rose-100 dark:bg-rose-900 overflow-hidden">
+                <div className="h-full bg-rose-500 rounded-full animate-pulse" style={{ width: "65%" }} />
               </div>
             </div>
           </div>
@@ -165,10 +165,10 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
             <div className="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5">
-                  <div className="h-4 w-4 rounded bg-indigo-600" />
+                  <div className="h-4 w-4 rounded bg-rose-600" />
                   <span className="text-[10px] font-bold text-zinc-800 dark:text-zinc-200">YourBrand</span>
                 </div>
-                <div className="h-5 w-14 bg-indigo-600 rounded-md flex items-center justify-center">
+                <div className="h-5 w-14 bg-rose-600 rounded-md flex items-center justify-center">
                   <span className="text-[7px] text-white font-bold">Contact</span>
                 </div>
               </div>
@@ -176,16 +176,16 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
 
             {/* Modern hero */}
             <div className="p-3">
-              <div className="bg-gradient-to-br from-indigo-50 dark:from-indigo-950/40 to-violet-50 dark:to-violet-950/40 rounded-xl p-4 mb-2.5">
+              <div className="bg-gradient-to-br from-rose-50 dark:from-rose-950/40 to-pink-50 dark:to-pink-950/40 rounded-xl p-4 mb-2.5">
                 <div className="space-y-1.5 mb-2.5">
                   <div className="h-2.5 w-3/4 rounded bg-zinc-800 dark:bg-zinc-200" />
-                  <div className="h-2.5 w-1/2 rounded bg-indigo-600" />
+                  <div className="h-2.5 w-1/2 rounded bg-rose-600" />
                 </div>
                 <div className="space-y-1 mb-2.5">
                   <div className="h-1.5 w-full rounded bg-zinc-300 dark:bg-zinc-600" />
                   <div className="h-1.5 w-4/5 rounded bg-zinc-300 dark:bg-zinc-600" />
                 </div>
-                <div className="h-6 w-16 rounded-lg bg-indigo-600 flex items-center justify-center">
+                <div className="h-6 w-16 rounded-lg bg-rose-600 flex items-center justify-center">
                   <span className="text-[7px] text-white font-bold">Get Started</span>
                 </div>
               </div>
@@ -193,8 +193,8 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
               {/* Feature row */}
               <div className="grid grid-cols-3 gap-1.5 mb-2.5">
                 {[
-                  { color: "bg-indigo-500", label: "Fast" },
-                  { color: "bg-violet-500", label: "Modern" },
+                  { color: "bg-rose-500", label: "Fast" },
+                  { color: "bg-pink-500", label: "Modern" },
                   { color: "bg-emerald-500", label: "Converts" },
                 ].map((item) => (
                   <div key={item.label} className="rounded-lg bg-zinc-50 dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 p-2 text-center">
@@ -207,7 +207,7 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
               {/* Testimonial snippet */}
               <div className="rounded-lg bg-zinc-50 dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 p-2.5">
                 <div className="flex items-center gap-2 mb-1">
-                  <div className="h-5 w-5 rounded-full bg-indigo-100 dark:bg-indigo-900" />
+                  <div className="h-5 w-5 rounded-full bg-rose-100 dark:bg-rose-900" />
                   <div className="flex gap-[2px]">
                     {[...Array(5)].map((_, i) => (
                       <div key={i} className="h-2 w-2 rounded-full bg-amber-400" />
