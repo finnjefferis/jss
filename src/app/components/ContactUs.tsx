@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Check, Copy, CalendarDays, ArrowRight, Mail, Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
-import { animate, stagger } from "animejs";
+import { useReveal } from "../hooks/useReveal";
 
 const BOOKING_URL =
   "https://outlook.office.com/bookwithme/user/b44ea33c0eb847a3a69babfcdc453315@jefferissoftware.co.uk?anonymous&ismsaljsauthenabled&ep=plink";
@@ -43,7 +43,7 @@ export function ContactSection() {
   const [reviewIndex, setReviewIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
-  const sectionRef = useRef<HTMLElement>(null);
+  const sectionRef = useReveal<HTMLElement>(0.1);
   const reviewContainerRef = useRef<HTMLDivElement>(null);
 
   const handleCopyEmail = () => {
@@ -60,59 +60,12 @@ export function ContactSection() {
     setReviewIndex((prev) => (prev === REVIEWS.length - 1 ? 0 : prev + 1));
   }, []);
 
-  // Anime.js review slide transition
-  useEffect(() => {
-    if (!reviewContainerRef.current) return;
-    animate(reviewContainerRef.current, {
-      translateX: `-${reviewIndex * 100}%`,
-      duration: 500,
-      ease: "outExpo",
-    });
-  }, [reviewIndex]);
-
   useEffect(() => {
     const el = carouselRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => setIsVisible(entry.isIntersecting),
       { threshold: 0.3 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  // Scroll-triggered entrance animation
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          observer.disconnect();
-
-          const reveals = el.querySelectorAll("[data-reveal]");
-          animate(reveals, {
-            opacity: [0, 1],
-            translateY: [24, 0],
-            duration: 700,
-            ease: "outExpo",
-            delay: stagger(100),
-          });
-
-          const gradients = el.querySelectorAll("[data-gradient]");
-          if (gradients.length) {
-            animate(gradients, {
-              scale: [0.9, 1],
-              opacity: [0, 1],
-              duration: 500,
-              ease: "outBack",
-              delay: stagger(60, { start: 400 }),
-            });
-          }
-        }
-      },
-      { threshold: 0.1 }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -140,13 +93,13 @@ export function ContactSection() {
       <div className="mx-auto max-w-6xl px-5 md:px-8 relative z-10">
 
         {/* Top headline */}
-        <div data-reveal style={{ opacity: 0 }} className="text-center mb-16 md:mb-20">
+        <div data-reveal style={{ "--d": 0 } as React.CSSProperties} className="text-center mb-16 md:mb-20">
           <p className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-amber-600 dark:text-amber-500">
             Ready to start?
           </p>
           <h2 className="text-4xl font-extrabold leading-tight text-zinc-900 dark:text-white md:text-5xl lg:text-6xl mb-5">
             Let&apos;s build something{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-600 to-pink-600 dark:from-coral-400 dark:to-pink-400 inline-block" data-gradient style={{ opacity: 0 }}>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-600 to-pink-600 dark:from-coral-400 dark:to-pink-400 inline-block" data-gradient style={{ "--gd": 400 } as React.CSSProperties}>
               that works.
             </span>
           </h2>
@@ -158,7 +111,7 @@ export function ContactSection() {
 
         {/* Reviews */}
         <div
-          data-reveal style={{ opacity: 0 }}
+          data-reveal style={{ "--d": 100 } as React.CSSProperties}
           className="max-w-3xl mx-auto mb-12 md:mb-16"
           ref={carouselRef}
         >
@@ -202,7 +155,8 @@ export function ContactSection() {
           <div className="rounded-2xl border border-zinc-200 dark:border-zinc-700/50 bg-white dark:bg-zinc-800/80 overflow-hidden shadow-sm dark:shadow-none">
             <div
               ref={reviewContainerRef}
-              className="flex"
+              className="flex review-slide"
+              style={{ transform: `translateX(-${reviewIndex * 100}%)` }}
             >
               {REVIEWS.map((r) => (
                 <div key={r.name} className="w-full shrink-0 px-6 md:px-10 py-6 md:py-8">
@@ -244,7 +198,7 @@ export function ContactSection() {
         </div>
 
         {/* CTA Card */}
-        <div data-reveal style={{ opacity: 0 }} className="max-w-3xl mx-auto">
+        <div data-reveal style={{ "--d": 200 } as React.CSSProperties} className="max-w-3xl mx-auto">
           <div className="relative">
             <div className="absolute -inset-1 bg-gradient-to-b from-coral-400/15 dark:from-coral-500/20 via-pink-400/8 dark:via-pink-500/10 to-transparent rounded-[28px] blur-xl opacity-60" />
 

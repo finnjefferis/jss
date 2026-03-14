@@ -1,51 +1,20 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { TrendingUp, Zap, Globe, Search } from "lucide-react";
-import { animate } from "animejs";
 
 type Stage = "gap" | "build" | "report" | string | null;
 
 export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; children?: React.ReactNode }) {
-  const gapRef = useRef<HTMLDivElement>(null);
-  const buildRef = useRef<HTMLDivElement>(null);
-  const reportRef = useRef<HTMLDivElement>(null);
-  const urlIconRef = useRef<HTMLDivElement>(null);
-  const urlTextRef = useRef<HTMLSpanElement>(null);
   const prevStageRef = useRef<Stage>(null);
-
-  useEffect(() => {
-    // Skip if stage hasn't actually changed
-    if (prevStageRef.current === stage) return;
-    prevStageRef.current = stage;
-
-    const refs = { gap: gapRef.current, build: buildRef.current, report: reportRef.current };
-    if (!refs.gap || !refs.build || !refs.report) return;
-
-    // Cross-fade stages with anime.js
-    (Object.keys(refs) as Array<keyof typeof refs>).forEach((key) => {
-      const el = refs[key]!;
-      const isActive = key === stage;
-      animate(el, {
-        opacity: isActive ? 1 : 0,
-        duration: 700,
-        ease: "outExpo",
-      });
-      el.style.pointerEvents = isActive ? "auto" : "none";
-    });
-
-    // URL bar transitions
-    if (urlTextRef.current) {
-      animate(urlTextRef.current, {
-        opacity: [0.5, 1],
-        duration: 400,
-        ease: "outExpo",
-      });
-    }
-  }, [stage]);
 
   const isReport = stage === "report";
   const isBuild = stage === "build";
+
+  // Track previous stage for URL text fade
+  if (prevStageRef.current !== stage) {
+    prevStageRef.current = stage;
+  }
 
   return (
     <div className="relative mx-auto w-[260px] lg:w-auto lg:max-w-[17rem]">
@@ -73,14 +42,14 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
         {/* Safari-style URL bar */}
         <div className="bg-zinc-900 dark:bg-zinc-800 px-3 pb-2">
           <div className="h-7 rounded-xl bg-zinc-800 dark:bg-zinc-700 flex items-center justify-center gap-1.5 px-3">
-            <div ref={urlIconRef}>
+            <div>
               {isReport ? (
                 <Globe className="h-3 w-3 text-emerald-400 shrink-0" />
               ) : (
                 <Search className="h-3 w-3 text-zinc-500 shrink-0" />
               )}
             </div>
-            <span ref={urlTextRef} className={`text-[10px] font-medium ${isReport ? "text-white/90" : "text-zinc-500"}`}>
+            <span className={`text-[10px] font-medium url-text-fade ${isReport ? "text-white/90" : "text-zinc-500"}`}>
               {isReport ? "yourbusiness.co.uk" : isBuild ? "yourbusiness.co.uk" : "Search or enter website"}
             </span>
           </div>
@@ -90,7 +59,10 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
         <div className="relative bg-zinc-50 dark:bg-zinc-900 h-[380px] max-h-[calc(100svh-280px)] lg:h-[420px] lg:max-h-none overflow-hidden">
 
           {/* ====== STAGE 1: NO WEBSITE ====== */}
-          <div ref={gapRef} className="absolute inset-0" style={{ opacity: 1 }}>
+          <div
+            className="absolute inset-0 sim-stage"
+            style={{ opacity: stage === "gap" ? 1 : 0, pointerEvents: stage === "gap" ? "auto" : "none" }}
+          >
             <div className="flex flex-col items-center justify-center h-full px-6 text-center">
               <div className="h-16 w-16 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center mb-5">
                 <Globe className="h-8 w-8 text-zinc-300 dark:text-zinc-600" />
@@ -119,7 +91,10 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
           </div>
 
           {/* ====== STAGE 2: BUILDING ====== */}
-          <div ref={buildRef} className="absolute inset-0" style={{ opacity: 0, pointerEvents: "none" }}>
+          <div
+            className="absolute inset-0 sim-stage"
+            style={{ opacity: stage === "build" ? 1 : 0, pointerEvents: stage === "build" ? "auto" : "none" }}
+          >
             {/* Wireframe nav */}
             <div className="px-4 py-3 border-b border-dashed border-coral-200 dark:border-coral-800">
               <div className="flex items-center justify-between">
@@ -171,7 +146,10 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
           </div>
 
           {/* ====== STAGE 3: FINISHED SITE ====== */}
-          <div ref={reportRef} className="absolute inset-0" style={{ opacity: 0, pointerEvents: "none" }}>
+          <div
+            className="absolute inset-0 sim-stage"
+            style={{ opacity: stage === "report" ? 1 : 0, pointerEvents: stage === "report" ? "auto" : "none" }}
+          >
             {/* Modern nav */}
             <div className="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800">
               <div className="flex items-center justify-between">

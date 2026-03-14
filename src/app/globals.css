@@ -82,7 +82,179 @@ html.dark body::before {
   background-clip: text;
 }
 
-/* ─── Highlight mark for hover effects ───────────────────── */
+/* ─── Scroll-reveal animations ──────────────────────────── */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(var(--reveal-y, 20px));
+  transition:
+    opacity var(--reveal-dur, 600ms) cubic-bezier(0.16, 1, 0.3, 1),
+    transform var(--reveal-dur, 600ms) cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--d, 0) * 1ms);
+}
+
+.revealed [data-reveal],
+.revealed[data-reveal] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-gradient] {
+  opacity: 0;
+  transform: scale(0.9);
+  transition:
+    opacity 500ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: calc(var(--gd, 300) * 1ms);
+}
+
+.revealed [data-gradient],
+.revealed[data-gradient] {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Hero card drop-in (desktop) */
+@keyframes hero-card-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-200px) rotate(var(--start-rot)) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(var(--end-rot)) scale(1);
+  }
+}
+
+.hero-card-drop {
+  animation: hero-card-drop 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--drop-delay, 0ms);
+}
+
+/* Hero card hover */
+.hero-card-hover {
+  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hero-card-hover:hover {
+  transform: rotate(0deg) scale(1.05) !important;
+}
+
+/* Metric card burst (About section) */
+@keyframes metric-burst {
+  from {
+    opacity: 0;
+    transform: translate(var(--burst-x), var(--burst-y)) scale(0.2);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+.metric-burst {
+  animation: metric-burst 600ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: var(--burst-delay, 0ms);
+}
+
+/* FAQ accordion */
+.faq-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 400ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.faq-content.open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.faq-content > div {
+  overflow: hidden;
+}
+
+.faq-chevron {
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.faq-chevron.open {
+  transform: rotate(180deg);
+}
+
+/* Review carousel slide */
+.review-slide {
+  transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Simulator cross-fade */
+.sim-stage {
+  transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Quiz transitions */
+.quiz-enter {
+  animation: quiz-in 450ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--d, 0) * 1ms);
+}
+
+@keyframes quiz-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.quiz-exit {
+  animation: quiz-out 220ms cubic-bezier(0.5, 0, 0.75, 0) both;
+  animation-delay: calc(var(--d, 0) * 1ms);
+}
+
+@keyframes quiz-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+/* Progress bar */
+.progress-fill {
+  transition: width 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Card hover lift */
+.card-hover-lift {
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.card-hover-lift:hover {
+  transform: scale(1.04) translateY(-6px);
+}
+
+/* Icon entrance */
+@keyframes icon-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.icon-pop {
+  animation: icon-pop 500ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* Highlight mark transition */
 .highlight-bg {
   position: absolute;
   left: -2px;
@@ -94,6 +266,125 @@ html.dark body::before {
   transform-origin: left;
   transform: scaleX(0);
   pointer-events: none;
+  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--hl-d, 0) * 1ms);
+}
+
+/* Tagline underline draw animation */
+.tagline-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.tagline-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 2px;
+  border-radius: 1px;
+  background: linear-gradient(90deg, var(--color-coral-400), var(--color-pink-400));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--ul-d, 0) * 1ms);
+}
+
+.tagline-underline.drawn::after {
+  transform: scaleX(1);
+}
+
+/* White underline when parent signals active (result card hover, tier card active) */
+.result-card:hover .tagline-underline::after,
+.tagline-underline.drawn-white::after {
+  background: linear-gradient(90deg, rgba(255,255,255,0.5), rgba(255,255,255,0.3));
+}
+
+/* Result recommendation card — elevated style */
+.result-card {
+  position: relative;
+  border-radius: 1.25rem;
+  padding: 1.75rem;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(to bottom, var(--color-zinc-50), white) padding-box,
+    linear-gradient(135deg, var(--color-coral-300), var(--color-pink-300), var(--color-coral-200)) border-box;
+  transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+:is(.dark) .result-card {
+  background:
+    linear-gradient(to bottom, var(--color-zinc-900), var(--color-zinc-950)) padding-box,
+    linear-gradient(135deg, var(--color-coral-700), var(--color-pink-800), var(--color-coral-700)) border-box;
+}
+
+.result-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--color-coral-500), var(--color-pink-500));
+  opacity: 0;
+  transition: opacity 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 0;
+}
+
+.result-card:hover::before {
+  opacity: 1;
+}
+
+.result-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Collapsible menu */
+.collapsible-menu {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 600ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.collapsible-menu.open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.collapsible-menu > div {
+  overflow: hidden;
+}
+
+/* URL bar text fade */
+.url-text-fade {
+  transition: opacity 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Report card entrance/exit */
+@keyframes report-enter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes report-exit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
 }
 
 /* ─── Scrollbar hiding ───────────────────────────────────── */

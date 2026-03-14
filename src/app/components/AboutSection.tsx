@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Check, ArrowRight, Zap, TrendingUp, Star, Globe } from "lucide-react";
-import { animate, stagger } from "animejs";
+import { useReveal } from "../hooks/useReveal";
 
 const DIFFERENTIATORS = [
   {
@@ -35,8 +35,8 @@ const CARD_CONFIG = [
 
 function MetricsVisual() {
   const ref = useRef<HTMLDivElement>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const hasFired = useRef(false);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
@@ -46,23 +46,11 @@ function MetricsVisual() {
       ([entry]) => {
         if (entry.isIntersecting && !hasFired.current) {
           hasFired.current = true;
+          setVisible(true);
           obs.disconnect();
-
-          cardRefs.current.forEach((card, i) => {
-            if (!card) return;
-            animate(card, {
-              opacity: [0, 1],
-              translateX: [CARD_CONFIG[i].dx, 0],
-              translateY: [CARD_CONFIG[i].dy, 0],
-              scale: [0.2, 1],
-              duration: 600,
-              ease: "outBack",
-              delay: i * 100,
-            });
-          });
         }
       },
-      { threshold: 0.4 }
+      { threshold: 0.4 },
     );
     obs.observe(el);
     return () => obs.disconnect();
@@ -98,9 +86,13 @@ function MetricsVisual() {
       {METRICS.map((m, i) => (
         <div
           key={m.label}
-          ref={(el) => { cardRefs.current[i] = el; }}
-          className={`absolute ${CARD_CONFIG[i].pos} z-20 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 shadow-xl px-3 py-2.5 flex items-center gap-2`}
-          style={{ opacity: 0 }}
+          className={`absolute ${CARD_CONFIG[i].pos} z-20 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 shadow-xl px-3 py-2.5 flex items-center gap-2 ${visible ? "metric-burst" : ""}`}
+          style={{
+            opacity: visible ? undefined : 0,
+            "--burst-x": `${CARD_CONFIG[i].dx}px`,
+            "--burst-y": `${CARD_CONFIG[i].dy}px`,
+            "--burst-delay": `${i * 100}ms`,
+          } as React.CSSProperties}
         >
           <div className={`h-8 w-8 rounded-lg ${m.bg} flex items-center justify-center`}>
             <m.icon className={`h-4 w-4 ${m.color}`} />
@@ -116,63 +108,25 @@ function MetricsVisual() {
 }
 
 export function AboutSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          obs.disconnect();
-
-          // Reveal section text
-          const reveals = el.querySelectorAll("[data-reveal]");
-          animate(reveals, {
-            opacity: [0, 1],
-            translateY: [20, 0],
-            duration: 600,
-            ease: "outExpo",
-            delay: stagger(80),
-          });
-
-          // Pop gradient text
-          const gradients = el.querySelectorAll("[data-gradient]");
-          if (gradients.length) {
-            animate(gradients, {
-              scale: [0.9, 1],
-              opacity: [0, 1],
-              duration: 500,
-              ease: "outBack",
-              delay: stagger(60, { start: 300 }),
-            });
-          }
-        }
-      },
-      { threshold: 0.15 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
+  const sectionRef = useReveal<HTMLElement>(0.15);
 
   return (
     <section ref={sectionRef} id="about" className="py-16 md:py-24 bg-zinc-50 dark:bg-zinc-950 transition-colors">
       <div className="mx-auto max-w-6xl px-5 md:px-8">
 
-        <p data-reveal style={{ opacity: 0 }} className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400 lg:text-center">
+        <p data-reveal style={{ "--d": 0 } as React.CSSProperties} className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400 lg:text-center">
           For people who take their work seriously
         </p>
 
-        <h2 data-reveal style={{ opacity: 0 }} className="text-2xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-4xl lg:text-[3.25rem] lg:leading-[1.15] mb-6 text-left lg:text-center max-w-3xl lg:mx-auto">
+        <h2 data-reveal style={{ "--d": 80 } as React.CSSProperties} className="text-2xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-4xl lg:text-[3.25rem] lg:leading-[1.15] mb-6 text-left lg:text-center max-w-3xl lg:mx-auto">
           Brilliant at what you do?
           <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-600 to-pink-600 inline-block" data-gradient style={{ opacity: 0 }}>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-600 to-pink-600 inline-block" data-gradient style={{ "--gd": 300 } as React.CSSProperties}>
             Your website should say so.
           </span>
         </h2>
 
-        <p data-reveal style={{ opacity: 0 }} className="max-w-2xl lg:mx-auto text-base md:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed mb-14 text-left lg:text-center">
+        <p data-reveal style={{ "--d": 160 } as React.CSSProperties} className="max-w-2xl lg:mx-auto text-base md:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed mb-14 text-left lg:text-center">
           You've earned your reputation. Your website should back it up. We build sites that make the
           right impression, win you clients before you've said a word, and keep working for you
           around the clock.
@@ -181,8 +135,8 @@ export function AboutSection() {
         <MetricsVisual />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-          {DIFFERENTIATORS.map((item) => (
-            <div key={item.title} data-reveal style={{ opacity: 0 }} className="flex gap-3">
+          {DIFFERENTIATORS.map((item, i) => (
+            <div key={item.title} data-reveal style={{ "--d": 240 + i * 80 } as React.CSSProperties} className="flex gap-3">
               <div className="mt-1 h-5 w-5 shrink-0 rounded-full bg-coral-100 dark:bg-coral-950 flex items-center justify-center">
                 <Check className="h-3 w-3 text-coral-600 dark:text-coral-400" />
               </div>
@@ -194,7 +148,7 @@ export function AboutSection() {
           ))}
         </div>
 
-        <div data-reveal style={{ opacity: 0 }} className="text-center">
+        <div data-reveal style={{ "--d": 480 } as React.CSSProperties} className="text-center">
           <a
             href="#services"
             className="group inline-flex items-center gap-2 text-sm font-bold text-coral-600 dark:text-coral-400 hover:text-coral-700 dark:hover:text-coral-300 transition-colors"

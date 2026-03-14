@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { ScanEye, Paintbrush, TrendingUp } from "lucide-react";
-import { animate, stagger } from "animejs";
+import { useReveal } from "../hooks/useReveal";
 import { WebsiteTransformSimulator } from "./WebsiteTransformSimulator";
 import { MobileGrowthSwiper } from "./HeroVisualMobile";
 
@@ -57,45 +57,9 @@ const CARDS = [
 export function ValueProposition() {
   const [activeIndex, setActiveIndex] = useState(0);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const headerRef = useRef<HTMLDivElement>(null);
-
-  // Anime.js header entrance
-  useEffect(() => {
-    const el = headerRef.current;
-    if (!el) return;
-
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          obs.disconnect();
-          const reveals = el.querySelectorAll("[data-reveal]");
-          animate(reveals, {
-            opacity: [0, 1],
-            translateY: [20, 0],
-            duration: 600,
-            ease: "outExpo",
-            delay: stagger(80),
-          });
-          const gradients = el.querySelectorAll("[data-gradient]");
-          if (gradients.length) {
-            animate(gradients, {
-              scale: [0.9, 1],
-              opacity: [0, 1],
-              duration: 500,
-              ease: "outBack",
-              delay: stagger(60, { start: 300 }),
-            });
-          }
-        }
-      },
-      { threshold: 0.3 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
+  const headerRef = useReveal<HTMLDivElement>(0.3);
 
   useEffect(() => {
-    // Only run on desktop — mobile uses MobileGrowthSwiper's own scroll handler
     const mq = window.matchMedia("(min-width: 1024px)");
     if (!mq.matches) return;
 
@@ -189,20 +153,19 @@ export function ValueProposition() {
   );
 }
 
-// Reusable Header Component
 function SectionHeader() {
   return (
     <>
-      <p data-reveal style={{ opacity: 0 }} className="mb-3 text-[11px] font-bold uppercase tracking-[0.2em] text-amber-600">
+      <p data-reveal style={{ "--d": 0 } as React.CSSProperties} className="mb-3 text-[11px] font-bold uppercase tracking-[0.2em] text-amber-600">
         The Process
       </p>
-      <h2 data-reveal style={{ opacity: 0 }} className="mb-6 text-3xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-5xl lg:text-6xl">
+      <h2 data-reveal style={{ "--d": 80 } as React.CSSProperties} className="mb-6 text-3xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-5xl lg:text-6xl">
         How we get you{" "}
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-600 to-pink-600 inline-block" data-gradient style={{ opacity: 0 }}>
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-600 to-pink-600 inline-block" data-gradient style={{ "--gd": 300 } as React.CSSProperties}>
           results.
         </span>
       </h2>
-      <p data-reveal style={{ opacity: 0 }} className="text-base text-zinc-600 dark:text-zinc-400 md:text-lg leading-relaxed max-w-xl">
+      <p data-reveal style={{ "--d": 160 } as React.CSSProperties} className="text-base text-zinc-600 dark:text-zinc-400 md:text-lg leading-relaxed max-w-xl">
         Audit. Build. Prove. No fluff, no filler, just a website that brings you customers.
       </p>
     </>

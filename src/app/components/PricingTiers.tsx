@@ -4,8 +4,8 @@ import Link from "next/link";
 import {
   Check, ArrowRight, Zap, BarChart3, ShoppingBag, Cpu, ChevronDown, RotateCcw,
 } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
-import { animate, stagger } from "animejs";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { useReveal } from "../hooks/useReveal";
 
 function useIsMobile() {
   const [mobile, setMobile] = useState(false);
@@ -161,7 +161,6 @@ type Recommendation = {
 function getRecommendation(answers: Answers): { primary: Recommendation } {
   const { website, business, content, growth } = answers;
 
-  // Decent site → no build, recommend a monthly plan based on answers
   if (website === "decent") {
     let monthlyIdx = 0;
     if (growth === "serious-growth") monthlyIdx = 2;
@@ -191,7 +190,6 @@ function getRecommendation(answers: Answers): { primary: Recommendation } {
   if (growth === "serious-growth") monthlyIdx = 2;
   else if (growth === "more-customers") monthlyIdx = 1;
 
-  // E-commerce + serious growth → bump to highest tier combo
   if (buildIdx === 2 && growth === "serious-growth") monthlyIdx = 2;
 
   const reasons: Record<string, string> = {
@@ -215,128 +213,63 @@ function getRecommendation(answers: Answers): { primary: Recommendation } {
   };
 }
 
-/* ─── Quiz component (rebuilt) ─── */
+/* ─── Quiz component ─── */
 
 function PackageQuiz() {
   const [answers, setAnswers] = useState<Answers>({});
   const [step, setStep] = useState(0);
   const [phase, setPhase] = useState<"question" | "result">("question");
   const [locked, setLocked] = useState(false);
+  const [animKey, setAnimKey] = useState(0);
+  const [exiting, setExiting] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const questionRef = useRef<HTMLDivElement>(null);
-  const resultRef = useRef<HTMLDivElement>(null);
-  const barRef = useRef<HTMLDivElement>(null);
 
-  const totalSteps = phase === "result" ? QUESTIONS.length : QUESTIONS.length;
+  const totalSteps = QUESTIONS.length;
   const answeredCount = Object.keys(answers).length;
   const progress = phase === "result" ? 1 : answeredCount / totalSteps;
 
   const currentQuestion = QUESTIONS[step];
 
-  // Animate progress bar on change
-  useEffect(() => {
-    if (!barRef.current) return;
-    animate(barRef.current, { width: `${progress * 100}%`, duration: 600, ease: "outExpo" });
-  }, [progress]);
-
   const hasInteracted = useRef(false);
 
-  // Animate question IN
-  useEffect(() => {
-    if (phase !== "question" || locked) return;
-    const el = questionRef.current;
-    if (!el) return;
-
-    const heading = el.querySelector("[data-q-heading]");
-    const options = el.querySelectorAll("[data-q-option]");
-
-    if (heading) {
-      animate(heading, { opacity: [0, 1], translateY: [24, 0], duration: 450, ease: "outExpo" });
-    }
-    if (options.length) {
-      animate(options, {
-        opacity: [0, 1],
-        translateY: [28, 0],
-        scale: [0.96, 1],
-        duration: 450,
-        ease: "outExpo",
-        delay: stagger(70, { start: 120 }),
-      });
-    }
-
-    // Only scroll after user has answered at least one question
+  const scrollToQuiz = useCallback(() => {
     if (hasInteracted.current) {
       containerRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
     }
-  }, [step, phase, locked]);
-
-  // Animate result IN
-  useEffect(() => {
-    if (phase !== "result") return;
-    const el = resultRef.current;
-    if (!el) return;
-
-    // Small delay so DOM is painted
-    const t = requestAnimationFrame(() => {
-      const children = el.querySelectorAll("[data-r]");
-      animate(children, {
-        opacity: [0, 1],
-        translateY: [20, 0],
-        duration: 500,
-        ease: "outExpo",
-        delay: stagger(80),
-      });
-      containerRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-    });
-    return () => cancelAnimationFrame(t);
-  }, [phase]);
+  }, []);
 
   function pickAnswer(value: string) {
     if (locked || !currentQuestion) return;
     hasInteracted.current = true;
     setLocked(true);
+    setExiting(true);
 
     const next = { ...answers, [currentQuestion.step]: value };
     setAnswers(next);
 
-    // Animate out
-    const el = questionRef.current;
-    if (el) {
-      const heading = el.querySelector("[data-q-heading]");
-      const options = el.querySelectorAll("[data-q-option]");
-      if (heading) animate(heading, { opacity: [1, 0], translateY: [0, -10], duration: 220, ease: "inQuart" });
-      if (options.length) {
-        animate(options, { opacity: [1, 0], translateY: [0, 8], duration: 180, ease: "inQuart", delay: stagger(30) });
-      }
-    }
-
     setTimeout(() => {
+      setExiting(false);
       if (step < QUESTIONS.length - 1) {
         setStep(step + 1);
       } else {
         setPhase("result");
       }
+      setAnimKey((k) => k + 1);
       setLocked(false);
+      scrollToQuiz();
     }, 280);
   }
 
   function goBack() {
     if (locked || step === 0) return;
     setLocked(true);
-
-    const el = questionRef.current;
-    if (el) {
-      const heading = el.querySelector("[data-q-heading]");
-      const options = el.querySelectorAll("[data-q-option]");
-      if (heading) animate(heading, { opacity: [1, 0], translateY: [0, -10], duration: 220, ease: "inQuart" });
-      if (options.length) {
-        animate(options, { opacity: [1, 0], translateY: [0, 8], duration: 180, ease: "inQuart", delay: stagger(30) });
-      }
-    }
+    setExiting(true);
 
     setTimeout(() => {
+      setExiting(false);
       setStep(step - 1);
+      setAnimKey((k) => k + 1);
       setLocked(false);
     }, 280);
   }
@@ -344,17 +277,14 @@ function PackageQuiz() {
   function reset() {
     if (locked) return;
     setLocked(true);
-
-    const el = resultRef.current;
-    if (el) {
-      const children = el.querySelectorAll("[data-r]");
-      animate(children, { opacity: [1, 0], translateY: [0, 12], duration: 250, ease: "inQuart", delay: stagger(30) });
-    }
+    setExiting(true);
 
     setTimeout(() => {
+      setExiting(false);
       setAnswers({});
       setStep(0);
       setPhase("question");
+      setAnimKey((k) => k + 1);
       setLocked(false);
     }, 350);
   }
@@ -363,7 +293,6 @@ function PackageQuiz() {
 
   return (
     <div className="relative">
-      {/* Subtle glow behind the card */}
       <div className="pointer-events-none absolute -inset-3 rounded-[2rem] bg-gradient-to-b from-coral-500/10 via-pink-500/5 to-transparent blur-xl" />
 
       <div
@@ -373,9 +302,9 @@ function PackageQuiz() {
         {/* Progress bar */}
         <div className="h-1.5 bg-zinc-100 dark:bg-zinc-900 rounded-t-3xl overflow-hidden">
           <div
-            ref={barRef}
-            className="h-full rounded-r-full w-0"
+            className="h-full rounded-r-full progress-fill"
             style={{
+              width: `${progress * 100}%`,
               background: phase === "result"
                 ? "linear-gradient(90deg, #10b981, #34d399)"
                 : "linear-gradient(90deg, #F97066, #FB923C)",
@@ -387,38 +316,32 @@ function PackageQuiz() {
 
           {/* ── Questions ── */}
           {phase === "question" && currentQuestion && (
-            <div ref={questionRef}>
-              <div data-q-heading style={{ opacity: 0 }} className="text-center">
-                <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-coral-400 mb-3">
-                  Question {step + 1} of {QUESTIONS.length}
-                </p>
-                <h3 className="text-2xl md:text-3xl font-extrabold text-zinc-900 dark:text-white mb-8 leading-tight">
-                  {currentQuestion.question}
-                </h3>
+            <div key={animKey}>
+              <div
+                className={exiting ? "quiz-exit" : "quiz-enter"}
+                style={{ "--d": 0 } as React.CSSProperties}
+              >
+                <div className="text-center">
+                  <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-coral-400 mb-3">
+                    Question {step + 1} of {QUESTIONS.length}
+                  </p>
+                  <h3 className="text-2xl md:text-3xl font-extrabold text-zinc-900 dark:text-white mb-8 leading-tight">
+                    {currentQuestion.question}
+                  </h3>
+                </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {currentQuestion.options.map((opt) => (
+                {currentQuestion.options.map((opt, i) => (
                   <button
                     key={opt.value}
-                    data-q-option
                     onClick={() => pickAnswer(opt.value)}
-                    style={{ opacity: 0 }}
-                    className={`group text-left rounded-2xl border p-5 active:scale-[0.97] transition-transform duration-150
+                    className={`group text-left rounded-2xl border p-5 active:scale-[0.97] transition-all duration-200 hover:scale-[1.03] hover:-translate-y-0.5 ${exiting ? "quiz-exit" : "quiz-enter"}
                       ${answers[currentQuestion.step] === opt.value
                         ? "border-coral-500 bg-coral-500/10"
                         : "border-zinc-200 dark:border-zinc-800 hover:border-coral-300 dark:hover:border-coral-700"
                       }`}
-                    onMouseEnter={(e) => {
-                      if (window.matchMedia("(hover: hover)").matches) {
-                        animate(e.currentTarget, { scale: 1.03, translateY: -2, duration: 200, ease: "outQuart" });
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (window.matchMedia("(hover: hover)").matches) {
-                        animate(e.currentTarget, { scale: 1, translateY: 0, duration: 300, ease: "outQuart" });
-                      }
-                    }}
+                    style={{ "--d": exiting ? i * 30 : 120 + i * 70 } as React.CSSProperties}
                   >
                     <p className={`text-sm font-bold mb-1.5 transition-colors ${
                       answers[currentQuestion.step] === opt.value
@@ -446,43 +369,45 @@ function PackageQuiz() {
 
           {/* ── Result ── */}
           {phase === "result" && result && (
-            <div ref={resultRef}>
+            <div key={`result-${animKey}`}>
               {result.primary.managedOnly ? (
                 <>
-                  {/* Managed-only — recommended monthly plan */}
                   <div className="text-center md:text-left">
-                    <div data-r style={{ opacity: 0 }} className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-4 py-1.5 mb-6">
-                      <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                      <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">No rebuild needed</span>
+                    <div className={exiting ? "quiz-exit" : "quiz-enter"} style={{ "--d": 0 } as React.CSSProperties}>
+                      <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-4 py-1.5 mb-6">
+                        <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                        <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">No rebuild needed</span>
+                      </div>
                     </div>
                   </div>
 
-                  <h3 data-r style={{ opacity: 0 }} className="text-2xl md:text-3xl font-extrabold text-zinc-900 dark:text-white mb-2 text-center md:text-left">
+                  <h3 className={`text-2xl md:text-3xl font-extrabold text-zinc-900 dark:text-white mb-2 text-center md:text-left ${exiting ? "quiz-exit" : "quiz-enter"}`} style={{ "--d": 80 } as React.CSSProperties}>
                     We&apos;ll look after it.
                   </h3>
-                  <p data-r style={{ opacity: 0 }} className="text-sm text-zinc-500 dark:text-zinc-400 mb-8 max-w-lg text-center md:text-left">
+                  <p className={`text-sm text-zinc-500 dark:text-zinc-400 mb-8 max-w-lg text-center md:text-left ${exiting ? "quiz-exit" : "quiz-enter"}`} style={{ "--d": 160 } as React.CSSProperties}>
                     {result.primary.reason}
                   </p>
 
                   <div
-                    data-r style={{ opacity: 0 }}
-                    className="rounded-2xl border border-coral-500/20 bg-coral-500/5 p-6 mb-4 max-w-md mx-auto transition-colors duration-200 hover:bg-coral-600 hover:border-coral-600 group/plan cursor-default"
-                    onMouseEnter={(e) => animate(e.currentTarget, { scale: 1.04, translateY: -6, duration: 300, ease: "outExpo" })}
-                    onMouseLeave={(e) => animate(e.currentTarget, { scale: 1, translateY: 0, duration: 400, ease: "outExpo" })}
-                    onTouchStart={(e) => { e.currentTarget.classList.add("bg-coral-600", "border-coral-600"); animate(e.currentTarget, { scale: 1.02, duration: 200, ease: "outQuart" }); }}
-                    onTouchEnd={(e) => { e.currentTarget.classList.remove("bg-coral-600", "border-coral-600"); animate(e.currentTarget, { scale: 1, duration: 300, ease: "outQuart" }); }}
+                    className={`result-card group/plan mb-4 max-w-md mx-auto cursor-default card-hover-lift ${exiting ? "quiz-exit" : "quiz-enter"}`}
+                    style={{ "--d": 240 } as React.CSSProperties}
                   >
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-coral-400 mb-2 group-hover/plan:text-coral-200">Monthly plan</p>
-                    <p className="text-2xl font-extrabold text-zinc-900 dark:text-white mb-1 group-hover/plan:text-white">{result.primary.monthly.price}</p>
-                    <p className="text-xs text-zinc-500 mb-4 group-hover/plan:text-coral-200">{result.primary.monthly.name} plan</p>
-                    <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed group-hover/plan:text-coral-100">{result.primary.monthly.description}</p>
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-coral-500 to-pink-500 flex items-center justify-center group-hover/plan:from-white/20 group-hover/plan:to-white/10 transition-colors duration-300">
+                        <Zap className="h-5 w-5 text-white" />
+                      </div>
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-coral-500 dark:text-coral-400 group-hover/plan:text-white/70 transition-colors duration-300">Monthly plan</p>
+                    </div>
+                    <p className="text-3xl font-extrabold text-zinc-900 dark:text-white mb-1 group-hover/plan:text-white transition-colors duration-300">{result.primary.monthly.price}</p>
+                    <p className="text-xs font-semibold text-coral-600 dark:text-coral-400 mb-4 group-hover/plan:text-white/80 transition-colors duration-300 tagline-underline drawn" style={{ "--ul-d": 400 } as React.CSSProperties}>{result.primary.monthly.name} plan</p>
+                    <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed group-hover/plan:text-white/70 transition-colors duration-300">{result.primary.monthly.description}</p>
                   </div>
 
-                  <p data-r style={{ opacity: 0 }} className="text-xs text-zinc-400 dark:text-zinc-500 mb-8 text-center">
+                  <p className={`text-xs text-zinc-400 dark:text-zinc-500 mb-8 text-center ${exiting ? "quiz-exit" : "quiz-enter"}`} style={{ "--d": 320 } as React.CSSProperties}>
                     Hosting, SSL &amp; backups included as standard.
                   </p>
 
-                  <div data-r style={{ opacity: 0 }} className="flex flex-wrap gap-3 justify-center">
+                  <div className={`flex flex-wrap gap-3 justify-center ${exiting ? "quiz-exit" : "quiz-enter"}`} style={{ "--d": 400 } as React.CSSProperties}>
                     <Link
                       href="/#contact"
                       className="inline-flex items-center gap-2 rounded-xl bg-coral-600 hover:bg-coral-700 px-7 py-3.5 text-sm font-bold text-white transition-colors"
@@ -501,60 +426,64 @@ function PackageQuiz() {
                 </>
               ) : (
                 <>
-                  {/* Full recommendation */}
                   <div className="text-center">
-                    <div data-r style={{ opacity: 0 }} className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-4 py-1.5 mb-6">
-                      <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                      <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">Recommended for you</span>
+                    <div className={exiting ? "quiz-exit" : "quiz-enter"} style={{ "--d": 0 } as React.CSSProperties}>
+                      <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-4 py-1.5 mb-6">
+                        <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                        <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">Recommended for you</span>
+                      </div>
                     </div>
                   </div>
 
-                  <h3 data-r style={{ opacity: 0 }} className="text-2xl md:text-3xl font-extrabold text-zinc-900 dark:text-white mb-2 text-center">
+                  <h3 className={`text-2xl md:text-3xl font-extrabold text-zinc-900 dark:text-white mb-2 text-center ${exiting ? "quiz-exit" : "quiz-enter"}`} style={{ "--d": 80 } as React.CSSProperties}>
                     {result.primary.build!.name} + {result.primary.monthly.name}
                   </h3>
-                  <p data-r style={{ opacity: 0 }} className="text-sm text-zinc-500 dark:text-zinc-400 mb-8 max-w-lg mx-auto text-center">
+                  <p className={`text-sm text-zinc-500 dark:text-zinc-400 mb-8 max-w-lg mx-auto text-center ${exiting ? "quiz-exit" : "quiz-enter"}`} style={{ "--d": 160 } as React.CSSProperties}>
                     {result.primary.reason}
                   </p>
 
-                  <div data-r style={{ opacity: 0 }} className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                    <div
-                      className="rounded-2xl border border-coral-500/20 bg-coral-500/5 p-6 transition-colors duration-200 hover:bg-coral-600 hover:border-coral-600 group/build cursor-default"
-                      onMouseEnter={(e) => animate(e.currentTarget, { scale: 1.04, translateY: -6, duration: 300, ease: "outExpo" })}
-                      onMouseLeave={(e) => animate(e.currentTarget, { scale: 1, translateY: 0, duration: 400, ease: "outExpo" })}
-                    >
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-coral-400 mb-2 group-hover/build:text-coral-200">Website build</p>
-                      <p className="text-2xl font-extrabold text-zinc-900 dark:text-white mb-1 group-hover/build:text-white">
+                  <div className={`grid grid-cols-1 md:grid-cols-2 gap-5 mb-6 ${exiting ? "quiz-exit" : "quiz-enter"}`} style={{ "--d": 240 } as React.CSSProperties}>
+                    <div className="result-card group/build cursor-default card-hover-lift">
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-coral-500 to-pink-500 flex items-center justify-center group-hover/build:from-white/20 group-hover/build:to-white/10 transition-colors duration-300">
+                          {(() => { const BuildIcon = result.primary.build!.Icon; return <BuildIcon className="h-5 w-5 text-white" />; })()}
+                        </div>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-coral-500 dark:text-coral-400 group-hover/build:text-white/70 transition-colors duration-300">Website build</p>
+                      </div>
+                      <p className="text-3xl font-extrabold text-zinc-900 dark:text-white mb-0.5 group-hover/build:text-white transition-colors duration-300">
                         {result.primary.build!.price}
-                        <span className="text-sm font-normal text-zinc-500 ml-2 group-hover/build:text-coral-200">one-off</span>
                       </p>
-                      <p className="text-xs text-zinc-500 mb-4 group-hover/build:text-coral-200">{result.primary.build!.name} package</p>
-                      <ul className="space-y-2">
+                      <p className="text-xs font-semibold text-coral-600 dark:text-coral-400 mb-5 group-hover/build:text-white/80 transition-colors duration-300 tagline-underline drawn" style={{ "--ul-d": 400 } as React.CSSProperties}>
+                        {result.primary.build!.name} &middot; one-off
+                      </p>
+                      <ul className="space-y-2.5">
                         {result.primary.build!.features.map((f) => (
                           <li key={f} className="flex items-start gap-2.5 text-sm">
-                            <Check className="h-3.5 w-3.5 shrink-0 mt-0.5 text-coral-500 group-hover/build:text-coral-200" />
-                            <span className="text-zinc-600 dark:text-zinc-300 group-hover/build:text-coral-50">{f}</span>
+                            <Check className="h-4 w-4 shrink-0 mt-0.5 text-coral-500 group-hover/build:text-white/60 transition-colors duration-300" />
+                            <span className="text-zinc-600 dark:text-zinc-300 group-hover/build:text-white/90 transition-colors duration-300">{f}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
 
-                    <div
-                      className="rounded-2xl border border-coral-500/20 bg-coral-500/5 p-6 transition-colors duration-200 hover:bg-coral-600 hover:border-coral-600 group/monthly cursor-default"
-                      onMouseEnter={(e) => animate(e.currentTarget, { scale: 1.04, translateY: -6, duration: 300, ease: "outExpo" })}
-                      onMouseLeave={(e) => animate(e.currentTarget, { scale: 1, translateY: 0, duration: 400, ease: "outExpo" })}
-                    >
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-coral-400 mb-2 group-hover/monthly:text-coral-200">Monthly plan</p>
-                      <p className="text-2xl font-extrabold text-zinc-900 dark:text-white mb-1 group-hover/monthly:text-white">{result.primary.monthly.price}</p>
-                      <p className="text-xs text-zinc-500 mb-4 group-hover/monthly:text-coral-200">{result.primary.monthly.name} plan</p>
-                      <p className="text-sm text-zinc-500 dark:text-zinc-400 group-hover/monthly:text-coral-100">{result.primary.monthly.description}</p>
+                    <div className="result-card group/monthly cursor-default card-hover-lift flex flex-col">
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-pink-500 to-coral-500 flex items-center justify-center group-hover/monthly:from-white/20 group-hover/monthly:to-white/10 transition-colors duration-300">
+                          <BarChart3 className="h-5 w-5 text-white" />
+                        </div>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-coral-500 dark:text-coral-400 group-hover/monthly:text-white/70 transition-colors duration-300">Monthly plan</p>
+                      </div>
+                      <p className="text-3xl font-extrabold text-zinc-900 dark:text-white mb-0.5 group-hover/monthly:text-white transition-colors duration-300">{result.primary.monthly.price}</p>
+                      <p className="text-xs font-semibold text-coral-600 dark:text-coral-400 mb-5 group-hover/monthly:text-white/80 transition-colors duration-300 tagline-underline drawn" style={{ "--ul-d": 500 } as React.CSSProperties}>{result.primary.monthly.name} plan</p>
+                      <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed group-hover/monthly:text-white/70 transition-colors duration-300 flex-1">{result.primary.monthly.description}</p>
                     </div>
                   </div>
 
-                  <div data-r style={{ opacity: 0 }}>
+                  <div className={exiting ? "quiz-exit" : "quiz-enter"} style={{ "--d": 320 } as React.CSSProperties}>
                     <FullMenu className="mt-0" label="Or explore a different combination" />
                   </div>
 
-                  <div data-r style={{ opacity: 0 }} className="flex flex-wrap gap-3 mt-8 justify-center">
+                  <div className={`flex flex-wrap gap-3 mt-8 justify-center ${exiting ? "quiz-exit" : "quiz-enter"}`} style={{ "--d": 400 } as React.CSSProperties}>
                     <Link
                       href="/#contact"
                       className="inline-flex items-center gap-2 rounded-xl bg-coral-600 hover:bg-coral-700 px-7 py-3.5 text-sm font-bold text-white transition-colors"
@@ -581,18 +510,17 @@ function PackageQuiz() {
   );
 }
 
-/* ─── Tier card (animated with hover text highlight) ─── */
+/* ─── Tier card ─── */
 
 function TierCard({ tier }: { tier: typeof TIERS[0] }) {
   const [hovered, setHovered] = useState(false);
   const [mobileFocused, setMobileFocused] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
-  const iconRef = useRef<HTMLDivElement>(null);
-  const highlightRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const [iconVisible, setIconVisible] = useState(false);
   const isMobile = useIsMobile();
   const { Icon } = tier;
 
-  // Anime.js icon entrance on scroll
+  // Icon entrance on scroll
   useEffect(() => {
     const el = cardRef.current;
     if (!el) return;
@@ -600,14 +528,7 @@ function TierCard({ tier }: { tier: typeof TIERS[0] }) {
       ([entry]) => {
         if (entry.isIntersecting) {
           observer.disconnect();
-          if (iconRef.current) {
-            animate(iconRef.current, {
-              opacity: [0, 1],
-              scale: [0.5, 1],
-              duration: 500,
-              ease: "outBack",
-            });
-          }
+          setIconVisible(true);
         }
       },
       { threshold: 0.3 }
@@ -630,25 +551,12 @@ function TierCard({ tier }: { tier: typeof TIERS[0] }) {
 
   const active = hovered || mobileFocused;
 
-  // Animate highlight marks on hover/focus
-  useEffect(() => {
-    highlightRefs.current.forEach((hl, i) => {
-      if (!hl) return;
-      animate(hl, {
-        scaleX: active ? 1 : 0,
-        duration: active ? 400 : 300,
-        ease: active ? "outExpo" : "inQuart",
-        delay: active ? i * 60 : 0,
-      });
-    });
-  }, [active]);
-
   return (
     <div
       ref={cardRef}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className={`relative flex flex-col rounded-3xl border-2 p-6 md:p-8 transition-colors duration-300 cursor-default
+      className={`relative flex flex-col rounded-3xl border-2 p-6 md:p-8 transition-all duration-300 cursor-default
         ${active
           ? "border-coral-600 bg-coral-600 shadow-lg -translate-y-1"
           : tier.highlight
@@ -662,9 +570,10 @@ function TierCard({ tier }: { tier: typeof TIERS[0] }) {
         </div>
       )}
 
-      <div ref={iconRef} className={`mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl
+      <div className={`mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl
         ${active ? "bg-white/20" : "bg-coral-50 dark:bg-coral-950/50"}
-      `} style={{ opacity: 0 }}>
+        ${iconVisible ? "icon-pop" : ""}
+      `} style={{ opacity: iconVisible ? undefined : 0 }}>
         <Icon className={`h-6 w-6 transition-colors duration-300 ${active ? "text-white" : "text-coral-600 dark:text-coral-400"}`} />
       </div>
 
@@ -675,13 +584,10 @@ function TierCard({ tier }: { tier: typeof TIERS[0] }) {
         <p className={`text-4xl font-extrabold mb-1 transition-colors duration-300 ${active ? "text-white" : "text-zinc-900 dark:text-zinc-100"}`}>
           {tier.price}
         </p>
-        <p className={`text-sm font-semibold mb-3 transition-colors duration-300 relative inline-block ${active ? "text-white" : "text-zinc-500 dark:text-zinc-400"}`}>
-          <span
-            ref={(el) => { highlightRefs.current[0] = el; }}
-            className="highlight-bg"
-            style={{ background: active ? "rgba(255,255,255,0.2)" : "rgba(99,102,241,0.15)", transform: "scaleX(0)" }}
-          />
-          <span className="relative">{tier.tagline}</span>
+        <p className={`text-sm font-semibold mb-3 transition-colors duration-300 tagline-underline ${active ? "text-white drawn drawn-white" : "text-zinc-500 dark:text-zinc-400"}`}
+          style={{ "--ul-d": 100 } as React.CSSProperties}
+        >
+          {tier.tagline}
         </p>
         <p className={`text-sm leading-relaxed transition-colors duration-300 ${active ? "text-coral-100" : "text-zinc-500 dark:text-zinc-400"}`}>
           {tier.description}
@@ -697,9 +603,12 @@ function TierCard({ tier }: { tier: typeof TIERS[0] }) {
             <span className={`transition-colors duration-300 relative ${active ? "text-coral-50" : "text-zinc-700 dark:text-zinc-300"}`}>
               {fi === 0 && (
                 <span
-                  ref={(el) => { highlightRefs.current[1] = el; }}
                   className="highlight-bg"
-                  style={{ background: active ? "rgba(255,255,255,0.15)" : "rgba(99,102,241,0.1)", transform: "scaleX(0)" }}
+                  style={{
+                    background: active ? "rgba(255,255,255,0.15)" : "rgba(99,102,241,0.1)",
+                    transform: active ? "scaleX(1)" : "scaleX(0)",
+                    "--hl-d": 60,
+                  } as React.CSSProperties}
                 />
               )}
               <span className="relative">{f}</span>
@@ -785,7 +694,7 @@ function SoftwareCallout() {
   );
 }
 
-/* ─── Monthly plan card (hover + touch safe) ─── */
+/* ─── Monthly plan card ─── */
 
 function MonthlyPlanCard({ plan }: { plan: typeof MONTHLY_PLANS[0] }) {
   const [active, setActive] = useState(false);
@@ -807,9 +716,9 @@ function MonthlyPlanCard({ plan }: { plan: typeof MONTHLY_PLANS[0] }) {
   return (
     <div
       ref={cardRef}
-      onMouseEnter={() => { setActive(true); if (cardRef.current) animate(cardRef.current, { scale: 1.04, translateY: -6, duration: 300, ease: "outExpo" }); }}
-      onMouseLeave={() => { setActive(false); if (cardRef.current) animate(cardRef.current, { scale: 1, translateY: 0, duration: 400, ease: "outExpo" }); }}
-      className={`rounded-2xl border p-6 transition-colors duration-200 cursor-default ${
+      onMouseEnter={() => setActive(true)}
+      onMouseLeave={() => setActive(false)}
+      className={`rounded-2xl border p-6 transition-all duration-200 cursor-default card-hover-lift ${
         active
           ? "bg-coral-600 border-coral-600"
           : "border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900"
@@ -826,21 +735,6 @@ function MonthlyPlanCard({ plan }: { plan: typeof MONTHLY_PLANS[0] }) {
 
 function FullMenu({ className = "mt-16", label }: { className?: string; label?: string }) {
   const [open, setOpen] = useState(false);
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!contentRef.current) return;
-    if (open) {
-      const el = contentRef.current;
-      el.style.height = "0px";
-      el.style.opacity = "0";
-      el.style.display = "block";
-      const h = el.scrollHeight;
-      animate(el, { height: [0, h], opacity: [0, 1], duration: 600, ease: "outExpo" });
-    } else {
-      animate(contentRef.current, { height: 0, opacity: 0, duration: 400, ease: "inQuart" });
-    }
-  }, [open]);
 
   return (
     <div className={className}>
@@ -852,27 +746,29 @@ function FullMenu({ className = "mt-16", label }: { className?: string; label?: 
         <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
       </button>
 
-      <div ref={contentRef} className="overflow-hidden mt-10" style={{ height: 0, opacity: 0 }}>
-        <p className="text-xs font-bold uppercase tracking-[0.15em] text-zinc-500 mb-4">
-          Website builds
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 md:items-start">
-          {TIERS.map((tier) => (
-            <TierCard key={tier.id} tier={tier} />
-          ))}
-        </div>
+      <div className={`collapsible-menu mt-10 ${open ? "open" : ""}`}>
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.15em] text-zinc-500 mb-4">
+            Website builds
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 md:items-start">
+            {TIERS.map((tier) => (
+              <TierCard key={tier.id} tier={tier} />
+            ))}
+          </div>
 
-        <p className="text-xs font-bold uppercase tracking-[0.15em] text-zinc-500 mb-4">
-          Monthly plans
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          {MONTHLY_PLANS.map((plan) => (
-            <MonthlyPlanCard key={plan.id} plan={plan} />
-          ))}
+          <p className="text-xs font-bold uppercase tracking-[0.15em] text-zinc-500 mb-4">
+            Monthly plans
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            {MONTHLY_PLANS.map((plan) => (
+              <MonthlyPlanCard key={plan.id} plan={plan} />
+            ))}
+          </div>
+          <p className="text-center text-sm text-zinc-500">
+            Every website includes hosting as standard. No hidden fees, cancel any time.
+          </p>
         </div>
-        <p className="text-center text-sm text-zinc-500">
-          Every website includes hosting as standard. No hidden fees, cancel any time.
-        </p>
       </div>
     </div>
   );
@@ -881,60 +777,23 @@ function FullMenu({ className = "mt-16", label }: { className?: string; label?: 
 /* ─── Main section ─── */
 
 export function PricingTiers() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  // Scroll-triggered section entrance
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          obs.disconnect();
-
-          const reveals = el.querySelectorAll("[data-reveal]");
-          animate(reveals, {
-            opacity: [0, 1],
-            translateY: [20, 0],
-            duration: 600,
-            ease: "outExpo",
-            delay: stagger(80),
-          });
-
-          const gradients = el.querySelectorAll("[data-gradient]");
-          if (gradients.length) {
-            animate(gradients, {
-              scale: [0.9, 1],
-              opacity: [0, 1],
-              duration: 500,
-              ease: "outBack",
-              delay: stagger(60, { start: 300 }),
-            });
-          }
-        }
-      },
-      { threshold: 0.1 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
+  const sectionRef = useReveal<HTMLElement>(0.1);
 
   return (
     <section ref={sectionRef} id="services" className="relative py-16 md:py-24 bg-zinc-50 dark:bg-zinc-950 overflow-hidden">
 
       <div className="mx-auto max-w-6xl px-5 md:px-8 relative z-10">
         <div className="text-center mb-16">
-          <p data-reveal style={{ opacity: 0 }} className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-amber-500">
+          <p data-reveal style={{ "--d": 0 } as React.CSSProperties} className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-amber-500">
             Packages & Pricing
           </p>
-          <h2 data-reveal style={{ opacity: 0 }} className="text-3xl font-bold text-zinc-900 dark:text-white md:text-4xl lg:text-5xl mb-4">
+          <h2 data-reveal style={{ "--d": 80 } as React.CSSProperties} className="text-3xl font-bold text-zinc-900 dark:text-white md:text-4xl lg:text-5xl mb-4">
             Not sure what you need?{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-500 to-pink-500 inline-block pb-1" data-gradient style={{ opacity: 0 }}>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-500 to-pink-500 inline-block pb-1" data-gradient style={{ "--gd": 300 } as React.CSSProperties}>
               We&apos;ll figure it out.
             </span>
           </h2>
-          <p data-reveal style={{ opacity: 0 }} className="text-base text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto">
+          <p data-reveal style={{ "--d": 160 } as React.CSSProperties} className="text-base text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto">
             Answer a few quick questions and we&apos;ll recommend the right website package and monthly plan for your business.
           </p>
         </div>

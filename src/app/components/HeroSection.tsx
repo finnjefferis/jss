@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
-import { animate, stagger } from "animejs";
+import { useReveal } from "../hooks/useReveal";
 
 const ROTATE_WORDS = ["convert.", "impress.", "grow.", "last."];
 
@@ -12,6 +12,8 @@ const HERO_SITES = [
   { src: "/naxnew.png", alt: "Naxco website", label: "naxco.co.uk", href: "/work/naxco", rotate: -3, z: "z-10", pos: "top-0 left-0 w-[75%]" },
   { src: "/ivyarch.png", alt: "Ivy Arch Studios website", label: "ivyarchstudios.co.uk", href: "/work/ivy", rotate: -1, z: "z-30", pos: "top-[55%] left-[10%] w-[70%]" },
 ];
+
+const START_ROTATIONS = [22, -20, 14];
 
 function BrowserFrame({ site, className = "", priority = false }: { site: typeof HERO_SITES[number]; className?: string; priority?: boolean }) {
   return (
@@ -101,27 +103,6 @@ function MobileHeroCarousel() {
 }
 
 function HeroVisual() {
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  // Desktop: anime.js drop-in animation — one call per card for clean per-element rotation
-  useEffect(() => {
-    const startRotations = [22, -20, 14];
-
-    cardRefs.current.forEach((el, i) => {
-      if (!el) return;
-      animate(el, {
-        opacity: [0, 1],
-        translateY: [-200, 0],
-        rotate: [`${startRotations[i]}deg`, `${HERO_SITES[i].rotate}deg`],
-        scale: [0.9, 1],
-        duration: 900,
-        ease: "outExpo",
-        delay: 150 + i * 200,
-      });
-    });
-  }, []);
-
   return (
     <>
       {/* DESKTOP */}
@@ -131,11 +112,13 @@ function HeroVisual() {
           {HERO_SITES.map((site, i) => (
             <div
               key={site.label}
-              ref={(el) => { cardRefs.current[i] = el; }}
-              className={`absolute ${site.pos} ${site.z}`}
-              style={{ opacity: 0 }}
-              onMouseEnter={(e) => animate(e.currentTarget, { rotate: "0deg", scale: 1.05, duration: 400, ease: "outExpo" })}
-              onMouseLeave={(e) => animate(e.currentTarget, { rotate: `${site.rotate}deg`, scale: 1, duration: 500, ease: "outExpo" })}
+              className={`absolute ${site.pos} ${site.z} hero-card-drop hero-card-hover`}
+              style={{
+                "--start-rot": `${START_ROTATIONS[i]}deg`,
+                "--end-rot": `${site.rotate}deg`,
+                "--drop-delay": `${150 + i * 200}ms`,
+                transform: `rotate(${site.rotate}deg)`,
+              } as React.CSSProperties}
             >
               <BrowserFrame site={site} />
             </div>
@@ -144,7 +127,7 @@ function HeroVisual() {
       </div>
 
       {/* MOBILE */}
-      <div className="lg:hidden mt-4" data-hero-line style={{ opacity: 0 }}>
+      <div className="lg:hidden mt-4" data-reveal>
         <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-1">
           Some{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-600 to-pink-600" data-gradient>
@@ -193,12 +176,10 @@ function RotatingWord() {
         if (charIdx >= word.length) {
           charIdx = word.length;
           if (isLast) {
-            // Done — hide cursor
             if (cursorRef.current) cursorRef.current.style.display = "none";
             if (textRef.current) textRef.current.textContent = word;
             return;
           }
-          // Pause then delete
           timer = setTimeout(() => { deleting = true; tick(); }, 2000);
           if (textRef.current) textRef.current.textContent = word;
           return;
@@ -222,36 +203,7 @@ function RotatingWord() {
 }
 
 export function HeroSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  // Anime.js hero text entrance
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-
-    const lines = el.querySelectorAll("[data-hero-line]");
-    if (!lines.length) return;
-
-    animate(lines, {
-      opacity: [0, 1],
-      translateY: [16, 0],
-      duration: 650,
-      ease: "outExpo",
-      delay: stagger(130, { start: 50 }),
-    });
-
-    // Gradient text pop
-    const gradients = el.querySelectorAll("[data-gradient]");
-    if (gradients.length) {
-      animate(gradients, {
-        scale: [0.92, 1],
-        opacity: [0, 1],
-        duration: 500,
-        ease: "outBack",
-        delay: stagger(60, { start: 500 }),
-      });
-    }
-  }, []);
+  const sectionRef = useReveal<HTMLElement>(0.1);
 
   return (
     <section ref={sectionRef} className="relative pt-10 pb-20 md:py-28 lg:py-36 overflow-hidden">
@@ -265,17 +217,17 @@ export function HeroSection() {
 
           {/* LEFT — Text */}
           <div>
-            <p data-hero-line style={{ opacity: 0 }} className="mb-3 text-xs font-bold uppercase tracking-[0.25em] text-amber-600 dark:text-amber-400">
+            <p data-reveal style={{ "--d": 50 } as React.CSSProperties} className="mb-3 text-xs font-bold uppercase tracking-[0.25em] text-amber-600 dark:text-amber-400">
               Small business websites · UK
             </p>
-            <h1 data-hero-line style={{ opacity: 0 }} className="text-5xl font-black leading-[1.08] tracking-tight text-zinc-900 dark:text-white sm:text-6xl lg:text-7xl">
+            <h1 data-reveal style={{ "--d": 180, "--reveal-y": "16px" } as React.CSSProperties} className="text-5xl font-black leading-[1.08] tracking-tight text-zinc-900 dark:text-white sm:text-6xl lg:text-7xl">
               Websites that<br />
               <RotatingWord />
             </h1>
-            <p data-hero-line style={{ opacity: 0 }} className="mt-6 text-lg text-zinc-500 dark:text-zinc-400 md:text-xl max-w-xl">
+            <p data-reveal style={{ "--d": 310 } as React.CSSProperties} className="mt-6 text-lg text-zinc-500 dark:text-zinc-400 md:text-xl max-w-xl">
               Your website should be winning you clients. If it isn't, we'll fix that.
             </p>
-            <div data-hero-line style={{ opacity: 0 }} className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
+            <div data-reveal style={{ "--d": 440 } as React.CSSProperties} className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
               <a
                 href="#services"
                 className="inline-flex items-center justify-center rounded-xl bg-coral-600 px-8 py-4 text-sm font-bold text-white shadow-md transition-colors hover:bg-coral-700"

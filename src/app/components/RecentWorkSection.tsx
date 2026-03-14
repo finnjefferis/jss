@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
-import { animate, stagger } from "animejs";
+import { useReveal } from "../hooks/useReveal";
 
 type ProjectKey = "naxco" | "edivert" | "carbon" | "toolbox" | "ivy" | "jmrt";
 
@@ -74,47 +74,13 @@ const PROJECTS = [
 export function RecentWorkSection() {
   const [activeCard, setActiveCard] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
+  const headerRef = useReveal<HTMLDivElement>(0.3);
 
   const scroll = (direction: "left" | "right") => {
     if (!scrollRef.current) return;
     const cardWidth = 464;
     scrollRef.current.scrollBy({ left: direction === "left" ? -cardWidth : cardWidth, behavior: "smooth" });
   };
-
-  // Anime.js header entrance
-  useEffect(() => {
-    const el = headerRef.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          obs.disconnect();
-          const reveals = el.querySelectorAll("[data-reveal]");
-          animate(reveals, {
-            opacity: [0, 1],
-            translateY: [20, 0],
-            duration: 600,
-            ease: "outExpo",
-            delay: stagger(80),
-          });
-          const gradients = el.querySelectorAll("[data-gradient]");
-          if (gradients.length) {
-            animate(gradients, {
-              scale: [0.9, 1],
-              opacity: [0, 1],
-              duration: 500,
-              ease: "outBack",
-              delay: stagger(60, { start: 300 }),
-            });
-          }
-        }
-      },
-      { threshold: 0.3 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
 
   useEffect(() => {
     const container = scrollRef.current;
@@ -142,16 +108,16 @@ export function RecentWorkSection() {
 
       <div ref={headerRef} className="mx-auto max-w-6xl px-5 md:px-8 mb-12">
         <div className="max-w-3xl">
-          <p data-reveal style={{ opacity: 0 }} className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-amber-600">
+          <p data-reveal style={{ "--d": 0 } as React.CSSProperties} className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-amber-600">
             Selected Projects
           </p>
-          <h2 data-reveal style={{ opacity: 0 }} className="text-3xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-4xl">
+          <h2 data-reveal style={{ "--d": 80 } as React.CSSProperties} className="text-3xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-4xl">
             Digital products that{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-600 to-pink-600 inline-block" data-gradient style={{ opacity: 0 }}>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-600 to-pink-600 inline-block" data-gradient style={{ "--gd": 300 } as React.CSSProperties}>
               deliver.
             </span>
           </h2>
-          <p data-reveal style={{ opacity: 0 }} className="mt-3 text-sm text-zinc-400 dark:text-zinc-500 md:hidden flex items-center gap-2">
+          <p data-reveal style={{ "--d": 160 } as React.CSSProperties} className="mt-3 text-sm text-zinc-400 dark:text-zinc-500 md:hidden flex items-center gap-2">
             Swipe to explore {PROJECTS.length} projects
             <ArrowRight className="h-3.5 w-3.5" />
           </p>
