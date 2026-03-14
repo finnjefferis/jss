@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { animate, stagger } from "animejs";
 
 const ROTATE_WORDS = ["convert.", "impress.", "grow.", "last."];
@@ -13,7 +13,7 @@ const HERO_SITES = [
   { src: "/ivyarch.png", alt: "Ivy Arch Studios website", label: "ivyarchstudios.co.uk", href: "/work/ivy", rotate: -1, z: "z-30", pos: "top-[55%] left-[10%] w-[70%]" },
 ];
 
-function BrowserFrame({ site, className = "" }: { site: typeof HERO_SITES[number]; className?: string }) {
+function BrowserFrame({ site, className = "", priority = false }: { site: typeof HERO_SITES[number]; className?: string; priority?: boolean }) {
   return (
     <Link href={site.href} className={`block group ${className}`}>
       <div className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 shadow-md overflow-hidden">
@@ -28,7 +28,7 @@ function BrowserFrame({ site, className = "" }: { site: typeof HERO_SITES[number
           </div>
         </div>
         <div className="relative aspect-[16/10] w-full bg-zinc-100 dark:bg-zinc-800">
-          <Image src={site.src} alt={site.alt} fill className="object-cover object-top" sizes="400px" />
+          <Image src={site.src} alt={site.alt} fill className="object-cover object-top" sizes="(max-width: 768px) 78vw, 400px" priority={priority} loading={priority ? "eager" : "lazy"} />
         </div>
       </div>
     </Link>
@@ -36,35 +36,9 @@ function BrowserFrame({ site, className = "" }: { site: typeof HERO_SITES[number
 }
 
 function MobileHeroCarousel() {
-  const [activeIndex, setActiveIndex] = useState(2);
+  const [activeIndex, setActiveIndex] = useState(0);
   const pointerStartX = useRef(0);
   const isDragging = useRef(false);
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    const t1 = setTimeout(() => setActiveIndex(1), 250);
-    const t2 = setTimeout(() => setActiveIndex(0), 600);
-    return () => { clearTimeout(t1); clearTimeout(t2); };
-  }, []);
-
-  // Animate card transitions with anime.js
-  useEffect(() => {
-    cardsRef.current.forEach((el, i) => {
-      if (!el) return;
-      const offset = i - activeIndex;
-      const angle = offset * 18;
-      const isActive = i === activeIndex;
-      animate(el, {
-        translateX: "-50%",
-        rotate: `${angle}deg`,
-        translateY: isActive ? -14 : 0,
-        scale: isActive ? 1 : 0.88,
-        opacity: isActive ? 1 : 0.5,
-        duration: 700,
-        ease: "outExpo",
-      });
-    });
-  }, [activeIndex]);
 
   const handlePointerDown = (e: React.PointerEvent) => {
     pointerStartX.current = e.clientX;
@@ -80,44 +54,32 @@ function MobileHeroCarousel() {
     }
   };
 
-  const wheelTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const wheelDelta = useRef(0);
-  const handleWheel = useCallback((e: React.WheelEvent) => {
-    wheelDelta.current += e.deltaX;
-    if (wheelTimeout.current) clearTimeout(wheelTimeout.current);
-    wheelTimeout.current = setTimeout(() => {
-      if (Math.abs(wheelDelta.current) > 30) {
-        if (wheelDelta.current > 0 && activeIndex < HERO_SITES.length - 1) setActiveIndex(activeIndex + 1);
-        if (wheelDelta.current < 0 && activeIndex > 0) setActiveIndex(activeIndex - 1);
-      }
-      wheelDelta.current = 0;
-    }, 80);
-  }, [activeIndex]);
-
   return (
     <div
       className="relative touch-pan-y"
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
       onPointerCancel={() => { isDragging.current = false; }}
-      onWheel={handleWheel}
     >
       <div className="relative h-[320px] w-full overflow-visible">
         {HERO_SITES.map((site, i) => {
           const offset = i - activeIndex;
           const isActive = i === activeIndex;
+          const angle = offset * 18;
           return (
             <div
               key={site.label}
-              ref={(el) => { cardsRef.current[i] = el; }}
-              className="absolute left-1/2 bottom-0 w-[78vw] max-w-[320px] cursor-pointer"
+              className="absolute left-1/2 bottom-0 w-[78vw] max-w-[320px] cursor-pointer transition-all duration-500 ease-out"
               style={{
                 transformOrigin: "50% 350%",
                 zIndex: isActive ? 30 : 20 - Math.abs(offset),
+                transform: `translateX(-50%) rotate(${angle}deg) translateY(${isActive ? -14 : 0}px) scale(${isActive ? 1 : 0.88})`,
+                opacity: isActive ? 1 : 0.5,
+                willChange: "transform, opacity",
               }}
               onClick={() => setActiveIndex(i)}
             >
-              <BrowserFrame site={site} />
+              <BrowserFrame site={site} priority={i === 0} />
               <p className={`mt-2 text-center text-[11px] font-medium transition-colors duration-300 ${isActive ? "text-zinc-600 dark:text-zinc-300" : "text-zinc-400 dark:text-zinc-500"}`}>
                 {site.label}
               </p>
