@@ -12,8 +12,13 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
   const reportRef = useRef<HTMLDivElement>(null);
   const urlIconRef = useRef<HTMLDivElement>(null);
   const urlTextRef = useRef<HTMLSpanElement>(null);
+  const prevStageRef = useRef<Stage>(null);
 
   useEffect(() => {
+    // Skip if stage hasn't actually changed
+    if (prevStageRef.current === stage) return;
+    prevStageRef.current = stage;
+
     const refs = { gap: gapRef.current, build: buildRef.current, report: reportRef.current };
     if (!refs.gap || !refs.build || !refs.report) return;
 

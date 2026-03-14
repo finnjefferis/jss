@@ -119,13 +119,17 @@ export function RecentWorkSection() {
   useEffect(() => {
     const container = scrollRef.current;
     if (!container) return;
+    let ticking = false;
     const handleScroll = () => {
-      const scrollLeft = container.scrollLeft;
-      const cardWidth =
-        container.firstElementChild?.nextElementSibling
-          ? (container.firstElementChild.nextElementSibling as HTMLElement).offsetWidth + 24
-          : container.clientWidth * 0.85 + 24;
-      setActiveCard(Math.min(Math.round(scrollLeft / cardWidth), PROJECTS.length - 1));
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const scrollLeft = container.scrollLeft;
+        const firstCard = container.querySelector("[data-project-card]") as HTMLElement | null;
+        const cardWidth = firstCard ? firstCard.offsetWidth + 24 : container.clientWidth * 0.85 + 24;
+        setActiveCard(Math.min(Math.round(scrollLeft / cardWidth), PROJECTS.length - 1));
+        ticking = false;
+      });
     };
     container.addEventListener("scroll", handleScroll, { passive: true });
     return () => container.removeEventListener("scroll", handleScroll);
@@ -174,24 +178,28 @@ export function RecentWorkSection() {
 
         <div
           ref={scrollRef}
-          className="flex w-full overflow-x-auto snap-x snap-mandatory scroll-smooth pb-12 pt-4 px-5 md:px-8 gap-6 no-scrollbar overscroll-x-contain"
+          className="flex w-full overflow-x-auto snap-x snap-mandatory pb-12 pt-4 px-5 md:px-8 gap-6 no-scrollbar overscroll-x-contain md:scroll-smooth"
+          style={{ WebkitOverflowScrolling: "touch", willChange: "scroll-position" }}
         >
           <div className="hidden xl:block w-[calc((100vw-72rem)/2-2rem)] flex-shrink-0" />
 
           {PROJECTS.map((project) => (
             <div
               key={project.key}
+              data-project-card
               className="flex-shrink-0 w-[85vw] md:w-[440px] snap-center [scroll-snap-stop:always]"
             >
               <Link href={project.href} className="block h-full">
-                <article className="group relative h-full flex flex-col overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 shadow-xl shadow-rose-500/5 transition-[transform,box-shadow] hover:-translate-y-2 hover:shadow-2xl hover:shadow-rose-500/15 ring-0 hover:ring-2 hover:ring-rose-500/50">
+                <article className="group relative h-full flex flex-col overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 shadow-md md:shadow-xl md:shadow-rose-500/5 md:transition-[transform,box-shadow] md:hover:-translate-y-2 md:hover:shadow-2xl md:hover:shadow-rose-500/15 md:ring-0 md:hover:ring-2 md:hover:ring-rose-500/50" style={{ contain: "layout style paint" }}>
 
                   <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-100 dark:bg-zinc-800">
                     <Image
                       src={project.image}
                       alt={project.alt}
                       fill
-                      className="object-cover transition duration-700 group-hover:scale-105"
+                      sizes="(max-width: 768px) 85vw, 440px"
+                      className="object-cover md:transition md:duration-700 md:group-hover:scale-105"
+                      loading={project.key === "edivert" ? "eager" : "lazy"}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                     <div className="absolute top-5 left-5 flex flex-wrap gap-2">

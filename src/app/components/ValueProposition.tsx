@@ -99,30 +99,36 @@ export function ValueProposition() {
     const mq = window.matchMedia("(min-width: 1024px)");
     if (!mq.matches) return;
 
+    let ticking = false;
     const handleScroll = () => {
-      const refs = cardRefs.current;
-      if (!refs[0]) return;
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const refs = cardRefs.current;
+        if (!refs[0]) { ticking = false; return; }
 
-      const viewportCenter = window.innerHeight / 2;
+        const viewportCenter = window.innerHeight / 2;
 
-      let targetIndex = 0;
-      let closestDist = Infinity;
+        let targetIndex = 0;
+        let closestDist = Infinity;
 
-      refs.forEach((ref, i) => {
-        if (!ref) return;
-        const rect = ref.getBoundingClientRect();
-        const center = rect.top + rect.height / 2;
-        const dist = Math.abs(center - viewportCenter);
-        if (dist < closestDist) {
-          closestDist = dist;
-          targetIndex = i;
-        }
-      });
+        refs.forEach((ref, i) => {
+          if (!ref) return;
+          const rect = ref.getBoundingClientRect();
+          const center = rect.top + rect.height / 2;
+          const dist = Math.abs(center - viewportCenter);
+          if (dist < closestDist) {
+            closestDist = dist;
+            targetIndex = i;
+          }
+        });
 
-      setActiveIndex((prev) => {
-        if (targetIndex > prev) return prev + 1;
-        if (targetIndex < prev) return prev - 1;
-        return prev;
+        setActiveIndex((prev) => {
+          if (targetIndex > prev) return prev + 1;
+          if (targetIndex < prev) return prev - 1;
+          return prev;
+        });
+        ticking = false;
       });
     };
 

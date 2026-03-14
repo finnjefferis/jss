@@ -30,32 +30,36 @@ export function MobileGrowthSwiper() {
   const triggersRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      const triggers = triggersRef.current;
-      if (!triggers[0]) return;
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const triggers = triggersRef.current;
+        if (!triggers[0]) { ticking = false; return; }
 
-      const viewportCenter = window.innerHeight / 2;
+        const viewportCenter = window.innerHeight / 2;
 
-      // Find which trigger's center is closest to viewport center
-      let targetIndex = 0;
-      let closestDist = Infinity;
+        let targetIndex = 0;
+        let closestDist = Infinity;
 
-      triggers.forEach((trigger, i) => {
-        if (!trigger) return;
-        const rect = trigger.getBoundingClientRect();
-        const triggerCenter = rect.top + rect.height / 2;
-        const dist = Math.abs(triggerCenter - viewportCenter);
-        if (dist < closestDist) {
-          closestDist = dist;
-          targetIndex = i;
-        }
-      });
+        triggers.forEach((trigger, i) => {
+          if (!trigger) return;
+          const rect = trigger.getBoundingClientRect();
+          const triggerCenter = rect.top + rect.height / 2;
+          const dist = Math.abs(triggerCenter - viewportCenter);
+          if (dist < closestDist) {
+            closestDist = dist;
+            targetIndex = i;
+          }
+        });
 
-      // Only advance/retreat by 1 step at a time — never skip stages
-      setActiveIndex((prev) => {
-        if (targetIndex > prev) return prev + 1;
-        if (targetIndex < prev) return prev - 1;
-        return prev;
+        setActiveIndex((prev) => {
+          if (targetIndex > prev) return prev + 1;
+          if (targetIndex < prev) return prev - 1;
+          return prev;
+        });
+        ticking = false;
       });
     };
 
