@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { ScanEye, Paintbrush, TrendingUp } from "lucide-react";
+import { animate, stagger } from "animejs";
 import { WebsiteTransformSimulator } from "./WebsiteTransformSimulator";
 import { MobileGrowthSwiper } from "./HeroVisualMobile";
 
@@ -56,6 +57,42 @@ const CARDS = [
 export function ValueProposition() {
   const [activeIndex, setActiveIndex] = useState(0);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const headerRef = useRef<HTMLDivElement>(null);
+
+  // Anime.js header entrance
+  useEffect(() => {
+    const el = headerRef.current;
+    if (!el) return;
+
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          obs.disconnect();
+          const reveals = el.querySelectorAll("[data-reveal]");
+          animate(reveals, {
+            opacity: [0, 1],
+            translateY: [20, 0],
+            duration: 600,
+            ease: "outExpo",
+            delay: stagger(80),
+          });
+          const gradients = el.querySelectorAll("[data-gradient]");
+          if (gradients.length) {
+            animate(gradients, {
+              scale: [0.9, 1],
+              opacity: [0, 1],
+              duration: 500,
+              ease: "outBack",
+              delay: stagger(60, { start: 300 }),
+            });
+          }
+        }
+      },
+      { threshold: 0.3 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
 
   useEffect(() => {
     // Only run on desktop — mobile uses MobileGrowthSwiper's own scroll handler
@@ -97,7 +134,7 @@ export function ValueProposition() {
 
   return (
     <section className="relative py-16 md:py-24 bg-zinc-50 dark:bg-zinc-950 transition-colors" id="process">
-      <div className="pointer-events-none absolute -left-48 top-40 h-96 w-96 rounded-full bg-rose-50/60 dark:bg-rose-950/40 blur-3xl opacity-70" />
+      <div className="pointer-events-none absolute -left-48 top-40 h-96 w-96 rounded-full bg-rose-50/60 dark:bg-rose-950/40 blur-2xl opacity-70" />
 
       <div className="mx-auto w-full max-w-[1440px] px-2 md:px-8 lg:px-12 relative z-10">
 
@@ -120,7 +157,7 @@ export function ValueProposition() {
           <div className="hidden lg:flex flex-col justify-center items-start lg:pl-0 relative z-20">
 
             {/* DESKTOP HEADER (Sticky) */}
-            <div className="mb-12 w-full pt-10 lg:pt-20 sticky top-0 z-30 bg-zinc-50 dark:bg-zinc-950 pb-8 transition-colors">
+            <div ref={headerRef} className="mb-12 w-full pt-10 lg:pt-20 sticky top-0 z-30 bg-zinc-50 dark:bg-zinc-950 pb-8 transition-colors">
               <SectionHeader />
               <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-b from-white dark:from-zinc-950 to-transparent translate-y-full pointer-events-none" />
             </div>
@@ -150,16 +187,16 @@ export function ValueProposition() {
 function SectionHeader() {
   return (
     <>
-      <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.2em] text-amber-600">
+      <p data-reveal style={{ opacity: 0 }} className="mb-3 text-[11px] font-bold uppercase tracking-[0.2em] text-amber-600">
         The Process
       </p>
-      <h2 className="mb-6 text-3xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-5xl lg:text-6xl">
+      <h2 data-reveal style={{ opacity: 0 }} className="mb-6 text-3xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-5xl lg:text-6xl">
         How we get you{" "}
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-pink-600">
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-pink-600 inline-block" data-gradient style={{ opacity: 0 }}>
           results.
         </span>
       </h2>
-      <p className="text-base text-zinc-600 dark:text-zinc-400 md:text-lg leading-relaxed max-w-xl">
+      <p data-reveal style={{ opacity: 0 }} className="text-base text-zinc-600 dark:text-zinc-400 md:text-lg leading-relaxed max-w-xl">
         Audit. Build. Prove. No fluff, no filler, just a website that brings you customers.
       </p>
     </>

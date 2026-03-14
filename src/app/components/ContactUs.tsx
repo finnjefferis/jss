@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Check, Copy, CalendarDays, ArrowRight, Mail, Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { animate, stagger } from "animejs";
 
 const BOOKING_URL =
   "https://outlook.office.com/bookwithme/user/b44ea33c0eb847a3a69babfcdc453315@jefferissoftware.co.uk?anonymous&ismsaljsauthenabled&ep=plink";
@@ -41,9 +42,9 @@ export function ContactSection() {
   const [copied, setCopied] = useState(false);
   const [reviewIndex, setReviewIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
-  const [sectionVisible, setSectionVisible] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
+  const reviewContainerRef = useRef<HTMLDivElement>(null);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText("hello@jefferissoftware.co.uk");
@@ -59,6 +60,16 @@ export function ContactSection() {
     setReviewIndex((prev) => (prev === REVIEWS.length - 1 ? 0 : prev + 1));
   }, []);
 
+  // Anime.js review slide transition
+  useEffect(() => {
+    if (!reviewContainerRef.current) return;
+    animate(reviewContainerRef.current, {
+      translateX: `-${reviewIndex * 100}%`,
+      duration: 500,
+      ease: "outExpo",
+    });
+  }, [reviewIndex]);
+
   useEffect(() => {
     const el = carouselRef.current;
     if (!el) return;
@@ -70,11 +81,37 @@ export function ContactSection() {
     return () => observer.disconnect();
   }, []);
 
+  // Scroll-triggered entrance animation
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
+
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setSectionVisible(true); observer.disconnect(); } },
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          observer.disconnect();
+
+          const reveals = el.querySelectorAll("[data-reveal]");
+          animate(reveals, {
+            opacity: [0, 1],
+            translateY: [24, 0],
+            duration: 700,
+            ease: "outExpo",
+            delay: stagger(100),
+          });
+
+          const gradients = el.querySelectorAll("[data-gradient]");
+          if (gradients.length) {
+            animate(gradients, {
+              scale: [0.9, 1],
+              opacity: [0, 1],
+              duration: 500,
+              ease: "outBack",
+              delay: stagger(60, { start: 400 }),
+            });
+          }
+        }
+      },
       { threshold: 0.1 }
     );
     observer.observe(el);
@@ -91,34 +128,25 @@ export function ContactSection() {
     <section
       id="contact"
       ref={sectionRef}
-      className="relative py-20 md:py-32 bg-zinc-50 dark:bg-zinc-950 overflow-hidden transition-colors"
+      className="relative py-20 md:py-32 bg-zinc-50 dark:bg-zinc-950 overflow-hidden"
     >
       {/* Background effects */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-rose-400/30 dark:via-rose-500/50 to-transparent" />
-        <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] bg-rose-500/5 dark:bg-rose-600/8 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 -right-32 w-[400px] h-[400px] bg-pink-500/5 dark:bg-pink-600/8 rounded-full blur-[120px]" />
-        <div
-          className="absolute inset-0 opacity-[0.02] dark:opacity-[0.03]"
-          style={{
-            backgroundImage: `linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px)`,
-            backgroundSize: "60px 60px",
-          }}
-        />
+        <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] bg-rose-500/5 dark:bg-rose-600/8 rounded-full blur-2xl" />
+        <div className="absolute bottom-1/4 -right-32 w-[400px] h-[400px] bg-pink-500/5 dark:bg-pink-600/8 rounded-full blur-2xl" />
       </div>
 
       <div className="mx-auto max-w-6xl px-5 md:px-8 relative z-10">
 
         {/* Top headline */}
-        <div
-          className={`text-center mb-16 md:mb-20 transition-all duration-700 ${sectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-        >
+        <div data-reveal style={{ opacity: 0 }} className="text-center mb-16 md:mb-20">
           <p className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-amber-600 dark:text-amber-500">
             Ready to start?
           </p>
           <h2 className="text-4xl font-extrabold leading-tight text-zinc-900 dark:text-white md:text-5xl lg:text-6xl mb-5">
             Let&apos;s build something{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-pink-600 dark:from-rose-400 dark:to-pink-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-pink-600 dark:from-rose-400 dark:to-pink-400 inline-block" data-gradient style={{ opacity: 0 }}>
               that works.
             </span>
           </h2>
@@ -128,9 +156,10 @@ export function ContactSection() {
           </p>
         </div>
 
-        {/* Reviews — same width as CTA card */}
+        {/* Reviews */}
         <div
-          className={`max-w-3xl mx-auto mb-12 md:mb-16 transition-all duration-700 delay-200 ${sectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+          data-reveal style={{ opacity: 0 }}
+          className="max-w-3xl mx-auto mb-12 md:mb-16"
           ref={carouselRef}
         >
           <div className="flex items-center justify-between mb-5">
@@ -170,10 +199,10 @@ export function ContactSection() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-zinc-200 dark:border-zinc-700/50 bg-white/80 dark:bg-zinc-800/40 backdrop-blur-sm overflow-hidden shadow-sm dark:shadow-none">
+          <div className="rounded-2xl border border-zinc-200 dark:border-zinc-700/50 bg-white dark:bg-zinc-800/80 overflow-hidden shadow-sm dark:shadow-none">
             <div
-              className="flex transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${reviewIndex * 100}%)` }}
+              ref={reviewContainerRef}
+              className="flex"
             >
               {REVIEWS.map((r) => (
                 <div key={r.name} className="w-full shrink-0 px-6 md:px-10 py-6 md:py-8">
@@ -215,13 +244,11 @@ export function ContactSection() {
         </div>
 
         {/* CTA Card */}
-        <div
-          className={`max-w-3xl mx-auto transition-all duration-700 delay-300 ${sectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-        >
+        <div data-reveal style={{ opacity: 0 }} className="max-w-3xl mx-auto">
           <div className="relative">
             <div className="absolute -inset-1 bg-gradient-to-b from-rose-400/15 dark:from-rose-500/20 via-pink-400/8 dark:via-pink-500/10 to-transparent rounded-[28px] blur-xl opacity-60" />
 
-            <div className="relative rounded-3xl border border-zinc-200 dark:border-zinc-700/50 bg-white dark:bg-zinc-800/80 backdrop-blur-sm p-6 md:p-8 shadow-xl dark:shadow-2xl">
+            <div className="relative rounded-3xl border border-zinc-200 dark:border-zinc-700/50 bg-white dark:bg-zinc-800/90 p-6 md:p-8 shadow-xl dark:shadow-2xl">
 
               {/* Booking CTA */}
               <div className="mb-6">

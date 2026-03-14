@@ -46,3 +46,8 @@ next-env.d.ts
 # agents / marketing
 .agents/
 /public/marketing/
+
+# docs & data not needed for the site
+*.md
+*.csv
+*.tsv

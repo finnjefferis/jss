@@ -58,30 +58,18 @@ html.dark body::before {
   opacity: 0.03;
 }
 
-/* ─── Hero text fade-up ──────────────────────────────────── */
-.hero-line {
-  opacity: 0;
-  transform: translateY(12px);
-  animation: hero-fade-up 0.65s ease-out forwards;
-}
-
-.hero-delay-1 { animation-delay: 0.05s; }
-.hero-delay-2 { animation-delay: 0.18s; }
-.hero-delay-3 { animation-delay: 0.32s; }
-.hero-delay-4 { animation-delay: 0.46s; }
-.hero-delay-5 { animation-delay: 0.60s; }
-
-@keyframes hero-fade-up {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ─── Float animation (metric cards) ────────────────────── */
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-8px); }
+/* ─── Highlight mark for hover effects ───────────────────── */
+.highlight-bg {
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  bottom: 0;
+  height: 40%;
+  border-radius: 2px;
+  z-index: 0;
+  transform-origin: left;
+  transform: scaleX(0);
+  pointer-events: none;
 }
 
 /* ─── Scrollbar hiding ───────────────────────────────────── */

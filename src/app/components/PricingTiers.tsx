@@ -1,8 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { Check, ArrowRight, Zap, BarChart3, ShoppingBag, Cpu } from "lucide-react";
+import {
+  Check, ArrowRight, Zap, BarChart3, ShoppingBag, Cpu, ChevronDown, RotateCcw,
+} from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import { animate, stagger } from "animejs";
 
 function useIsMobile() {
   const [mobile, setMobile] = useState(false);
@@ -16,21 +19,23 @@ function useIsMobile() {
   return mobile;
 }
 
+/* ─── Package data ─── */
+
 const TIERS = [
   {
-    id: "essential",
-    name: "Essential",
-    price: "£445",
+    id: "starter",
+    name: "Starter",
+    price: "£295",
     tagline: "Get online fast.",
-    description: "For businesses that just need a clean, professional presence. Done properly, done fast.",
+    description: "A clean, professional site for businesses that need to look legit online. Done properly, done fast.",
     Icon: Zap,
     features: [
       "Up to 5 pages",
       "Mobile-first design",
       "Contact form",
       "Basic SEO setup",
-      "1 round of revisions",
-      "7–10 day delivery",
+      "Google Business setup",
+      "7\u201310 day delivery",
     ],
     cta: "Get started",
     highlight: false,
@@ -39,12 +44,12 @@ const TIERS = [
   {
     id: "business",
     name: "Business",
-    price: "£1,095",
+    price: "£795",
     tagline: "Built to grow.",
-    description: "Everything in Essential, plus CMS access so you can keep your site fresh without touching code.",
+    description: "Everything in Starter, plus CMS access so you can keep your site fresh without touching code.",
     Icon: BarChart3,
     features: [
-      "Everything in Essential",
+      "Everything in Starter",
       "CMS access (edit your content)",
       "Blog / news section",
       "Editable service pages",
@@ -58,9 +63,9 @@ const TIERS = [
   {
     id: "commerce",
     name: "Commerce",
-    price: "£1,990+",
+    price: "\u00a31,495+",
     tagline: "Built to sell.",
-    description: "For businesses selling products online. Full e-commerce with payments, inventory, and automation.",
+    description: "Full e-commerce with payments, inventory management, and automation \u2014 so you spend less time on admin.",
     Icon: ShoppingBag,
     features: [
       "Everything in Business",
@@ -76,26 +81,532 @@ const TIERS = [
   },
 ];
 
+const MONTHLY_PLANS = [
+  {
+    id: "hosting",
+    name: "Hosting",
+    price: "£29/mo",
+    description: "Hosting, SSL, backups, uptime monitoring, and basic support.",
+  },
+  {
+    id: "growth",
+    name: "Growth",
+    price: "£149/mo",
+    description: "Google Business management, 2 blog posts/mo, local SEO, monthly performance report.",
+  },
+  {
+    id: "leadmachine",
+    name: "Lead Machine",
+    price: "£349/mo",
+    description: "Full SEO strategy, content marketing, lead generation campaigns, quarterly strategy call.",
+  },
+];
+
+/* ─── Quiz data ─── */
+
+type Step = "website" | "business" | "content" | "growth" | "result" | "managed";
+
+const QUESTIONS: {
+  step: Step;
+  question: string;
+  options: { value: string; label: string; sub: string }[];
+}[] = [
+  {
+    step: "website",
+    question: "Do you have a website right now?",
+    options: [
+      { value: "none", label: "No website", sub: "Starting from scratch." },
+      { value: "bad", label: "Yes, but it\u2019s bad", sub: "Outdated, broken, or embarrassing." },
+      { value: "decent", label: "It\u2019s fine, just need it looked after", sub: "I want someone to host, maintain, and keep it running." },
+    ],
+  },
+  {
+    step: "business",
+    question: "What does your business do?",
+    options: [
+      { value: "services", label: "I offer services", sub: "Plumbing, cleaning, personal training, consulting, etc." },
+      { value: "products", label: "I sell products", sub: "Physical or digital products, online shop." },
+      { value: "both", label: "Both", sub: "Services and products." },
+    ],
+  },
+  {
+    step: "content",
+    question: "Will you need to update your site content?",
+    options: [
+      { value: "often", label: "Yes, regularly", sub: "Blog posts, new services, price changes." },
+      { value: "sometimes", label: "Occasionally", sub: "A few times a year." },
+      { value: "never", label: "Set it and forget it", sub: "Just need it to look good and stay online." },
+    ],
+  },
+  {
+    step: "growth",
+    question: "What matters most to you right now?",
+    options: [
+      { value: "just-online", label: "Just get me online", sub: "I need a website. That\u2019s the priority." },
+      { value: "more-customers", label: "I want more customers", sub: "I need people to actually find me." },
+      { value: "serious-growth", label: "I want serious growth", sub: "Full marketing. Leads on autopilot." },
+    ],
+  },
+];
+
+type Answers = Record<string, string>;
+
+type Recommendation = {
+  build: typeof TIERS[0] | null;
+  monthly: typeof MONTHLY_PLANS[0];
+  reason: string;
+  managedOnly?: boolean;
+};
+
+function getRecommendation(answers: Answers): { primary: Recommendation } {
+  const { website, business, content, growth } = answers;
+
+  // Decent site → no build, recommend a monthly plan based on answers
+  if (website === "decent") {
+    let monthlyIdx = 0;
+    if (growth === "serious-growth") monthlyIdx = 2;
+    else if (growth === "more-customers") monthlyIdx = 1;
+
+    const managedReasons: Record<number, string> = {
+      0: "Your site\u2019s already sorted. We\u2019ll keep it fast, secure, and online so you can focus on your business.",
+      1: "Your site\u2019s fine \u2014 but you\u2019re missing out on customers who can\u2019t find you. We\u2019ll fix that.",
+      2: "Your site\u2019s solid. Now let\u2019s turn it into a lead machine with full SEO and content marketing.",
+    };
+
+    return {
+      primary: {
+        build: null,
+        monthly: MONTHLY_PLANS[monthlyIdx],
+        reason: managedReasons[monthlyIdx],
+        managedOnly: true,
+      },
+    };
+  }
+
+  let buildIdx = 0;
+  if (business === "products" || business === "both") buildIdx = 2;
+  else if (content === "often" || content === "sometimes") buildIdx = 1;
+
+  let monthlyIdx = 0;
+  if (growth === "serious-growth") monthlyIdx = 2;
+  else if (growth === "more-customers") monthlyIdx = 1;
+
+  // E-commerce + serious growth → bump to highest tier combo
+  if (buildIdx === 2 && growth === "serious-growth") monthlyIdx = 2;
+
+  const reasons: Record<string, string> = {
+    "2-2": "You sell products and want aggressive growth. This is the full setup.",
+    "2-1": "E-commerce site with active marketing to drive traffic to your store.",
+    "2-0": "You need a store. Hosting keeps it running \u2014 you can add marketing later.",
+    "1-2": "A site you control, with us driving serious lead generation behind it.",
+    "1-1": "You want to update content and grow organically. This is the sweet spot.",
+    "1-0": "A flexible site with CMS. Hosting keeps it fast and secure.",
+  };
+
+  let reason = reasons[`${buildIdx}-${monthlyIdx}`]
+    || (monthlyIdx >= 1 ? "Simple site, but with active marketing to make sure people actually find you." : "Get online fast with a professional site. Clean, simple, done.");
+
+  if (website === "decent") {
+    reason = "Your current site needs a refresh. " + reason.charAt(0).toLowerCase() + reason.slice(1);
+  }
+
+  return {
+    primary: { build: TIERS[buildIdx], monthly: MONTHLY_PLANS[monthlyIdx], reason },
+  };
+}
+
+/* ─── Quiz component (rebuilt) ─── */
+
+function PackageQuiz() {
+  const [answers, setAnswers] = useState<Answers>({});
+  const [step, setStep] = useState(0);
+  const [phase, setPhase] = useState<"question" | "result">("question");
+  const [locked, setLocked] = useState(false);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const questionRef = useRef<HTMLDivElement>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
+  const barRef = useRef<HTMLDivElement>(null);
+
+  const totalSteps = phase === "result" ? QUESTIONS.length : QUESTIONS.length;
+  const answeredCount = Object.keys(answers).length;
+  const progress = phase === "result" ? 1 : answeredCount / totalSteps;
+
+  const currentQuestion = QUESTIONS[step];
+
+  // Animate progress bar on change
+  useEffect(() => {
+    if (!barRef.current) return;
+    animate(barRef.current, { width: `${progress * 100}%`, duration: 600, ease: "outExpo" });
+  }, [progress]);
+
+  const hasInteracted = useRef(false);
+
+  // Animate question IN
+  useEffect(() => {
+    if (phase !== "question" || locked) return;
+    const el = questionRef.current;
+    if (!el) return;
+
+    const heading = el.querySelector("[data-q-heading]");
+    const options = el.querySelectorAll("[data-q-option]");
+
+    if (heading) {
+      animate(heading, { opacity: [0, 1], translateY: [24, 0], duration: 450, ease: "outExpo" });
+    }
+    if (options.length) {
+      animate(options, {
+        opacity: [0, 1],
+        translateY: [28, 0],
+        scale: [0.96, 1],
+        duration: 450,
+        ease: "outExpo",
+        delay: stagger(70, { start: 120 }),
+      });
+    }
+
+    // Only scroll after user has answered at least one question
+    if (hasInteracted.current) {
+      containerRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [step, phase, locked]);
+
+  // Animate result IN
+  useEffect(() => {
+    if (phase !== "result") return;
+    const el = resultRef.current;
+    if (!el) return;
+
+    // Small delay so DOM is painted
+    const t = requestAnimationFrame(() => {
+      const children = el.querySelectorAll("[data-r]");
+      animate(children, {
+        opacity: [0, 1],
+        translateY: [20, 0],
+        duration: 500,
+        ease: "outExpo",
+        delay: stagger(80),
+      });
+      containerRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+    return () => cancelAnimationFrame(t);
+  }, [phase]);
+
+  function pickAnswer(value: string) {
+    if (locked || !currentQuestion) return;
+    hasInteracted.current = true;
+    setLocked(true);
+
+    const next = { ...answers, [currentQuestion.step]: value };
+    setAnswers(next);
+
+    // Animate out
+    const el = questionRef.current;
+    if (el) {
+      const heading = el.querySelector("[data-q-heading]");
+      const options = el.querySelectorAll("[data-q-option]");
+      if (heading) animate(heading, { opacity: [1, 0], translateY: [0, -10], duration: 220, ease: "inQuart" });
+      if (options.length) {
+        animate(options, { opacity: [1, 0], translateY: [0, 8], duration: 180, ease: "inQuart", delay: stagger(30) });
+      }
+    }
+
+    setTimeout(() => {
+      if (step < QUESTIONS.length - 1) {
+        setStep(step + 1);
+      } else {
+        setPhase("result");
+      }
+      setLocked(false);
+    }, 280);
+  }
+
+  function goBack() {
+    if (locked || step === 0) return;
+    setLocked(true);
+
+    const el = questionRef.current;
+    if (el) {
+      const heading = el.querySelector("[data-q-heading]");
+      const options = el.querySelectorAll("[data-q-option]");
+      if (heading) animate(heading, { opacity: [1, 0], translateY: [0, -10], duration: 220, ease: "inQuart" });
+      if (options.length) {
+        animate(options, { opacity: [1, 0], translateY: [0, 8], duration: 180, ease: "inQuart", delay: stagger(30) });
+      }
+    }
+
+    setTimeout(() => {
+      setStep(step - 1);
+      setLocked(false);
+    }, 280);
+  }
+
+  function reset() {
+    if (locked) return;
+    setLocked(true);
+
+    const el = resultRef.current;
+    if (el) {
+      const children = el.querySelectorAll("[data-r]");
+      animate(children, { opacity: [1, 0], translateY: [0, 12], duration: 250, ease: "inQuart", delay: stagger(30) });
+    }
+
+    setTimeout(() => {
+      setAnswers({});
+      setStep(0);
+      setPhase("question");
+      setLocked(false);
+    }, 350);
+  }
+
+  const result = phase === "result" ? getRecommendation(answers) : null;
+
+  return (
+    <div className="relative">
+      <div
+        ref={containerRef}
+        className="relative rounded-3xl border border-zinc-200 dark:border-zinc-800/80 bg-white dark:bg-zinc-950 overflow-hidden shadow-lg"
+      >
+        {/* Progress bar */}
+        <div className="h-1 bg-zinc-100 dark:bg-zinc-900">
+          <div
+            ref={barRef}
+            className="h-full rounded-r-full w-0"
+            style={{
+              background: phase === "result"
+                ? "linear-gradient(90deg, #10b981, #34d399)"
+                : "linear-gradient(90deg, #f43f5e, #ec4899)",
+            }}
+          />
+        </div>
+
+        <div className="p-6 md:p-10 min-h-[340px]">
+
+          {/* ── Questions ── */}
+          {phase === "question" && currentQuestion && (
+            <div ref={questionRef}>
+              <div data-q-heading style={{ opacity: 0 }}>
+                <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-rose-400 mb-3">
+                  Question {step + 1} of {QUESTIONS.length}
+                </p>
+                <h3 className="text-2xl md:text-3xl font-extrabold text-zinc-900 dark:text-white mb-8 leading-tight">
+                  {currentQuestion.question}
+                </h3>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {currentQuestion.options.map((opt) => (
+                  <button
+                    key={opt.value}
+                    data-q-option
+                    onClick={() => pickAnswer(opt.value)}
+                    style={{ opacity: 0 }}
+                    className={`group text-left rounded-2xl border p-5
+                      ${answers[currentQuestion.step] === opt.value
+                        ? "border-rose-500 bg-rose-500/10"
+                        : "border-zinc-200 dark:border-zinc-800"
+                      }`}
+                    onMouseEnter={(e) => animate(e.currentTarget, { scale: 1.03, translateY: -2, duration: 200, ease: "outQuart" })}
+                    onMouseLeave={(e) => animate(e.currentTarget, { scale: 1, translateY: 0, duration: 300, ease: "outQuart" })}
+                    onMouseDown={(e) => animate(e.currentTarget, { scale: 0.97, duration: 100, ease: "inQuart" })}
+                    onMouseUp={(e) => animate(e.currentTarget, { scale: 1.03, duration: 200, ease: "outQuart" })}
+                  >
+                    <p className={`text-sm font-bold mb-1.5 transition-colors ${
+                      answers[currentQuestion.step] === opt.value
+                        ? "text-rose-500"
+                        : "text-zinc-800 dark:text-zinc-100 group-hover:text-zinc-900 dark:group-hover:text-white"
+                    }`}>
+                      {opt.label}
+                    </p>
+                    <p className="text-xs text-zinc-500 leading-relaxed">{opt.sub}</p>
+                  </button>
+                ))}
+              </div>
+
+              {step > 0 && (
+                <button
+                  onClick={goBack}
+                  className="mt-5 flex items-center gap-1.5 text-sm text-zinc-500 hover:text-zinc-300 transition-colors"
+                >
+                  <ArrowRight className="h-3.5 w-3.5 rotate-180" />
+                  Back
+                </button>
+              )}
+            </div>
+          )}
+
+          {/* ── Result ── */}
+          {phase === "result" && result && (
+            <div ref={resultRef}>
+              {result.primary.managedOnly ? (
+                <>
+                  {/* Managed-only — show 3 monthly tiers */}
+                  <div data-r style={{ opacity: 0 }} className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-4 py-1.5 mb-6">
+                    <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">No rebuild needed</span>
+                  </div>
+
+                  <h3 data-r style={{ opacity: 0 }} className="text-2xl md:text-3xl font-extrabold text-zinc-900 dark:text-white mb-2">
+                    We&apos;ll look after it.
+                  </h3>
+                  <p data-r style={{ opacity: 0 }} className="text-sm text-zinc-500 dark:text-zinc-400 mb-8 max-w-lg">
+                    {result.primary.reason}
+                  </p>
+
+                  <div
+                    data-r style={{ opacity: 0 }}
+                    className="rounded-2xl border border-rose-500/20 bg-rose-500/5 p-6 mb-4 max-w-md"
+                    onMouseEnter={(e) => animate(e.currentTarget, { scale: 1.02, translateY: -4, duration: 250, ease: "outQuart" })}
+                    onMouseLeave={(e) => animate(e.currentTarget, { scale: 1, translateY: 0, duration: 350, ease: "outQuart" })}
+                    onTouchStart={(e) => animate(e.currentTarget, { scale: 1.02, duration: 200, ease: "outQuart" })}
+                    onTouchEnd={(e) => animate(e.currentTarget, { scale: 1, duration: 300, ease: "outQuart" })}
+                  >
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-rose-400 mb-2">Monthly plan</p>
+                    <p className="text-2xl font-extrabold text-zinc-900 dark:text-white mb-1">{result.primary.monthly.price}</p>
+                    <p className="text-xs text-zinc-500 mb-4">{result.primary.monthly.name} plan</p>
+                    <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">{result.primary.monthly.description}</p>
+                  </div>
+
+                  <p data-r style={{ opacity: 0 }} className="text-xs text-zinc-400 dark:text-zinc-500 mb-8">
+                    Hosting, SSL &amp; backups included as standard.
+                  </p>
+
+                  <div data-r style={{ opacity: 0 }} className="flex flex-wrap gap-3">
+                    <Link
+                      href="/#contact"
+                      className="inline-flex items-center gap-2 rounded-xl bg-rose-600 hover:bg-rose-700 px-7 py-3.5 text-sm font-bold text-white transition-colors"
+                    >
+                      Get started
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                    <button
+                      onClick={reset}
+                      className="inline-flex items-center gap-2 rounded-xl border border-zinc-300 dark:border-zinc-700 px-6 py-3.5 text-sm font-semibold text-zinc-600 dark:text-zinc-400 hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors"
+                    >
+                      <RotateCcw className="h-3.5 w-3.5" />
+                      Start over
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  {/* Full recommendation */}
+                  <div data-r style={{ opacity: 0 }} className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-4 py-1.5 mb-6">
+                    <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">Recommended for you</span>
+                  </div>
+
+                  <h3 data-r style={{ opacity: 0 }} className="text-2xl md:text-3xl font-extrabold text-zinc-900 dark:text-white mb-2">
+                    {result.primary.build!.name} + {result.primary.monthly.name}
+                  </h3>
+                  <p data-r style={{ opacity: 0 }} className="text-sm text-zinc-500 dark:text-zinc-400 mb-8 max-w-lg">
+                    {result.primary.reason}
+                  </p>
+
+                  <div data-r style={{ opacity: 0 }} className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div
+                      className="rounded-2xl border border-rose-500/20 bg-rose-500/5 p-6"
+                      onMouseEnter={(e) => animate(e.currentTarget, { scale: 1.03, translateY: -4, duration: 250, ease: "outQuart" })}
+                      onMouseLeave={(e) => animate(e.currentTarget, { scale: 1, translateY: 0, duration: 350, ease: "outQuart" })}
+                      onTouchStart={(e) => animate(e.currentTarget, { scale: 1.02, duration: 200, ease: "outQuart" })}
+                      onTouchEnd={(e) => animate(e.currentTarget, { scale: 1, duration: 300, ease: "outQuart" })}
+                    >
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-rose-400 mb-2">Website build</p>
+                      <p className="text-2xl font-extrabold text-zinc-900 dark:text-white mb-1">
+                        {result.primary.build!.price}
+                        <span className="text-sm font-normal text-zinc-500 ml-2">one-off</span>
+                      </p>
+                      <p className="text-xs text-zinc-500 mb-4">{result.primary.build!.name} package</p>
+                      <ul className="space-y-2">
+                        {result.primary.build!.features.map((f) => (
+                          <li key={f} className="flex items-start gap-2.5 text-sm">
+                            <Check className="h-3.5 w-3.5 shrink-0 mt-0.5 text-rose-500" />
+                            <span className="text-zinc-600 dark:text-zinc-300">{f}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div
+                      className="rounded-2xl border border-rose-500/20 bg-rose-500/5 p-6"
+                      onMouseEnter={(e) => animate(e.currentTarget, { scale: 1.03, translateY: -4, duration: 250, ease: "outQuart" })}
+                      onMouseLeave={(e) => animate(e.currentTarget, { scale: 1, translateY: 0, duration: 350, ease: "outQuart" })}
+                      onTouchStart={(e) => animate(e.currentTarget, { scale: 1.02, duration: 200, ease: "outQuart" })}
+                      onTouchEnd={(e) => animate(e.currentTarget, { scale: 1, duration: 300, ease: "outQuart" })}
+                    >
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-rose-400 mb-2">Monthly plan</p>
+                      <p className="text-2xl font-extrabold text-zinc-900 dark:text-white mb-1">{result.primary.monthly.price}</p>
+                      <p className="text-xs text-zinc-500 mb-4">{result.primary.monthly.name} plan</p>
+                      <p className="text-sm text-zinc-500 dark:text-zinc-400">{result.primary.monthly.description}</p>
+                    </div>
+                  </div>
+
+                  <div data-r style={{ opacity: 0 }}>
+                    <FullMenu className="mt-0" label="Or explore a different combination" />
+                  </div>
+
+                  <div data-r style={{ opacity: 0 }} className="flex flex-wrap gap-3 mt-8">
+                    <Link
+                      href="/#contact"
+                      className="inline-flex items-center gap-2 rounded-xl bg-rose-600 hover:bg-rose-700 px-7 py-3.5 text-sm font-bold text-white transition-colors"
+                    >
+                      Get started
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                    <button
+                      onClick={reset}
+                      className="inline-flex items-center gap-2 rounded-xl border border-zinc-300 dark:border-zinc-700 px-6 py-3.5 text-sm font-semibold text-zinc-600 dark:text-zinc-400 hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors"
+                    >
+                      <RotateCcw className="h-3.5 w-3.5" />
+                      Start over
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Tier card (animated with hover text highlight) ─── */
+
 function TierCard({ tier }: { tier: typeof TIERS[0] }) {
   const [hovered, setHovered] = useState(false);
   const [mobileFocused, setMobileFocused] = useState(false);
-  const [iconVisible, setIconVisible] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+  const iconRef = useRef<HTMLDivElement>(null);
+  const highlightRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const isMobile = useIsMobile();
   const { Icon } = tier;
 
+  // Anime.js icon entrance on scroll
   useEffect(() => {
     const el = cardRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setIconVisible(true); observer.disconnect(); } },
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          observer.disconnect();
+          if (iconRef.current) {
+            animate(iconRef.current, {
+              opacity: [0, 1],
+              scale: [0.5, 1],
+              duration: 500,
+              ease: "outBack",
+            });
+          }
+        }
+      },
       { threshold: 0.3 }
     );
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
-  // Mobile: light up card when centered in viewport
   useEffect(() => {
     if (!isMobile) { setMobileFocused(false); return; }
     const el = cardRef.current;
@@ -110,16 +621,29 @@ function TierCard({ tier }: { tier: typeof TIERS[0] }) {
 
   const active = hovered || mobileFocused;
 
+  // Animate highlight marks on hover/focus
+  useEffect(() => {
+    highlightRefs.current.forEach((hl, i) => {
+      if (!hl) return;
+      animate(hl, {
+        scaleX: active ? 1 : 0,
+        duration: active ? 400 : 300,
+        ease: active ? "outExpo" : "inQuart",
+        delay: active ? i * 60 : 0,
+      });
+    });
+  }, [active]);
+
   return (
     <div
       ref={cardRef}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className={`relative flex flex-col rounded-3xl border-2 p-6 md:p-8 transition-all duration-300 cursor-default
+      className={`relative flex flex-col rounded-3xl border-2 p-6 md:p-8 transition-colors duration-300 cursor-default
         ${active
-          ? "border-rose-600 bg-rose-600 shadow-2xl shadow-rose-600/30 -translate-y-1"
+          ? "border-rose-600 bg-rose-600 shadow-lg -translate-y-1"
           : tier.highlight
-            ? "border-rose-400 dark:border-rose-500 bg-zinc-50 dark:bg-zinc-900 shadow-xl shadow-rose-500/15 md:-translate-y-1"
+            ? "border-rose-400 dark:border-rose-500 bg-zinc-50 dark:bg-zinc-900 shadow-md md:-translate-y-1"
             : "border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900"
         }`}
     >
@@ -129,11 +653,9 @@ function TierCard({ tier }: { tier: typeof TIERS[0] }) {
         </div>
       )}
 
-      {/* Icon */}
-      <div className={`mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl transition-all duration-500
-        ${iconVisible ? "opacity-100 scale-100" : "opacity-0 scale-50"}
+      <div ref={iconRef} className={`mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl
         ${active ? "bg-white/20" : "bg-rose-50 dark:bg-rose-950/50"}
-      `}>
+      `} style={{ opacity: 0 }}>
         <Icon className={`h-6 w-6 transition-colors duration-300 ${active ? "text-white" : "text-rose-600 dark:text-rose-400"}`} />
       </div>
 
@@ -144,8 +666,13 @@ function TierCard({ tier }: { tier: typeof TIERS[0] }) {
         <p className={`text-4xl font-extrabold mb-1 transition-colors duration-300 ${active ? "text-white" : "text-zinc-900 dark:text-zinc-100"}`}>
           {tier.price}
         </p>
-        <p className={`text-sm font-semibold mb-3 transition-colors duration-300 ${active ? "text-rose-100" : "text-zinc-500 dark:text-zinc-400"}`}>
-          {tier.tagline}
+        <p className={`text-sm font-semibold mb-3 transition-colors duration-300 relative inline-block ${active ? "text-white" : "text-zinc-500 dark:text-zinc-400"}`}>
+          <span
+            ref={(el) => { highlightRefs.current[0] = el; }}
+            className="highlight-bg"
+            style={{ background: active ? "rgba(255,255,255,0.2)" : "rgba(244,63,94,0.15)", transform: "scaleX(0)" }}
+          />
+          <span className="relative">{tier.tagline}</span>
         </p>
         <p className={`text-sm leading-relaxed transition-colors duration-300 ${active ? "text-rose-100" : "text-zinc-500 dark:text-zinc-400"}`}>
           {tier.description}
@@ -155,10 +682,19 @@ function TierCard({ tier }: { tier: typeof TIERS[0] }) {
       <div className={`h-px w-full mb-5 transition-colors duration-300 ${active ? "bg-rose-500" : "bg-zinc-100 dark:bg-zinc-800"}`} />
 
       <ul className="flex-1 space-y-3 mb-7">
-        {tier.features.map((f) => (
+        {tier.features.map((f, fi) => (
           <li key={f} className="flex items-start gap-3 text-sm">
             <Check className={`h-4 w-4 shrink-0 mt-0.5 transition-colors duration-300 ${active ? "text-rose-200" : "text-rose-600 dark:text-rose-400"}`} />
-            <span className={`transition-colors duration-300 ${active ? "text-rose-50" : "text-zinc-700 dark:text-zinc-300"}`}>{f}</span>
+            <span className={`transition-colors duration-300 relative ${active ? "text-rose-50" : "text-zinc-700 dark:text-zinc-300"}`}>
+              {fi === 0 && (
+                <span
+                  ref={(el) => { highlightRefs.current[1] = el; }}
+                  className="highlight-bg"
+                  style={{ background: active ? "rgba(255,255,255,0.15)" : "rgba(244,63,94,0.1)", transform: "scaleX(0)" }}
+                />
+              )}
+              <span className="relative">{f}</span>
+            </span>
           </li>
         ))}
       </ul>
@@ -166,10 +702,10 @@ function TierCard({ tier }: { tier: typeof TIERS[0] }) {
       <div className="space-y-2">
         <Link
           href={`/packages/${tier.id}`}
-          className={`flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3.5 text-sm font-bold transition-all duration-300
+          className={`flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3.5 text-sm font-bold transition-colors duration-300
             ${active
-              ? "bg-white text-rose-600 hover:bg-rose-50 shadow-lg"
-              : "bg-rose-600 text-white hover:bg-rose-700 shadow-md shadow-rose-600/20"
+              ? "bg-white text-rose-600 hover:bg-rose-50"
+              : "bg-rose-600 text-white hover:bg-rose-700"
             }`}
         >
           {tier.cta}
@@ -184,6 +720,8 @@ function TierCard({ tier }: { tier: typeof TIERS[0] }) {
     </div>
   );
 }
+
+/* ─── Software callout ─── */
 
 function SoftwareCallout() {
   const [focused, setFocused] = useState(false);
@@ -206,9 +744,9 @@ function SoftwareCallout() {
     <Link
       ref={ref}
       href="/software"
-      className={`group rounded-2xl border bg-zinc-50 dark:bg-zinc-900 p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-6 hover:border-rose-300 dark:hover:border-rose-700 hover:shadow-md transition-all duration-300 ${
+      className={`group rounded-2xl border bg-zinc-50 dark:bg-zinc-900 p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-6 hover:border-rose-300 dark:hover:border-rose-700 transition-colors duration-300 ${
         focused
-          ? "border-rose-400 dark:border-rose-500 shadow-md shadow-rose-500/10"
+          ? "border-rose-400 dark:border-rose-500"
           : "border-zinc-200 dark:border-zinc-800"
       }`}
     >
@@ -221,11 +759,11 @@ function SoftwareCallout() {
         <p className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 mb-1">Custom Software</p>
         <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 mb-1">Development is the easy bit.</h3>
         <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
-          Deploying it securely and marketing it correctly — that&apos;s where most projects fall apart. That&apos;s exactly where we shine.
+          Deploying it securely and marketing it correctly &mdash; that&apos;s where most projects fall apart. That&apos;s exactly where we shine.
         </p>
       </div>
       <div className="flex-shrink-0">
-        <span className={`inline-flex items-center gap-2 rounded-xl border px-5 py-3 text-sm font-semibold transition-all duration-300 whitespace-nowrap group-hover:border-rose-300 dark:group-hover:border-rose-600 group-hover:text-rose-600 dark:group-hover:text-rose-400 ${
+        <span className={`inline-flex items-center gap-2 rounded-xl border px-5 py-3 text-sm font-semibold transition-colors duration-300 whitespace-nowrap group-hover:border-rose-300 dark:group-hover:border-rose-600 group-hover:text-rose-600 dark:group-hover:text-rose-400 ${
           focused
             ? "border-rose-300 dark:border-rose-600 text-rose-600 dark:text-rose-400"
             : "border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300"
@@ -238,35 +776,139 @@ function SoftwareCallout() {
   );
 }
 
-export function PricingTiers() {
+/* ─── Full menu (collapsible) ─── */
+
+function FullMenu({ className = "mt-16", label }: { className?: string; label?: string }) {
+  const [open, setOpen] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!contentRef.current) return;
+    if (open) {
+      const el = contentRef.current;
+      el.style.height = "0px";
+      el.style.opacity = "0";
+      el.style.display = "block";
+      const h = el.scrollHeight;
+      animate(el, { height: [0, h], opacity: [0, 1], duration: 600, ease: "outExpo" });
+    } else {
+      animate(contentRef.current, { height: 0, opacity: 0, duration: 400, ease: "inQuart" });
+    }
+  }, [open]);
+
   return (
-    <section id="services" className="py-16 md:py-24 bg-zinc-50 dark:bg-zinc-950 transition-colors">
-      <div className="mx-auto max-w-6xl px-5 md:px-8">
+    <div className={className}>
+      <button
+        onClick={() => setOpen(!open)}
+        className="mx-auto flex items-center gap-2 text-sm font-semibold text-zinc-500 hover:text-rose-400 transition-colors"
+      >
+        {open ? "Hide packages" : (label || "View all packages & monthly plans")}
+        <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
+      </button>
 
-        <div className="text-center mb-16">
-          <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-amber-600">
-            Packages & Pricing
-          </p>
-          <h2 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 md:text-4xl lg:text-5xl mb-4">
-            Professional website.{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-pink-600">
-              Live in a week.
-            </span>
-          </h2>
-          <p className="text-base text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto">
-            Fixed prices. Fixed scope. No surprises. Pick the package that fits, and we&apos;ll have it live before you know it.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 md:items-start">
+      <div ref={contentRef} className="overflow-hidden mt-10" style={{ height: 0, opacity: 0 }}>
+        <p className="text-xs font-bold uppercase tracking-[0.15em] text-zinc-500 mb-4">
+          Website builds
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 md:items-start">
           {TIERS.map((tier) => (
             <TierCard key={tier.id} tier={tier} />
           ))}
         </div>
 
-        {/* Software callout */}
-        <SoftwareCallout />
+        <p className="text-xs font-bold uppercase tracking-[0.15em] text-zinc-500 mb-4">
+          Monthly plans
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          {MONTHLY_PLANS.map((plan) => (
+            <div
+              key={plan.id}
+              className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors"
+              onMouseEnter={(e) => animate(e.currentTarget, { scale: 1.03, translateY: -4, duration: 250, ease: "outQuart" })}
+              onMouseLeave={(e) => animate(e.currentTarget, { scale: 1, translateY: 0, duration: 350, ease: "outQuart" })}
+              onTouchStart={(e) => animate(e.currentTarget, { scale: 1.02, duration: 200, ease: "outQuart" })}
+              onTouchEnd={(e) => animate(e.currentTarget, { scale: 1, duration: 300, ease: "outQuart" })}
+            >
+              <p className="text-xs font-bold uppercase tracking-wider text-rose-500 dark:text-rose-400 mb-1">{plan.name}</p>
+              <p className="text-2xl font-extrabold text-zinc-900 dark:text-white mb-2">{plan.price}</p>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">{plan.description}</p>
+            </div>
+          ))}
+        </div>
+        <p className="text-center text-sm text-zinc-500">
+          Every website includes hosting as standard. No hidden fees, cancel any time.
+        </p>
+      </div>
+    </div>
+  );
+}
 
+/* ─── Main section ─── */
+
+export function PricingTiers() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Scroll-triggered section entrance
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          obs.disconnect();
+
+          const reveals = el.querySelectorAll("[data-reveal]");
+          animate(reveals, {
+            opacity: [0, 1],
+            translateY: [20, 0],
+            duration: 600,
+            ease: "outExpo",
+            delay: stagger(80),
+          });
+
+          const gradients = el.querySelectorAll("[data-gradient]");
+          if (gradients.length) {
+            animate(gradients, {
+              scale: [0.9, 1],
+              opacity: [0, 1],
+              duration: 500,
+              ease: "outBack",
+              delay: stagger(60, { start: 300 }),
+            });
+          }
+        }
+      },
+      { threshold: 0.1 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+    <section ref={sectionRef} id="services" className="relative py-16 md:py-24 bg-zinc-50 dark:bg-zinc-950 overflow-hidden">
+
+      <div className="mx-auto max-w-6xl px-5 md:px-8 relative z-10">
+        <div className="text-center mb-16">
+          <p data-reveal style={{ opacity: 0 }} className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-amber-500">
+            Packages & Pricing
+          </p>
+          <h2 data-reveal style={{ opacity: 0 }} className="text-3xl font-bold text-zinc-900 dark:text-white md:text-4xl lg:text-5xl mb-4">
+            Not sure what you need?{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-pink-500 inline-block pb-1" data-gradient style={{ opacity: 0 }}>
+              We&apos;ll figure it out.
+            </span>
+          </h2>
+          <p data-reveal style={{ opacity: 0 }} className="text-base text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto">
+            Answer a few quick questions and we&apos;ll recommend the right website package and monthly plan for your business.
+          </p>
+        </div>
+
+        <PackageQuiz />
+
+        <div className="mt-10">
+          <SoftwareCallout />
+        </div>
       </div>
     </section>
   );

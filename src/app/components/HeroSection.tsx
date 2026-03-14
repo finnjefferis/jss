@@ -3,13 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useCallback, useRef } from "react";
+import { animate, stagger } from "animejs";
 
 const ROTATE_WORDS = ["convert.", "impress.", "grow.", "last."];
 
 const HERO_SITES = [
-  { src: "/edivertnew.png", alt: "eDivert website", label: "edivert.co.uk", href: "/work/edivert", rotate: "rotate-2", z: "z-20", pos: "top-[15%] right-0 w-[75%]" },
-  { src: "/naxnew.png", alt: "Naxco website", label: "naxco.co.uk", href: "/work/naxco", rotate: "-rotate-3", z: "z-10", pos: "top-0 left-0 w-[75%]" },
-  { src: "/ivyarch.png", alt: "Ivy Arch Studios website", label: "ivyarchstudios.co.uk", href: "/work/ivy", rotate: "-rotate-1", z: "z-30", pos: "top-[55%] left-[10%] w-[70%]" },
+  { src: "/edivertnew.png", alt: "eDivert website", label: "edivert.co.uk", href: "/work/edivert", rotate: 2, z: "z-20", pos: "top-[15%] right-0 w-[75%]" },
+  { src: "/naxnew.png", alt: "Naxco website", label: "naxco.co.uk", href: "/work/naxco", rotate: -3, z: "z-10", pos: "top-0 left-0 w-[75%]" },
+  { src: "/ivyarch.png", alt: "Ivy Arch Studios website", label: "ivyarchstudios.co.uk", href: "/work/ivy", rotate: -1, z: "z-30", pos: "top-[55%] left-[10%] w-[70%]" },
 ];
 
 function BrowserFrame({ site, className = "" }: { site: typeof HERO_SITES[number]; className?: string }) {
@@ -38,12 +39,32 @@ function MobileHeroCarousel() {
   const [activeIndex, setActiveIndex] = useState(2);
   const pointerStartX = useRef(0);
   const isDragging = useRef(false);
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const t1 = setTimeout(() => setActiveIndex(1), 250);
     const t2 = setTimeout(() => setActiveIndex(0), 600);
     return () => { clearTimeout(t1); clearTimeout(t2); };
   }, []);
+
+  // Animate card transitions with anime.js
+  useEffect(() => {
+    cardsRef.current.forEach((el, i) => {
+      if (!el) return;
+      const offset = i - activeIndex;
+      const angle = offset * 18;
+      const isActive = i === activeIndex;
+      animate(el, {
+        translateX: "-50%",
+        rotate: `${angle}deg`,
+        translateY: isActive ? -14 : 0,
+        scale: isActive ? 1 : 0.88,
+        opacity: isActive ? 1 : 0.5,
+        duration: 700,
+        ease: "outExpo",
+      });
+    });
+  }, [activeIndex]);
 
   const handlePointerDown = (e: React.PointerEvent) => {
     pointerStartX.current = e.clientX;
@@ -84,17 +105,15 @@ function MobileHeroCarousel() {
       <div className="relative h-[320px] w-full overflow-visible">
         {HERO_SITES.map((site, i) => {
           const offset = i - activeIndex;
-          const angle = offset * 18;
           const isActive = i === activeIndex;
           return (
             <div
               key={site.label}
-              className="absolute left-1/2 bottom-0 w-[78vw] max-w-[320px] cursor-pointer transition-all duration-700 ease-out"
+              ref={(el) => { cardsRef.current[i] = el; }}
+              className="absolute left-1/2 bottom-0 w-[78vw] max-w-[320px] cursor-pointer"
               style={{
-                transform: `translateX(-50%) rotate(${angle}deg) translateY(${isActive ? -14 : 0}px) scale(${isActive ? 1 : 0.88})`,
                 transformOrigin: "50% 350%",
                 zIndex: isActive ? 30 : 20 - Math.abs(offset),
-                opacity: isActive ? 1 : 0.5,
                 filter: isActive ? "none" : "saturate(0.5)",
               }}
               onClick={() => setActiveIndex(i)}
@@ -121,61 +140,53 @@ function MobileHeroCarousel() {
 }
 
 function HeroVisual() {
-  const [dropped, setDropped] = useState<number[]>([]);
-  const [animDone, setAnimDone] = useState(false);
-  const finalRotations = [2, -3, -1];
-  const startRotations = [22, -20, 14];
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
 
+  // Desktop: anime.js drop-in animation — one call per card for clean per-element rotation
   useEffect(() => {
-    const timers = [
-      setTimeout(() => setDropped(prev => [...prev, 0]), 90),
-      setTimeout(() => setDropped(prev => [...prev, 1]), 170),
-      setTimeout(() => setDropped(prev => [...prev, 2]), 250),
-      setTimeout(() => setAnimDone(true), 1100),
-    ];
-    return () => timers.forEach(clearTimeout);
+    const startRotations = [22, -20, 14];
+
+    cardRefs.current.forEach((el, i) => {
+      if (!el) return;
+      animate(el, {
+        opacity: [0, 1],
+        translateY: [-200, 0],
+        rotate: [`${startRotations[i]}deg`, `${HERO_SITES[i].rotate}deg`],
+        scale: [0.9, 1],
+        duration: 1200,
+        ease: "outElastic(1, 0.8)",
+        delay: 150 + i * 200,
+      });
+    });
   }, []);
 
   return (
     <>
       {/* DESKTOP */}
       <div className="hidden lg:block relative">
-        <div className="absolute -inset-8 bg-gradient-to-tr from-rose-200/30 dark:from-rose-900/15 to-pink-200/30 dark:to-pink-900/15 rounded-3xl blur-3xl -z-10" />
+        <div className="absolute -inset-8 bg-gradient-to-tr from-rose-200/30 dark:from-rose-900/15 to-pink-200/30 dark:to-pink-900/15 rounded-3xl blur-2xl -z-10" />
         <div className="relative aspect-[4/3]">
-          {HERO_SITES.map((site, i) => {
-            const isDropped = dropped.includes(i);
-            if (animDone) {
-              return (
-                <div key={site.label} className={`absolute ${site.pos} ${site.z} ${site.rotate} transition-transform duration-500 hover:rotate-0 hover:scale-105`}>
-                  <BrowserFrame site={site} />
-                </div>
-              );
-            }
-            return (
-              <div
-                key={site.label}
-                className={`absolute ${site.pos} ${site.z}`}
-                style={{
-                  transition: "all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                  opacity: isDropped ? 1 : 0,
-                  transform: isDropped
-                    ? `rotate(${finalRotations[i]}deg)`
-                    : `translateY(-200px) rotate(${startRotations[i]}deg) scale(0.9)`,
-                  filter: isDropped ? "none" : "blur(2px)",
-                }}
-              >
-                <BrowserFrame site={site} />
-              </div>
-            );
-          })}
+          {HERO_SITES.map((site, i) => (
+            <div
+              key={site.label}
+              ref={(el) => { cardRefs.current[i] = el; }}
+              className={`absolute ${site.pos} ${site.z}`}
+              style={{ opacity: 0 }}
+              onMouseEnter={(e) => animate(e.currentTarget, { rotate: "0deg", scale: 1.05, duration: 400, ease: "outExpo" })}
+              onMouseLeave={(e) => animate(e.currentTarget, { rotate: `${site.rotate}deg`, scale: 1, duration: 500, ease: "outExpo" })}
+            >
+              <BrowserFrame site={site} />
+            </div>
+          ))}
         </div>
       </div>
 
       {/* MOBILE */}
-      <div className="lg:hidden mt-4 hero-line hero-delay-3">
+      <div className="lg:hidden mt-4" data-hero-line style={{ opacity: 0 }}>
         <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-1">
           Some{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-pink-600">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-pink-600" data-gradient>
             highlights.
           </span>
         </h3>
@@ -233,11 +244,42 @@ function RotatingWord() {
 }
 
 export function HeroSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Anime.js hero text entrance
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const lines = el.querySelectorAll("[data-hero-line]");
+    if (!lines.length) return;
+
+    animate(lines, {
+      opacity: [0, 1],
+      translateY: [16, 0],
+      duration: 650,
+      ease: "outExpo",
+      delay: stagger(130, { start: 50 }),
+    });
+
+    // Gradient text pop
+    const gradients = el.querySelectorAll("[data-gradient]");
+    if (gradients.length) {
+      animate(gradients, {
+        scale: [0.92, 1],
+        opacity: [0, 1],
+        duration: 500,
+        ease: "outBack",
+        delay: stagger(60, { start: 500 }),
+      });
+    }
+  }, []);
+
   return (
-    <section className="relative pt-10 pb-20 md:py-28 lg:py-36 overflow-hidden">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-rose-500/10 dark:bg-rose-500/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-pink-500/10 dark:bg-pink-500/5 rounded-full blur-3xl" />
+    <section ref={sectionRef} className="relative pt-10 pb-20 md:py-28 lg:py-36 overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 will-change-auto">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-rose-500/10 dark:bg-rose-500/5 rounded-full blur-2xl" />
+        <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-pink-500/10 dark:bg-pink-500/5 rounded-full blur-2xl" />
       </div>
 
       <div className="mx-auto max-w-6xl px-5 md:px-8 lg:px-10 relative z-10">
@@ -245,17 +287,17 @@ export function HeroSection() {
 
           {/* LEFT — Text */}
           <div>
-            <p className="mb-3 text-xs font-bold uppercase tracking-[0.25em] text-amber-600 dark:text-amber-400 hero-line hero-delay-1">
+            <p data-hero-line style={{ opacity: 0 }} className="mb-3 text-xs font-bold uppercase tracking-[0.25em] text-amber-600 dark:text-amber-400">
               Small business websites · UK
             </p>
-            <h2 className="text-4xl font-extrabold leading-[1.15] text-zinc-900 dark:text-white sm:text-5xl lg:text-6xl hero-line hero-delay-1">
+            <h2 data-hero-line style={{ opacity: 0 }} className="text-4xl font-extrabold leading-[1.15] text-zinc-900 dark:text-white sm:text-5xl lg:text-6xl">
               Websites that<br />
               <RotatingWord />
             </h2>
-            <p className="mt-6 text-lg text-zinc-500 dark:text-zinc-400 md:text-xl max-w-xl hero-line hero-delay-2">
+            <p data-hero-line style={{ opacity: 0 }} className="mt-6 text-lg text-zinc-500 dark:text-zinc-400 md:text-xl max-w-xl">
               Your website should be winning you clients. If it isn't, we'll fix that.
             </p>
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center hero-line hero-delay-3">
+            <div data-hero-line style={{ opacity: 0 }} className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
               <a
                 href="#services"
                 className="inline-flex items-center justify-center rounded-xl bg-rose-600 px-8 py-4 text-sm font-bold text-white shadow-lg shadow-rose-600/25 transition hover:bg-rose-700 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"

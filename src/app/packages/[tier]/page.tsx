@@ -38,15 +38,15 @@ type PackageData = {
 };
 
 const PACKAGES: Record<string, PackageData> = {
-  essential: {
-    name: "Essential",
-    price: "£445",
+  starter: {
+    name: "Starter",
+    price: "£295",
     tagline: "Get online fast.",
     Icon: Zap,
     headline: "A clean, professional site. Live in under two weeks.",
     subheadline:
-      "Fixed scope, fixed price. No CMS to learn, no ongoing cost. Just a great site that works hard for your business from day one.",
-    trustSignals: ["Fixed price, no surprises", "7–10 day delivery", "Mobile-first"],
+      "Fixed scope, fixed price. No CMS to learn. Just a great site that works hard for your business from day one — plus we set up your Google Business profile.",
+    trustSignals: ["Fixed price, no surprises", "7–10 day delivery", "Google Business setup included"],
     example: {
       clientName: "Naxco Services",
       clientType: "Property maintenance",
@@ -63,7 +63,7 @@ const PACKAGES: Record<string, PackageData> = {
       { title: "Mobile-first design", description: "Looks sharp on every screen. Over 60% of web traffic is mobile — we build for it first." },
       { title: "Contact form", description: "Simple, reliable enquiry form wired directly to your inbox." },
       { title: "Basic SEO setup", description: "Page titles, meta descriptions, and a clean structure that Google can index properly." },
-      { title: "1 round of revisions", description: "We get it right first time, then you have one full round of feedback to fine-tune it." },
+      { title: "Google Business setup", description: "We set up or optimise your Google Business profile so you show up in local searches and Maps." },
       { title: "7–10 day delivery", description: "From kickoff to live site in under two weeks. No dragging it out." },
     ],
     process: [
@@ -71,7 +71,7 @@ const PACKAGES: Record<string, PackageData> = {
       { step: "02", title: "Scope & proposal", body: "You get a written scope and a fixed price. You know what you're getting before we start. No surprises.", duration: "1 day" },
       { step: "03", title: "Design & build", body: "We build the site and keep you in the loop. You'll see a staging version before anything goes live.", duration: "5–7 days" },
       { step: "04", title: "Review", body: "You review the site and give feedback. One round of revisions included.", duration: "1–2 days" },
-      { step: "05", title: "Launch", body: "We handle deployment and point everything at your domain. You go live.", duration: "1 day" },
+      { step: "05", title: "Launch", body: "We handle deployment, point everything at your domain, and set up your Google Business profile. You go live.", duration: "1 day" },
     ],
     perfectFor: [
       "New businesses getting online for the first time",
@@ -85,20 +85,21 @@ const PACKAGES: Record<string, PackageData> = {
     ],
     faqs: [
       { q: "What if I need more than 5 pages?", a: "Additional pages are scoped at £75 each, or you might be better suited to the Business package which includes up to 8 pages." },
-      { q: "Can I update the site myself?", a: "Not on this package. Essential is a fixed, hand-coded site. If you want to edit content yourself, the Business package includes a full CMS." },
+      { q: "Can I update the site myself?", a: "Not on this package. Starter is a fixed, hand-coded site. If you want to edit content yourself, the Business package includes a full CMS." },
       { q: "What do I need to provide?", a: "Your logo, any photos you want to use, and a rough idea of what you want the site to say. We can help with copy if needed." },
-      { q: "Is hosting included?", a: "We deploy the site and point it at your domain. Ongoing hosting is typically under £10/month on Vercel or similar — we'll walk you through it." },
+      { q: "Is hosting included?", a: "All sites include ongoing hosting, SSL, and maintenance at £29/month. This covers everything — you don't need to worry about servers or renewals." },
+      { q: "Can I pay in instalments?", a: "Yes. We offer a 3-month payment plan on all packages — no interest, no fuss." },
     ],
   },
 
   business: {
     name: "Business",
-    price: "£1,095",
+    price: "£795",
     tagline: "Built to grow.",
     Icon: BarChart3,
     headline: "A professional site you can actually keep up to date.",
     subheadline:
-      "Everything in Essential, plus a CMS so you can edit your own content without touching code — and a blog to build your SEO over time.",
+      "Everything in Starter, plus a CMS so you can edit your own content without touching code — and a blog to build your SEO over time.",
     trustSignals: ["Full CMS included", "Up to 8 pages", "2 rounds of revisions"],
     example: {
       clientName: "eDivert",
@@ -112,7 +113,7 @@ const PACKAGES: Record<string, PackageData> = {
       tags: ["Design", "Dev", "CMS", "SEO"],
     },
     includes: [
-      { title: "Everything in Essential", description: "All five pages, mobile-first design, contact form, SEO setup, and fast delivery." },
+      { title: "Everything in Starter", description: "All five pages, mobile-first design, contact form, SEO setup, Google Business, and fast delivery." },
       { title: "CMS access", description: "Edit your content, swap images, and update copy whenever you need to — no developer required." },
       { title: "Blog or news section", description: "Publish articles, case studies, or updates. One of the most effective long-term SEO strategies." },
       { title: "Editable service pages", description: "Update your services, pricing, or offers whenever things change without waiting on anyone." },
@@ -134,20 +135,22 @@ const PACKAGES: Record<string, PackageData> = {
       "Businesses investing in organic SEO over the long term",
     ],
     notFor: [
-      "Businesses that just need a static brochure site (Essential is cheaper and faster)",
+      "Businesses that just need a static brochure site (Starter is cheaper and faster)",
       "Businesses selling products online (see Commerce)",
     ],
     faqs: [
       { q: "Which CMS do you use?", a: "We typically use Sanity — it's clean, fast, and genuinely easy to use. We'll walk you through it in the training session." },
-      { q: "Can I upgrade from Essential to Business later?", a: "It's possible but more expensive than starting with Business. If you think you'll want CMS access, start here." },
+      { q: "Can I upgrade from Starter to Business later?", a: "It's possible but more expensive than starting with Business. If you think you'll want CMS access, start here." },
       { q: "How many pages are included?", a: "Up to 8 pages. Additional pages can be added at £75 each." },
       { q: "What does priority support mean?", a: "Business clients get a same-day response where possible and are first in line for any fix or update requests." },
+      { q: "Is hosting included?", a: "All sites include ongoing hosting, SSL, and maintenance at £29/month. This covers everything — you don't need to worry about servers or renewals." },
+      { q: "Can I pay in instalments?", a: "Yes. We offer a 3-month payment plan on all packages — no interest, no fuss." },
     ],
   },
 
   commerce: {
     name: "Commerce",
-    price: "£1,990+",
+    price: "£1,495+",
     tagline: "Built to sell.",
     Icon: ShoppingBag,
     headline: "A store that handles itself.",
@@ -193,10 +196,12 @@ const PACKAGES: Record<string, PackageData> = {
       "Businesses not yet ready to sell online",
     ],
     faqs: [
-      { q: "Why does the price say £1,990+?", a: "Commerce projects vary based on catalogue size, integrations, and automation. £1,990 is the starting point — we'll scope your project accurately before you commit to anything." },
+      { q: "Why does the price say £1,495+?", a: "Commerce projects vary based on catalogue size, integrations, and automation. £1,495 is the starting point — we'll scope your project accurately before you commit to anything." },
       { q: "Which payment provider do you use?", a: "Stripe is our default — it's reliable, well-supported, and trusted by customers. We can integrate others if needed." },
       { q: "Can I manage products myself?", a: "Yes. Product management is built into the CMS so you can add, update, or remove products without touching code." },
       { q: "Do you offer ongoing support?", a: "Yes. Commerce clients can opt into a monthly support retainer for updates, new features, and technical help." },
+      { q: "Is hosting included?", a: "All sites include ongoing hosting, SSL, and maintenance at £29/month. This covers everything — you don't need to worry about servers or renewals." },
+      { q: "Can I pay in instalments?", a: "Yes. We offer a 3-month payment plan on all packages — no interest, no fuss." },
     ],
   },
 };

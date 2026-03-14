@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
+import { animate, stagger } from "animejs";
 
 const FAQS = [
   {
@@ -30,55 +31,123 @@ const FAQS = [
   },
 ];
 
-export function FAQSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+function FAQItem({ faq, isOpen, onToggle }: { faq: typeof FAQS[0]; isOpen: boolean; onToggle: () => void }) {
+  const contentRef = useRef<HTMLDivElement>(null);
+  const chevronRef = useRef<SVGSVGElement>(null);
+
+  useEffect(() => {
+    const el = contentRef.current;
+    if (!el) return;
+
+    if (isOpen) {
+      el.style.display = "block";
+      const h = el.scrollHeight;
+      animate(el, { height: [0, h], opacity: [0, 1], duration: 400, ease: "outExpo" });
+      if (chevronRef.current) {
+        animate(chevronRef.current, { rotate: "180deg", duration: 300, ease: "outExpo" });
+      }
+    } else {
+      animate(el, {
+        height: [el.scrollHeight, 0],
+        opacity: [1, 0],
+        duration: 300,
+        ease: "inQuart",
+      });
+      if (chevronRef.current) {
+        animate(chevronRef.current, { rotate: "0deg", duration: 300, ease: "outExpo" });
+      }
+    }
+  }, [isOpen]);
 
   return (
-    <section id="faq" className="py-16 md:py-24 bg-zinc-50 dark:bg-zinc-950">
+    <div
+      className={`rounded-2xl border-2 cursor-pointer transition-colors ${isOpen ? "border-rose-500 dark:border-rose-500 bg-zinc-50 dark:bg-zinc-900 shadow-lg shadow-rose-500/10" : "border-zinc-200 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-md"}`}
+      onClick={onToggle}
+    >
+      <button className="flex w-full items-center justify-between gap-4 px-5 py-4 md:px-6 md:py-5 text-left">
+        <span className={`text-sm font-semibold transition-colors ${isOpen ? "text-rose-600 dark:text-rose-400" : "text-zinc-900 dark:text-zinc-100"}`}>
+          {faq.q}
+        </span>
+        <ChevronDown
+          ref={chevronRef}
+          className={`h-4 w-4 shrink-0 ${isOpen ? "text-rose-600" : "text-zinc-400"}`}
+        />
+      </button>
+      <div ref={contentRef} className="overflow-hidden" style={{ height: 0, opacity: 0, display: "none" }}>
+        <p className="px-5 md:px-6 pb-5 md:pb-6 text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
+          {faq.a}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+export function FAQSection() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Scroll-triggered entrance
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          obs.disconnect();
+
+          const reveals = el.querySelectorAll("[data-reveal]");
+          animate(reveals, {
+            opacity: [0, 1],
+            translateY: [20, 0],
+            duration: 600,
+            ease: "outExpo",
+            delay: stagger(80),
+          });
+
+          const gradients = el.querySelectorAll("[data-gradient]");
+          if (gradients.length) {
+            animate(gradients, {
+              scale: [0.9, 1],
+              opacity: [0, 1],
+              duration: 500,
+              ease: "outBack",
+              delay: stagger(60, { start: 300 }),
+            });
+          }
+        }
+      },
+      { threshold: 0.15 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+    <section ref={sectionRef} id="faq" className="py-16 md:py-24 bg-zinc-50 dark:bg-zinc-950">
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <div className="mb-10">
-          <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400">
+          <p data-reveal style={{ opacity: 0 }} className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400">
             Got questions?
           </p>
-          <h2 className="text-3xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-4xl">
+          <h2 data-reveal style={{ opacity: 0 }} className="text-3xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-4xl">
             Straight{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-pink-600">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-pink-600 inline-block" data-gradient style={{ opacity: 0 }}>
               answers.
             </span>
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
-          {FAQS.map((faq, i) => {
-            const isOpen = openIndex === i;
-            return (
-              <div
-                key={i}
-                className={`rounded-2xl border-2 transition-all cursor-pointer ${isOpen ? "border-rose-500 dark:border-rose-500 bg-zinc-50 dark:bg-zinc-900 shadow-lg shadow-rose-500/10" : "border-zinc-200 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-md"}`}
-                onClick={() => setOpenIndex(isOpen ? null : i)}
-              >
-                <button
-                  className="flex w-full items-center justify-between gap-4 px-5 py-4 md:px-6 md:py-5 text-left"
-                >
-                  <span className={`text-sm font-semibold transition-colors ${isOpen ? "text-rose-600 dark:text-rose-400" : "text-zinc-900 dark:text-zinc-100"}`}>
-                    {faq.q}
-                  </span>
-                  <ChevronDown
-                    className={`h-4 w-4 shrink-0 transition-all duration-300 ${isOpen ? "rotate-180 text-rose-600" : "text-zinc-400"}`}
-                  />
-                </button>
-                <div
-                  className={`grid transition-all duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
-                >
-                  <div className="overflow-hidden">
-                    <p className="px-5 md:px-6 pb-5 md:pb-6 text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
-                      {faq.a}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+          {FAQS.map((faq, i) => (
+            <div key={i} data-reveal style={{ opacity: 0 }}>
+              <FAQItem
+                faq={faq}
+                isOpen={openIndex === i}
+                onToggle={() => setOpenIndex(openIndex === i ? null : i)}
+              />
+            </div>
+          ))}
         </div>
       </div>
     </section>
