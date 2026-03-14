@@ -5,22 +5,34 @@ import { WebsiteTransformSimulator } from "./WebsiteTransformSimulator";
 
 const STEPS = [
   {
-    id: "gap",
-    title: "Find the gaps.",
-    text: "We audit your site and find what's costing you customers.",
+    id: "site",
+    title: "Websites that work.",
+    text: "Clean, fast, mobile-first sites built from scratch. No templates — designed to convert.",
     step: "01",
   },
   {
-    id: "build",
-    title: "Build it right.",
-    text: "Clean, fast, mobile-first. Designed to convert.",
+    id: "seo",
+    title: "Get found first.",
+    text: "Dominate local search. We get you ranking where it matters — page one, position one.",
     step: "02",
   },
   {
-    id: "report",
-    title: "Prove it works.",
-    text: "Real data. More traffic, more enquiries, more growth.",
+    id: "marketing",
+    title: "Reach the right people.",
+    text: "Targeted campaigns across social and paid channels that actually drive leads, not just likes.",
     step: "03",
+  },
+  {
+    id: "monitoring",
+    title: "Always watching.",
+    text: "24/7 uptime monitoring, performance alerts, and instant incident response. Sleep easy.",
+    step: "04",
+  },
+  {
+    id: "software",
+    title: "Built just for you.",
+    text: "Bespoke tools, dashboards, and applications tailored to how your business actually runs.",
+    step: "05",
   },
 ];
 
@@ -86,7 +98,7 @@ export function MobileGrowthSwiper() {
                 {STEPS.map((_, i) => (
                   <div
                     key={i}
-                    className={`h-1 rounded-full transition-all duration-500 ${i <= activeIndex ? "w-6 bg-coral-600" : "w-3 bg-zinc-200 dark:bg-zinc-700"}`}
+                    className={`h-1 rounded-full transition-all duration-500 ${i <= activeIndex ? "w-5 bg-coral-600" : "w-2 bg-zinc-200 dark:bg-zinc-700"}`}
                   />
                 ))}
               </div>
@@ -108,7 +120,7 @@ export function MobileGrowthSwiper() {
         <div className="relative z-10">
           <WebsiteTransformSimulator stage={activeStep.id} />
 
-          {/* Swipe down indicator — hangs off bottom of phone */}
+          {/* Swipe down indicator */}
           <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 z-30 pointer-events-none">
             <div className="flex items-center gap-2 bg-coral-600 rounded-full px-5 py-2.5 shadow-xl shadow-coral-600/40">
               <span className="text-xs font-bold uppercase tracking-wider text-white">Scroll</span>

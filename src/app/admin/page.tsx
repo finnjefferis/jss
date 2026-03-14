@@ -55,6 +55,22 @@ function deletePostApi(slug: string) {
   });
 }
 
+// ---------- Tag options ----------
+
+const TAG_OPTIONS = [
+  "Web Design",
+  "SEO",
+  "Performance",
+  "Small Business",
+  "E-Commerce",
+  "Branding",
+  "AI",
+  "Development",
+  "Case Study",
+  "Tips",
+  "News",
+];
+
 // ---------- Components ----------
 
 function LoginForm({ onLogin }: { onLogin: () => void }) {
@@ -123,7 +139,7 @@ function PostEditor({
   const [date, setDate] = useState(
     post?.date ?? new Date().toISOString().split("T")[0],
   );
-  const [tagsInput, setTagsInput] = useState(post?.tags.join(", ") ?? "");
+  const [selectedTags, setSelectedTags] = useState<string[]>(post?.tags ?? []);
   const [content, setContent] = useState(post?.content ?? "");
   const [tab, setTab] = useState<"edit" | "preview">("edit");
   const [saving, setSaving] = useState(false);
@@ -152,10 +168,7 @@ function PostEditor({
         slug,
         description,
         date,
-        tags: tagsInput
-          .split(",")
-          .map((t) => t.trim())
-          .filter(Boolean),
+        tags: selectedTags,
         content,
       });
       onSave();
@@ -230,14 +243,31 @@ function PostEditor({
         </div>
         <div>
           <label className="block text-xs font-medium text-zinc-400 mb-1">
-            Tags (comma-separated)
+            Tags
           </label>
-          <input
-            value={tagsInput}
-            onChange={(e) => setTagsInput(e.target.value)}
-            placeholder="Web Design, SEO, Tips"
-            className="w-full rounded-lg bg-zinc-800 border border-zinc-700 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-coral-500"
-          />
+          <div className="flex flex-wrap gap-2">
+            {TAG_OPTIONS.map((tag) => {
+              const active = selectedTags.includes(tag);
+              return (
+                <button
+                  key={tag}
+                  type="button"
+                  onClick={() =>
+                    setSelectedTags((prev) =>
+                      active ? prev.filter((t) => t !== tag) : [...prev, tag],
+                    )
+                  }
+                  className={`rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
+                    active
+                      ? "bg-coral-600 text-white"
+                      : "bg-zinc-800 border border-zinc-700 text-zinc-400 hover:text-zinc-200 hover:border-zinc-600"
+                  }`}
+                >
+                  {tag}
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
 

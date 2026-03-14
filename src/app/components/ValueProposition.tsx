@@ -1,18 +1,18 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { ScanEye, Paintbrush, TrendingUp } from "lucide-react";
+import { Globe, Search, BarChart3, Activity, Code2 } from "lucide-react";
 import { useReveal } from "../hooks/useReveal";
 import { WebsiteTransformSimulator } from "./WebsiteTransformSimulator";
 import { MobileGrowthSwiper } from "./HeroVisualMobile";
 
 const CARDS = [
   {
-    id: "gap",
-    icon: ScanEye,
+    id: "site",
+    icon: Globe,
     step: "01",
-    title: "Find the gaps.",
-    description: "We audit your site and find exactly what's costing you customers. Slow load times, confusing layout, no mobile experience, missing calls to action.",
+    title: "Websites that work.",
+    description: "Clean, modern, built from scratch. No templates, no page builders. Fast, mobile-first, and designed to actually convert visitors into enquiries.",
     proof: {
       label: "Naxco Services",
       metricName: "Page Load Time",
@@ -23,32 +23,62 @@ const CARDS = [
     },
   },
   {
-    id: "build",
-    icon: Paintbrush,
+    id: "seo",
+    icon: Search,
     step: "02",
-    title: "Build it right.",
-    description: "Clean, modern, built from scratch. No templates, no page builders. Fast, mobile-first, and designed to actually convert visitors into enquiries.",
+    title: "Get found first.",
+    description: "Dominate local search with technical SEO, content strategy, and Google Business optimisation. Page one, position one.",
     proof: {
-      label: "eDivert",
-      metricName: "Bounce Rate",
-      before: "78%",
-      after: "32%",
-      change: "-59%",
+      label: "Naxco Services",
+      metricName: "Organic Traffic",
+      before: "120/mo",
+      after: "1,400/mo",
+      change: "+1,067%",
       color: "text-emerald-600",
     },
   },
   {
-    id: "report",
-    icon: TrendingUp,
+    id: "marketing",
+    icon: BarChart3,
     step: "03",
-    title: "Prove it works.",
-    description: "Real data. More traffic, more enquiries, more growth. You get clear reporting showing exactly how your new site is performing.",
+    title: "Reach the right people.",
+    description: "Targeted campaigns across social and paid channels that actually drive leads. Strategy, content, and reporting — all handled.",
     proof: {
-      label: "Naxco Services",
-      metricName: "Monthly Enquiries",
-      before: "2",
-      after: "14",
-      change: "+600%",
+      label: "eDivert",
+      metricName: "Cost Per Lead",
+      before: "\u00a342",
+      after: "\u00a39",
+      change: "-78%",
+      color: "text-emerald-600",
+    },
+  },
+  {
+    id: "monitoring",
+    icon: Activity,
+    step: "04",
+    title: "Always watching.",
+    description: "24/7 uptime monitoring, performance alerts, and instant incident response. Know about problems before your customers do.",
+    proof: {
+      label: "Client Average",
+      metricName: "Uptime",
+      before: "96.2%",
+      after: "99.98%",
+      change: "99.98%",
+      color: "text-emerald-600",
+    },
+  },
+  {
+    id: "software",
+    icon: Code2,
+    step: "05",
+    title: "Built just for you.",
+    description: "Bespoke tools, dashboards, and applications tailored to how your business actually runs. No off-the-shelf compromises.",
+    proof: {
+      label: "Client Average",
+      metricName: "Manual Work Saved",
+      before: "20hrs/wk",
+      after: "2hrs/wk",
+      change: "-90%",
       color: "text-emerald-600",
     },
   },
@@ -157,16 +187,16 @@ function SectionHeader() {
   return (
     <>
       <p data-reveal style={{ "--d": 0 } as React.CSSProperties} className="mb-3 text-[11px] font-bold uppercase tracking-[0.2em] text-amber-600">
-        The Process
+        What We Do
       </p>
       <h2 data-reveal style={{ "--d": 80 } as React.CSSProperties} className="mb-6 text-3xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-5xl lg:text-6xl">
-        How we get you{" "}
+        Your complete{" "}
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-600 to-pink-600 inline-block" data-gradient style={{ "--gd": 300 } as React.CSSProperties}>
-          results.
+          digital partner.
         </span>
       </h2>
       <p data-reveal style={{ "--d": 160 } as React.CSSProperties} className="text-base text-zinc-600 dark:text-zinc-400 md:text-lg leading-relaxed max-w-xl">
-        Audit. Build. Prove. No fluff, no filler, just a website that brings you customers.
+        Sites, SEO, marketing, monitoring, and bespoke software. Everything your business needs to thrive online.
       </p>
     </>
   );

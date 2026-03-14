@@ -3,8 +3,16 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { POSTS } from "../posts";
 import { NavHeader } from "../../components/NavHeader";
-import { ArrowLeft, Calendar, Clock, Linkedin } from "lucide-react";
+import { ArrowLeft, Calendar, Clock } from "lucide-react";
 import { LinkedInShareButton } from "./LinkedInShareButton";
+import {
+  HeroBackground,
+  ScrollProgress,
+  ReadingProgress,
+  AnimatedContent,
+  AnimatedHeader,
+  SectionDivider,
+} from "./BlogPostClient";
 
 const SITE_URL = "https://jefferissoftware.co.uk";
 
@@ -42,47 +50,6 @@ export async function generateMetadata({
       description: post.description,
     },
   };
-}
-
-function renderContent(content: string | string[]) {
-  // New format: single HTML string
-  if (typeof content === "string") {
-    return (
-      <div
-        className="prose prose-zinc dark:prose-invert max-w-none [&>h2]:text-xl [&>h2]:font-bold [&>h2]:text-zinc-900 dark:[&>h2]:text-zinc-100 [&>h2]:mt-10 [&>h2]:mb-4 [&>p]:text-zinc-600 dark:[&>p]:text-zinc-400 [&>p]:leading-relaxed [&>p]:mb-4"
-        dangerouslySetInnerHTML={{ __html: content }}
-      />
-    );
-  }
-
-  // Legacy format: string[] blocks
-  return content.map((block, i) => {
-    if (block.startsWith("## ")) {
-      return (
-        <h2
-          key={i}
-          className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mt-10 mb-4"
-        >
-          {block.replace("## ", "")}
-        </h2>
-      );
-    }
-
-    const parts = block.split(/\n\n/);
-    return parts.map((part, j) => {
-      const rendered = part
-        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-        .replace(/\\"/g, '"');
-
-      return (
-        <p
-          key={`${i}-${j}`}
-          className="text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4"
-          dangerouslySetInnerHTML={{ __html: rendered }}
-        />
-      );
-    });
-  });
 }
 
 export default async function BlogPostPage({
@@ -131,38 +98,61 @@ export default async function BlogPostPage({
     },
   ];
 
+  const content = typeof post.content === "string" ? post.content : "";
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostSchema) }}
       />
+      <ScrollProgress />
+      <ReadingProgress />
       <NavHeader />
-      <main className="mx-auto max-w-3xl px-5 md:px-8 py-12 md:py-20">
-        <Link
-          href="/blog"
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-500 dark:text-zinc-400 hover:text-coral-600 dark:hover:text-coral-400 transition-colors mb-8"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to blog
-        </Link>
 
-        <article>
-          <header className="mb-10">
-            <div className="flex flex-wrap gap-2 mb-4">
-              {post.tags.map((tag) => (
+      {/* ─── Hero header ─── */}
+      <div className="relative overflow-hidden">
+        <HeroBackground />
+
+        <div className="mx-auto max-w-3xl px-5 md:px-8 pt-12 md:pt-20 pb-16 md:pb-24">
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-500 dark:text-zinc-400 hover:text-coral-600 dark:hover:text-coral-400 transition-colors mb-10 group"
+          >
+            <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+            Back to blog
+          </Link>
+
+          <AnimatedHeader>
+            <div className="flex flex-wrap gap-2 mb-6">
+              {post.tags.map((tag, i) => (
                 <span
                   key={tag}
-                  className="rounded-full bg-coral-50 dark:bg-coral-950 px-3 py-1 text-xs font-semibold text-coral-600 dark:text-coral-400"
+                  className="rounded-full bg-white/80 dark:bg-zinc-800/80 backdrop-blur-sm border border-coral-200/50 dark:border-coral-800/30 px-4 py-1.5 text-xs font-semibold text-coral-600 dark:text-coral-400 shadow-sm"
+                  style={{ animationDelay: `${i * 80}ms` }}
                 >
                   {tag}
                 </span>
               ))}
             </div>
-            <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 md:text-3xl lg:text-4xl leading-tight mb-4">
+
+            <h1 className="text-3xl font-black text-zinc-900 dark:text-zinc-100 md:text-4xl lg:text-5xl leading-[1.1] tracking-tight mb-6">
               {post.title}
             </h1>
-            <div className="flex flex-wrap items-center gap-4 text-sm text-zinc-400 dark:text-zinc-500">
+
+            <p className="text-lg text-zinc-500 dark:text-zinc-400 leading-relaxed mb-8 max-w-2xl">
+              {post.description}
+            </p>
+
+            <div className="flex flex-wrap items-center gap-5 text-sm text-zinc-400 dark:text-zinc-500">
+              <span className="flex items-center gap-2">
+                {/* Author avatar ring */}
+                <span className="relative h-8 w-8 rounded-full bg-gradient-to-br from-coral-400 to-pink-500 flex items-center justify-center text-white text-xs font-bold shadow-md">
+                  FJ
+                </span>
+                <span className="font-medium text-zinc-600 dark:text-zinc-300">Finlay Jefferis</span>
+              </span>
+              <span className="h-4 w-px bg-zinc-300 dark:bg-zinc-700" />
               <span className="flex items-center gap-1.5">
                 <Calendar className="h-4 w-4" />
                 {new Date(post.date).toLocaleDateString("en-GB", {
@@ -175,23 +165,60 @@ export default async function BlogPostPage({
                 <Clock className="h-4 w-4" />
                 {post.readTime}
               </span>
-              <span className="flex items-center gap-1.5">
-                By Finlay Jefferis
-              </span>
             </div>
-          </header>
+          </AnimatedHeader>
+        </div>
 
-          <div className="prose-content">{renderContent(post.content)}</div>
+        {/* Bottom fade into content area */}
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white dark:from-zinc-950 to-transparent" />
+      </div>
 
-          <footer className="mt-12 pt-8 border-t border-zinc-200 dark:border-zinc-800">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                Found this useful? Share it on LinkedIn.
-              </p>
-              <LinkedInShareButton url={url} title={post.title} />
-            </div>
-          </footer>
-        </article>
+      {/* ─── Article body ─── */}
+      <main className="relative">
+        {/* Side accent line */}
+        <div className="hidden lg:block absolute left-[calc(50%-380px)] top-0 bottom-0 w-px bg-gradient-to-b from-coral-200/40 via-pink-200/20 to-transparent dark:from-coral-800/20 dark:via-pink-800/10" />
+
+        <div className="mx-auto max-w-3xl px-5 md:px-8 py-8 md:py-12">
+          <article>
+            <AnimatedContent html={content} />
+
+            <SectionDivider />
+
+            {/* ─── Footer CTA ─── */}
+            <footer className="relative rounded-2xl overflow-hidden p-8 md:p-12 mt-4">
+              {/* Footer background */}
+              <div className="absolute inset-0 bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-950 -z-10" />
+              <div className="absolute inset-0 border border-zinc-200 dark:border-zinc-800 rounded-2xl -z-10" />
+
+              {/* Decorative corner SVG */}
+              <svg className="absolute top-0 right-0 w-32 h-32 text-coral-100 dark:text-coral-950/50 -z-5" viewBox="0 0 128 128" fill="none">
+                <circle cx="128" cy="0" r="96" stroke="currentColor" strokeWidth="0.5" />
+                <circle cx="128" cy="0" r="64" stroke="currentColor" strokeWidth="0.5" />
+                <circle cx="128" cy="0" r="32" stroke="currentColor" strokeWidth="0.5" />
+              </svg>
+
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+                <div>
+                  <p className="text-lg font-bold text-zinc-900 dark:text-zinc-100 mb-1">
+                    Found this useful?
+                  </p>
+                  <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                    Share it with someone who&apos;d benefit, or get in touch to chat about your project.
+                  </p>
+                </div>
+                <div className="flex gap-3">
+                  <LinkedInShareButton url={url} title={post.title} />
+                  <a
+                    href="/#contact"
+                    className="inline-flex items-center gap-2 rounded-lg bg-coral-600 hover:bg-coral-500 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-colors"
+                  >
+                    Get in touch
+                  </a>
+                </div>
+              </div>
+            </footer>
+          </article>
+        </div>
       </main>
     </>
   );
