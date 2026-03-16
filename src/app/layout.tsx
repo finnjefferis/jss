@@ -1,8 +1,9 @@
 import "./globals.css";
 import { Sora, Space_Grotesk } from "next/font/google";
 import type { ReactNode } from "react";
-import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
+import { CookieConsent } from "./components/CookieConsent";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -191,6 +192,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className={`${sora.variable} ${spaceGrotesk.variable}`}>
         {children}
         <Analytics />
+        <CookieConsent />
       </body>
     </html>
   );

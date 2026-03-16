@@ -141,7 +141,7 @@ export function ValueProposition() {
         <div className="grid grid-cols-1 lg:grid-cols-[40%_60%] gap-4 lg:gap-0 items-start">
 
           {/* === LEFT COLUMN (Visual - Desktop Sticky) === */}
-          <div className="hidden lg:flex sticky top-0 h-screen self-start flex-col justify-center items-center lg:items-end lg:pr-24">
+          <div className="hidden lg:flex sticky top-0 h-screen self-start flex-col justify-center items-center lg:items-end lg:pr-8">
             <div className="relative w-full max-w-[26rem] lg:max-w-[28rem]">
                <WebsiteTransformSimulator stage={activeId} />
                <div className="absolute inset-0 -z-10 bg-gradient-to-tr from-coral-100 dark:from-coral-950 to-pink-50 dark:to-pink-950 blur-2xl rounded-full opacity-60 transform scale-110" />
@@ -154,10 +154,10 @@ export function ValueProposition() {
           </div>
 
           {/* === RIGHT COLUMN (Content - Desktop Scroll) === */}
-          <div className="hidden lg:flex flex-col justify-center items-start lg:pl-0 relative z-20">
+          <div className="hidden lg:flex flex-col justify-center items-center lg:pl-0 relative z-20">
 
             {/* DESKTOP HEADER (Sticky) */}
-            <div ref={headerRef} className="mb-12 w-full pt-10 lg:pt-20 sticky top-0 z-30 bg-zinc-50 dark:bg-zinc-950 pb-8 transition-colors">
+            <div ref={headerRef} className="mb-12 w-full max-w-2xl pt-10 lg:pt-20 sticky top-0 z-30 bg-zinc-50 dark:bg-zinc-950 pb-8 transition-colors">
               <SectionHeader />
               <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-b from-white dark:from-zinc-950 to-transparent translate-y-full pointer-events-none" />
             </div>

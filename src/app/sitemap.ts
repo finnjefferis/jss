@@ -20,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/packages/business`, lastModified: new Date("2026-03-01"), priority: 0.9 },
     { url: `${SITE_URL}/packages/commerce`, lastModified: new Date("2026-03-01"), priority: 0.9 },
     { url: `${SITE_URL}/software`, lastModified: new Date("2026-03-01"), priority: 0.8 },
+    { url: `${SITE_URL}/tools/industry-tips`, lastModified: new Date("2026-03-14"), priority: 0.8 },
     { url: `${SITE_URL}/work/naxco`, lastModified: new Date("2026-02-15"), priority: 0.7 },
     { url: `${SITE_URL}/work/edivert`, lastModified: new Date("2026-02-15"), priority: 0.7 },
     { url: `${SITE_URL}/work/ivy`, lastModified: new Date("2026-02-15"), priority: 0.7 },
