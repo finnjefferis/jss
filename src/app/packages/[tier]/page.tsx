@@ -40,7 +40,7 @@ type PackageData = {
 const PACKAGES: Record<string, PackageData> = {
   starter: {
     name: "Starter",
-    price: "£295",
+    price: "£459",
     tagline: "Get online fast.",
     Icon: Zap,
     headline: "A clean, professional site. Live in under two weeks.",
@@ -94,7 +94,7 @@ const PACKAGES: Record<string, PackageData> = {
 
   business: {
     name: "Business",
-    price: "£795",
+    price: "£919",
     tagline: "Built to grow.",
     Icon: BarChart3,
     headline: "A professional site you can actually keep up to date.",
@@ -150,7 +150,7 @@ const PACKAGES: Record<string, PackageData> = {
 
   commerce: {
     name: "Commerce",
-    price: "£1,495+",
+    price: "£1,999+",
     tagline: "Built to sell.",
     Icon: ShoppingBag,
     headline: "A store that handles itself.",
@@ -196,7 +196,7 @@ const PACKAGES: Record<string, PackageData> = {
       "Businesses not yet ready to sell online",
     ],
     faqs: [
-      { q: "Why does the price say £1,495+?", a: "Commerce projects vary based on catalogue size, integrations, and automation. £1,495 is the starting point — we'll scope your project accurately before you commit to anything." },
+      { q: "Why does the price say £1,999+?", a: "Commerce projects vary based on catalogue size, integrations, and automation. £1,999 is the starting point — we'll scope your project accurately before you commit to anything." },
       { q: "Which payment provider do you use?", a: "Stripe is our default — it's reliable, well-supported, and trusted by customers. We can integrate others if needed." },
       { q: "Can I manage products myself?", a: "Yes. Product management is built into the CMS so you can add, update, or remove products without touching code." },
       { q: "Do you offer ongoing support?", a: "Yes. Commerce clients can opt into a monthly support retainer for updates, new features, and technical help." },
@@ -243,8 +243,51 @@ export default async function PackagePage({
 
   const { Icon } = pkg;
 
+  const SITE_URL = "https://www.jefferissoftware.co.uk";
+
+  const packageSchema = [
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+        { "@type": "ListItem", position: 2, name: `${pkg.name} Package`, item: `${SITE_URL}/packages/${tier}` },
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      name: `${pkg.name} Website Package`,
+      description: `${pkg.headline} ${pkg.subheadline}`,
+      provider: { "@id": `${SITE_URL}/#organization` },
+      url: `${SITE_URL}/packages/${tier}`,
+      offers: {
+        "@type": "Offer",
+        price: pkg.price.replace(/[^0-9.]/g, ""),
+        priceCurrency: "GBP",
+        availability: "https://schema.org/InStock",
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: pkg.faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.q,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: faq.a,
+        },
+      })),
+    },
+  ];
+
   return (
     <main className="min-h-screen bg-zinc-50 dark:bg-zinc-950 transition-colors">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(packageSchema) }}
+      />
       <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-coral-500 via-pink-500 to-coral-500 z-50" />
 
       <div className="mx-auto max-w-6xl px-5 md:px-8 pt-8 pb-4">

@@ -69,6 +69,18 @@ export function NavHeader() {
           Jefferis Software Solutions
         </a>
 
+        <nav className="hidden md:flex items-center gap-6">
+          <a href="/packages" className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-coral-600 dark:hover:text-coral-400 transition-colors">
+            Packages
+          </a>
+          <a href="/software" className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-coral-600 dark:hover:text-coral-400 transition-colors">
+            Software
+          </a>
+          <a href="/#recent-work" className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-coral-600 dark:hover:text-coral-400 transition-colors">
+            Work
+          </a>
+        </nav>
+
         <div className="flex items-center gap-2">
           <ThemeToggle />
 
@@ -101,14 +113,14 @@ export function NavHeader() {
         <div className="absolute left-0 right-0 top-[88px] z-50 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50/95 dark:bg-zinc-950/95 backdrop-blur-md shadow-xl md:hidden animate-in slide-in-from-top-2 duration-200">
           <div className="mx-auto max-w-6xl px-5 md:px-8 lg:px-10">
             <nav className="flex flex-col py-6 gap-4 text-center">
-              <a href="#process" onClick={handleLinkClick} className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-coral-600 dark:hover:text-coral-400 py-2">
-                The Process
+              <a href="/packages" onClick={handleLinkClick} className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-coral-600 dark:hover:text-coral-400 py-2">
+                Packages
               </a>
-              <a href="#services" onClick={handleLinkClick} className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-coral-600 dark:hover:text-coral-400 py-2">
-                Services
+              <a href="/software" onClick={handleLinkClick} className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-coral-600 dark:hover:text-coral-400 py-2">
+                Software
               </a>
-              <a href="#recent-work" onClick={handleLinkClick} className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-coral-600 dark:hover:text-coral-400 py-2">
-                Recent Work
+              <a href="/#recent-work" onClick={handleLinkClick} className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-coral-600 dark:hover:text-coral-400 py-2">
+                Work
               </a>
               <hr className="border-zinc-100 dark:border-zinc-800 my-1" />
               <a

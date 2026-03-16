@@ -128,6 +128,17 @@ const jsonLd = [
     description:
       "Web design and bespoke software development for small businesses across the UK.",
     image: `${SITE_URL}/jsslogo.png`,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Chichester",
+      addressRegion: "West Sussex",
+      addressCountry: "GB",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 50.8365,
+      longitude: -0.7792,
+    },
     areaServed: {
       "@type": "Country",
       name: "United Kingdom",

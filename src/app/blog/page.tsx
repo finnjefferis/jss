@@ -4,7 +4,7 @@ import { POSTS } from "./posts";
 import { NavHeader } from "../components/NavHeader";
 import { ArrowRight, Calendar, Clock } from "lucide-react";
 
-const SITE_URL = "https://jefferissoftware.co.uk";
+const SITE_URL = "https://www.jefferissoftware.co.uk";
 
 export const metadata: Metadata = {
   title: "Blog — Web Design Tips for Small Businesses",

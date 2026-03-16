@@ -25,7 +25,7 @@ const TIERS = [
   {
     id: "starter",
     name: "Starter",
-    price: "£295",
+    price: "£459",
     tagline: "Get online fast.",
     description: "A clean, professional site for businesses that need to look legit online. Done properly, done fast.",
     Icon: Zap,
@@ -52,7 +52,7 @@ const TIERS = [
   {
     id: "business",
     name: "Business",
-    price: "£795",
+    price: "£919",
     tagline: "Built to grow.",
     description: "A professional site you can actually keep up to date \u2014 with a CMS, blog, and priority support.",
     Icon: BarChart3,
@@ -82,7 +82,7 @@ const TIERS = [
   {
     id: "commerce",
     name: "Commerce",
-    price: "\u00a31,495+",
+    price: "\u00a31,999+",
     tagline: "Built to sell.",
     description: "A full online store with payments, product management, and a CMS \u2014 so you spend less time on admin.",
     Icon: ShoppingBag,
@@ -612,12 +612,46 @@ function PackageQuiz() {
 
 /* ─── Tier card ─── */
 
-function TierCard({ tier }: { tier: typeof TIERS[0] }) {
+function useMobileFocusGroup(count: number) {
+  const refs = useRef<(HTMLDivElement | null)[]>([]);
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const isMobile = useIsMobile();
+
+  const setRef = useCallback((i: number) => (el: HTMLDivElement | null) => {
+    refs.current[i] = el;
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile) { setActiveIndex(-1); return; }
+
+    function update() {
+      const center = window.innerHeight / 2;
+      let closest = -1;
+      let closestDist = Infinity;
+      for (let i = 0; i < count; i++) {
+        const el = refs.current[i];
+        if (!el) continue;
+        const rect = el.getBoundingClientRect();
+        const visible = Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0)) / rect.height;
+        if (visible < 0.5) continue;
+        const dist = Math.abs(rect.top + rect.height / 2 - center);
+        if (dist < closestDist) { closestDist = dist; closest = i; }
+      }
+      setActiveIndex(closest);
+    }
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, [isMobile, count]);
+
+  return { setRef, activeIndex };
+}
+
+function TierCard({ tier, mobileFocused = false }: { tier: typeof TIERS[0]; mobileFocused?: boolean }) {
   const [hovered, setHovered] = useState(false);
-  const [mobileFocused, setMobileFocused] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   const [iconVisible, setIconVisible] = useState(false);
-  const isMobile = useIsMobile();
   const { Icon } = tier;
 
   // Icon entrance on scroll
@@ -636,18 +670,6 @@ function TierCard({ tier }: { tier: typeof TIERS[0] }) {
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
-
-  useEffect(() => {
-    if (!isMobile) { setMobileFocused(false); return; }
-    const el = cardRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setMobileFocused(entry.isIntersecting),
-      { threshold: 0.6 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [isMobile]);
 
   const active = hovered || mobileFocused;
 
@@ -796,29 +818,13 @@ function SoftwareCallout() {
 
 /* ─── Monthly plan card ─── */
 
-function MonthlyPlanCard({ plan }: { plan: typeof MONTHLY_PLANS[0] }) {
+function MonthlyPlanCard({ plan, mobileFocused = false }: { plan: typeof MONTHLY_PLANS[0]; mobileFocused?: boolean }) {
   const [hovered, setHovered] = useState(false);
-  const [mobileFocused, setMobileFocused] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
-  const isMobile = useIsMobile();
-
-  useEffect(() => {
-    if (!isMobile) { setMobileFocused(false); return; }
-    const el = cardRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setMobileFocused(entry.isIntersecting),
-      { threshold: 0.6 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [isMobile]);
 
   const active = hovered || mobileFocused;
 
   return (
     <div
-      ref={cardRef}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className={`rounded-2xl border p-6 transition-all duration-300 cursor-default card-hover-lift flex flex-col ${
@@ -849,6 +855,8 @@ function MonthlyPlanCard({ plan }: { plan: typeof MONTHLY_PLANS[0] }) {
 
 function FullMenu({ className = "mt-16", label }: { className?: string; label?: string }) {
   const [open, setOpen] = useState(false);
+  const tierFocus = useMobileFocusGroup(TIERS.length);
+  const planFocus = useMobileFocusGroup(MONTHLY_PLANS.length);
 
   return (
     <div className={className}>
@@ -866,8 +874,10 @@ function FullMenu({ className = "mt-16", label }: { className?: string; label?: 
             Website builds
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 md:items-start">
-            {TIERS.map((tier) => (
-              <TierCard key={tier.id} tier={tier} />
+            {TIERS.map((tier, i) => (
+              <div key={tier.id} ref={tierFocus.setRef(i)}>
+                <TierCard tier={tier} mobileFocused={tierFocus.activeIndex === i} />
+              </div>
             ))}
           </div>
 
@@ -875,8 +885,10 @@ function FullMenu({ className = "mt-16", label }: { className?: string; label?: 
             Monthly plans
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            {MONTHLY_PLANS.map((plan) => (
-              <MonthlyPlanCard key={plan.id} plan={plan} />
+            {MONTHLY_PLANS.map((plan, i) => (
+              <div key={plan.id} ref={planFocus.setRef(i)}>
+                <MonthlyPlanCard plan={plan} mobileFocused={planFocus.activeIndex === i} />
+              </div>
             ))}
           </div>
           <p className="text-center text-sm text-zinc-500">

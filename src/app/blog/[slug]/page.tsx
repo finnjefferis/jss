@@ -14,7 +14,7 @@ import {
   SectionDivider,
 } from "./BlogPostClient";
 
-const SITE_URL = "https://jefferissoftware.co.uk";
+const SITE_URL = "https://www.jefferissoftware.co.uk";
 
 export function generateStaticParams() {
   return POSTS.map((p) => ({ slug: p.slug }));
