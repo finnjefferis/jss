@@ -94,6 +94,7 @@ function MobileHeroCarousel() {
           <button
             key={i}
             onClick={() => setActiveIndex(i)}
+            aria-label={`View site ${i + 1}`}
             className={`h-1.5 rounded-full transition-all duration-300 ${i === activeIndex ? "w-6 bg-coral-600" : "w-1.5 bg-zinc-200 dark:bg-zinc-700"}`}
           />
         ))}
@@ -139,12 +140,12 @@ function HeroVisual() {
 
       {/* MOBILE */}
       <div className="lg:hidden mt-4" data-reveal>
-        <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-1">
+        <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-1">
           Some{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-600 to-pink-600" data-gradient>
             highlights.
           </span>
-        </h3>
+        </h2>
         <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-3">Real projects, real results.</p>
         <div className="relative">
           <MobileHeroCarousel />

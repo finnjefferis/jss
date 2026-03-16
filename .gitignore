@@ -51,3 +51,12 @@ next-env.d.ts
 *.md
 *.csv
 *.tsv
+
+# linkedin post assets
+/linkedin-posts/
+
+# captured site screenshots (before/after)
+/public/ivyold*.png
+/public/ivynew*.png
+/public/ivyold-desktop.png
+/public/ivy-google-reviews.png

@@ -131,6 +131,7 @@ export function ContactSection() {
                   <button
                     key={i}
                     onClick={() => setReviewIndex(i)}
+                    aria-label={`View review ${i + 1}`}
                     className={`h-1.5 rounded-full transition-all duration-300 ${i === reviewIndex ? "w-5 bg-coral-600 dark:bg-coral-500" : "w-1.5 bg-zinc-300 dark:bg-zinc-600 hover:bg-zinc-400 dark:hover:bg-zinc-500"}`}
                   />
                 ))}
@@ -138,12 +139,14 @@ export function ContactSection() {
               <div className="flex gap-1.5">
                 <button
                   onClick={prevReview}
+                  aria-label="Previous review"
                   className="h-8 w-8 rounded-lg border border-zinc-200 dark:border-zinc-700/50 bg-white dark:bg-zinc-800 flex items-center justify-center text-zinc-400 dark:text-zinc-500 hover:text-coral-600 dark:hover:text-white hover:border-coral-200 dark:hover:border-coral-500/40 transition-colors"
                 >
                   <ChevronLeft className="h-4 w-4" />
                 </button>
                 <button
                   onClick={nextReview}
+                  aria-label="Next review"
                   className="h-8 w-8 rounded-lg border border-zinc-200 dark:border-zinc-700/50 bg-white dark:bg-zinc-800 flex items-center justify-center text-zinc-400 dark:text-zinc-500 hover:text-coral-600 dark:hover:text-white hover:border-coral-200 dark:hover:border-coral-500/40 transition-colors"
                 >
                   <ChevronRight className="h-4 w-4" />
@@ -191,6 +194,7 @@ export function ContactSection() {
               <button
                 key={i}
                 onClick={() => setReviewIndex(i)}
+                aria-label={`View review ${i + 1}`}
                 className={`h-1.5 rounded-full transition-all duration-300 ${i === reviewIndex ? "w-5 bg-coral-600 dark:bg-coral-500" : "w-1.5 bg-zinc-300 dark:bg-zinc-600 hover:bg-zinc-400 dark:hover:bg-zinc-500"}`}
               />
             ))}

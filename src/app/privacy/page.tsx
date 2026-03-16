@@ -31,7 +31,7 @@ export default function PrivacyPage() {
           <p>We only collect information that helps us do our job or improve the site:</p>
           <ul className="list-disc pl-5 space-y-1">
             <li><strong>Contact details</strong> &mdash; name, email, phone number, and anything you share when you get in touch via our contact form, WhatsApp, or email.</li>
-            <li><strong>Analytics data</strong> &mdash; anonymous usage data via Google Analytics (GA4) and Vercel Analytics. This includes pages visited, device type, and approximate location. No personal identifiers are stored. Analytics cookies only activate if you consent.</li>
+            <li><strong>Analytics data</strong> &mdash; anonymous usage data via Vercel Analytics. This includes pages visited, device type, and approximate location. No personal identifiers are stored and no cookies are used for analytics.</li>
             <li><strong>Booking information</strong> &mdash; if you book a call via our scheduling tool, we receive the details you provide (name, email, time slot).</li>
           </ul>
 
@@ -44,14 +44,13 @@ export default function PrivacyPage() {
 
           <h2>Cookies</h2>
           <p>
-            We use a small number of cookies. Essential cookies (like your theme preference) work without consent. Analytics cookies from Google Analytics only activate after you give consent via the banner. You can change your mind any time by clearing your browser cookies.
+            We only use essential cookies (like your theme preference). We don&rsquo;t use any analytics cookies.
           </p>
 
           <h2>Third parties</h2>
           <p>We use the following services that may process data on our behalf:</p>
           <ul className="list-disc pl-5 space-y-1">
-            <li><strong>Vercel</strong> &mdash; hosting and anonymous analytics.</li>
-            <li><strong>Google Analytics</strong> &mdash; anonymous site usage data (consent required).</li>
+            <li><strong>Vercel</strong> &mdash; hosting and anonymous, cookie-free analytics.</li>
             <li><strong>Microsoft Outlook</strong> &mdash; booking calendar.</li>
           </ul>
           <p>We don&rsquo;t sell or share your data with anyone else.</p>
@@ -64,7 +63,7 @@ export default function PrivacyPage() {
 
           <h2>Data retention</h2>
           <p>
-            We keep contact information for as long as it&rsquo;s relevant to an active project or enquiry. Analytics data is retained for 14 months (Google&rsquo;s default) and is not personally identifiable.
+            We keep contact information for as long as it&rsquo;s relevant to an active project or enquiry. Analytics data is anonymous and not personally identifiable.
           </p>
 
           <h2>Contact</h2>

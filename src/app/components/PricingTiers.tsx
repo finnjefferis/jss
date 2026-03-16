@@ -470,28 +470,31 @@ function PackageQuiz() {
                     {result.primary.reason}
                   </p>
 
-                  <div
-                    className={`result-card group/plan mb-4 max-w-md mx-auto cursor-default card-hover-lift ${exiting ? "quiz-exit" : "quiz-enter"}`}
-                    style={{ "--d": 240 } as React.CSSProperties}
-                  >
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-coral-500 to-pink-500 flex items-center justify-center group-hover/plan:from-white/20 group-hover/plan:to-white/10 transition-colors duration-300">
-                        <Zap className="h-5 w-5 text-white" />
-                      </div>
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-coral-500 dark:text-coral-400 group-hover/plan:text-white/70 transition-colors duration-300">Monthly plan</p>
-                    </div>
-                    <p className="text-3xl font-extrabold text-zinc-900 dark:text-white mb-1 group-hover/plan:text-white transition-colors duration-300">{result.primary.monthly.price}</p>
-                    <p className="text-xs font-semibold text-coral-600 dark:text-coral-400 mb-4 group-hover/plan:text-white/80 transition-colors duration-300 tagline-underline drawn" style={{ "--ul-d": 400 } as React.CSSProperties}>{result.primary.monthly.name} plan</p>
-                    <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed group-hover/plan:text-white/70 transition-colors duration-300 mb-5">{result.primary.monthly.description}</p>
-                    <div className="h-px w-full mb-5 bg-zinc-100 dark:bg-zinc-800 group-hover/plan:bg-white/20 transition-colors duration-300" />
-                    <ul className="space-y-2.5">
-                      {result.primary.monthly.fullFeatures.map((f) => (
-                        <li key={f} className="flex items-start gap-2.5 text-sm">
-                          <Check className="h-4 w-4 shrink-0 mt-0.5 text-coral-500 group-hover/plan:text-white/60 transition-colors duration-300" />
-                          <span className="text-zinc-600 dark:text-zinc-300 group-hover/plan:text-white/90 transition-colors duration-300">{f}</span>
-                        </li>
-                      ))}
-                    </ul>
+                  <div className={exiting ? "quiz-exit" : "quiz-enter"} style={{ "--d": 240 } as React.CSSProperties}>
+                    <ResultCard className="mb-4 max-w-md mx-auto">
+                      {(active) => (
+                        <>
+                          <div className="flex items-center gap-3 mb-4">
+                            <div className={`h-10 w-10 rounded-xl flex items-center justify-center transition-colors duration-300 ${active ? "bg-white/20" : "bg-gradient-to-br from-coral-500 to-pink-500"}`}>
+                              <Zap className="h-5 w-5 text-white" />
+                            </div>
+                            <p className={`text-[10px] font-bold uppercase tracking-widest transition-colors duration-300 ${active ? "text-white/70" : "text-coral-500 dark:text-coral-400"}`}>Monthly plan</p>
+                          </div>
+                          <p className={`text-3xl font-extrabold mb-1 transition-colors duration-300 ${active ? "text-white" : "text-zinc-900 dark:text-white"}`}>{result.primary.monthly.price}</p>
+                          <p className={`text-xs font-semibold mb-4 transition-colors duration-300 tagline-underline drawn ${active ? "text-white/80" : "text-coral-600 dark:text-coral-400"}`} style={{ "--ul-d": 400 } as React.CSSProperties}>{result.primary.monthly.name} plan</p>
+                          <p className={`text-sm leading-relaxed mb-5 transition-colors duration-300 ${active ? "text-white/70" : "text-zinc-500 dark:text-zinc-400"}`}>{result.primary.monthly.description}</p>
+                          <div className={`h-px w-full mb-5 transition-colors duration-300 ${active ? "bg-white/20" : "bg-zinc-100 dark:bg-zinc-800"}`} />
+                          <ul className="space-y-2.5">
+                            {result.primary.monthly.fullFeatures.map((f) => (
+                              <li key={f} className="flex items-start gap-2.5 text-sm">
+                                <Check className={`h-4 w-4 shrink-0 mt-0.5 transition-colors duration-300 ${active ? "text-white/60" : "text-coral-500"}`} />
+                                <span className={`transition-colors duration-300 ${active ? "text-white/90" : "text-zinc-600 dark:text-zinc-300"}`}>{f}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </>
+                      )}
+                    </ResultCard>
                   </div>
 
                   <p className={`text-xs text-zinc-400 dark:text-zinc-500 mb-8 text-center ${exiting ? "quiz-exit" : "quiz-enter"}`} style={{ "--d": 320 } as React.CSSProperties}>
@@ -534,49 +537,60 @@ function PackageQuiz() {
                   </p>
 
                   <div className={`grid grid-cols-1 md:grid-cols-2 gap-5 mb-6 ${exiting ? "quiz-exit" : "quiz-enter"}`} style={{ "--d": 240 } as React.CSSProperties}>
-                    <div className="result-card group/build cursor-default card-hover-lift">
-                      <div className="flex items-center gap-3 mb-4">
-                        <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-coral-500 to-pink-500 flex items-center justify-center group-hover/build:from-white/20 group-hover/build:to-white/10 transition-colors duration-300">
-                          {(() => { const BuildIcon = result.primary.build!.Icon; return <BuildIcon className="h-5 w-5 text-white" />; })()}
-                        </div>
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-coral-500 dark:text-coral-400 group-hover/build:text-white/70 transition-colors duration-300">Website build</p>
-                      </div>
-                      <p className="text-3xl font-extrabold text-zinc-900 dark:text-white mb-0.5 group-hover/build:text-white transition-colors duration-300">
-                        {result.primary.build!.price}
-                      </p>
-                      <p className="text-xs font-semibold text-coral-600 dark:text-coral-400 mb-5 group-hover/build:text-white/80 transition-colors duration-300 tagline-underline drawn" style={{ "--ul-d": 400 } as React.CSSProperties}>
-                        {result.primary.build!.name} &middot; one-off
-                      </p>
-                      <ul className="space-y-2.5">
-                        {result.primary.build!.fullFeatures.map((f) => (
-                          <li key={f} className="flex items-start gap-2.5 text-sm">
-                            <Check className="h-4 w-4 shrink-0 mt-0.5 text-coral-500 group-hover/build:text-white/60 transition-colors duration-300" />
-                            <span className="text-zinc-600 dark:text-zinc-300 group-hover/build:text-white/90 transition-colors duration-300">{f}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    <ResultCard>
+                      {(active) => {
+                        const BuildIcon = result.primary.build!.Icon;
+                        return (
+                          <>
+                            <div className="flex items-center gap-3 mb-4">
+                              <div className={`h-10 w-10 rounded-xl flex items-center justify-center transition-colors duration-300 ${active ? "bg-white/20" : "bg-gradient-to-br from-coral-500 to-pink-500"}`}>
+                                <BuildIcon className="h-5 w-5 text-white" />
+                              </div>
+                              <p className={`text-[10px] font-bold uppercase tracking-widest transition-colors duration-300 ${active ? "text-white/70" : "text-coral-500 dark:text-coral-400"}`}>Website build</p>
+                            </div>
+                            <p className={`text-3xl font-extrabold mb-0.5 transition-colors duration-300 ${active ? "text-white" : "text-zinc-900 dark:text-white"}`}>
+                              {result.primary.build!.price}
+                            </p>
+                            <p className={`text-xs font-semibold mb-5 transition-colors duration-300 tagline-underline drawn ${active ? "text-white/80" : "text-coral-600 dark:text-coral-400"}`} style={{ "--ul-d": 400 } as React.CSSProperties}>
+                              {result.primary.build!.name} &middot; one-off
+                            </p>
+                            <ul className="space-y-2.5">
+                              {result.primary.build!.fullFeatures.map((f) => (
+                                <li key={f} className="flex items-start gap-2.5 text-sm">
+                                  <Check className={`h-4 w-4 shrink-0 mt-0.5 transition-colors duration-300 ${active ? "text-white/60" : "text-coral-500"}`} />
+                                  <span className={`transition-colors duration-300 ${active ? "text-white/90" : "text-zinc-600 dark:text-zinc-300"}`}>{f}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </>
+                        );
+                      }}
+                    </ResultCard>
 
-                    <div className="result-card group/monthly cursor-default card-hover-lift flex flex-col">
-                      <div className="flex items-center gap-3 mb-4">
-                        <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-pink-500 to-coral-500 flex items-center justify-center group-hover/monthly:from-white/20 group-hover/monthly:to-white/10 transition-colors duration-300">
-                          <BarChart3 className="h-5 w-5 text-white" />
-                        </div>
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-coral-500 dark:text-coral-400 group-hover/monthly:text-white/70 transition-colors duration-300">Monthly plan</p>
-                      </div>
-                      <p className="text-3xl font-extrabold text-zinc-900 dark:text-white mb-0.5 group-hover/monthly:text-white transition-colors duration-300">{result.primary.monthly.price}</p>
-                      <p className="text-xs font-semibold text-coral-600 dark:text-coral-400 mb-5 group-hover/monthly:text-white/80 transition-colors duration-300 tagline-underline drawn" style={{ "--ul-d": 500 } as React.CSSProperties}>{result.primary.monthly.name} plan</p>
-                      <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed group-hover/monthly:text-white/70 transition-colors duration-300 mb-5">{result.primary.monthly.description}</p>
-                      <div className="h-px w-full mb-5 bg-zinc-100 dark:bg-zinc-800 group-hover/monthly:bg-white/20 transition-colors duration-300" />
-                      <ul className="space-y-2.5 flex-1">
-                        {result.primary.monthly.fullFeatures.map((f) => (
-                          <li key={f} className="flex items-start gap-2.5 text-sm">
-                            <Check className="h-4 w-4 shrink-0 mt-0.5 text-coral-500 group-hover/monthly:text-white/60 transition-colors duration-300" />
-                            <span className="text-zinc-600 dark:text-zinc-300 group-hover/monthly:text-white/90 transition-colors duration-300">{f}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    <ResultCard className="flex flex-col">
+                      {(active) => (
+                        <>
+                          <div className="flex items-center gap-3 mb-4">
+                            <div className={`h-10 w-10 rounded-xl flex items-center justify-center transition-colors duration-300 ${active ? "bg-white/20" : "bg-gradient-to-br from-pink-500 to-coral-500"}`}>
+                              <BarChart3 className="h-5 w-5 text-white" />
+                            </div>
+                            <p className={`text-[10px] font-bold uppercase tracking-widest transition-colors duration-300 ${active ? "text-white/70" : "text-coral-500 dark:text-coral-400"}`}>Monthly plan</p>
+                          </div>
+                          <p className={`text-3xl font-extrabold mb-0.5 transition-colors duration-300 ${active ? "text-white" : "text-zinc-900 dark:text-white"}`}>{result.primary.monthly.price}</p>
+                          <p className={`text-xs font-semibold mb-5 transition-colors duration-300 tagline-underline drawn ${active ? "text-white/80" : "text-coral-600 dark:text-coral-400"}`} style={{ "--ul-d": 500 } as React.CSSProperties}>{result.primary.monthly.name} plan</p>
+                          <p className={`text-sm leading-relaxed mb-5 transition-colors duration-300 ${active ? "text-white/70" : "text-zinc-500 dark:text-zinc-400"}`}>{result.primary.monthly.description}</p>
+                          <div className={`h-px w-full mb-5 transition-colors duration-300 ${active ? "bg-white/20" : "bg-zinc-100 dark:bg-zinc-800"}`} />
+                          <ul className="space-y-2.5 flex-1">
+                            {result.primary.monthly.fullFeatures.map((f) => (
+                              <li key={f} className="flex items-start gap-2.5 text-sm">
+                                <Check className={`h-4 w-4 shrink-0 mt-0.5 transition-colors duration-300 ${active ? "text-white/60" : "text-coral-500"}`} />
+                                <span className={`transition-colors duration-300 ${active ? "text-white/90" : "text-zinc-600 dark:text-zinc-300"}`}>{f}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </>
+                      )}
+                    </ResultCard>
                   </div>
 
                   <div className={exiting ? "quiz-exit" : "quiz-enter"} style={{ "--d": 320 } as React.CSSProperties}>
@@ -606,6 +620,40 @@ function PackageQuiz() {
 
         </div>
       </div>
+    </div>
+  );
+}
+
+/* ─── Result card (quiz recommendation) ─── */
+
+function ResultCard({ children, className = "" }: { children: (active: boolean) => React.ReactNode; className?: string }) {
+  const [hovered, setHovered] = useState(false);
+  const [mobileFocused, setMobileFocused] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
+
+  useEffect(() => {
+    if (!isMobile) { setMobileFocused(false); return; }
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setMobileFocused(entry.isIntersecting),
+      { threshold: 0.6 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [isMobile]);
+
+  const active = hovered || mobileFocused;
+
+  return (
+    <div
+      ref={ref}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className={`result-card cursor-default card-hover-lift ${active ? "result-card-active" : ""} ${className}`}
+    >
+      {children(active)}
     </div>
   );
 }
