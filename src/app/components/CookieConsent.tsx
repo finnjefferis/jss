@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Script from "next/script";
+import Link from "next/link";
 
 const GA_ID = "G-NH48FM1Q53";
 const CONSENT_KEY = "cookie-consent";
@@ -73,8 +74,8 @@ export function CookieConsent() {
         >
           <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-xl shadow-2xl shadow-black/5 dark:shadow-black/30 p-5">
             <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-              We use cookies to understand how you use our site.{" "}
-              <span className="text-zinc-400 dark:text-zinc-500">Nothing weird.</span>
+              We use cookies to see what&rsquo;s working.{" "}
+              <Link href="/privacy" className="text-coral-600 dark:text-coral-400 hover:underline">Here&rsquo;s the full story.</Link>
             </p>
             <div className="flex items-center gap-2.5 mt-4">
               <button
