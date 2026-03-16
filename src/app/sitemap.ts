@@ -27,6 +27,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/work/jmrt`, lastModified: new Date("2026-02-15"), priority: 0.7 },
     { url: `${SITE_URL}/work/toolbox`, lastModified: new Date("2026-02-15"), priority: 0.7 },
     { url: `${SITE_URL}/work/carbon`, lastModified: new Date("2026-02-15"), priority: 0.7 },
+    { url: `${SITE_URL}/privacy`, lastModified: new Date("2026-03-16"), priority: 0.3 },
+    { url: `${SITE_URL}/terms`, lastModified: new Date("2026-03-16"), priority: 0.3 },
     ...blogEntries,
   ];
 }
