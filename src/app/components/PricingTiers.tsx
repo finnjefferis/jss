@@ -30,7 +30,15 @@ const TIERS = [
     description: "A clean, professional site for businesses that need to look legit online. Done properly, done fast.",
     Icon: Zap,
     features: [
-      "Up to 5 pages",
+      "Unlimited pages",
+      "Mobile-first design",
+      "Contact form",
+      "Basic SEO setup",
+      "Google Business setup",
+      "7\u201310 day delivery",
+    ],
+    fullFeatures: [
+      "Unlimited pages",
       "Mobile-first design",
       "Contact form",
       "Basic SEO setup",
@@ -46,13 +54,24 @@ const TIERS = [
     name: "Business",
     price: "£795",
     tagline: "Built to grow.",
-    description: "Everything in Starter, plus CMS access so you can keep your site fresh without touching code.",
+    description: "A professional site you can actually keep up to date \u2014 with a CMS, blog, and priority support.",
     Icon: BarChart3,
     features: [
       "Everything in Starter",
       "CMS access (edit your content)",
       "Blog / news section",
-      "Editable service pages",
+      "Full SEO setup",
+      "Recorded training session",
+      "Priority support",
+    ],
+    fullFeatures: [
+      "Unlimited pages",
+      "Mobile-first design",
+      "Contact form",
+      "Full SEO setup",
+      "Google Business setup",
+      "CMS access (edit your content)",
+      "Blog / news section",
       "Recorded training session",
       "Priority support",
     ],
@@ -65,14 +84,26 @@ const TIERS = [
     name: "Commerce",
     price: "\u00a31,495+",
     tagline: "Built to sell.",
-    description: "Full e-commerce with payments, inventory management, and automation \u2014 so you spend less time on admin.",
+    description: "A full online store with payments, product management, and a CMS \u2014 so you spend less time on admin.",
     Icon: ShoppingBag,
     features: [
       "Everything in Business",
       "E-commerce setup",
-      "Payment integration",
+      "Stripe payment integration",
       "Product management",
-      "Email confirmations",
+      "Order confirmations",
+      "Ongoing support available",
+    ],
+    fullFeatures: [
+      "Unlimited pages",
+      "Mobile-first design",
+      "Full SEO setup",
+      "CMS access",
+      "Blog / news section",
+      "E-commerce setup",
+      "Stripe payment integration",
+      "Product management",
+      "Order confirmations",
       "Ongoing support available",
     ],
     cta: "Discuss your store",
@@ -86,19 +117,40 @@ const MONTHLY_PLANS = [
     id: "hosting",
     name: "Hosting",
     price: "£29/mo",
-    description: "Hosting, SSL, backups, uptime monitoring, and basic support.",
+    description: "Your site stays fast, secure, and online. We handle the boring stuff.",
+    features: [
+      "Hosting & SSL",
+      "Daily backups",
+      "Uptime monitoring",
+      "Security patches",
+      "Basic support",
+    ],
   },
   {
     id: "growth",
     name: "Growth",
     price: "£149/mo",
-    description: "Google Business management, 2 blog posts/mo, local SEO, monthly performance report.",
+    description: "We actively grow your online presence so customers find you first.",
+    features: [
+      "Everything in Hosting",
+      "Google Business management",
+      "2 blog posts per month",
+      "Local SEO optimisation",
+      "Monthly performance report",
+    ],
   },
   {
     id: "leadmachine",
     name: "Lead Machine",
     price: "£349/mo",
-    description: "Full SEO strategy, content marketing, lead generation campaigns, quarterly strategy call.",
+    description: "Full marketing engine. We bring the leads, you close the deals.",
+    features: [
+      "Everything in Growth",
+      "Full SEO strategy",
+      "Content marketing",
+      "Lead generation campaigns",
+      "Quarterly strategy call",
+    ],
   },
 ];
 
@@ -400,7 +452,16 @@ function PackageQuiz() {
                     </div>
                     <p className="text-3xl font-extrabold text-zinc-900 dark:text-white mb-1 group-hover/plan:text-white transition-colors duration-300">{result.primary.monthly.price}</p>
                     <p className="text-xs font-semibold text-coral-600 dark:text-coral-400 mb-4 group-hover/plan:text-white/80 transition-colors duration-300 tagline-underline drawn" style={{ "--ul-d": 400 } as React.CSSProperties}>{result.primary.monthly.name} plan</p>
-                    <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed group-hover/plan:text-white/70 transition-colors duration-300">{result.primary.monthly.description}</p>
+                    <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed group-hover/plan:text-white/70 transition-colors duration-300 mb-5">{result.primary.monthly.description}</p>
+                    <div className="h-px w-full mb-5 bg-zinc-100 dark:bg-zinc-800 group-hover/plan:bg-white/20 transition-colors duration-300" />
+                    <ul className="space-y-2.5">
+                      {result.primary.monthly.features.map((f) => (
+                        <li key={f} className="flex items-start gap-2.5 text-sm">
+                          <Check className="h-4 w-4 shrink-0 mt-0.5 text-coral-500 group-hover/plan:text-white/60 transition-colors duration-300" />
+                          <span className="text-zinc-600 dark:text-zinc-300 group-hover/plan:text-white/90 transition-colors duration-300">{f}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
 
                   <p className={`text-xs text-zinc-400 dark:text-zinc-500 mb-8 text-center ${exiting ? "quiz-exit" : "quiz-enter"}`} style={{ "--d": 320 } as React.CSSProperties}>
@@ -457,7 +518,7 @@ function PackageQuiz() {
                         {result.primary.build!.name} &middot; one-off
                       </p>
                       <ul className="space-y-2.5">
-                        {result.primary.build!.features.map((f) => (
+                        {result.primary.build!.fullFeatures.map((f) => (
                           <li key={f} className="flex items-start gap-2.5 text-sm">
                             <Check className="h-4 w-4 shrink-0 mt-0.5 text-coral-500 group-hover/build:text-white/60 transition-colors duration-300" />
                             <span className="text-zinc-600 dark:text-zinc-300 group-hover/build:text-white/90 transition-colors duration-300">{f}</span>
@@ -475,7 +536,16 @@ function PackageQuiz() {
                       </div>
                       <p className="text-3xl font-extrabold text-zinc-900 dark:text-white mb-0.5 group-hover/monthly:text-white transition-colors duration-300">{result.primary.monthly.price}</p>
                       <p className="text-xs font-semibold text-coral-600 dark:text-coral-400 mb-5 group-hover/monthly:text-white/80 transition-colors duration-300 tagline-underline drawn" style={{ "--ul-d": 500 } as React.CSSProperties}>{result.primary.monthly.name} plan</p>
-                      <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed group-hover/monthly:text-white/70 transition-colors duration-300 flex-1">{result.primary.monthly.description}</p>
+                      <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed group-hover/monthly:text-white/70 transition-colors duration-300 mb-5">{result.primary.monthly.description}</p>
+                      <div className="h-px w-full mb-5 bg-zinc-100 dark:bg-zinc-800 group-hover/monthly:bg-white/20 transition-colors duration-300" />
+                      <ul className="space-y-2.5 flex-1">
+                        {result.primary.monthly.features.map((f) => (
+                          <li key={f} className="flex items-start gap-2.5 text-sm">
+                            <Check className="h-4 w-4 shrink-0 mt-0.5 text-coral-500 group-hover/monthly:text-white/60 transition-colors duration-300" />
+                            <span className="text-zinc-600 dark:text-zinc-300 group-hover/monthly:text-white/90 transition-colors duration-300">{f}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
 
@@ -698,20 +768,49 @@ function SoftwareCallout() {
 
 function MonthlyPlanCard({ plan }: { plan: typeof MONTHLY_PLANS[0] }) {
   const [hovered, setHovered] = useState(false);
+  const [mobileFocused, setMobileFocused] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
+
+  useEffect(() => {
+    if (!isMobile) { setMobileFocused(false); return; }
+    const el = cardRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setMobileFocused(entry.isIntersecting),
+      { threshold: 0.6 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [isMobile]);
+
+  const active = hovered || mobileFocused;
 
   return (
     <div
+      ref={cardRef}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className={`rounded-2xl border p-6 transition-all duration-200 cursor-default card-hover-lift ${
-        hovered
-          ? "bg-coral-600 border-coral-600"
+      className={`rounded-2xl border p-6 transition-all duration-300 cursor-default card-hover-lift flex flex-col ${
+        active
+          ? "bg-coral-600 border-coral-600 shadow-lg -translate-y-1"
           : "border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900"
       }`}
     >
-      <p className={`text-xs font-bold uppercase tracking-wider mb-1 transition-colors duration-200 ${hovered ? "text-coral-200" : "text-coral-500 dark:text-coral-400"}`}>{plan.name}</p>
-      <p className={`text-2xl font-extrabold mb-2 transition-colors duration-200 ${hovered ? "text-white" : "text-zinc-900 dark:text-white"}`}>{plan.price}</p>
-      <p className={`text-sm leading-relaxed transition-colors duration-200 ${hovered ? "text-coral-100" : "text-zinc-500 dark:text-zinc-400"}`}>{plan.description}</p>
+      <p className={`text-xs font-bold uppercase tracking-wider mb-1 transition-colors duration-300 ${active ? "text-coral-200" : "text-coral-500 dark:text-coral-400"}`}>{plan.name}</p>
+      <p className={`text-2xl font-extrabold mb-2 transition-colors duration-300 ${active ? "text-white" : "text-zinc-900 dark:text-white"}`}>{plan.price}</p>
+      <p className={`text-sm leading-relaxed mb-5 transition-colors duration-300 ${active ? "text-coral-100" : "text-zinc-500 dark:text-zinc-400"}`}>{plan.description}</p>
+
+      <div className={`h-px w-full mb-5 transition-colors duration-300 ${active ? "bg-coral-500" : "bg-zinc-100 dark:bg-zinc-800"}`} />
+
+      <ul className="flex-1 space-y-2.5">
+        {plan.features.map((f) => (
+          <li key={f} className="flex items-start gap-2.5 text-sm">
+            <Check className={`h-4 w-4 shrink-0 mt-0.5 transition-colors duration-300 ${active ? "text-coral-200" : "text-coral-600 dark:text-coral-400"}`} />
+            <span className={`transition-colors duration-300 ${active ? "text-coral-50" : "text-zinc-700 dark:text-zinc-300"}`}>{f}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
