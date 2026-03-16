@@ -125,6 +125,13 @@ const MONTHLY_PLANS = [
       "Security patches",
       "Basic support",
     ],
+    fullFeatures: [
+      "Hosting & SSL included",
+      "Daily backups",
+      "24/7 uptime monitoring",
+      "Security patches & updates",
+      "Basic email support",
+    ],
   },
   {
     id: "growth",
@@ -138,6 +145,16 @@ const MONTHLY_PLANS = [
       "Local SEO optimisation",
       "Monthly performance report",
     ],
+    fullFeatures: [
+      "Hosting, SSL & daily backups",
+      "24/7 uptime monitoring",
+      "Security patches & updates",
+      "Google Business management",
+      "2 blog posts per month",
+      "Local SEO optimisation",
+      "Monthly performance report",
+      "Priority support",
+    ],
   },
   {
     id: "leadmachine",
@@ -150,6 +167,19 @@ const MONTHLY_PLANS = [
       "Content marketing",
       "Lead generation campaigns",
       "Quarterly strategy call",
+    ],
+    fullFeatures: [
+      "Hosting, SSL & daily backups",
+      "24/7 uptime monitoring",
+      "Security patches & updates",
+      "Google Business management",
+      "4 blog posts per month",
+      "Full SEO strategy & execution",
+      "Content marketing",
+      "Lead generation campaigns",
+      "Monthly performance report",
+      "Quarterly strategy call",
+      "Dedicated support",
     ],
   },
 ];
@@ -455,7 +485,7 @@ function PackageQuiz() {
                     <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed group-hover/plan:text-white/70 transition-colors duration-300 mb-5">{result.primary.monthly.description}</p>
                     <div className="h-px w-full mb-5 bg-zinc-100 dark:bg-zinc-800 group-hover/plan:bg-white/20 transition-colors duration-300" />
                     <ul className="space-y-2.5">
-                      {result.primary.monthly.features.map((f) => (
+                      {result.primary.monthly.fullFeatures.map((f) => (
                         <li key={f} className="flex items-start gap-2.5 text-sm">
                           <Check className="h-4 w-4 shrink-0 mt-0.5 text-coral-500 group-hover/plan:text-white/60 transition-colors duration-300" />
                           <span className="text-zinc-600 dark:text-zinc-300 group-hover/plan:text-white/90 transition-colors duration-300">{f}</span>
@@ -539,7 +569,7 @@ function PackageQuiz() {
                       <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed group-hover/monthly:text-white/70 transition-colors duration-300 mb-5">{result.primary.monthly.description}</p>
                       <div className="h-px w-full mb-5 bg-zinc-100 dark:bg-zinc-800 group-hover/monthly:bg-white/20 transition-colors duration-300" />
                       <ul className="space-y-2.5 flex-1">
-                        {result.primary.monthly.features.map((f) => (
+                        {result.primary.monthly.fullFeatures.map((f) => (
                           <li key={f} className="flex items-start gap-2.5 text-sm">
                             <Check className="h-4 w-4 shrink-0 mt-0.5 text-coral-500 group-hover/monthly:text-white/60 transition-colors duration-300" />
                             <span className="text-zinc-600 dark:text-zinc-300 group-hover/monthly:text-white/90 transition-colors duration-300">{f}</span>
