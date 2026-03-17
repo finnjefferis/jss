@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { NavHeader } from "../components/NavHeader";
 import { RevealSection } from "../components/RevealSection";
+import { ScrollArrow } from "../components/ScrollArrow";
 import {
   ArrowRight,
   BarChart3,
@@ -20,6 +21,7 @@ import {
   Layers,
   Shield,
 } from "lucide-react";
+import { TerminalTyping } from "../components/TerminalTyping";
 
 const SITE_URL = "https://www.jefferissoftware.co.uk";
 
@@ -269,48 +271,8 @@ export default function SoftwarePage() {
                       your-project
                     </span>
                   </div>
-                  {/* Code lines */}
-                  <div className="p-5 font-mono text-sm leading-relaxed">
-                    <p>
-                      <span className="text-pink-400">const</span>{" "}
-                      <span className="text-blue-300">dashboard</span>{" "}
-                      <span className="text-zinc-500">=</span>{" "}
-                      <span className="text-emerald-400">buildFor</span>
-                      <span className="text-zinc-400">(</span>
-                      <span className="text-amber-300">&apos;your-business&apos;</span>
-                      <span className="text-zinc-400">)</span>
-                    </p>
-                    <p className="mt-1.5 text-zinc-600">
-                      {"// "}No templates. No compromises.
-                    </p>
-                    <p className="mt-3">
-                      <span className="text-pink-400">await</span>{" "}
-                      <span className="text-blue-300">dashboard</span>
-                      <span className="text-zinc-400">.</span>
-                      <span className="text-emerald-400">connect</span>
-                      <span className="text-zinc-400">(</span>
-                      <span className="text-amber-300">&apos;your-crm&apos;</span>
-                      <span className="text-zinc-400">)</span>
-                    </p>
-                    <p className="mt-1.5">
-                      <span className="text-pink-400">await</span>{" "}
-                      <span className="text-blue-300">dashboard</span>
-                      <span className="text-zinc-400">.</span>
-                      <span className="text-emerald-400">automate</span>
-                      <span className="text-zinc-400">(</span>
-                      <span className="text-amber-300">&apos;the-boring-stuff&apos;</span>
-                      <span className="text-zinc-400">)</span>
-                    </p>
-                    <p className="mt-3">
-                      <span className="text-emerald-400">console</span>
-                      <span className="text-zinc-400">.</span>
-                      <span className="text-emerald-400">log</span>
-                      <span className="text-zinc-400">(</span>
-                      <span className="text-amber-300">&apos;Hours saved: ∞&apos;</span>
-                      <span className="text-zinc-400">)</span>{" "}
-                      <span className="text-zinc-600">{"// "}practically</span>
-                    </p>
-                  </div>
+                  {/* Code lines — animated typing */}
+                  <TerminalTyping />
                 </div>
 
                 {/* Floating cards */}
@@ -344,10 +306,11 @@ export default function SoftwarePage() {
               </div>
             </div>
           </div>
+          <ScrollArrow target="capabilities" />
         </RevealSection>
 
         {/* Capabilities */}
-        <RevealSection className="py-16 md:py-24 border-t border-zinc-100 dark:border-zinc-900">
+        <RevealSection id="capabilities" className="py-16 md:py-24 border-t border-zinc-100 dark:border-zinc-900">
           <div className="mx-auto max-w-6xl px-5 md:px-8">
             <div className="text-center mb-14">
               <p data-reveal style={{ "--d": 0 } as React.CSSProperties} className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400">

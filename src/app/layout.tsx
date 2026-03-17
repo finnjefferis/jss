@@ -129,14 +129,14 @@ const jsonLd = [
     image: `${SITE_URL}/jsslogo.png`,
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Chichester",
+      addressLocality: "Worthing",
       addressRegion: "West Sussex",
       addressCountry: "GB",
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: 50.8365,
-      longitude: -0.7792,
+      latitude: 50.8146,
+      longitude: -0.3714,
     },
     areaServed: {
       "@type": "Country",

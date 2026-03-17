@@ -113,6 +113,49 @@ html.dark body::before {
   transform: scale(1);
 }
 
+/* ─── Coral button shimmer + glow (sitewide) ─── */
+a.btn-coral,
+button.btn-coral,
+:is(a, button)[class*="bg-coral-600"][class*="text-white"] {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+a.btn-coral::before,
+button.btn-coral::before,
+:is(a, button)[class*="bg-coral-600"][class*="text-white"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.3) 45%,
+    rgba(255, 255, 255, 0.3) 55%,
+    transparent 65%
+  );
+  translate: -100% 0;
+  transition: translate 0s 0.35s;
+  z-index: 1;
+  pointer-events: none;
+}
+
+a.btn-coral:hover::before,
+button.btn-coral:hover::before,
+:is(a, button)[class*="bg-coral-600"][class*="text-white"]:hover::before {
+  translate: 100% 0;
+  transition: translate 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+a.btn-coral:hover,
+button.btn-coral:hover,
+:is(a, button)[class*="bg-coral-600"][class*="text-white"]:hover {
+  box-shadow:
+    0 0 20px rgba(249, 93, 79, 0.35),
+    0 0 40px rgba(249, 93, 79, 0.15);
+}
+
 /* Hero card drop-in (desktop) */
 @keyframes hero-card-drop {
   from {

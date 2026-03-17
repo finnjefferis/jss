@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
   Globe,
   Search,
@@ -24,12 +24,41 @@ import {
 
 type Stage = "site" | "seo" | "marketing" | "monitoring" | "software" | string | null;
 
+/** Returns true once a stage has been active for a brief moment (lets the fade-in start before children animate). */
+function useStageReady(stage: Stage, target: string) {
+  const [ready, setReady] = useState(false);
+  const prevActive = useRef(false);
+
+  useEffect(() => {
+    const isActive = stage === target;
+
+    if (isActive && !prevActive.current) {
+      // Stage just became active — delay slightly so the container fade-in starts first
+      const t = setTimeout(() => setReady(true), 80);
+      prevActive.current = true;
+      return () => clearTimeout(t);
+    }
+    if (!isActive && prevActive.current) {
+      setReady(false);
+      prevActive.current = false;
+    }
+  }, [stage, target]);
+
+  return ready;
+}
+
 export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; children?: React.ReactNode }) {
   const prevStageRef = useRef<Stage>(null);
 
   if (prevStageRef.current !== stage) {
     prevStageRef.current = stage;
   }
+
+  const siteReady = useStageReady(stage, "site");
+  const seoReady = useStageReady(stage, "seo");
+  const marketingReady = useStageReady(stage, "marketing");
+  const monitoringReady = useStageReady(stage, "monitoring");
+  const softwareReady = useStageReady(stage, "software");
 
   const urlMap: Record<string, string> = {
     site: "yourbusiness.co.uk",
@@ -90,7 +119,10 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
             style={{ opacity: stage === "site" ? 1 : 0, pointerEvents: stage === "site" ? "auto" : "none" }}
           >
             {/* Nav */}
-            <div className="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800">
+            <div
+              className="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800 transition-all duration-500"
+              style={{ opacity: siteReady ? 1 : 0, transform: siteReady ? "translateY(0)" : "translateY(-8px)" }}
+            >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5">
                   <div className="h-4 w-4 rounded bg-coral-600" />
@@ -104,7 +136,10 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
 
             <div className="p-3">
               {/* Hero section */}
-              <div className="bg-gradient-to-br from-coral-50 dark:from-coral-950/40 to-pink-50 dark:to-pink-950/40 rounded-xl p-4 mb-2.5">
+              <div
+                className="bg-gradient-to-br from-coral-50 dark:from-coral-950/40 to-pink-50 dark:to-pink-950/40 rounded-xl p-4 mb-2.5 transition-all duration-500"
+                style={{ opacity: siteReady ? 1 : 0, transform: siteReady ? "translateY(0)" : "translateY(12px)", transitionDelay: "100ms" }}
+              >
                 <div className="space-y-1.5 mb-2.5">
                   <div className="h-2.5 w-3/4 rounded bg-zinc-800 dark:bg-zinc-200" />
                   <div className="h-2.5 w-1/2 rounded bg-coral-600" />
@@ -124,8 +159,12 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
                   { icon: Activity, label: "Fast", color: "text-coral-500" },
                   { icon: Layers, label: "Modern", color: "text-pink-500" },
                   { icon: TrendingUp, label: "Converts", color: "text-emerald-500" },
-                ].map((item) => (
-                  <div key={item.label} className="rounded-lg bg-zinc-50 dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 p-2 text-center">
+                ].map((item, i) => (
+                  <div
+                    key={item.label}
+                    className="rounded-lg bg-zinc-50 dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 p-2 text-center transition-all duration-500"
+                    style={{ opacity: siteReady ? 1 : 0, transform: siteReady ? "translateY(0) scale(1)" : "translateY(10px) scale(0.95)", transitionDelay: `${250 + i * 80}ms` }}
+                  >
                     <item.icon className={`h-4 w-4 mx-auto mb-1 ${item.color}`} />
                     <div className="text-[7px] font-bold text-zinc-600 dark:text-zinc-300">{item.label}</div>
                   </div>
@@ -133,7 +172,10 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
               </div>
 
               {/* Testimonial */}
-              <div className="rounded-lg bg-zinc-50 dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 p-2.5">
+              <div
+                className="rounded-lg bg-zinc-50 dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 p-2.5 transition-all duration-500"
+                style={{ opacity: siteReady ? 1 : 0, transform: siteReady ? "translateY(0)" : "translateY(10px)", transitionDelay: "500ms" }}
+              >
                 <div className="flex items-center gap-2 mb-1">
                   <div className="h-5 w-5 rounded-full bg-coral-100 dark:bg-coral-900" />
                   <div className="flex gap-[2px]">
@@ -150,7 +192,10 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
             </div>
 
             {/* Performance badge */}
-            <div className="absolute bottom-3 left-3 right-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 p-3">
+            <div
+              className="absolute bottom-3 left-3 right-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 p-3 transition-all duration-600"
+              style={{ opacity: siteReady ? 1 : 0, transform: siteReady ? "translateY(0) scale(1)" : "translateY(16px) scale(0.96)", transitionDelay: "650ms" }}
+            >
               <div className="flex items-center gap-2 mb-2">
                 <TrendingUp className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                 <p className="text-[10px] font-bold text-emerald-700 dark:text-emerald-300">Performance</p>
@@ -178,7 +223,10 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
             style={{ opacity: stage === "seo" ? 1 : 0, pointerEvents: stage === "seo" ? "auto" : "none" }}
           >
             {/* Google-style search bar */}
-            <div className="px-3 pt-3 pb-2">
+            <div
+              className="px-3 pt-3 pb-2 transition-all duration-500"
+              style={{ opacity: seoReady ? 1 : 0, transform: seoReady ? "translateY(0)" : "translateY(-8px)" }}
+            >
               <div className="flex items-center gap-2 px-3 py-2 rounded-full border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800">
                 <Search className="h-3 w-3 text-zinc-400 shrink-0" />
                 <span className="text-[9px] text-zinc-700 dark:text-zinc-300 font-medium">plumber near me</span>
@@ -192,7 +240,10 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
 
             <div className="px-3 space-y-2.5">
               {/* #1 Result - YOUR SITE (highlighted) */}
-              <div className="rounded-lg bg-coral-50/60 dark:bg-coral-950/30 border border-coral-200 dark:border-coral-800 p-2.5">
+              <div
+                className="rounded-lg bg-coral-50/60 dark:bg-coral-950/30 border border-coral-200 dark:border-coral-800 p-2.5 transition-all duration-500"
+                style={{ opacity: seoReady ? 1 : 0, transform: seoReady ? "translateX(0)" : "translateX(-16px)", transitionDelay: "200ms" }}
+              >
                 <div className="flex items-center gap-1.5 mb-1">
                   <div className="h-3.5 w-3.5 rounded bg-coral-600 flex items-center justify-center">
                     <span className="text-[6px] text-white font-bold">Y</span>
@@ -212,7 +263,10 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
               </div>
 
               {/* #2 Result */}
-              <div className="rounded-lg p-2.5 opacity-50">
+              <div
+                className="rounded-lg p-2.5 transition-all duration-500"
+                style={{ opacity: seoReady ? 0.5 : 0, transform: seoReady ? "translateX(0)" : "translateX(-12px)", transitionDelay: "350ms" }}
+              >
                 <div className="flex items-center gap-1.5 mb-1">
                   <div className="h-3.5 w-3.5 rounded bg-zinc-300 dark:bg-zinc-600" />
                   <span className="text-[8px] text-zinc-400">competitor-one.com</span>
@@ -222,7 +276,10 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
               </div>
 
               {/* #3 Result */}
-              <div className="rounded-lg p-2.5 opacity-30">
+              <div
+                className="rounded-lg p-2.5 transition-all duration-500"
+                style={{ opacity: seoReady ? 0.3 : 0, transform: seoReady ? "translateX(0)" : "translateX(-12px)", transitionDelay: "450ms" }}
+              >
                 <div className="flex items-center gap-1.5 mb-1">
                   <div className="h-3.5 w-3.5 rounded bg-zinc-300 dark:bg-zinc-600" />
                   <span className="text-[8px] text-zinc-400">another-plumber.co.uk</span>
@@ -233,7 +290,10 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
             </div>
 
             {/* Rankings badge */}
-            <div className="absolute bottom-3 left-3 right-3 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 p-3">
+            <div
+              className="absolute bottom-3 left-3 right-3 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 p-3 transition-all duration-600"
+              style={{ opacity: seoReady ? 1 : 0, transform: seoReady ? "translateY(0) scale(1)" : "translateY(16px) scale(0.96)", transitionDelay: "600ms" }}
+            >
               <div className="flex items-center gap-2 mb-2">
                 <ArrowUp className="h-4 w-4 text-blue-600 dark:text-blue-400 shrink-0" />
                 <p className="text-[10px] font-bold text-blue-700 dark:text-blue-300">Ranking improvements</p>
@@ -261,7 +321,10 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
             style={{ opacity: stage === "marketing" ? 1 : 0, pointerEvents: stage === "marketing" ? "auto" : "none" }}
           >
             {/* Dashboard header */}
-            <div className="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800">
+            <div
+              className="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800 transition-all duration-500"
+              style={{ opacity: marketingReady ? 1 : 0, transform: marketingReady ? "translateY(0)" : "translateY(-8px)" }}
+            >
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-bold text-zinc-800 dark:text-zinc-200">Campaign Dashboard</span>
                 <div className="flex items-center gap-1.5">
@@ -273,18 +336,24 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
 
             <div className="p-3 space-y-2">
               {/* Engagement chart mockup */}
-              <div className="rounded-lg bg-white dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 p-2.5">
+              <div
+                className="rounded-lg bg-white dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 p-2.5 transition-all duration-500"
+                style={{ opacity: marketingReady ? 1 : 0, transform: marketingReady ? "translateY(0)" : "translateY(10px)", transitionDelay: "100ms" }}
+              >
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-[8px] font-bold text-zinc-600 dark:text-zinc-300">Reach & Engagement</span>
                   <span className="text-[7px] text-emerald-500 font-bold">+67% this week</span>
                 </div>
-                {/* Mini bar chart */}
+                {/* Mini bar chart — bars grow from bottom */}
                 <div className="flex items-end gap-[3px] h-12">
                   {[35, 45, 30, 55, 40, 70, 85, 60, 75, 90, 65, 95].map((h, i) => (
                     <div
                       key={i}
-                      className={`flex-1 rounded-t-sm ${i >= 9 ? "bg-coral-500" : "bg-coral-200 dark:bg-coral-800"}`}
-                      style={{ height: `${h}%` }}
+                      className={`flex-1 rounded-t-sm transition-all duration-700 ease-out ${i >= 9 ? "bg-coral-500" : "bg-coral-200 dark:bg-coral-800"}`}
+                      style={{
+                        height: marketingReady ? `${h}%` : "0%",
+                        transitionDelay: `${250 + i * 50}ms`,
+                      }}
                     />
                   ))}
                 </div>
@@ -292,26 +361,30 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
 
               {/* Platform stats */}
               <div className="grid grid-cols-2 gap-1.5">
-                <div className="rounded-lg bg-white dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 p-2">
-                  <div className="flex items-center gap-1.5 mb-1.5">
-                    <Share2 className="h-3 w-3 text-blue-500" />
-                    <span className="text-[7px] font-bold text-zinc-500">Social</span>
+                {[
+                  { icon: Share2, iconColor: "text-blue-500", label: "Social", value: "12.4k", sub: "+23% reach" },
+                  { icon: Eye, iconColor: "text-purple-500", label: "Impressions", value: "48.2k", sub: "+41% monthly" },
+                ].map((stat, i) => (
+                  <div
+                    key={stat.label}
+                    className="rounded-lg bg-white dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 p-2 transition-all duration-500"
+                    style={{ opacity: marketingReady ? 1 : 0, transform: marketingReady ? "translateY(0) scale(1)" : "translateY(10px) scale(0.95)", transitionDelay: `${500 + i * 100}ms` }}
+                  >
+                    <div className="flex items-center gap-1.5 mb-1.5">
+                      <stat.icon className={`h-3 w-3 ${stat.iconColor}`} />
+                      <span className="text-[7px] font-bold text-zinc-500">{stat.label}</span>
+                    </div>
+                    <p className="text-[12px] font-bold text-zinc-800 dark:text-zinc-200">{stat.value}</p>
+                    <p className="text-[7px] text-emerald-500 font-medium">{stat.sub}</p>
                   </div>
-                  <p className="text-[12px] font-bold text-zinc-800 dark:text-zinc-200">12.4k</p>
-                  <p className="text-[7px] text-emerald-500 font-medium">+23% reach</p>
-                </div>
-                <div className="rounded-lg bg-white dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 p-2">
-                  <div className="flex items-center gap-1.5 mb-1.5">
-                    <Eye className="h-3 w-3 text-purple-500" />
-                    <span className="text-[7px] font-bold text-zinc-500">Impressions</span>
-                  </div>
-                  <p className="text-[12px] font-bold text-zinc-800 dark:text-zinc-200">48.2k</p>
-                  <p className="text-[7px] text-emerald-500 font-medium">+41% monthly</p>
-                </div>
+                ))}
               </div>
 
               {/* Engagement metrics */}
-              <div className="rounded-lg bg-white dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 p-2.5">
+              <div
+                className="rounded-lg bg-white dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 p-2.5 transition-all duration-500"
+                style={{ opacity: marketingReady ? 1 : 0, transform: marketingReady ? "translateY(0)" : "translateY(10px)", transitionDelay: "750ms" }}
+              >
                 <span className="text-[8px] font-bold text-zinc-600 dark:text-zinc-300 mb-2 block">Top performing content</span>
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
@@ -357,7 +430,10 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
             </div>
 
             {/* ROI badge */}
-            <div className="absolute bottom-3 left-3 right-3 rounded-xl bg-purple-50 dark:bg-purple-950/50 border border-purple-200 dark:border-purple-800 p-3">
+            <div
+              className="absolute bottom-3 left-3 right-3 rounded-xl bg-purple-50 dark:bg-purple-950/50 border border-purple-200 dark:border-purple-800 p-3 transition-all duration-600"
+              style={{ opacity: marketingReady ? 1 : 0, transform: marketingReady ? "translateY(0) scale(1)" : "translateY(16px) scale(0.96)", transitionDelay: "900ms" }}
+            >
               <div className="flex items-center gap-2 mb-2">
                 <BarChart3 className="h-4 w-4 text-purple-600 dark:text-purple-400 shrink-0" />
                 <p className="text-[10px] font-bold text-purple-700 dark:text-purple-300">Campaign ROI</p>
@@ -385,7 +461,10 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
             style={{ opacity: stage === "monitoring" ? 1 : 0, pointerEvents: stage === "monitoring" ? "auto" : "none" }}
           >
             {/* Dashboard header */}
-            <div className="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800">
+            <div
+              className="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800 transition-all duration-500"
+              style={{ opacity: monitoringReady ? 1 : 0, transform: monitoringReady ? "translateY(0)" : "translateY(-8px)" }}
+            >
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-bold text-zinc-800 dark:text-zinc-200">Status Monitor</span>
                 <div className="flex items-center gap-1.5">
@@ -397,21 +476,31 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
 
             <div className="p-3 space-y-2">
               {/* Uptime header */}
-              <div className="rounded-lg bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 p-2.5 text-center">
+              <div
+                className="rounded-lg bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 p-2.5 text-center transition-all duration-500"
+                style={{ opacity: monitoringReady ? 1 : 0, transform: monitoringReady ? "scale(1)" : "scale(0.9)", transitionDelay: "100ms" }}
+              >
                 <CheckCircle2 className="h-5 w-5 text-emerald-500 mx-auto mb-1" />
                 <p className="text-[11px] font-bold text-emerald-700 dark:text-emerald-300">All Systems Operational</p>
                 <p className="text-[8px] text-emerald-600/70 mt-0.5">Last checked 12s ago</p>
               </div>
 
               {/* Service statuses */}
-              <div className="rounded-lg bg-white dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 p-2.5 space-y-2">
+              <div
+                className="rounded-lg bg-white dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 p-2.5 space-y-2 transition-all duration-500"
+                style={{ opacity: monitoringReady ? 1 : 0, transform: monitoringReady ? "translateY(0)" : "translateY(10px)", transitionDelay: "250ms" }}
+              >
                 {[
                   { name: "Website", status: "Operational", ms: "142ms", ok: true },
                   { name: "API", status: "Operational", ms: "89ms", ok: true },
                   { name: "Database", status: "Operational", ms: "23ms", ok: true },
                   { name: "CDN", status: "Operational", ms: "12ms", ok: true },
-                ].map((service) => (
-                  <div key={service.name} className="flex items-center justify-between">
+                ].map((service, i) => (
+                  <div
+                    key={service.name}
+                    className="flex items-center justify-between transition-all duration-400"
+                    style={{ opacity: monitoringReady ? 1 : 0, transform: monitoringReady ? "translateX(0)" : "translateX(-8px)", transitionDelay: `${350 + i * 80}ms` }}
+                  >
                     <div className="flex items-center gap-1.5">
                       <div className={`h-1.5 w-1.5 rounded-full ${service.ok ? "bg-emerald-400" : "bg-red-400"}`} />
                       <span className="text-[9px] font-medium text-zinc-700 dark:text-zinc-300">{service.name}</span>
@@ -427,7 +516,10 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
               </div>
 
               {/* Uptime bars */}
-              <div className="rounded-lg bg-white dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 p-2.5">
+              <div
+                className="rounded-lg bg-white dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 p-2.5 transition-all duration-500"
+                style={{ opacity: monitoringReady ? 1 : 0, transform: monitoringReady ? "translateY(0)" : "translateY(10px)", transitionDelay: "600ms" }}
+              >
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-[8px] font-bold text-zinc-600 dark:text-zinc-300">90-day uptime</span>
                   <span className="text-[8px] font-bold text-emerald-500">99.98%</span>
@@ -436,7 +528,11 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
                   {[...Array(30)].map((_, i) => (
                     <div
                       key={i}
-                      className={`flex-1 h-4 rounded-[1px] ${i === 18 ? "bg-amber-400" : "bg-emerald-400"}`}
+                      className={`flex-1 rounded-[1px] transition-all duration-500 ease-out ${i === 18 ? "bg-amber-400" : "bg-emerald-400"}`}
+                      style={{
+                        height: monitoringReady ? "16px" : "0px",
+                        transitionDelay: `${700 + i * 25}ms`,
+                      }}
                     />
                   ))}
                 </div>
@@ -448,7 +544,10 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
             </div>
 
             {/* Alerts badge */}
-            <div className="absolute bottom-3 left-3 right-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 p-3">
+            <div
+              className="absolute bottom-3 left-3 right-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 p-3 transition-all duration-600"
+              style={{ opacity: monitoringReady ? 1 : 0, transform: monitoringReady ? "translateY(0) scale(1)" : "translateY(16px) scale(0.96)", transitionDelay: "900ms" }}
+            >
               <div className="flex items-center gap-2 mb-2">
                 <Activity className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                 <p className="text-[10px] font-bold text-emerald-700 dark:text-emerald-300">Monitoring stats</p>
@@ -476,7 +575,10 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
             style={{ opacity: stage === "software" ? 1 : 0, pointerEvents: stage === "software" ? "auto" : "none" }}
           >
             {/* App header */}
-            <div className="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800">
+            <div
+              className="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800 transition-all duration-500"
+              style={{ opacity: softwareReady ? 1 : 0, transform: softwareReady ? "translateY(0)" : "translateY(-8px)" }}
+            >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5">
                   <Code2 className="h-3.5 w-3.5 text-coral-600" />
@@ -491,20 +593,27 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
             <div className="p-3 space-y-2">
               {/* Dashboard overview */}
               <div className="grid grid-cols-2 gap-1.5">
-                <div className="rounded-lg bg-gradient-to-br from-coral-500 to-pink-600 p-2.5 text-white">
-                  <Cpu className="h-3.5 w-3.5 mb-1 opacity-80" />
-                  <p className="text-[12px] font-bold">1,247</p>
-                  <p className="text-[7px] opacity-70">Active users</p>
-                </div>
-                <div className="rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 p-2.5 text-white">
-                  <Database className="h-3.5 w-3.5 mb-1 opacity-80" />
-                  <p className="text-[12px] font-bold">98.4%</p>
-                  <p className="text-[7px] opacity-70">Efficiency</p>
-                </div>
+                {[
+                  { icon: Cpu, gradient: "from-coral-500 to-pink-600", value: "1,247", label: "Active users" },
+                  { icon: Database, gradient: "from-blue-500 to-indigo-600", value: "98.4%", label: "Efficiency" },
+                ].map((card, i) => (
+                  <div
+                    key={card.label}
+                    className={`rounded-lg bg-gradient-to-br ${card.gradient} p-2.5 text-white transition-all duration-500`}
+                    style={{ opacity: softwareReady ? 1 : 0, transform: softwareReady ? "translateY(0) scale(1)" : "translateY(12px) scale(0.92)", transitionDelay: `${100 + i * 120}ms` }}
+                  >
+                    <card.icon className="h-3.5 w-3.5 mb-1 opacity-80" />
+                    <p className="text-[12px] font-bold">{card.value}</p>
+                    <p className="text-[7px] opacity-70">{card.label}</p>
+                  </div>
+                ))}
               </div>
 
               {/* Data table */}
-              <div className="rounded-lg bg-white dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 p-2.5">
+              <div
+                className="rounded-lg bg-white dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 p-2.5 transition-all duration-500"
+                style={{ opacity: softwareReady ? 1 : 0, transform: softwareReady ? "translateY(0)" : "translateY(10px)", transitionDelay: "350ms" }}
+              >
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-[8px] font-bold text-zinc-600 dark:text-zinc-300">Recent Activity</span>
                   <span className="text-[7px] text-coral-500 font-medium">View all</span>
@@ -515,8 +624,12 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
                     { action: "New user registered", time: "5m ago", color: "bg-blue-400" },
                     { action: "Report generated", time: "12m ago", color: "bg-purple-400" },
                     { action: "Payment received", time: "18m ago", color: "bg-amber-400" },
-                  ].map((item) => (
-                    <div key={item.action} className="flex items-center justify-between">
+                  ].map((item, i) => (
+                    <div
+                      key={item.action}
+                      className="flex items-center justify-between transition-all duration-400"
+                      style={{ opacity: softwareReady ? 1 : 0, transform: softwareReady ? "translateX(0)" : "translateX(-8px)", transitionDelay: `${450 + i * 70}ms` }}
+                    >
                       <div className="flex items-center gap-1.5">
                         <div className={`h-1.5 w-1.5 rounded-full ${item.color}`} />
                         <span className="text-[8px] text-zinc-600 dark:text-zinc-400">{item.action}</span>
@@ -528,11 +641,18 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
               </div>
 
               {/* Workflow visual */}
-              <div className="rounded-lg bg-white dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 p-2.5">
+              <div
+                className="rounded-lg bg-white dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 p-2.5 transition-all duration-500"
+                style={{ opacity: softwareReady ? 1 : 0, transform: softwareReady ? "translateY(0)" : "translateY(10px)", transitionDelay: "750ms" }}
+              >
                 <span className="text-[8px] font-bold text-zinc-600 dark:text-zinc-300 mb-2 block">Workflow</span>
                 <div className="flex items-center justify-between">
                   {["Input", "Process", "Output"].map((step, i) => (
-                    <div key={step} className="flex items-center gap-1">
+                    <div
+                      key={step}
+                      className="flex items-center gap-1 transition-all duration-500"
+                      style={{ opacity: softwareReady ? 1 : 0, transform: softwareReady ? "scale(1)" : "scale(0.8)", transitionDelay: `${850 + i * 100}ms` }}
+                    >
                       <div className={`h-6 w-12 rounded flex items-center justify-center text-[6px] font-bold text-white ${
                         i === 0 ? "bg-coral-500" : i === 1 ? "bg-blue-500" : "bg-emerald-500"
                       }`}>
@@ -546,7 +666,10 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
             </div>
 
             {/* Built for you badge */}
-            <div className="absolute bottom-3 left-3 right-3 rounded-xl bg-coral-50 dark:bg-coral-950/50 border border-coral-200 dark:border-coral-800 p-3">
+            <div
+              className="absolute bottom-3 left-3 right-3 rounded-xl bg-coral-50 dark:bg-coral-950/50 border border-coral-200 dark:border-coral-800 p-3 transition-all duration-600"
+              style={{ opacity: softwareReady ? 1 : 0, transform: softwareReady ? "translateY(0) scale(1)" : "translateY(16px) scale(0.96)", transitionDelay: "1000ms" }}
+            >
               <div className="flex items-center gap-2 mb-2">
                 <Code2 className="h-4 w-4 text-coral-600 dark:text-coral-400 shrink-0" />
                 <p className="text-[10px] font-bold text-coral-700 dark:text-coral-300">Built for your business</p>
