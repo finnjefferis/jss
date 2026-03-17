@@ -7,6 +7,7 @@ import { ScrollArrow } from "../components/ScrollArrow";
 import {
   ArrowRight,
   BarChart3,
+  Check,
   Cpu,
   Zap,
   Database,
@@ -19,6 +20,7 @@ import {
   Calendar,
   Code2,
   Layers,
+  PoundSterling,
   Shield,
 } from "lucide-react";
 import { TerminalTyping } from "../components/TerminalTyping";
@@ -563,16 +565,16 @@ export default function SoftwarePage() {
                 <div className="hidden lg:flex justify-center">
                   <div className="grid grid-cols-2 gap-3 max-w-xs">
                     {[
-                      { label: "Fixed pricing", icon: "£" },
-                      { label: "Ongoing support", icon: "↻" },
-                      { label: "Full documentation", icon: "📄" },
-                      { label: "Your code, your IP", icon: "✓" },
+                      { label: "Fixed pricing", Icon: PoundSterling },
+                      { label: "Ongoing support", Icon: RefreshCw },
+                      { label: "Full documentation", Icon: FileText },
+                      { label: "Your code, your IP", Icon: Check },
                     ].map((item) => (
                       <div
                         key={item.label}
                         className="rounded-xl bg-white/10 border border-white/10 p-4 text-center"
                       >
-                        <p className="text-2xl mb-1">{item.icon}</p>
+                        <item.Icon className="h-6 w-6 text-white mx-auto mb-1" />
                         <p className="text-xs font-semibold text-white/90">
                           {item.label}
                         </p>

@@ -8,11 +8,14 @@ import {
   BarChart3,
   Brain,
   Calendar,
+  Check,
   Eye,
   Layers,
   LineChart,
   MessageSquare,
   MousePointerClick,
+  Phone,
+  PoundSterling,
   Rocket,
   Sparkles,
   Target,
@@ -525,16 +528,16 @@ export default function AdsPage() {
                 <div className="hidden lg:flex justify-center">
                   <div className="grid grid-cols-2 gap-3 max-w-xs">
                     {[
-                      { label: "No lock-in contracts", icon: "✓" },
-                      { label: "Transparent spend", icon: "£" },
-                      { label: "AI-powered copy", icon: "🧠" },
-                      { label: "Real leads, not clicks", icon: "📞" },
+                      { label: "No lock-in contracts", Icon: Check },
+                      { label: "Transparent spend", Icon: PoundSterling },
+                      { label: "AI-powered copy", Icon: Brain },
+                      { label: "Real leads, not clicks", Icon: Phone },
                     ].map((item) => (
                       <div
                         key={item.label}
                         className="rounded-xl bg-white/10 border border-white/10 p-4 text-center"
                       >
-                        <p className="text-2xl mb-1">{item.icon}</p>
+                        <item.Icon className="h-6 w-6 text-white mx-auto mb-1" />
                         <p className="text-xs font-semibold text-white/90">
                           {item.label}
                         </p>
