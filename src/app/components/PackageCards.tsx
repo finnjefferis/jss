@@ -254,9 +254,9 @@ export function MonthlyPlanGrid({ plans }: { plans: PlanData[] }) {
   const focus = useMobileFocusGroup(plans.length);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:items-stretch">
       {plans.map((plan, i) => (
-        <div key={plan.name} ref={focus.setRef(i)}>
+        <div key={plan.name} ref={focus.setRef(i)} className="flex">
           <MonthlyPlanCard plan={plan} mobileFocused={focus.activeIndex === i} />
         </div>
       ))}
@@ -279,7 +279,7 @@ function MonthlyPlanCard({
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className={`rounded-2xl border p-6 transition-all duration-300 cursor-default flex flex-col ${
+      className={`rounded-2xl border p-6 transition-all duration-300 cursor-default flex flex-col w-full ${
         active
           ? "bg-coral-600 border-coral-600 shadow-lg -translate-y-1"
           : "border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900"

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1584">
+<title>JSS LinkedIn Banner</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1584px;
+    height: 396px;
+    overflow: hidden;
+    background: #0c0a09;
+    font-family: 'Sora', sans-serif;
+  }
+
+  .banner {
+    position: relative;
+    width: 1584px;
+    height: 396px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    overflow: hidden;
+  }
+
+  /* Subtle grain texture */
+  .banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-size: 128px 128px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Soft coral glow behind logo area */
+  .glow {
+    position: absolute;
+    width: 600px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(249, 93, 79, 0.08) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .logo-img {
+    width: 72px;
+    height: 80px;
+    object-fit: contain;
+    filter: invert(1);
+    flex-shrink: 0;
+  }
+
+  .dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #F95D4F;
+    flex-shrink: 0;
+    box-shadow: 0 0 20px rgba(249, 93, 79, 0.4);
+  }
+
+  .text {
+    font-size: 42px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: #fafaf9;
+    white-space: nowrap;
+  }
+
+  /* Subtle corner accents */
+  .corner {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    z-index: 2;
+    opacity: 0.08;
+  }
+  .corner-tl {
+    top: 32px;
+    left: 40px;
+    border-top: 2px solid #F95D4F;
+    border-left: 2px solid #F95D4F;
+  }
+  .corner-br {
+    bottom: 32px;
+    right: 40px;
+    border-bottom: 2px solid #F95D4F;
+    border-right: 2px solid #F95D4F;
+  }
+
+  /* Thin bottom accent line */
+  .accent-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent 10%, #F95D4F 40%, #FB923C 60%, transparent 90%);
+    opacity: 0.6;
+    z-index: 2;
+  }
+</style>
+</head>
+<body>
+  <div class="banner">
+    <div class="glow"></div>
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-br"></div>
+
+    <div class="content">
+      <img src="jsslogo.png" alt="JSS" class="logo-img" onerror="this.src='public/jsslogo.png'">
+      <span class="dot"></span>
+      <span class="text">Jefferis Software Solutions</span>
+    </div>
+
+    <div class="accent-line"></div>
+  </div>
+</body>
+</html>

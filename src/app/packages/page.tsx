@@ -92,7 +92,7 @@ const MONTHLY_PLANS = [
     features: [
       "Hosting & SSL",
       "Daily backups",
-      "Uptime monitoring",
+      "Website monitoring & updates",
       "Security patches",
       "Basic support",
     ],
@@ -104,10 +104,10 @@ const MONTHLY_PLANS = [
       "We actively grow your online presence so customers find you first.",
     features: [
       "Everything in Hosting",
-      "Google Business management",
-      "2 blog posts per month",
-      "Local SEO optimisation",
-      "Monthly performance report",
+      "Full Google Business management",
+      "2 SEO-optimised blog posts per month",
+      "2-weekly SEO report",
+      "AI-optimised ads",
     ],
   },
   {
@@ -117,6 +117,7 @@ const MONTHLY_PLANS = [
       "Full marketing engine. We bring the leads, you close the deals.",
     features: [
       "Everything in Growth",
+      "Weekly SEO report",
       "Full SEO strategy",
       "Content marketing",
       "Lead generation campaigns",

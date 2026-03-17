@@ -121,14 +121,14 @@ const MONTHLY_PLANS = [
     features: [
       "Hosting & SSL",
       "Daily backups",
-      "Uptime monitoring",
+      "Website monitoring & updates",
       "Security patches",
       "Basic support",
     ],
     fullFeatures: [
       "Hosting & SSL included",
       "Daily backups",
-      "24/7 uptime monitoring",
+      "Website monitoring & updates",
       "Security patches & updates",
       "Basic email support",
     ],
@@ -140,19 +140,19 @@ const MONTHLY_PLANS = [
     description: "We actively grow your online presence so customers find you first.",
     features: [
       "Everything in Hosting",
-      "Google Business management",
-      "2 blog posts per month",
-      "Local SEO optimisation",
-      "Monthly performance report",
+      "Full Google Business management",
+      "2 SEO-optimised blog posts per month",
+      "2-weekly SEO report",
+      "AI-optimised ads",
     ],
     fullFeatures: [
       "Hosting, SSL & daily backups",
-      "24/7 uptime monitoring",
+      "Website monitoring & updates",
       "Security patches & updates",
-      "Google Business management",
-      "2 blog posts per month",
-      "Local SEO optimisation",
-      "Monthly performance report",
+      "Full Google Business management",
+      "2 SEO-optimised blog posts per month",
+      "2-weekly SEO report",
+      "AI-optimised ads",
       "Priority support",
     ],
   },
@@ -163,6 +163,7 @@ const MONTHLY_PLANS = [
     description: "Full marketing engine. We bring the leads, you close the deals.",
     features: [
       "Everything in Growth",
+      "Weekly SEO report",
       "Full SEO strategy",
       "Content marketing",
       "Lead generation campaigns",
@@ -172,12 +173,13 @@ const MONTHLY_PLANS = [
       "Hosting, SSL & daily backups",
       "24/7 uptime monitoring",
       "Security patches & updates",
-      "Google Business management",
+      "Website monitoring & updates",
+      "Full Google Business management",
       "4 blog posts per month",
       "Full SEO strategy & execution",
+      "Weekly SEO report",
       "Content marketing",
       "Lead generation campaigns",
-      "Monthly performance report",
       "Quarterly strategy call",
       "Dedicated support",
     ],
@@ -875,7 +877,7 @@ function MonthlyPlanCard({ plan, mobileFocused = false }: { plan: typeof MONTHLY
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className={`rounded-2xl border p-6 transition-all duration-300 cursor-default card-hover-lift flex flex-col ${
+      className={`rounded-2xl border p-6 transition-all duration-300 cursor-default card-hover-lift flex flex-col w-full ${
         active
           ? "bg-coral-600 border-coral-600 shadow-lg -translate-y-1"
           : "border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900"
@@ -932,9 +934,9 @@ function FullMenu({ className = "mt-16", label }: { className?: string; label?: 
           <p className="text-xs font-bold uppercase tracking-[0.15em] text-zinc-500 mb-4">
             Monthly plans
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 md:items-stretch">
             {MONTHLY_PLANS.map((plan, i) => (
-              <div key={plan.id} ref={planFocus.setRef(i)}>
+              <div key={plan.id} ref={planFocus.setRef(i)} className="flex">
                 <MonthlyPlanCard plan={plan} mobileFocused={planFocus.activeIndex === i} />
               </div>
             ))}
