@@ -10,12 +10,12 @@ const SITE_URL = "https://www.jefferissoftware.co.uk";
 export const metadata: Metadata = {
   title: "Web Design Packages & Pricing",
   description:
-    "Transparent pricing for small business websites. From £459 for a clean starter site to full e-commerce builds. No hidden fees, no surprises.",
+    "Transparent pricing for small business websites. From £420 for a clean starter site to full e-commerce builds. No hidden fees, no surprises.",
   alternates: { canonical: `${SITE_URL}/packages` },
   openGraph: {
     title: "Web Design Packages & Pricing | Jefferis Software Solutions",
     description:
-      "Transparent pricing for small business websites. From £459 for a clean starter site to full e-commerce builds.",
+      "Transparent pricing for small business websites. From £420 for a clean starter site to full e-commerce builds.",
     url: `${SITE_URL}/packages`,
   },
 };
@@ -24,7 +24,7 @@ const TIERS = [
   {
     id: "starter",
     name: "Starter",
-    price: "£459",
+    price: "£420",
     tagline: "Get online fast.",
     description:
       "A clean, professional site for businesses that need to look legit online. Done properly, done fast.",
@@ -44,7 +44,7 @@ const TIERS = [
   {
     id: "business",
     name: "Business",
-    price: "£919",
+    price: "£850",
     tagline: "Built to grow.",
     description:
       "A professional site you can actually keep up to date — with a CMS, blog, and priority support.",
@@ -64,7 +64,7 @@ const TIERS = [
   {
     id: "commerce",
     name: "Commerce",
-    price: "£1,999+",
+    price: "£1,500+",
     tagline: "Built to sell.",
     description:
       "A full online store with payments, product management, and a CMS — so you spend less time on admin.",
@@ -86,7 +86,7 @@ const TIERS = [
 const MONTHLY_PLANS = [
   {
     name: "Hosting",
-    price: "£29/mo",
+    price: "£21/mo",
     description:
       "Your site stays fast, secure, and online. We handle the boring stuff.",
     features: [

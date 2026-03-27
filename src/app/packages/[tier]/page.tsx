@@ -40,7 +40,7 @@ type PackageData = {
 const PACKAGES: Record<string, PackageData> = {
   starter: {
     name: "Starter",
-    price: "£459",
+    price: "£420",
     tagline: "Get online fast.",
     Icon: Zap,
     headline: "A clean, professional site. Live in under two weeks.",
@@ -87,14 +87,14 @@ const PACKAGES: Record<string, PackageData> = {
       { q: "What if I need more than 5 pages?", a: "Additional pages are scoped at £75 each, or you might be better suited to the Business package which includes up to 8 pages." },
       { q: "Can I update the site myself?", a: "Not on this package. Starter is a fixed, hand-coded site. If you want to edit content yourself, the Business package includes a full CMS." },
       { q: "What do I need to provide?", a: "Your logo, any photos you want to use, and a rough idea of what you want the site to say. We can help with copy if needed." },
-      { q: "Is hosting included?", a: "All sites include ongoing hosting, SSL, and maintenance at £29/month. This covers everything — you don't need to worry about servers or renewals." },
+      { q: "Is hosting included?", a: "All sites include ongoing hosting, SSL, and maintenance at £21/month. This covers everything — you don't need to worry about servers or renewals." },
       { q: "Can I pay in instalments?", a: "Yes. We offer a 3-month payment plan on all packages — no interest, no fuss." },
     ],
   },
 
   business: {
     name: "Business",
-    price: "£919",
+    price: "£850",
     tagline: "Built to grow.",
     Icon: BarChart3,
     headline: "A professional site you can actually keep up to date.",
@@ -143,14 +143,14 @@ const PACKAGES: Record<string, PackageData> = {
       { q: "Can I upgrade from Starter to Business later?", a: "It's possible but more expensive than starting with Business. If you think you'll want CMS access, start here." },
       { q: "How many pages are included?", a: "Up to 8 pages. Additional pages can be added at £75 each." },
       { q: "What does priority support mean?", a: "Business clients get a same-day response where possible and are first in line for any fix or update requests." },
-      { q: "Is hosting included?", a: "All sites include ongoing hosting, SSL, and maintenance at £29/month. This covers everything — you don't need to worry about servers or renewals." },
+      { q: "Is hosting included?", a: "All sites include ongoing hosting, SSL, and maintenance at £21/month. This covers everything — you don't need to worry about servers or renewals." },
       { q: "Can I pay in instalments?", a: "Yes. We offer a 3-month payment plan on all packages — no interest, no fuss." },
     ],
   },
 
   commerce: {
     name: "Commerce",
-    price: "£1,999+",
+    price: "£1,500+",
     tagline: "Built to sell.",
     Icon: ShoppingBag,
     headline: "A store that handles itself.",
@@ -196,11 +196,11 @@ const PACKAGES: Record<string, PackageData> = {
       "Businesses not yet ready to sell online",
     ],
     faqs: [
-      { q: "Why does the price say £1,999+?", a: "Commerce projects vary based on catalogue size, integrations, and automation. £1,999 is the starting point — we'll scope your project accurately before you commit to anything." },
+      { q: "Why does the price say £1,500+?", a: "Commerce projects vary based on catalogue size, integrations, and automation. £1,500 is the starting point — we'll scope your project accurately before you commit to anything." },
       { q: "Which payment provider do you use?", a: "Stripe is our default — it's reliable, well-supported, and trusted by customers. We can integrate others if needed." },
       { q: "Can I manage products myself?", a: "Yes. Product management is built into the CMS so you can add, update, or remove products without touching code." },
       { q: "Do you offer ongoing support?", a: "Yes. Commerce clients can opt into a monthly support retainer for updates, new features, and technical help." },
-      { q: "Is hosting included?", a: "All sites include ongoing hosting, SSL, and maintenance at £29/month. This covers everything — you don't need to worry about servers or renewals." },
+      { q: "Is hosting included?", a: "All sites include ongoing hosting, SSL, and maintenance at £21/month. This covers everything — you don't need to worry about servers or renewals." },
       { q: "Can I pay in instalments?", a: "Yes. We offer a 3-month payment plan on all packages — no interest, no fuss." },
     ],
   },

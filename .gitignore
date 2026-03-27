@@ -55,6 +55,9 @@ next-env.d.ts
 # linkedin post assets
 /linkedin-posts/
 
+# prospector local db
+prospector.db
+
 # captured site screenshots (before/after)
 /public/ivyold*.png
 /public/ivynew*.png

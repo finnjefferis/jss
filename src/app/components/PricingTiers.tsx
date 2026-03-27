@@ -25,7 +25,7 @@ const TIERS = [
   {
     id: "starter",
     name: "Starter",
-    price: "£459",
+    price: "£420",
     tagline: "Get online fast.",
     description: "A clean, professional site for businesses that need to look legit online. Done properly, done fast.",
     Icon: Zap,
@@ -52,7 +52,7 @@ const TIERS = [
   {
     id: "business",
     name: "Business",
-    price: "£919",
+    price: "£850",
     tagline: "Built to grow.",
     description: "A professional site you can actually keep up to date \u2014 with a CMS, blog, and priority support.",
     Icon: BarChart3,
@@ -82,7 +82,7 @@ const TIERS = [
   {
     id: "commerce",
     name: "Commerce",
-    price: "\u00a31,999+",
+    price: "£1,500+",
     tagline: "Built to sell.",
     description: "A full online store with payments, product management, and a CMS \u2014 so you spend less time on admin.",
     Icon: ShoppingBag,
@@ -116,7 +116,7 @@ const MONTHLY_PLANS = [
   {
     id: "hosting",
     name: "Hosting",
-    price: "£29/mo",
+    price: "£21/mo",
     description: "Your site stays fast, secure, and online. We handle the boring stuff.",
     features: [
       "Hosting & SSL",
