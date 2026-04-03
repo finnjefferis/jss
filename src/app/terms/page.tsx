@@ -51,7 +51,7 @@ export default function TermsPage() {
           </p>
           <ul className="list-disc pl-5 space-y-1">
             <li>Prices are fixed once a proposal is accepted. Additional work outside the agreed scope is quoted separately.</li>
-            <li>Payment terms are specified in each proposal (typically 50% upfront, 50% on completion, or a 3-month payment plan).</li>
+            <li>Website services are billed monthly. Custom software projects are quoted and invoiced per project as agreed in the proposal.</li>
             <li>You own the final deliverables once paid in full. We retain the right to showcase the work in our portfolio unless you ask us not to.</li>
           </ul>
 

@@ -7,7 +7,7 @@ import { useReveal } from "../hooks/useReveal";
 const FAQS = [
   {
     q: "How much does a website cost?",
-    a: "Every project is different, but most small business websites start from around £500. You'll get a fixed quote upfront after a quick chat. No surprises, no hidden fees. I'll always work within your budget.",
+    a: "Plans start from £39/mo and include everything — design, build, hosting, and support. No upfront cost, no hidden fees. We'll work within your budget.",
   },
   {
     q: "How long does it take to build?",

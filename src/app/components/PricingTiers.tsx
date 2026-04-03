@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
+import { Quote } from "lucide-react";
 import {
   Check, ArrowRight, Zap, BarChart3, ShoppingBag, Cpu, ChevronDown, RotateCcw,
 } from "lucide-react";
@@ -25,36 +27,44 @@ const TIERS = [
   {
     id: "starter",
     name: "Starter",
-    price: "£420",
+    price: "£39/mo",
     tagline: "Get online fast.",
-    description: "A clean, professional site for businesses that need to look legit online. Done properly, done fast.",
+    description: "A clean, professional site built and hosted for one simple monthly fee.",
     Icon: Zap,
     features: [
-      "Unlimited pages",
+      "Site design & build included",
       "Mobile-first design",
       "Contact form",
       "Basic SEO setup",
       "Google Business setup",
-      "7\u201310 day delivery",
+      "Hosting, SSL & daily backups",
     ],
     fullFeatures: [
-      "Unlimited pages",
+      "Site design & build included",
       "Mobile-first design",
       "Contact form",
       "Basic SEO setup",
       "Google Business setup",
-      "7\u201310 day delivery",
+      "Hosting, SSL & daily backups",
     ],
     cta: "Get started",
     highlight: false,
-    note: "Fixed scope. No CMS.",
+    note: "",
+    example: {
+      clientName: "Naxco Services",
+      clientType: "Property maintenance",
+      image: "/naxnew.png",
+      slug: "naxco",
+      quote: "JSS have done a great job at updating my website. I have asked them to manage the social media also. Good service.",
+      reviewer: "Karl Couling, Naxco Services",
+    },
   },
   {
     id: "business",
-    name: "Business",
-    price: "£850",
+    name: "CMS",
+    price: "£89/mo",
     tagline: "Built to grow.",
-    description: "A professional site you can actually keep up to date \u2014 with a CMS, blog, and priority support.",
+    description: "A professional site you can actually keep up to date — with a CMS, blog, and priority support.",
     Icon: BarChart3,
     features: [
       "Everything in Starter",
@@ -65,7 +75,7 @@ const TIERS = [
       "Priority support",
     ],
     fullFeatures: [
-      "Unlimited pages",
+      "Site design & build included",
       "Mobile-first design",
       "Contact form",
       "Full SEO setup",
@@ -74,28 +84,37 @@ const TIERS = [
       "Blog / news section",
       "Recorded training session",
       "Priority support",
+      "Hosting, SSL & daily backups",
     ],
     cta: "Get started",
     highlight: true,
     note: "Most popular",
+    example: {
+      clientName: "eDivert",
+      clientType: "Virtual assistant services",
+      image: "/edivertnew.png",
+      slug: "edivert",
+      quote: "Working with Finlay and the Team at Jefferis Software this past few weeks has been a great experience. From our first meeting I felt Finlay understood what we are trying to achieve and whilst he followed the brief, he also added valuable suggestions that have enhanced our site both in web browser and especially on smart phones. The project completed on time and to budget - also a great win for us. I highly recommend the Jefferis Software team for your future website developments.",
+      reviewer: "Stewart Dunne",
+    },
   },
   {
     id: "commerce",
     name: "Commerce",
-    price: "£1,500+",
+    price: "£199+/mo",
     tagline: "Built to sell.",
-    description: "A full online store with payments, product management, and a CMS \u2014 so you spend less time on admin.",
+    description: "A full online store with payments, product management, and a CMS — all in one monthly fee.",
     Icon: ShoppingBag,
     features: [
-      "Everything in Business",
+      "Everything in CMS",
       "E-commerce setup",
       "Stripe payment integration",
       "Product management",
       "Order confirmations",
-      "Ongoing support available",
+      "Ongoing support",
     ],
     fullFeatures: [
-      "Unlimited pages",
+      "Site design & build included",
       "Mobile-first design",
       "Full SEO setup",
       "CMS access",
@@ -104,85 +123,19 @@ const TIERS = [
       "Stripe payment integration",
       "Product management",
       "Order confirmations",
-      "Ongoing support available",
+      "Hosting, SSL & daily backups",
     ],
     cta: "Discuss your store",
     highlight: false,
     note: "Price varies by scope.",
-  },
-];
-
-const MONTHLY_PLANS = [
-  {
-    id: "hosting",
-    name: "Hosting",
-    price: "£21/mo",
-    description: "Your site stays fast, secure, and online. We handle the boring stuff.",
-    features: [
-      "Hosting & SSL",
-      "Daily backups",
-      "Website monitoring & updates",
-      "Security patches",
-      "Basic support",
-    ],
-    fullFeatures: [
-      "Hosting & SSL included",
-      "Daily backups",
-      "Website monitoring & updates",
-      "Security patches & updates",
-      "Basic email support",
-    ],
-  },
-  {
-    id: "growth",
-    name: "Growth",
-    price: "£149/mo",
-    description: "We actively grow your online presence so customers find you first.",
-    features: [
-      "Everything in Hosting",
-      "Full Google Business management",
-      "2 SEO-optimised blog posts per month",
-      "2-weekly SEO report",
-      "AI-optimised ads",
-    ],
-    fullFeatures: [
-      "Hosting, SSL & daily backups",
-      "Website monitoring & updates",
-      "Security patches & updates",
-      "Full Google Business management",
-      "2 SEO-optimised blog posts per month",
-      "2-weekly SEO report",
-      "AI-optimised ads",
-      "Priority support",
-    ],
-  },
-  {
-    id: "leadmachine",
-    name: "Lead Machine",
-    price: "£349/mo",
-    description: "Full marketing engine. We bring the leads, you close the deals.",
-    features: [
-      "Everything in Growth",
-      "Weekly SEO report",
-      "Full SEO strategy",
-      "Content marketing",
-      "Lead generation campaigns",
-      "Quarterly strategy call",
-    ],
-    fullFeatures: [
-      "Hosting, SSL & daily backups",
-      "24/7 uptime monitoring",
-      "Security patches & updates",
-      "Website monitoring & updates",
-      "Full Google Business management",
-      "4 blog posts per month",
-      "Full SEO strategy & execution",
-      "Weekly SEO report",
-      "Content marketing",
-      "Lead generation campaigns",
-      "Quarterly strategy call",
-      "Dedicated support",
-    ],
+    example: {
+      clientName: "Ivy Arch Studios",
+      clientType: "Practice room hire",
+      image: "/ivyarch.png",
+      slug: "ivy",
+      quote: "Good work quickly done diligently and effectively.",
+      reviewer: "Ivy Arch Studios",
+    },
   },
 ];
 
@@ -236,64 +189,25 @@ const QUESTIONS: {
 type Answers = Record<string, string>;
 
 type Recommendation = {
-  build: typeof TIERS[0] | null;
-  monthly: typeof MONTHLY_PLANS[0];
+  tier: typeof TIERS[0];
   reason: string;
-  managedOnly?: boolean;
 };
 
 function getRecommendation(answers: Answers): { primary: Recommendation } {
-  const { website, business, content, growth } = answers;
+  const { business, content } = answers;
 
-  if (website === "decent") {
-    let monthlyIdx = 0;
-    if (growth === "serious-growth") monthlyIdx = 2;
-    else if (growth === "more-customers") monthlyIdx = 1;
+  let tierIdx = 0;
+  if (business === "products" || business === "both") tierIdx = 2;
+  else if (content === "often" || content === "sometimes") tierIdx = 1;
 
-    const managedReasons: Record<number, string> = {
-      0: "Your site\u2019s already sorted. We\u2019ll keep it fast, secure, and online so you can focus on your business.",
-      1: "Your site\u2019s fine \u2014 but you\u2019re missing out on customers who can\u2019t find you. We\u2019ll fix that.",
-      2: "Your site\u2019s solid. Now let\u2019s turn it into a lead machine with full SEO and content marketing.",
-    };
-
-    return {
-      primary: {
-        build: null,
-        monthly: MONTHLY_PLANS[monthlyIdx],
-        reason: managedReasons[monthlyIdx],
-        managedOnly: true,
-      },
-    };
-  }
-
-  let buildIdx = 0;
-  if (business === "products" || business === "both") buildIdx = 2;
-  else if (content === "often" || content === "sometimes") buildIdx = 1;
-
-  let monthlyIdx = 0;
-  if (growth === "serious-growth") monthlyIdx = 2;
-  else if (growth === "more-customers") monthlyIdx = 1;
-
-  if (buildIdx === 2 && growth === "serious-growth") monthlyIdx = 2;
-
-  const reasons: Record<string, string> = {
-    "2-2": "You sell products and want aggressive growth. This is the full setup.",
-    "2-1": "E-commerce site with active marketing to drive traffic to your store.",
-    "2-0": "You need a store. Hosting keeps it running \u2014 you can add marketing later.",
-    "1-2": "A site you control, with us driving serious lead generation behind it.",
-    "1-1": "You want to update content and grow organically. This is the sweet spot.",
-    "1-0": "A flexible site with CMS. Hosting keeps it fast and secure.",
+  const reasons: Record<number, string> = {
+    0: "Get online fast with a professional site. Clean, simple, done — one monthly fee covers everything.",
+    1: "A site you can actually keep up to date, with a CMS and blog built in. Perfect for growing organically.",
+    2: "A full online store with payments and product management, all included in your monthly fee.",
   };
 
-  let reason = reasons[`${buildIdx}-${monthlyIdx}`]
-    || (monthlyIdx >= 1 ? "Simple site, but with active marketing to make sure people actually find you." : "Get online fast with a professional site. Clean, simple, done.");
-
-  if (website === "decent") {
-    reason = "Your current site needs a refresh. " + reason.charAt(0).toLowerCase() + reason.slice(1);
-  }
-
   return {
-    primary: { build: TIERS[buildIdx], monthly: MONTHLY_PLANS[monthlyIdx], reason },
+    primary: { tier: TIERS[tierIdx], reason: reasons[tierIdx] },
   };
 }
 
@@ -454,169 +368,99 @@ function PackageQuiz() {
           {/* ── Result ── */}
           {phase === "result" && result && (
             <div key={`result-${animKey}`}>
-              {result.primary.managedOnly ? (
-                <>
-                  <div className="text-center md:text-left">
-                    <div className={exiting ? "quiz-exit" : "quiz-enter"} style={{ "--d": 0 } as React.CSSProperties}>
-                      <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-4 py-1.5 mb-6">
-                        <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                        <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">No rebuild needed</span>
-                      </div>
-                    </div>
+              <div className="text-center">
+                <div className={exiting ? "quiz-exit" : "quiz-enter"} style={{ "--d": 0 } as React.CSSProperties}>
+                  <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-4 py-1.5 mb-6">
+                    <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">Recommended for you</span>
                   </div>
+                </div>
+              </div>
 
-                  <h3 className={`text-2xl md:text-3xl font-extrabold text-zinc-900 dark:text-white mb-2 text-center md:text-left ${exiting ? "quiz-exit" : "quiz-enter"}`} style={{ "--d": 80 } as React.CSSProperties}>
-                    We&apos;ll look after it.
-                  </h3>
-                  <p className={`text-sm text-zinc-500 dark:text-zinc-400 mb-8 max-w-lg text-center md:text-left ${exiting ? "quiz-exit" : "quiz-enter"}`} style={{ "--d": 160 } as React.CSSProperties}>
-                    {result.primary.reason}
-                  </p>
+              <h3 className={`text-2xl md:text-3xl font-extrabold text-zinc-900 dark:text-white mb-2 text-center ${exiting ? "quiz-exit" : "quiz-enter"}`} style={{ "--d": 80 } as React.CSSProperties}>
+                {result.primary.tier.name} plan
+              </h3>
+              <p className={`text-sm text-zinc-500 dark:text-zinc-400 mb-8 max-w-lg mx-auto text-center ${exiting ? "quiz-exit" : "quiz-enter"}`} style={{ "--d": 160 } as React.CSSProperties}>
+                {result.primary.reason}
+              </p>
 
-                  <div className={exiting ? "quiz-exit" : "quiz-enter"} style={{ "--d": 240 } as React.CSSProperties}>
-                    <ResultCard className="mb-4 max-w-md mx-auto">
-                      {(active) => (
-                        <>
-                          <div className="flex items-center gap-3 mb-4">
+              <div className={`mb-6 ${exiting ? "quiz-exit" : "quiz-enter"}`} style={{ "--d": 240 } as React.CSSProperties}>
+                <ResultCard>
+                  {(active) => {
+                    const TierIcon = result.primary.tier.Icon;
+                    const ex = result.primary.tier.example;
+                    return (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+                        {/* Left: tier details */}
+                        <div className="p-0 md:pr-8 md:border-r border-white/20 flex flex-col">
+                          <div className="flex items-center gap-3 mb-5">
                             <div className={`h-10 w-10 rounded-xl flex items-center justify-center transition-colors duration-300 ${active ? "bg-white/20" : "bg-gradient-to-br from-coral-500 to-pink-500"}`}>
-                              <Zap className="h-5 w-5 text-white" />
+                              <TierIcon className="h-5 w-5 text-white" />
                             </div>
-                            <p className={`text-[10px] font-bold uppercase tracking-widest transition-colors duration-300 ${active ? "text-white/70" : "text-coral-500 dark:text-coral-400"}`}>Monthly plan</p>
+                            <div>
+                              <p className={`text-[10px] font-bold uppercase tracking-widest transition-colors duration-300 ${active ? "text-white/60" : "text-coral-500 dark:text-coral-400"}`}>{result.primary.tier.name}</p>
+                              <p className={`text-2xl font-extrabold leading-none transition-colors duration-300 ${active ? "text-white" : "text-zinc-900 dark:text-white"}`}>{result.primary.tier.price}</p>
+                            </div>
                           </div>
-                          <p className={`text-3xl font-extrabold mb-1 transition-colors duration-300 ${active ? "text-white" : "text-zinc-900 dark:text-white"}`}>{result.primary.monthly.price}</p>
-                          <p className={`text-xs font-semibold mb-4 transition-colors duration-300 tagline-underline drawn ${active ? "text-white/80" : "text-coral-600 dark:text-coral-400"}`} style={{ "--ul-d": 400 } as React.CSSProperties}>{result.primary.monthly.name} plan</p>
-                          <p className={`text-sm leading-relaxed mb-5 transition-colors duration-300 ${active ? "text-white/70" : "text-zinc-500 dark:text-zinc-400"}`}>{result.primary.monthly.description}</p>
+                          <p className={`text-sm leading-relaxed mb-5 transition-colors duration-300 ${active ? "text-white/80" : "text-zinc-500 dark:text-zinc-400"}`}>{result.primary.tier.description}</p>
                           <div className={`h-px w-full mb-5 transition-colors duration-300 ${active ? "bg-white/20" : "bg-zinc-100 dark:bg-zinc-800"}`} />
-                          <ul className="space-y-2.5">
-                            {result.primary.monthly.fullFeatures.map((f) => (
+                          <ul className="flex-1 space-y-2.5">
+                            {result.primary.tier.fullFeatures.map((f: string) => (
                               <li key={f} className="flex items-start gap-2.5 text-sm">
-                                <Check className={`h-4 w-4 shrink-0 mt-0.5 transition-colors duration-300 ${active ? "text-white/60" : "text-coral-500"}`} />
+                                <Check className={`h-4 w-4 shrink-0 mt-0.5 transition-colors duration-300 ${active ? "text-coral-200" : "text-coral-500"}`} />
                                 <span className={`transition-colors duration-300 ${active ? "text-white/90" : "text-zinc-600 dark:text-zinc-300"}`}>{f}</span>
                               </li>
                             ))}
                           </ul>
-                        </>
-                      )}
-                    </ResultCard>
-                  </div>
+                        </div>
 
-                  <p className={`text-xs text-zinc-400 dark:text-zinc-500 mb-8 text-center ${exiting ? "quiz-exit" : "quiz-enter"}`} style={{ "--d": 320 } as React.CSSProperties}>
-                    Hosting, SSL &amp; backups included as standard.
-                  </p>
-
-                  <div className={`flex flex-wrap gap-3 justify-center ${exiting ? "quiz-exit" : "quiz-enter"}`} style={{ "--d": 400 } as React.CSSProperties}>
-                    <Link
-                      href="/#contact"
-                      className="inline-flex items-center gap-2 rounded-xl bg-coral-600 hover:bg-coral-700 px-7 py-3.5 text-sm font-bold text-white transition-colors"
-                    >
-                      Get started
-                      <ArrowRight className="h-4 w-4" />
-                    </Link>
-                    <button
-                      onClick={reset}
-                      className="inline-flex items-center gap-2 rounded-xl border border-zinc-300 dark:border-zinc-700 px-6 py-3.5 text-sm font-semibold text-zinc-600 dark:text-zinc-400 hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors"
-                    >
-                      <RotateCcw className="h-3.5 w-3.5" />
-                      Start over
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="text-center">
-                    <div className={exiting ? "quiz-exit" : "quiz-enter"} style={{ "--d": 0 } as React.CSSProperties}>
-                      <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-4 py-1.5 mb-6">
-                        <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                        <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">Recommended for you</span>
+                        {/* Right: real example */}
+                        <div className={`mt-6 md:mt-0 md:pl-8 flex flex-col gap-4`}>
+                          <p className={`text-[10px] font-bold uppercase tracking-wider transition-colors duration-300 ${active ? "text-white/50" : "text-zinc-400"}`}>Real example</p>
+                          <Link href={`/work/${ex.slug}`} className="group block rounded-xl overflow-hidden border border-white/10 shadow-md">
+                            <div className="relative aspect-[4/3] w-full bg-zinc-200 dark:bg-zinc-800">
+                              <Image src={ex.image} alt={ex.clientName} fill className="object-cover object-top group-hover:scale-[1.02] transition-transform duration-500" />
+                            </div>
+                          </Link>
+                          <div>
+                            <p className={`text-xs font-bold transition-colors duration-300 ${active ? "text-white/60" : "text-zinc-400"}`}>{ex.clientType}</p>
+                            <p className={`text-sm font-bold transition-colors duration-300 ${active ? "text-white" : "text-zinc-800 dark:text-zinc-100"}`}>{ex.clientName}</p>
+                          </div>
+                          <div className={`rounded-xl p-4 transition-colors duration-300 ${active ? "bg-white/10" : "bg-coral-50 dark:bg-coral-950/40 border border-coral-100 dark:border-coral-900"}`}>
+                            <Quote className={`h-4 w-4 mb-2 transition-colors duration-300 ${active ? "text-white/30" : "text-coral-300"}`} />
+                            <p className={`text-xs italic leading-relaxed mb-2 transition-colors duration-300 ${active ? "text-white/80" : "text-zinc-600 dark:text-zinc-300"}`}>&ldquo;{ex.quote}&rdquo;</p>
+                            <p className={`text-[10px] font-bold transition-colors duration-300 ${active ? "text-white/50" : "text-coral-500 dark:text-coral-400"}`}>&mdash; {ex.reviewer}</p>
+                          </div>
+                          <Link href={`/work/${ex.slug}`} className={`inline-flex items-center gap-1.5 text-xs font-bold transition-colors duration-300 ${active ? "text-white/70 hover:text-white" : "text-coral-600 dark:text-coral-400 hover:text-coral-700"}`}>
+                            View case study <ArrowRight className="h-3 w-3" />
+                          </Link>
+                        </div>
                       </div>
-                    </div>
-                  </div>
+                    );
+                  }}
+                </ResultCard>
+              </div>
 
-                  <h3 className={`text-2xl md:text-3xl font-extrabold text-zinc-900 dark:text-white mb-2 text-center ${exiting ? "quiz-exit" : "quiz-enter"}`} style={{ "--d": 80 } as React.CSSProperties}>
-                    {result.primary.build!.name} + {result.primary.monthly.name}
-                  </h3>
-                  <p className={`text-sm text-zinc-500 dark:text-zinc-400 mb-8 max-w-lg mx-auto text-center ${exiting ? "quiz-exit" : "quiz-enter"}`} style={{ "--d": 160 } as React.CSSProperties}>
-                    {result.primary.reason}
-                  </p>
+              <div className={exiting ? "quiz-exit" : "quiz-enter"} style={{ "--d": 320 } as React.CSSProperties}>
+                <FullMenu className="mt-0" label="Or explore a different plan" />
+              </div>
 
-                  <div className={`grid grid-cols-1 md:grid-cols-2 gap-5 mb-6 ${exiting ? "quiz-exit" : "quiz-enter"}`} style={{ "--d": 240 } as React.CSSProperties}>
-                    <ResultCard>
-                      {(active) => {
-                        const BuildIcon = result.primary.build!.Icon;
-                        return (
-                          <>
-                            <div className="flex items-center gap-3 mb-4">
-                              <div className={`h-10 w-10 rounded-xl flex items-center justify-center transition-colors duration-300 ${active ? "bg-white/20" : "bg-gradient-to-br from-coral-500 to-pink-500"}`}>
-                                <BuildIcon className="h-5 w-5 text-white" />
-                              </div>
-                              <p className={`text-[10px] font-bold uppercase tracking-widest transition-colors duration-300 ${active ? "text-white/70" : "text-coral-500 dark:text-coral-400"}`}>Website build</p>
-                            </div>
-                            <p className={`text-3xl font-extrabold mb-0.5 transition-colors duration-300 ${active ? "text-white" : "text-zinc-900 dark:text-white"}`}>
-                              {result.primary.build!.price}
-                            </p>
-                            <p className={`text-xs font-semibold mb-5 transition-colors duration-300 tagline-underline drawn ${active ? "text-white/80" : "text-coral-600 dark:text-coral-400"}`} style={{ "--ul-d": 400 } as React.CSSProperties}>
-                              {result.primary.build!.name} &middot; one-off
-                            </p>
-                            <ul className="space-y-2.5">
-                              {result.primary.build!.fullFeatures.map((f) => (
-                                <li key={f} className="flex items-start gap-2.5 text-sm">
-                                  <Check className={`h-4 w-4 shrink-0 mt-0.5 transition-colors duration-300 ${active ? "text-white/60" : "text-coral-500"}`} />
-                                  <span className={`transition-colors duration-300 ${active ? "text-white/90" : "text-zinc-600 dark:text-zinc-300"}`}>{f}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </>
-                        );
-                      }}
-                    </ResultCard>
-
-                    <ResultCard className="flex flex-col">
-                      {(active) => (
-                        <>
-                          <div className="flex items-center gap-3 mb-4">
-                            <div className={`h-10 w-10 rounded-xl flex items-center justify-center transition-colors duration-300 ${active ? "bg-white/20" : "bg-gradient-to-br from-pink-500 to-coral-500"}`}>
-                              <BarChart3 className="h-5 w-5 text-white" />
-                            </div>
-                            <p className={`text-[10px] font-bold uppercase tracking-widest transition-colors duration-300 ${active ? "text-white/70" : "text-coral-500 dark:text-coral-400"}`}>Monthly plan</p>
-                          </div>
-                          <p className={`text-3xl font-extrabold mb-0.5 transition-colors duration-300 ${active ? "text-white" : "text-zinc-900 dark:text-white"}`}>{result.primary.monthly.price}</p>
-                          <p className={`text-xs font-semibold mb-5 transition-colors duration-300 tagline-underline drawn ${active ? "text-white/80" : "text-coral-600 dark:text-coral-400"}`} style={{ "--ul-d": 500 } as React.CSSProperties}>{result.primary.monthly.name} plan</p>
-                          <p className={`text-sm leading-relaxed mb-5 transition-colors duration-300 ${active ? "text-white/70" : "text-zinc-500 dark:text-zinc-400"}`}>{result.primary.monthly.description}</p>
-                          <div className={`h-px w-full mb-5 transition-colors duration-300 ${active ? "bg-white/20" : "bg-zinc-100 dark:bg-zinc-800"}`} />
-                          <ul className="space-y-2.5 flex-1">
-                            {result.primary.monthly.fullFeatures.map((f) => (
-                              <li key={f} className="flex items-start gap-2.5 text-sm">
-                                <Check className={`h-4 w-4 shrink-0 mt-0.5 transition-colors duration-300 ${active ? "text-white/60" : "text-coral-500"}`} />
-                                <span className={`transition-colors duration-300 ${active ? "text-white/90" : "text-zinc-600 dark:text-zinc-300"}`}>{f}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </>
-                      )}
-                    </ResultCard>
-                  </div>
-
-                  <div className={exiting ? "quiz-exit" : "quiz-enter"} style={{ "--d": 320 } as React.CSSProperties}>
-                    <FullMenu className="mt-0" label="Or explore a different combination" />
-                  </div>
-
-                  <div className={`flex flex-wrap gap-3 mt-8 justify-center ${exiting ? "quiz-exit" : "quiz-enter"}`} style={{ "--d": 400 } as React.CSSProperties}>
-                    <Link
-                      href="/#contact"
-                      className="inline-flex items-center gap-2 rounded-xl bg-coral-600 hover:bg-coral-700 px-7 py-3.5 text-sm font-bold text-white transition-colors"
-                    >
-                      Get started
-                      <ArrowRight className="h-4 w-4" />
-                    </Link>
-                    <button
-                      onClick={reset}
-                      className="inline-flex items-center gap-2 rounded-xl border border-zinc-300 dark:border-zinc-700 px-6 py-3.5 text-sm font-semibold text-zinc-600 dark:text-zinc-400 hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors"
-                    >
-                      <RotateCcw className="h-3.5 w-3.5" />
-                      Start over
-                    </button>
-                  </div>
-                </>
-              )}
+              <div className={`flex flex-wrap gap-3 mt-8 justify-center ${exiting ? "quiz-exit" : "quiz-enter"}`} style={{ "--d": 400 } as React.CSSProperties}>
+                <Link
+                  href="/#contact"
+                  className="inline-flex items-center gap-2 rounded-xl bg-coral-600 hover:bg-coral-700 px-7 py-3.5 text-sm font-bold text-white transition-colors"
+                >
+                  Get started
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+                <button
+                  onClick={reset}
+                  className="inline-flex items-center gap-2 rounded-xl border border-zinc-300 dark:border-zinc-700 px-6 py-3.5 text-sm font-semibold text-zinc-600 dark:text-zinc-400 hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors"
+                >
+                  <RotateCcw className="h-3.5 w-3.5" />
+                  Start over
+                </button>
+              </div>
             </div>
           )}
 
@@ -866,47 +710,11 @@ function SoftwareCallout() {
   );
 }
 
-/* ─── Monthly plan card ─── */
-
-function MonthlyPlanCard({ plan, mobileFocused = false }: { plan: typeof MONTHLY_PLANS[0]; mobileFocused?: boolean }) {
-  const [hovered, setHovered] = useState(false);
-
-  const active = hovered || mobileFocused;
-
-  return (
-    <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className={`rounded-2xl border p-6 transition-all duration-300 cursor-default card-hover-lift flex flex-col w-full ${
-        active
-          ? "bg-coral-600 border-coral-600 shadow-lg -translate-y-1"
-          : "border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900"
-      }`}
-    >
-      <p className={`text-xs font-bold uppercase tracking-wider mb-1 transition-colors duration-300 ${active ? "text-coral-200" : "text-coral-500 dark:text-coral-400"}`}>{plan.name}</p>
-      <p className={`text-2xl font-extrabold mb-2 transition-colors duration-300 ${active ? "text-white" : "text-zinc-900 dark:text-white"}`}>{plan.price}</p>
-      <p className={`text-sm leading-relaxed mb-5 transition-colors duration-300 ${active ? "text-coral-100" : "text-zinc-500 dark:text-zinc-400"}`}>{plan.description}</p>
-
-      <div className={`h-px w-full mb-5 transition-colors duration-300 ${active ? "bg-coral-500" : "bg-zinc-100 dark:bg-zinc-800"}`} />
-
-      <ul className="flex-1 space-y-2.5">
-        {plan.features.map((f) => (
-          <li key={f} className="flex items-start gap-2.5 text-sm">
-            <Check className={`h-4 w-4 shrink-0 mt-0.5 transition-colors duration-300 ${active ? "text-coral-200" : "text-coral-600 dark:text-coral-400"}`} />
-            <span className={`transition-colors duration-300 ${active ? "text-coral-50" : "text-zinc-700 dark:text-zinc-300"}`}>{f}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
 /* ─── Full menu (collapsible) ─── */
 
 function FullMenu({ className = "mt-16", label }: { className?: string; label?: string }) {
   const [open, setOpen] = useState(false);
   const tierFocus = useMobileFocusGroup(TIERS.length);
-  const planFocus = useMobileFocusGroup(MONTHLY_PLANS.length);
 
   return (
     <div className={className}>
@@ -914,37 +722,21 @@ function FullMenu({ className = "mt-16", label }: { className?: string; label?: 
         onClick={() => setOpen(!open)}
         className="mx-auto flex items-center gap-2 text-sm font-semibold text-zinc-500 hover:text-coral-400 transition-colors"
       >
-        {open ? "Hide packages" : (label || "View all packages & monthly plans")}
+        {open ? "Hide plans" : (label || "View all plans")}
         <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
       </button>
 
       <div className={`collapsible-menu mt-10 ${open ? "open" : ""}`}>
-        <div>
-          <p className="text-xs font-bold uppercase tracking-[0.15em] text-zinc-500 mb-4">
-            Website builds
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 md:items-start">
-            {TIERS.map((tier, i) => (
-              <div key={tier.id} ref={tierFocus.setRef(i)}>
-                <TierCard tier={tier} mobileFocused={tierFocus.activeIndex === i} />
-              </div>
-            ))}
-          </div>
-
-          <p className="text-xs font-bold uppercase tracking-[0.15em] text-zinc-500 mb-4">
-            Monthly plans
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 md:items-stretch">
-            {MONTHLY_PLANS.map((plan, i) => (
-              <div key={plan.id} ref={planFocus.setRef(i)} className="flex">
-                <MonthlyPlanCard plan={plan} mobileFocused={planFocus.activeIndex === i} />
-              </div>
-            ))}
-          </div>
-          <p className="text-center text-sm text-zinc-500">
-            Every website includes hosting as standard. No hidden fees, cancel any time.
-          </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6 md:items-start">
+          {TIERS.map((tier, i) => (
+            <div key={tier.id} ref={tierFocus.setRef(i)}>
+              <TierCard tier={tier} mobileFocused={tierFocus.activeIndex === i} />
+            </div>
+          ))}
         </div>
+        <p className="text-center text-sm text-zinc-500">
+          Hosting, SSL &amp; daily backups included in every plan. No setup fees. Cancel any time.
+        </p>
       </div>
     </div>
   );
@@ -970,7 +762,7 @@ export function PricingTiers() {
             </span>
           </h2>
           <p data-reveal style={{ "--d": 160 } as React.CSSProperties} className="text-base text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto">
-            Answer a few quick questions and we&apos;ll recommend the right website package and monthly plan for your business.
+            Answer a few quick questions and we&apos;ll recommend the right plan for your business.
           </p>
         </div>
 

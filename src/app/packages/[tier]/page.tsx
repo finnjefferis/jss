@@ -40,13 +40,13 @@ type PackageData = {
 const PACKAGES: Record<string, PackageData> = {
   starter: {
     name: "Starter",
-    price: "£420",
+    price: "£39/mo",
     tagline: "Get online fast.",
     Icon: Zap,
     headline: "A clean, professional site. Live in under two weeks.",
     subheadline:
-      "Fixed scope, fixed price. No CMS to learn. Just a great site that works hard for your business from day one — plus we set up your Google Business profile.",
-    trustSignals: ["Fixed price, no surprises", "7–10 day delivery", "Google Business setup included"],
+      "No upfront cost. We build your site, host it, and keep it running — all for one simple monthly fee. Plus we set up your Google Business profile.",
+    trustSignals: ["No upfront cost", "7–10 day delivery", "Google Business setup included"],
     example: {
       clientName: "Naxco Services",
       clientType: "Property maintenance",
@@ -55,7 +55,7 @@ const PACKAGES: Record<string, PackageData> = {
       story:
         "Naxco is a local property maintenance company. Their old site was text-heavy, hard to navigate on mobile, and simply wasn't generating leads. We rebuilt it from scratch — clarified what they do, added trust signals, and made it dead simple to get in touch.",
       result: "A site they're proud to hand out on a business card, live in under 10 days.",
-      quote: "Professional, fast, and genuinely made a difference to how we come across online.",
+      quote: "JSS have done a great job at updating my website. I have asked them to manage the social media also. Good service.",
       tags: ["Design", "Dev", "Copy"],
     },
     includes: [
@@ -87,20 +87,19 @@ const PACKAGES: Record<string, PackageData> = {
       { q: "What if I need more than 5 pages?", a: "Additional pages are scoped at £75 each, or you might be better suited to the Business package which includes up to 8 pages." },
       { q: "Can I update the site myself?", a: "Not on this package. Starter is a fixed, hand-coded site. If you want to edit content yourself, the Business package includes a full CMS." },
       { q: "What do I need to provide?", a: "Your logo, any photos you want to use, and a rough idea of what you want the site to say. We can help with copy if needed." },
-      { q: "Is hosting included?", a: "All sites include ongoing hosting, SSL, and maintenance at £21/month. This covers everything — you don't need to worry about servers or renewals." },
-      { q: "Can I pay in instalments?", a: "Yes. We offer a 3-month payment plan on all packages — no interest, no fuss." },
+      { q: "What does the monthly fee cover?", a: "Everything — the site build, hosting, SSL, daily backups, and ongoing maintenance. One price, nothing hidden." },
     ],
   },
 
   business: {
-    name: "Business",
-    price: "£850",
+    name: "CMS",
+    price: "£89/mo",
     tagline: "Built to grow.",
     Icon: BarChart3,
     headline: "A professional site you can actually keep up to date.",
     subheadline:
-      "Everything in Starter, plus a CMS so you can edit your own content without touching code — and a blog to build your SEO over time.",
-    trustSignals: ["Full CMS included", "Up to 8 pages", "2 rounds of revisions"],
+      "Everything in Starter, plus a CMS so you can edit your own content without touching code — and a blog to build your SEO over time. All for one monthly fee.",
+    trustSignals: ["CMS included", "No upfront cost", "Priority support"],
     example: {
       clientName: "eDivert",
       clientType: "Virtual assistant services",
@@ -109,7 +108,7 @@ const PACKAGES: Record<string, PackageData> = {
       story:
         "eDivert is a virtual assistant and personal assistant company with real expertise and a strong client base. Their website didn't reflect any of that. Outdated design, poor mobile experience, no clear calls to action. We rebuilt it so it actually converts — and gave them CMS access so they can keep it fresh themselves.",
       result: "Modern, conversion-focused design. They now manage their own content without touching code.",
-      quote: "Our old site was an embarrassment. The new one we're actually proud to share.",
+      quote: "Working with Finlay and the Team at Jefferis Software this past few weeks has been a great experience. From our first meeting I felt Finlay understood what we are trying to achieve and whilst he followed the brief, he also added valuable suggestions that have enhanced our site both in web browser and especially on smart phones. The project completed on time and to budget - also a great win for us. I highly recommend the Jefferis Software team for your future website developments.",
       tags: ["Design", "Dev", "CMS", "SEO"],
     },
     includes: [
@@ -143,20 +142,19 @@ const PACKAGES: Record<string, PackageData> = {
       { q: "Can I upgrade from Starter to Business later?", a: "It's possible but more expensive than starting with Business. If you think you'll want CMS access, start here." },
       { q: "How many pages are included?", a: "Up to 8 pages. Additional pages can be added at £75 each." },
       { q: "What does priority support mean?", a: "Business clients get a same-day response where possible and are first in line for any fix or update requests." },
-      { q: "Is hosting included?", a: "All sites include ongoing hosting, SSL, and maintenance at £21/month. This covers everything — you don't need to worry about servers or renewals." },
-      { q: "Can I pay in instalments?", a: "Yes. We offer a 3-month payment plan on all packages — no interest, no fuss." },
+      { q: "What does the monthly fee cover?", a: "Everything — the site build, hosting, SSL, daily backups, ongoing maintenance, and the CMS. One price, nothing hidden." },
     ],
   },
 
   commerce: {
     name: "Commerce",
-    price: "£1,500+",
+    price: "£199+/mo",
     tagline: "Built to sell.",
     Icon: ShoppingBag,
     headline: "A store that handles itself.",
     subheadline:
-      "Full e-commerce with payments, inventory management, and automations that mean less time on admin — and more time on your business.",
-    trustSignals: ["Stripe payments included", "Full product management", "Ongoing support available"],
+      "Full e-commerce with payments, inventory management, and automations — all included in your monthly fee. No upfront build cost, no hosting bills on top.",
+    trustSignals: ["No upfront cost", "Stripe payments included", "Full product management"],
     example: {
       clientName: "Ivy Arch Studios",
       clientType: "Practice room hire",
@@ -196,12 +194,11 @@ const PACKAGES: Record<string, PackageData> = {
       "Businesses not yet ready to sell online",
     ],
     faqs: [
-      { q: "Why does the price say £1,500+?", a: "Commerce projects vary based on catalogue size, integrations, and automation. £1,500 is the starting point — we'll scope your project accurately before you commit to anything." },
+      { q: "Why does the price say £199+/mo?", a: "Commerce projects vary based on catalogue size, integrations, and automation. £199/mo is the starting point — we'll scope your project accurately before you commit to anything." },
       { q: "Which payment provider do you use?", a: "Stripe is our default — it's reliable, well-supported, and trusted by customers. We can integrate others if needed." },
       { q: "Can I manage products myself?", a: "Yes. Product management is built into the CMS so you can add, update, or remove products without touching code." },
       { q: "Do you offer ongoing support?", a: "Yes. Commerce clients can opt into a monthly support retainer for updates, new features, and technical help." },
-      { q: "Is hosting included?", a: "All sites include ongoing hosting, SSL, and maintenance at £21/month. This covers everything — you don't need to worry about servers or renewals." },
-      { q: "Can I pay in instalments?", a: "Yes. We offer a 3-month payment plan on all packages — no interest, no fuss." },
+      { q: "What does the monthly fee cover?", a: "Everything — the store build, hosting, SSL, daily backups, ongoing maintenance, and the CMS. One price, nothing hidden." },
     ],
   },
 };

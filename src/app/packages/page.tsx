@@ -3,19 +3,19 @@ import Link from "next/link";
 import { ArrowRight, Cpu } from "lucide-react";
 import { NavHeader } from "../components/NavHeader";
 import { RevealSection } from "../components/RevealSection";
-import { TierCardGrid, MonthlyPlanGrid } from "../components/PackageCards";
+import { TierCardGrid } from "../components/PackageCards";
 
 const SITE_URL = "https://www.jefferissoftware.co.uk";
 
 export const metadata: Metadata = {
   title: "Web Design Packages & Pricing",
   description:
-    "Transparent pricing for small business websites. From £420 for a clean starter site to full e-commerce builds. No hidden fees, no surprises.",
+    "Simple monthly pricing for small business websites. From £39/mo for a clean starter site to full e-commerce. Site built, hosted, and maintained — no upfront cost.",
   alternates: { canonical: `${SITE_URL}/packages` },
   openGraph: {
     title: "Web Design Packages & Pricing | Jefferis Software Solutions",
     description:
-      "Transparent pricing for small business websites. From £420 for a clean starter site to full e-commerce builds.",
+      "Simple monthly pricing for small business websites. From £39/mo — site built, hosted, and maintained. No upfront cost, no hidden fees.",
     url: `${SITE_URL}/packages`,
   },
 };
@@ -24,27 +24,27 @@ const TIERS = [
   {
     id: "starter",
     name: "Starter",
-    price: "£420",
+    price: "£39/mo",
     tagline: "Get online fast.",
     description:
-      "A clean, professional site for businesses that need to look legit online. Done properly, done fast.",
+      "A clean, professional site built for you and kept running — for one simple monthly fee.",
     icon: "Zap",
     features: [
-      "Unlimited pages",
+      "Site design & build included",
       "Mobile-first design",
       "Contact form",
       "Basic SEO setup",
       "Google Business setup",
-      "7–10 day delivery",
+      "Hosting, SSL & daily backups",
     ],
     cta: "View Starter",
     highlight: false,
-    note: "Fixed scope. No CMS.",
+    note: "",
   },
   {
     id: "business",
-    name: "Business",
-    price: "£850",
+    name: "CMS",
+    price: "£89/mo",
     tagline: "Built to grow.",
     description:
       "A professional site you can actually keep up to date — with a CMS, blog, and priority support.",
@@ -57,72 +57,29 @@ const TIERS = [
       "Recorded training session",
       "Priority support",
     ],
-    cta: "View Business",
+    cta: "View CMS",
     highlight: true,
     note: "Most popular",
   },
   {
     id: "commerce",
     name: "Commerce",
-    price: "£1,500+",
+    price: "£199+/mo",
     tagline: "Built to sell.",
     description:
       "A full online store with payments, product management, and a CMS — so you spend less time on admin.",
     icon: "ShoppingBag",
     features: [
-      "Everything in Business",
+      "Everything in CMS",
       "E-commerce setup",
       "Stripe payment integration",
       "Product management",
       "Order confirmations",
-      "Ongoing support available",
+      "Ongoing support",
     ],
     cta: "View Commerce",
     highlight: false,
     note: "Price varies by scope.",
-  },
-];
-
-const MONTHLY_PLANS = [
-  {
-    name: "Hosting",
-    price: "£21/mo",
-    description:
-      "Your site stays fast, secure, and online. We handle the boring stuff.",
-    features: [
-      "Hosting & SSL",
-      "Daily backups",
-      "Website monitoring & updates",
-      "Security patches",
-      "Basic support",
-    ],
-  },
-  {
-    name: "Growth",
-    price: "£149/mo",
-    description:
-      "We actively grow your online presence so customers find you first.",
-    features: [
-      "Everything in Hosting",
-      "Full Google Business management",
-      "2 SEO-optimised blog posts per month",
-      "2-weekly SEO report",
-      "AI-optimised ads",
-    ],
-  },
-  {
-    name: "Lead Machine",
-    price: "£349/mo",
-    description:
-      "Full marketing engine. We bring the leads, you close the deals.",
-    features: [
-      "Everything in Growth",
-      "Weekly SEO report",
-      "Full SEO strategy",
-      "Content marketing",
-      "Lead generation campaigns",
-      "Quarterly strategy call",
-    ],
   },
 ];
 
@@ -175,9 +132,8 @@ export default function PackagesPage() {
               </span>
             </h1>
             <p data-reveal style={{ "--d": 200 } as React.CSSProperties} className="text-lg text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-              Pick a website build that fits your business, then choose a monthly
-              plan to keep it running and growing. Every price is real — no
-              &ldquo;starting from&rdquo; games.
+              One monthly fee covers everything — design, build, hosting, and
+              support. No upfront cost, no hidden extras, no surprises.
             </p>
           </div>
         </RevealSection>
@@ -187,40 +143,17 @@ export default function PackagesPage() {
           <div className="mx-auto max-w-6xl px-5 md:px-8">
             <div className="mb-10">
               <p data-reveal style={{ "--d": 0 } as React.CSSProperties} className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400">
-                One-off website builds
+                Monthly pricing
               </p>
               <h2 data-reveal style={{ "--d": 80 } as React.CSSProperties} className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 md:text-3xl">
-                Choose your starting point.
+                Everything included. One monthly fee.
               </h2>
             </div>
 
             <TierCardGrid tiers={TIERS} />
 
             <p data-reveal style={{ "--d": 550 } as React.CSSProperties} className="mt-6 text-center text-sm text-zinc-400 dark:text-zinc-500">
-              All packages include a 3-month payment plan option — no interest, no fuss.
-            </p>
-          </div>
-        </RevealSection>
-
-        {/* Monthly Plans */}
-        <RevealSection className="py-16 md:py-24 border-t border-zinc-100 dark:border-zinc-900">
-          <div className="mx-auto max-w-6xl px-5 md:px-8">
-            <div className="mb-10">
-              <p data-reveal style={{ "--d": 0 } as React.CSSProperties} className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400">
-                Monthly plans
-              </p>
-              <h2 data-reveal style={{ "--d": 80 } as React.CSSProperties} className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 md:text-3xl mb-3">
-                Keep it running. Keep it growing.
-              </h2>
-              <p data-reveal style={{ "--d": 160 } as React.CSSProperties} className="text-base text-zinc-500 dark:text-zinc-400 max-w-2xl">
-                Every website needs hosting. Pick the plan that matches your ambition — from keeping the lights on to full-blown lead generation.
-              </p>
-            </div>
-
-            <MonthlyPlanGrid plans={MONTHLY_PLANS} />
-
-            <p data-reveal style={{ "--d": 600 } as React.CSSProperties} className="mt-6 text-center text-sm text-zinc-400 dark:text-zinc-500">
-              Hosting included as standard with every website. No hidden fees, cancel any time.
+              Hosting, SSL &amp; daily backups included in every plan. No setup fees. Cancel any time.
             </p>
           </div>
         </RevealSection>
