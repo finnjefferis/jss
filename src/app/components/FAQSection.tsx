@@ -7,7 +7,7 @@ import { useReveal } from "../hooks/useReveal";
 const FAQS = [
   {
     q: "How much does a website cost?",
-    a: "Plans start from £39/mo and include everything — design, build, hosting, and support. No upfront cost, no hidden fees. We'll work within your budget.",
+    a: "Sites start from £489 for the build, then £21/mo for hosting and support. No hidden fees. We'll scope your project accurately before you commit to anything.",
   },
   {
     q: "How long does it take to build?",

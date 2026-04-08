@@ -40,13 +40,13 @@ type PackageData = {
 const PACKAGES: Record<string, PackageData> = {
   starter: {
     name: "Starter",
-    price: "£39/mo",
+    price: "£489 + £21/mo",
     tagline: "Get online fast.",
     Icon: Zap,
     headline: "A clean, professional site. Live in under two weeks.",
     subheadline:
-      "No upfront cost. We build your site, host it, and keep it running — all for one simple monthly fee. Plus we set up your Google Business profile.",
-    trustSignals: ["No upfront cost", "7–10 day delivery", "Google Business setup included"],
+      "Fixed build fee of £489, then £21/mo for hosting and support. We build your site, host it, and keep it running. Plus we set up your Google Business profile.",
+    trustSignals: ["£489 one-time build", "£21/mo hosting & support", "Google Business setup included"],
     example: {
       clientName: "Naxco Services",
       clientType: "Property maintenance",
@@ -87,19 +87,19 @@ const PACKAGES: Record<string, PackageData> = {
       { q: "What if I need more than 5 pages?", a: "Additional pages are scoped at £75 each, or you might be better suited to the Business package which includes up to 8 pages." },
       { q: "Can I update the site myself?", a: "Not on this package. Starter is a fixed, hand-coded site. If you want to edit content yourself, the Business package includes a full CMS." },
       { q: "What do I need to provide?", a: "Your logo, any photos you want to use, and a rough idea of what you want the site to say. We can help with copy if needed." },
-      { q: "What does the monthly fee cover?", a: "Everything — the site build, hosting, SSL, daily backups, and ongoing maintenance. One price, nothing hidden." },
+      { q: "What does the monthly fee cover?", a: "Hosting, SSL, daily backups, and ongoing maintenance. The £489 covers the build — the £21/mo keeps it running." },
     ],
   },
 
   business: {
     name: "CMS",
-    price: "£89/mo",
+    price: "£989 + £21/mo",
     tagline: "Built to grow.",
     Icon: BarChart3,
     headline: "A professional site you can actually keep up to date.",
     subheadline:
-      "Everything in Starter, plus a CMS so you can edit your own content without touching code — and a blog to build your SEO over time. All for one monthly fee.",
-    trustSignals: ["CMS included", "No upfront cost", "Priority support"],
+      "Everything in Starter, plus a CMS so you can edit your own content without touching code — and a blog to build your SEO over time. Fixed build fee of £989, then £21/mo.",
+    trustSignals: ["£989 one-time build", "£21/mo hosting & support", "Priority support"],
     example: {
       clientName: "eDivert",
       clientType: "Virtual assistant services",
@@ -142,19 +142,19 @@ const PACKAGES: Record<string, PackageData> = {
       { q: "Can I upgrade from Starter to Business later?", a: "It's possible but more expensive than starting with Business. If you think you'll want CMS access, start here." },
       { q: "How many pages are included?", a: "Up to 8 pages. Additional pages can be added at £75 each." },
       { q: "What does priority support mean?", a: "Business clients get a same-day response where possible and are first in line for any fix or update requests." },
-      { q: "What does the monthly fee cover?", a: "Everything — the site build, hosting, SSL, daily backups, ongoing maintenance, and the CMS. One price, nothing hidden." },
+      { q: "What does the monthly fee cover?", a: "Hosting, SSL, daily backups, ongoing maintenance, and the CMS. The £989 covers the build — the £21/mo keeps everything running." },
     ],
   },
 
   commerce: {
     name: "Commerce",
-    price: "£199+/mo",
+    price: "£1,999+ + £99/mo",
     tagline: "Built to sell.",
     Icon: ShoppingBag,
     headline: "A store that handles itself.",
     subheadline:
-      "Full e-commerce with payments, inventory management, and automations — all included in your monthly fee. No upfront build cost, no hosting bills on top.",
-    trustSignals: ["No upfront cost", "Stripe payments included", "Full product management"],
+      "Full e-commerce with payments, inventory management, and automations. Fixed build fee from £1,999 — scoped to your catalogue — then £99/mo for hosting and support.",
+    trustSignals: ["From £1,999 one-time build", "£99/mo hosting & support", "Stripe payments included"],
     example: {
       clientName: "Ivy Arch Studios",
       clientType: "Practice room hire",
@@ -194,11 +194,11 @@ const PACKAGES: Record<string, PackageData> = {
       "Businesses not yet ready to sell online",
     ],
     faqs: [
-      { q: "Why does the price say £199+/mo?", a: "Commerce projects vary based on catalogue size, integrations, and automation. £199/mo is the starting point — we'll scope your project accurately before you commit to anything." },
+      { q: "Why does the build fee say £1,999+?", a: "Commerce projects vary based on catalogue size, integrations, and automation. £1,999 is the starting point — we'll scope your project accurately and give you a fixed price before you commit to anything." },
       { q: "Which payment provider do you use?", a: "Stripe is our default — it's reliable, well-supported, and trusted by customers. We can integrate others if needed." },
       { q: "Can I manage products myself?", a: "Yes. Product management is built into the CMS so you can add, update, or remove products without touching code." },
       { q: "Do you offer ongoing support?", a: "Yes. Commerce clients can opt into a monthly support retainer for updates, new features, and technical help." },
-      { q: "What does the monthly fee cover?", a: "Everything — the store build, hosting, SSL, daily backups, ongoing maintenance, and the CMS. One price, nothing hidden." },
+      { q: "What does the monthly fee cover?", a: "Hosting, SSL, daily backups, ongoing maintenance, and the CMS. The build fee is one-time — the £99/mo keeps everything running." },
     ],
   },
 };

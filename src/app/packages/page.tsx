@@ -10,12 +10,12 @@ const SITE_URL = "https://www.jefferissoftware.co.uk";
 export const metadata: Metadata = {
   title: "Web Design Packages & Pricing",
   description:
-    "Simple monthly pricing for small business websites. From £39/mo for a clean starter site to full e-commerce. Site built, hosted, and maintained — no upfront cost.",
+    "Transparent pricing for small business websites. From £489 for a clean starter site to full e-commerce. Fixed build fee, then a low monthly fee for hosting and support.",
   alternates: { canonical: `${SITE_URL}/packages` },
   openGraph: {
     title: "Web Design Packages & Pricing | Jefferis Software Solutions",
     description:
-      "Simple monthly pricing for small business websites. From £39/mo — site built, hosted, and maintained. No upfront cost, no hidden fees.",
+      "Transparent pricing for small business websites. From £489 — fixed build fee, then low monthly hosting and support. No hidden fees.",
     url: `${SITE_URL}/packages`,
   },
 };
@@ -24,8 +24,8 @@ const TIERS = [
   {
     id: "starter",
     name: "Starter",
-    price: "£39/mo",
-    tagline: "Get online fast.",
+    price: "£489",
+    tagline: "+ £21/mo hosting & support",
     description:
       "A clean, professional site built for you and kept running — for one simple monthly fee.",
     icon: "Zap",
@@ -44,8 +44,8 @@ const TIERS = [
   {
     id: "business",
     name: "CMS",
-    price: "£89/mo",
-    tagline: "Built to grow.",
+    price: "£989",
+    tagline: "+ £21/mo hosting & support",
     description:
       "A professional site you can actually keep up to date — with a CMS, blog, and priority support.",
     icon: "BarChart3",
@@ -64,8 +64,8 @@ const TIERS = [
   {
     id: "commerce",
     name: "Commerce",
-    price: "£199+/mo",
-    tagline: "Built to sell.",
+    price: "£1,999+",
+    tagline: "+ £99/mo hosting & support",
     description:
       "A full online store with payments, product management, and a CMS — so you spend less time on admin.",
     icon: "ShoppingBag",
@@ -132,8 +132,8 @@ export default function PackagesPage() {
               </span>
             </h1>
             <p data-reveal style={{ "--d": 200 } as React.CSSProperties} className="text-lg text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-              One monthly fee covers everything — design, build, hosting, and
-              support. No upfront cost, no hidden extras, no surprises.
+              Fixed build fee. Low monthly fee for hosting and support.
+              No hidden extras, no surprises.
             </p>
           </div>
         </RevealSection>
@@ -143,17 +143,17 @@ export default function PackagesPage() {
           <div className="mx-auto max-w-6xl px-5 md:px-8">
             <div className="mb-10">
               <p data-reveal style={{ "--d": 0 } as React.CSSProperties} className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400">
-                Monthly pricing
+                Build + monthly
               </p>
               <h2 data-reveal style={{ "--d": 80 } as React.CSSProperties} className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 md:text-3xl">
-                Everything included. One monthly fee.
+                Everything included. Fixed price, then a low monthly.
               </h2>
             </div>
 
             <TierCardGrid tiers={TIERS} />
 
             <p data-reveal style={{ "--d": 550 } as React.CSSProperties} className="mt-6 text-center text-sm text-zinc-400 dark:text-zinc-500">
-              Hosting, SSL &amp; daily backups included in every plan. No setup fees. Cancel any time.
+              Hosting, SSL &amp; daily backups included in every plan. Monthly fee covers ongoing support and maintenance.
             </p>
           </div>
         </RevealSection>

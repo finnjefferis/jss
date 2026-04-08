@@ -27,9 +27,9 @@ const TIERS = [
   {
     id: "starter",
     name: "Starter",
-    price: "£39/mo",
-    tagline: "Get online fast.",
-    description: "A clean, professional site built and hosted for one simple monthly fee.",
+    price: "£489",
+    tagline: "+ £21/mo hosting & support",
+    description: "A clean, professional site built and hosted — one fixed build fee, then a low monthly fee to keep it running.",
     Icon: Zap,
     features: [
       "Site design & build included",
@@ -62,8 +62,8 @@ const TIERS = [
   {
     id: "business",
     name: "CMS",
-    price: "£89/mo",
-    tagline: "Built to grow.",
+    price: "£989",
+    tagline: "+ £21/mo hosting & support",
     description: "A professional site you can actually keep up to date — with a CMS, blog, and priority support.",
     Icon: BarChart3,
     features: [
@@ -101,9 +101,9 @@ const TIERS = [
   {
     id: "commerce",
     name: "Commerce",
-    price: "£199+/mo",
-    tagline: "Built to sell.",
-    description: "A full online store with payments, product management, and a CMS — all in one monthly fee.",
+    price: "£1,999+",
+    tagline: "+ £99/mo hosting & support",
+    description: "A full online store with payments, product management, and a CMS — built to your spec.",
     Icon: ShoppingBag,
     features: [
       "Everything in CMS",
