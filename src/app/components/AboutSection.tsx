@@ -121,8 +121,8 @@ export function AboutSection() {
         <h2 data-reveal style={{ "--d": 80 } as React.CSSProperties} className="text-2xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-4xl lg:text-[3.25rem] lg:leading-[1.15] mb-6 text-left lg:text-center max-w-3xl lg:mx-auto">
           Brilliant at what you do?
           <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-600 to-pink-600 inline-block" data-gradient style={{ "--gd": 300 } as React.CSSProperties}>
-            Your website should be too.
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-600 to-pink-600 inline-block" data-reveal style={{ "--d": 240, "--reveal-y": "40px" } as React.CSSProperties}>
+            Your systems should be too.
           </span>
         </h2>
 

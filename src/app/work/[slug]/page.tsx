@@ -5,7 +5,7 @@ import { ComparisonSlider } from "./ComparisonSlider";
 import { BackButton } from "./BackButton";
 import { ExternalLink, Check, Users, Music2, MessageSquare, Rss, ShieldCheck, Layers } from "lucide-react";
 
-export type ProjectSlug = "naxco" | "edivert" | "ivy" | "jmrt" | "toolbox" | "carbon";
+export type ProjectSlug = "naxco" | "edivert" | "ivy" | "jmrt" | "toolbox" | "carbon" | "dsoil";
 
 type Project = {
   slug: ProjectSlug;
@@ -97,6 +97,18 @@ const PROJECTS: Record<ProjectSlug, Project> = {
     challenge:
       "The client needed a way to generate branded carbon footprint reports for their customers and automatically push the data back into their CRM. Built as a React web app with PDF export and live CRM sync.",
     outcomes: ["PDF report generation", "Live CRM sync", "Branded output"],
+  },
+  dsoil: {
+    slug: "dsoil",
+    title: "D&S Oil Tanks",
+    role: "Website Refresh",
+    tags: ["Design", "Dev", "SEO"],
+    summary: "New website for a West Sussex oil tank replacement specialist. Built to win trust fast and turn 35 years of reputation into quotes.",
+    image: "/dsoil.png",
+    externalLink: "https://dsoiltanks.co.uk",
+    challenge:
+      "D&S Oil Tanks have been replacing tanks across West Sussex for 35+ years with flawless Checkatrade reviews — but the old web presence didn't reflect that. The new site had to land trust in seconds, make the free survey offer impossible to miss, and convert quote-curious visitors into booked surveys.",
+    outcomes: ["Trust signals front and centre", "Clear free-quote CTA", "Local SEO for West Sussex"],
   },
 };
 

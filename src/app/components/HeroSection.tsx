@@ -5,15 +5,18 @@ import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { useReveal } from "../hooks/useReveal";
 
-const ROTATE_WORDS = ["convert.", "impress.", "grow.", "last."];
-
-const HERO_SITES = [
-  { src: "/edivertnew.png", alt: "eDivert website", label: "edivert.co.uk", href: "/work/edivert", rotate: 2, z: "z-20", pos: "top-[15%] right-0 w-[75%]" },
-  { src: "/naxnew.png", alt: "Naxco website", label: "naxco.co.uk", href: "/work/naxco", rotate: -3, z: "z-10", pos: "top-0 left-0 w-[75%]" },
-  { src: "/ivyarch.png", alt: "Ivy Arch Studios website", label: "ivyarchstudios.co.uk", href: "/work/ivy", rotate: -1, z: "z-30", pos: "top-[55%] left-[10%] w-[70%]" },
+const PHRASES = [
+  { noun: "Websites", verbs: ["last.", "convert.", "sell.", "win.", "pop."] },
+  { noun: "Integrations", verbs: ["hum.", "click.", "stick.", "flow.", "sync.", "fit."] },
+  { noun: "Software", verbs: ["fits.", "scales.", "ships.", "earns.", "thinks.", "pays."] },
 ];
 
-const START_ROTATIONS = [22, -20, 14];
+const HERO_SITES = [
+  { src: "/naxnew.png", alt: "Naxco website", label: "naxco.co.uk", href: "/work/naxco" },
+  { src: "/edivertnew.png", alt: "eDivert website", label: "edivert.co.uk", href: "/work/edivert" },
+  { src: "/dsoil.png", alt: "D&S Oil Tanks website", label: "dsoiltanks.co.uk", href: "/work/dsoil" },
+  { src: "/ivyarch.png", alt: "Ivy Arch Studios website", label: "ivyarchstudios.co.uk", href: "/work/ivy" },
+];
 
 function BrowserFrame({ site, className = "", priority = false }: { site: typeof HERO_SITES[number]; className?: string; priority?: boolean }) {
   return (
@@ -103,38 +106,95 @@ function MobileHeroCarousel() {
   );
 }
 
-function HeroVisual() {
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+const FAN_LAYOUTS: { x: number; y: number; rot: number; scale: number }[] = [
+  { x: 0, y: 0, rot: 0, scale: 1 },           // depth 0 — front centre
+  { x: 20, y: -120, rot: 5, scale: 0.92 },    // depth 1 — above
+  { x: -20, y: 120, rot: -5, scale: 0.92 },   // depth 2 — below
+  { x: -10, y: 8, rot: -2, scale: 0.82 },     // depth 3 — behind front
+];
 
-  // After drop animation finishes, remove animation so CSS transition can take over for hover
-  const handleAnimationEnd = (i: number) => {
-    const el = cardRefs.current[i];
+function HeroVisual() {
+  const total = HERO_SITES.length;
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
+  const [mounted, setMounted] = useState(false);
+  const wheelLockRef = useRef(false);
+  const desktopRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const t = window.setTimeout(() => setMounted(true), 80);
+    return () => window.clearTimeout(t);
+  }, []);
+
+  // Native wheel listener with passive: false so we can preventDefault page scroll while cycling cards
+  useEffect(() => {
+    const el = desktopRef.current;
     if (!el) return;
-    el.classList.remove("hero-card-drop");
-    el.style.transform = `rotate(${HERO_SITES[i].rotate}deg) scale(1)`;
-  };
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      if (wheelLockRef.current) return;
+      const delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+      if (Math.abs(delta) < 5) return;
+      setActiveIndex((curr) => (curr + (delta > 0 ? 1 : -1) + total) % total);
+      wheelLockRef.current = true;
+      window.setTimeout(() => { wheelLockRef.current = false; }, 380);
+    };
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, [total]);
 
   return (
     <>
       {/* DESKTOP */}
-      <div className="hidden lg:block relative">
+      <div ref={desktopRef} className="hidden lg:block relative">
         <div className="absolute -inset-8 bg-gradient-to-tr from-coral-200/20 dark:from-coral-900/10 to-pink-200/20 dark:to-pink-900/10 rounded-3xl blur-xl -z-10" />
         <div className="relative aspect-[4/3]">
-          {HERO_SITES.map((site, i) => (
-            <div
-              key={site.label}
-              ref={(el) => { cardRefs.current[i] = el; }}
-              className={`absolute ${site.pos} ${site.z} hero-card-drop hero-card-hover`}
-              style={{
-                "--start-rot": `${START_ROTATIONS[i]}deg`,
-                "--end-rot": `${site.rotate}deg`,
-                "--drop-delay": `${150 + i * 200}ms`,
-              } as React.CSSProperties}
-              onAnimationEnd={() => handleAnimationEnd(i)}
-            >
-              <BrowserFrame site={site} />
-            </div>
-          ))}
+          {HERO_SITES.map((site, i) => {
+            const depth = (i - activeIndex + total) % total;
+            const isHovered = hoverIndex === i;
+            const someoneElseHovered = hoverIndex !== null && hoverIndex !== i;
+
+            const layout = FAN_LAYOUTS[Math.min(depth, FAN_LAYOUTS.length - 1)];
+            const stackOpacity = Math.max(0.7, 1 - depth * 0.08);
+
+            let transform: string;
+            let opacity: number;
+            let zIndex: number;
+
+            if (!mounted) {
+              transform = `translate(-50%, -50%) translateY(-180px) scale(0.92)`;
+              opacity = 0;
+              zIndex = total - depth;
+            } else if (isHovered) {
+              transform = `translate(-50%, -50%) scale(1.06)`;
+              opacity = 1;
+              zIndex = 100;
+            } else if (someoneElseHovered) {
+              const goUp = i % 2 === 0;
+              const yPush = goUp ? -220 : 220;
+              const xPush = goUp ? -50 : 50;
+              const rotatePush = goUp ? -10 : 10;
+              transform = `translate(-50%, -50%) translateX(${xPush}px) translateY(${yPush}px) rotate(${rotatePush}deg) scale(0.7)`;
+              opacity = 0.35;
+              zIndex = total - depth;
+            } else {
+              transform = `translate(-50%, -50%) translateX(${layout.x}px) translateY(${layout.y}px) rotate(${layout.rot}deg) scale(${layout.scale})`;
+              opacity = stackOpacity;
+              zIndex = 20 + (total - depth);
+            }
+
+            return (
+              <div
+                key={site.label}
+                className="absolute top-1/2 left-1/2 w-[72%] transition-all duration-500 ease-out will-change-transform"
+                style={{ transform, opacity, zIndex, transitionDelay: !mounted ? `${i * 90}ms` : undefined }}
+                onMouseEnter={() => setHoverIndex(i)}
+                onMouseLeave={() => setHoverIndex(null)}
+              >
+                <BrowserFrame site={site} />
+              </div>
+            );
+          })}
         </div>
       </div>
 
@@ -162,43 +222,56 @@ function HeroVisual() {
   );
 }
 
-function RotatingWord() {
-  const textRef = useRef<HTMLSpanElement>(null);
-  const cursorRef = useRef<HTMLSpanElement>(null);
+function RotatingPhrase() {
+  const nounRef = useRef<HTMLSpanElement>(null);
+  const verbRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    let wordIdx = 0;
-    let charIdx = 0;
+    let phraseIdx = 0;
+    let nounIdx = 0;
+    let verbIdx = 0;
     let deleting = false;
+    const verbCounters = PHRASES.map(() => 0);
     let timer: ReturnType<typeof setTimeout>;
 
+    function currentVerb() {
+      const phrase = PHRASES[phraseIdx];
+      return phrase.verbs[verbCounters[phraseIdx] % phrase.verbs.length];
+    }
+
+    function render() {
+      const noun = PHRASES[phraseIdx].noun;
+      const verb = currentVerb();
+      if (nounRef.current) nounRef.current.textContent = noun.slice(0, nounIdx);
+      if (verbRef.current) verbRef.current.textContent = verb.slice(0, verbIdx);
+    }
+
     function tick() {
-      const word = ROTATE_WORDS[wordIdx];
-      const isLast = wordIdx === ROTATE_WORDS.length - 1;
+      const noun = PHRASES[phraseIdx].noun;
+      const verb = currentVerb();
 
       if (deleting) {
-        charIdx--;
-        if (charIdx <= 0) {
-          charIdx = 0;
+        if (nounIdx > 0) nounIdx--;
+        if (verbIdx > 0) verbIdx--;
+        if (nounIdx === 0 && verbIdx === 0) {
           deleting = false;
-          wordIdx++;
+          verbCounters[phraseIdx] = (verbCounters[phraseIdx] + 1) % PHRASES[phraseIdx].verbs.length;
+          phraseIdx = (phraseIdx + 1) % PHRASES.length;
+          render();
+          timer = setTimeout(tick, 250);
+          return;
         }
       } else {
-        charIdx++;
-        if (charIdx >= word.length) {
-          charIdx = word.length;
-          if (isLast) {
-            if (cursorRef.current) cursorRef.current.style.display = "none";
-            if (textRef.current) textRef.current.textContent = word;
-            return;
-          }
+        if (nounIdx < noun.length) nounIdx++;
+        if (verbIdx < verb.length) verbIdx++;
+        if (nounIdx === noun.length && verbIdx === verb.length) {
+          render();
           timer = setTimeout(() => { deleting = true; tick(); }, 2000);
-          if (textRef.current) textRef.current.textContent = word;
           return;
         }
       }
 
-      if (textRef.current) textRef.current.textContent = ROTATE_WORDS[wordIdx].slice(0, charIdx);
+      render();
       timer = setTimeout(tick, deleting ? 40 : 90);
     }
 
@@ -207,10 +280,38 @@ function RotatingWord() {
   }, []);
 
   return (
-    <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-500 to-pink-500">
-      <span ref={textRef} />
-      <span ref={cursorRef} className="animate-pulse text-coral-400 dark:text-coral-500">|</span>
-    </span>
+    <>
+      <span className="inline-grid align-baseline">
+        {PHRASES.map((p, i) => (
+          <span key={`n${i}`} aria-hidden className="invisible col-start-1 row-start-1 whitespace-nowrap">
+            {p.noun}|
+          </span>
+        ))}
+        <span className="col-start-1 row-start-1 whitespace-nowrap">
+          <span ref={nounRef} />
+          <span className="animate-pulse text-coral-400 dark:text-coral-500">|</span>
+        </span>
+      </span>
+      <br />
+      <span className="inline-flex items-baseline whitespace-nowrap">
+        <span>that&nbsp;</span>
+        <span className="inline-grid align-baseline">
+          {PHRASES.flatMap((p, i) =>
+            p.verbs.map((v, j) => (
+              <span key={`v${i}-${j}`} aria-hidden className="invisible col-start-1 row-start-1 whitespace-nowrap">
+                {v}|
+              </span>
+            ))
+          )}
+          <span className="col-start-1 row-start-1 whitespace-nowrap">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-500 to-pink-500">
+              <span ref={verbRef} />
+            </span>
+            <span className="animate-pulse text-coral-400 dark:text-coral-500">|</span>
+          </span>
+        </span>
+      </span>
+    </>
   );
 }
 
@@ -271,21 +372,20 @@ export function HeroSection() {
           {/* LEFT — Text */}
           <div>
             <p data-reveal style={{ "--d": 50 } as React.CSSProperties} className="mb-3 text-xs font-bold uppercase tracking-[0.25em] text-amber-600 dark:text-amber-400">
-              Small business websites · UK
+              Websites · Integrations · Bespoke Software · UK
             </p>
             <h1 data-reveal style={{ "--d": 180, "--reveal-y": "16px" } as React.CSSProperties} className="text-5xl font-black leading-[1.08] tracking-tight text-zinc-900 dark:text-white sm:text-6xl lg:text-7xl">
-              Websites that<br />
-              <RotatingWord />
+              <RotatingPhrase />
             </h1>
             <p data-reveal style={{ "--d": 310 } as React.CSSProperties} className="mt-6 text-lg text-zinc-500 dark:text-zinc-400 md:text-xl max-w-xl">
-              Your website should be winning you clients. If it isn't, we'll fix that.
+              Your website should be winning you clients. If it isn&apos;t, we&apos;ll fix that.
             </p>
             <div data-reveal style={{ "--d": 440 } as React.CSSProperties} className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
               <a
                 href="#services"
                 className="inline-flex items-center justify-center rounded-xl bg-coral-600 px-8 py-4 text-sm font-bold text-white shadow-md transition-colors hover:bg-coral-700"
               >
-                See packages & pricing
+                See packages &amp; pricing
               </a>
               <a
                 href="#recent-work"

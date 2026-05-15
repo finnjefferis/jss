@@ -6,7 +6,7 @@ import { ArrowRight, ArrowLeft } from "lucide-react";
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useReveal } from "../hooks/useReveal";
 
-type ProjectKey = "naxco" | "edivert" | "carbon" | "toolbox" | "ivy" | "jmrt";
+type ProjectKey = "naxco" | "edivert" | "carbon" | "toolbox" | "ivy" | "jmrt" | "dsoil";
 
 const PROJECTS = [
   {
@@ -18,6 +18,16 @@ const PROJECTS = [
     alt: "eDivert website",
     tags: ["Design", "Dev", "SEO"],
     href: "/work/edivert",
+  },
+  {
+    key: "dsoil" as ProjectKey,
+    title: "D&S Oil Tanks",
+    role: "Website Refresh",
+    summary: "New website for a West Sussex oil tank specialist. Built to turn 35 years of reputation into quotes.",
+    image: "/dsoil.png",
+    alt: "D&S Oil Tanks website",
+    tags: ["Design", "Dev", "SEO"],
+    href: "/work/dsoil",
   },
   {
     key: "ivy" as ProjectKey,
