@@ -5,7 +5,7 @@ import { ComparisonSlider } from "./ComparisonSlider";
 import { BackButton } from "./BackButton";
 import { ExternalLink, Check, Users, Music2, MessageSquare, Rss, ShieldCheck, Layers } from "lucide-react";
 
-export type ProjectSlug = "naxco" | "edivert" | "ivy" | "jmrt" | "toolbox" | "carbon" | "dsoil";
+export type ProjectSlug = "naxco" | "edivert" | "ivy" | "jmrt" | "toolbox" | "carbon" | "dsoil" | "northstar";
 
 type Project = {
   slug: ProjectSlug;
@@ -109,6 +109,18 @@ const PROJECTS: Record<ProjectSlug, Project> = {
     challenge:
       "D&S Oil Tanks have been replacing tanks across West Sussex for 35+ years with flawless Checkatrade reviews — but the old web presence didn't reflect that. The new site had to land trust in seconds, make the free survey offer impossible to miss, and convert quote-curious visitors into booked surveys.",
     outcomes: ["Trust signals front and centre", "Clear free-quote CTA", "Local SEO for West Sussex"],
+  },
+  northstar: {
+    slug: "northstar",
+    title: "Northstar Plumbing & Heating",
+    role: "Website Refresh",
+    tags: ["Design", "Dev", "SEO"],
+    summary: "New website for a West Sussex plumbing & heating company. Built on 12 years of reputation and a perfect 10/10 Checkatrade record.",
+    image: "/northstar.png",
+    externalLink: "https://northstarplumbing.co.uk",
+    challenge:
+      "Northstar have been serving West Sussex for 12 years with a flawless 10/10 Checkatrade record and full Gas Safe credentials — but the old site didn't lead with any of that. The new build puts the trust signals front and centre, makes the phone-call CTA impossible to miss, and turns the years of reputation into bookings.",
+    outcomes: ["Trust signals upfront", "Quick-call CTA", "Gas Safe & service area front and centre"],
   },
 };
 

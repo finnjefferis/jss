@@ -6,7 +6,7 @@ import { ArrowRight, ArrowLeft } from "lucide-react";
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useReveal } from "../hooks/useReveal";
 
-type ProjectKey = "naxco" | "edivert" | "carbon" | "toolbox" | "ivy" | "jmrt" | "dsoil";
+type ProjectKey = "naxco" | "edivert" | "carbon" | "toolbox" | "ivy" | "jmrt" | "dsoil" | "northstar";
 
 const PROJECTS = [
   {
@@ -18,6 +18,16 @@ const PROJECTS = [
     alt: "eDivert website",
     tags: ["Design", "Dev", "SEO"],
     href: "/work/edivert",
+  },
+  {
+    key: "northstar" as ProjectKey,
+    title: "Northstar Plumbing & Heating",
+    role: "Website Refresh",
+    summary: "New website for a West Sussex plumbing & heating company. Built on 12 years of reputation and a perfect 10/10 Checkatrade record.",
+    image: "/northstar.png",
+    alt: "Northstar Plumbing & Heating website",
+    tags: ["Design", "Dev", "SEO"],
+    href: "/work/northstar",
   },
   {
     key: "dsoil" as ProjectKey,
@@ -84,6 +94,7 @@ const PROJECTS = [
 export function RecentWorkSection() {
   const [active, setActive] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
   const headerRef = useReveal<HTMLDivElement>(0.3);
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(true);
@@ -93,6 +104,38 @@ export function RecentWorkSection() {
     setActive(next);
     setCanPrev(next > 0);
     setCanNext(next < PROJECTS.length - 1);
+  }, []);
+
+  // Capture Mac trackpad HORIZONTAL swipes over the desktop carousel so they advance the cards
+  // instead of bleeding through as page scroll. Vertical wheel still passes through normally,
+  // so the user can keep scrolling down the page when over this section.
+  useEffect(() => {
+    const el = carouselRef.current;
+    if (!el) return;
+    let lastFire = 0;
+
+    const onWheel = (e: WheelEvent) => {
+      // Only act on clearly-horizontal swipes; let vertical scrolls scroll the page.
+      if (Math.abs(e.deltaX) < Math.abs(e.deltaY) * 1.3) return;
+      if (Math.abs(e.deltaX) < 8) return;
+
+      e.preventDefault();
+
+      const now = performance.now();
+      if (now - lastFire < 500) return;
+      lastFire = now;
+
+      const step = e.deltaX > 0 ? 1 : -1;
+      setActive((curr) => {
+        const next = Math.max(0, Math.min(curr + step, PROJECTS.length - 1));
+        setCanPrev(next > 0);
+        setCanNext(next < PROJECTS.length - 1);
+        return next;
+      });
+    };
+
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
   }, []);
 
   // Sync scroll position on swipe (mobile)
@@ -171,7 +214,7 @@ export function RecentWorkSection() {
       </div>
 
       {/* Cards — CSS transform carousel on md+, native scroll on mobile */}
-      <div className="relative">
+      <div ref={carouselRef} className="relative">
 
         {/* Desktop: overflow-visible sliding track */}
         <div className="hidden md:block overflow-hidden">

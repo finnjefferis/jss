@@ -117,11 +117,7 @@ export function ValueProposition() {
           }
         });
 
-        setActiveIndex((prev) => {
-          if (targetIndex > prev) return prev + 1;
-          if (targetIndex < prev) return prev - 1;
-          return prev;
-        });
+        setActiveIndex((prev) => (prev === targetIndex ? prev : targetIndex));
         ticking = false;
       });
     };

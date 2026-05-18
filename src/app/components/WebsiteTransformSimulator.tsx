@@ -20,6 +20,7 @@ import {
   Database,
   Lock,
   Layers,
+  PoundSterling,
 } from "lucide-react";
 
 type Stage = "site" | "seo" | "marketing" | "monitoring" | "software" | string | null;
@@ -60,6 +61,25 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
   const monitoringReady = useStageReady(stage, "monitoring");
   const softwareReady = useStageReady(stage, "software");
 
+  // When software stage lands, buzz the phone and drop in a bank notification.
+  // Re-mounted via a key so re-entering software replays the animation.
+  const [buzz, setBuzz] = useState(0);
+  const [notifKey, setNotifKey] = useState(0);
+  const [notifVisible, setNotifVisible] = useState(false);
+
+  useEffect(() => {
+    if (stage !== "software") {
+      setNotifVisible(false);
+      return;
+    }
+    const tBuzz = setTimeout(() => {
+      setBuzz((n) => n + 1);
+      setNotifKey((n) => n + 1);
+      setNotifVisible(true);
+    }, 1300);
+    return () => clearTimeout(tBuzz);
+  }, [stage]);
+
   const urlMap: Record<string, string> = {
     site: "yourbusiness.co.uk",
     seo: "google.com/search",
@@ -73,11 +93,33 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
 
   return (
     <div className="relative mx-auto w-[260px] lg:w-auto lg:max-w-[17rem]">
-      {/* Phone Frame */}
+      {/* Phone Frame — wrapped in a buzz layer that shakes on new notifications */}
+      <div key={`buzz-${buzz}`} className={buzz > 0 ? "phone-vibrate" : undefined}>
       <div className="relative overflow-hidden rounded-[2.5rem] border-[6px] border-zinc-900 dark:border-zinc-700 bg-zinc-900 dark:bg-zinc-800 shadow-2xl shadow-zinc-900/40 dark:shadow-black/50">
 
         {/* Notch / Dynamic Island */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 z-50 w-24 h-6 bg-zinc-900 dark:bg-zinc-700 rounded-b-2xl" />
+
+        {/* Bank payment notification — drops in when software stage activates */}
+        {notifVisible && (
+          <div key={`notif-${notifKey}`} className="absolute left-2 right-2 top-7 z-[60] notif-drop">
+            <div className="rounded-2xl bg-white/95 dark:bg-zinc-800/95 backdrop-blur-md shadow-xl shadow-zinc-900/40 ring-1 ring-black/5 dark:ring-white/10 px-2.5 py-2">
+              <div className="flex items-start gap-2">
+                <div className="h-6 w-6 rounded-md bg-gradient-to-br from-coral-500 to-pink-600 flex items-center justify-center shrink-0 mt-0.5 shadow-sm shadow-coral-500/40">
+                  <PoundSterling className="h-3.5 w-3.5 text-white" strokeWidth={2.75} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between gap-1">
+                    <span className="text-[8px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Banking</span>
+                    <span className="text-[7px] text-zinc-400">now</span>
+                  </div>
+                  <p className="text-[9px] font-bold text-zinc-900 dark:text-zinc-100 leading-tight mt-0.5">Payment received</p>
+                  <p className="text-[8px] text-zinc-600 dark:text-zinc-400 leading-tight">£2,450.00 · Invoice #4821</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Status Bar */}
         <div className="relative bg-zinc-900 dark:bg-zinc-800 px-6 pt-2 pb-1 flex items-end justify-between z-40">
@@ -696,6 +738,7 @@ export function WebsiteTransformSimulator({ stage, children }: { stage: Stage; c
         <div className="bg-zinc-900 dark:bg-zinc-800 py-2 flex justify-center">
           <div className="h-1 w-28 rounded-full bg-white/30" />
         </div>
+      </div>
       </div>
 
       {/* Children overlay */}

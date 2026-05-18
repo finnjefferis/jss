@@ -16,6 +16,7 @@ const HERO_SITES = [
   { src: "/edivertnew.png", alt: "eDivert website", label: "edivert.co.uk", href: "/work/edivert" },
   { src: "/dsoil.png", alt: "D&S Oil Tanks website", label: "dsoiltanks.co.uk", href: "/work/dsoil" },
   { src: "/ivyarch.png", alt: "Ivy Arch Studios website", label: "ivyarchstudios.co.uk", href: "/work/ivy" },
+  { src: "/northstar.png", alt: "Northstar Plumbing & Heating website", label: "northstarplumbing.co.uk", href: "/work/northstar" },
 ];
 
 function BrowserFrame({ site, className = "", priority = false }: { site: typeof HERO_SITES[number]; className?: string; priority?: boolean }) {
@@ -106,19 +107,32 @@ function MobileHeroCarousel() {
   );
 }
 
-const FAN_LAYOUTS: { x: number; y: number; rot: number; scale: number }[] = [
-  { x: 0, y: 0, rot: 0, scale: 1 },           // depth 0 — front centre
-  { x: 20, y: -120, rot: 5, scale: 0.92 },    // depth 1 — above
-  { x: -20, y: 120, rot: -5, scale: 0.92 },   // depth 2 — below
-  { x: -10, y: 8, rot: -2, scale: 0.82 },     // depth 3 — behind front
+type Layout = { x: number; y: number; rot: number; scale: number; opacity: number };
+
+// FANNED layout (hover state): 5 positions on a closed loop. Front at centre, top, left-back, bottom, right-back.
+const FAN_LAYOUTS: Layout[] = [
+  { x: 0,    y: 0,    rot: 0,  scale: 1.00, opacity: 1.00 },  // depth 0 — FRONT
+  { x: 0,    y: -135, rot: -3, scale: 0.65, opacity: 0.92 },  // depth 1 — TOP
+  { x: -125, y: 0,    rot: -8, scale: 0.45, opacity: 0.88 },  // depth 2 — LEFT-BACK
+  { x: 0,    y: 135,  rot: 3,  scale: 0.65, opacity: 0.92 },  // depth 3 — BOTTOM
+  { x: 125,  y: 0,    rot: 8,  scale: 0.45, opacity: 0.88 },  // depth 4 — RIGHT-BACK
+];
+
+// STACKED layout (idle state): 5 cards fanned around the centre like a half-spread deck —
+// enough offset that each card's edges peek out and you can tell it's a stack of distinct cards.
+const STACK_LAYOUTS: Layout[] = [
+  { x: 0,   y: 0,   rot: 0,   scale: 1.00, opacity: 1.00 },  // depth 0 — FRONT
+  { x: -68, y: -26, rot: -10, scale: 0.93, opacity: 0.95 },  // depth 1 — top-left peek
+  { x: 72,  y: -22, rot: 11,  scale: 0.91, opacity: 0.93 },  // depth 2 — top-right peek
+  { x: 12,  y: 34,  rot: 4,   scale: 0.93, opacity: 0.95 },  // depth 3 — bottom peek
+  { x: -38, y: -8,  rot: -5,  scale: 0.91, opacity: 0.92 },  // depth 4 — back-left peek
 ];
 
 function HeroVisual() {
   const total = HERO_SITES.length;
   const [activeIndex, setActiveIndex] = useState(0);
-  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
   const [mounted, setMounted] = useState(false);
-  const wheelLockRef = useRef(false);
+  const [isFocused, setIsFocused] = useState(false);
   const desktopRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -126,36 +140,77 @@ function HeroVisual() {
     return () => window.clearTimeout(t);
   }, []);
 
-  // Native wheel listener with passive: false so we can preventDefault page scroll while cycling cards
+  // Window-level wheel listener with bbox hit-test. Doesn't depend on cursor being over
+  // any specific element — only requires cursor to be within the desktop hero area.
+  // Fixed 700ms throttle absorbs trackpad inertia (a single swipe = one rotation).
   useEffect(() => {
-    const el = desktopRef.current;
-    if (!el) return;
+    let lastFire = 0;
+
     const onWheel = (e: WheelEvent) => {
+      const el = desktopRef.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const inside =
+        e.clientX >= r.left && e.clientX <= r.right &&
+        e.clientY >= r.top && e.clientY <= r.bottom;
+      if (!inside) return;
+
       e.preventDefault();
-      if (wheelLockRef.current) return;
+
       const delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
       if (Math.abs(delta) < 5) return;
-      setActiveIndex((curr) => (curr + (delta > 0 ? 1 : -1) + total) % total);
-      wheelLockRef.current = true;
-      window.setTimeout(() => { wheelLockRef.current = false; }, 380);
+
+      const now = performance.now();
+      if (now - lastFire < 700) return;
+      lastFire = now;
+
+      // Scroll DOWN (delta > 0) → bottom card rises to focus
+      // Scroll UP   (delta < 0) → top card descends to focus
+      setActiveIndex((curr) => (curr + (delta > 0 ? -1 : 1) + total) % total);
     };
-    el.addEventListener("wheel", onWheel, { passive: false });
-    return () => el.removeEventListener("wheel", onWheel);
+
+    window.addEventListener("wheel", onWheel, { passive: false });
+    return () => window.removeEventListener("wheel", onWheel);
   }, [total]);
 
   return (
     <>
       {/* DESKTOP */}
-      <div ref={desktopRef} className="hidden lg:block relative">
-        <div className="absolute -inset-8 bg-gradient-to-tr from-coral-200/20 dark:from-coral-900/10 to-pink-200/20 dark:to-pink-900/10 rounded-3xl blur-xl -z-10" />
+      <div
+        ref={desktopRef}
+        className="hidden lg:block relative"
+        onMouseEnter={() => setIsFocused(true)}
+        onMouseLeave={() => setIsFocused(false)}
+      >
+        <div
+          className="absolute -inset-8 bg-gradient-to-tr from-coral-200/20 dark:from-coral-900/10 to-pink-200/20 dark:to-pink-900/10 rounded-3xl blur-xl -z-10 transition-opacity duration-500"
+          style={{ opacity: isFocused ? 1 : 0.4 }}
+        />
+
+        {/* Swipe indicator — subtle pill that pops in when the hero is focused */}
+        <div
+          className="pointer-events-none absolute top-3 right-3 z-50 flex items-center gap-2 rounded-full border border-coral-600/20 dark:border-coral-400/25 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-sm px-3 py-1.5 shadow-sm transition-all duration-500 ease-out"
+          style={{
+            opacity: isFocused ? 1 : 0,
+            transform: `translateY(${isFocused ? "0" : "-10px"}) scale(${isFocused ? "1" : "0.92"})`,
+          }}
+        >
+          <div className="flex flex-col items-center gap-[2px] text-coral-600 dark:text-coral-400">
+            <svg className="h-2 w-2 animate-bounce" style={{ animationDuration: "1.4s" }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+            </svg>
+            <svg className="h-2 w-2 animate-bounce" style={{ animationDuration: "1.4s", animationDelay: "0.7s" }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+          <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-coral-700 dark:text-coral-300">Swipe</span>
+        </div>
+
         <div className="relative aspect-[4/3]">
           {HERO_SITES.map((site, i) => {
             const depth = (i - activeIndex + total) % total;
-            const isHovered = hoverIndex === i;
-            const someoneElseHovered = hoverIndex !== null && hoverIndex !== i;
-
-            const layout = FAN_LAYOUTS[Math.min(depth, FAN_LAYOUTS.length - 1)];
-            const stackOpacity = Math.max(0.7, 1 - depth * 0.08);
+            const layoutSet = isFocused ? FAN_LAYOUTS : STACK_LAYOUTS;
+            const layout = layoutSet[Math.min(depth, layoutSet.length - 1)];
 
             let transform: string;
             let opacity: number;
@@ -165,31 +220,22 @@ function HeroVisual() {
               transform = `translate(-50%, -50%) translateY(-180px) scale(0.92)`;
               opacity = 0;
               zIndex = total - depth;
-            } else if (isHovered) {
-              transform = `translate(-50%, -50%) scale(1.06)`;
-              opacity = 1;
-              zIndex = 100;
-            } else if (someoneElseHovered) {
-              const goUp = i % 2 === 0;
-              const yPush = goUp ? -220 : 220;
-              const xPush = goUp ? -50 : 50;
-              const rotatePush = goUp ? -10 : 10;
-              transform = `translate(-50%, -50%) translateX(${xPush}px) translateY(${yPush}px) rotate(${rotatePush}deg) scale(0.7)`;
-              opacity = 0.35;
-              zIndex = total - depth;
             } else {
               transform = `translate(-50%, -50%) translateX(${layout.x}px) translateY(${layout.y}px) rotate(${layout.rot}deg) scale(${layout.scale})`;
-              opacity = stackOpacity;
+              opacity = layout.opacity;
               zIndex = 20 + (total - depth);
             }
 
             return (
               <div
                 key={site.label}
-                className="absolute top-1/2 left-1/2 w-[72%] transition-all duration-500 ease-out will-change-transform"
-                style={{ transform, opacity, zIndex, transitionDelay: !mounted ? `${i * 90}ms` : undefined }}
-                onMouseEnter={() => setHoverIndex(i)}
-                onMouseLeave={() => setHoverIndex(null)}
+                className="absolute top-1/2 left-1/2 w-[72%] transition-all duration-[480ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform cursor-pointer"
+                style={{
+                  transform,
+                  opacity,
+                  zIndex,
+                  transitionDelay: !mounted ? `${i * 90}ms` : undefined,
+                }}
               >
                 <BrowserFrame site={site} />
               </div>
