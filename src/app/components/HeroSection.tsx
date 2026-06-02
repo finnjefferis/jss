@@ -428,7 +428,7 @@ export function HeroSection() {
   const sectionRef = useReveal<HTMLElement>(0.1);
 
   return (
-    <section ref={sectionRef} className="relative pt-10 pb-40 md:pb-48 md:pt-28 lg:pt-36 lg:pb-56 overflow-hidden">
+    <section ref={sectionRef} className="relative pt-10 pb-40 md:pb-48 md:pt-28 lg:pt-36 lg:pb-44 overflow-hidden">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-coral-500/5 dark:bg-coral-500/3 rounded-full blur-xl" />
         <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-pink-500/5 dark:bg-pink-500/3 rounded-full blur-xl" />
