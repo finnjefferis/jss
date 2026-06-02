@@ -5,7 +5,7 @@ import { ComparisonSlider } from "./ComparisonSlider";
 import { BackButton } from "./BackButton";
 import { ExternalLink, Check, Users, Music2, MessageSquare, Rss, ShieldCheck, Layers } from "lucide-react";
 
-export type ProjectSlug = "naxco" | "edivert" | "ivy" | "jmrt" | "toolbox" | "carbon" | "dsoil" | "northstar";
+export type ProjectSlug = "naxco" | "edivert" | "ivy" | "jmrt" | "toolbox" | "carbon" | "dsoil" | "titandoors";
 
 type Project = {
   slug: ProjectSlug;
@@ -110,17 +110,17 @@ const PROJECTS: Record<ProjectSlug, Project> = {
       "D&S Oil Tanks have been replacing tanks across West Sussex for 35+ years with flawless Checkatrade reviews — but the old web presence didn't reflect that. The new site had to land trust in seconds, make the free survey offer impossible to miss, and convert quote-curious visitors into booked surveys.",
     outcomes: ["Trust signals front and centre", "Clear free-quote CTA", "Local SEO for West Sussex"],
   },
-  northstar: {
-    slug: "northstar",
-    title: "Northstar Plumbing & Heating",
-    role: "Website Refresh",
+  titandoors: {
+    slug: "titandoors",
+    title: "Titan Doors",
+    role: "Website + Brand",
     tags: ["Design", "Dev", "SEO"],
-    summary: "New website for a West Sussex plumbing & heating company. Built on 12 years of reputation and a perfect 10/10 Checkatrade record.",
-    image: "/northstar.png",
-    externalLink: "https://northstarplumbing.co.uk",
+    summary: "New website for a Sussex door specialist. Premium composite, bifold and sliding doors — built to outperform on security, thermal efficiency and design.",
+    image: "/titandoors.png",
+    externalLink: "https://titandoors.co.uk",
     challenge:
-      "Northstar have been serving West Sussex for 12 years with a flawless 10/10 Checkatrade record and full Gas Safe credentials — but the old site didn't lead with any of that. The new build puts the trust signals front and centre, makes the phone-call CTA impossible to miss, and turns the years of reputation into bookings.",
-    outcomes: ["Trust signals upfront", "Quick-call CTA", "Gas Safe & service area front and centre"],
+      "Titan supply and install premium composite, bifold and sliding doors across Sussex, handling everything from survey to aftercare. They needed a site that felt as solid as the product — leading with the 5.0 Google rating and end-to-end service, making the free survey impossible to miss, and turning quote-curious visitors into booked surveys.",
+    outcomes: ["Premium, security-led design", "Free survey CTA front and centre", "Local SEO for Sussex"],
   },
 };
 

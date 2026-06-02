@@ -6,7 +6,7 @@ import { ArrowRight, ArrowLeft } from "lucide-react";
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useReveal } from "../hooks/useReveal";
 
-type ProjectKey = "naxco" | "edivert" | "carbon" | "toolbox" | "ivy" | "jmrt" | "dsoil" | "northstar";
+type ProjectKey = "naxco" | "edivert" | "carbon" | "toolbox" | "ivy" | "jmrt" | "dsoil" | "titandoors";
 
 const PROJECTS = [
   {
@@ -20,14 +20,14 @@ const PROJECTS = [
     href: "/work/edivert",
   },
   {
-    key: "northstar" as ProjectKey,
-    title: "Northstar Plumbing & Heating",
-    role: "Website Refresh",
-    summary: "New website for a West Sussex plumbing & heating company. Built on 12 years of reputation and a perfect 10/10 Checkatrade record.",
-    image: "/northstar.png",
-    alt: "Northstar Plumbing & Heating website",
+    key: "titandoors" as ProjectKey,
+    title: "Titan Doors",
+    role: "Website + Brand",
+    summary: "New website for a Sussex door specialist. Premium composite, bifold and sliding doors, built to outperform on security and design.",
+    image: "/titandoors.png",
+    alt: "Titan Doors website",
     tags: ["Design", "Dev", "SEO"],
-    href: "/work/northstar",
+    href: "/work/titandoors",
   },
   {
     key: "dsoil" as ProjectKey,

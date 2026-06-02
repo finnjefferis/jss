@@ -11,12 +11,12 @@ const PHRASES = [
   { noun: "Software", verbs: ["fits.", "scales.", "ships.", "earns.", "thinks.", "pays."] },
 ];
 
-const HERO_SITES = [
+const HERO_SITES: { src: string; alt: string; label: string; href: string; video?: string }[] = [
   { src: "/naxnew.png", alt: "Naxco website", label: "naxco.co.uk", href: "/work/naxco" },
   { src: "/edivertnew.png", alt: "eDivert website", label: "edivert.co.uk", href: "/work/edivert" },
-  { src: "/dsoil.png", alt: "D&S Oil Tanks website", label: "dsoiltanks.co.uk", href: "/work/dsoil" },
+  { src: "/dsoil.png", alt: "D&S Oil Tanks website", label: "dsoiltanks.co.uk", href: "/work/dsoil", video: "/dsoil.mp4" },
   { src: "/ivyarch.png", alt: "Ivy Arch Studios website", label: "ivyarchstudios.co.uk", href: "/work/ivy" },
-  { src: "/northstar.png", alt: "Northstar Plumbing & Heating website", label: "northstarplumbing.co.uk", href: "/work/northstar" },
+  { src: "/titandoors.png", alt: "Titan Doors website", label: "titandoors.co.uk", href: "/work/titandoors" },
 ];
 
 function BrowserFrame({ site, className = "", priority = false }: { site: typeof HERO_SITES[number]; className?: string; priority?: boolean }) {
@@ -34,7 +34,27 @@ function BrowserFrame({ site, className = "", priority = false }: { site: typeof
           </div>
         </div>
         <div className="relative aspect-[16/10] w-full bg-zinc-100 dark:bg-zinc-800">
-          <Image src={site.src} alt={site.alt} fill className="object-cover object-top" sizes="(max-width: 768px) 78vw, 400px" priority={priority} loading={priority ? "eager" : "lazy"} />
+          {site.video ? (
+            <video
+              key={site.video}
+              src={site.video}
+              poster={site.src}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              disablePictureInPicture
+              disableRemotePlayback
+              onLoadedData={(e) => {
+                e.currentTarget.muted = true;
+                e.currentTarget.play().catch(() => {});
+              }}
+              className="absolute inset-0 h-full w-full object-cover object-top"
+            />
+          ) : (
+            <Image src={site.src} alt={site.alt} fill className="object-cover object-top" sizes="(max-width: 768px) 78vw, 400px" priority={priority} loading={priority ? "eager" : "lazy"} />
+          )}
         </div>
       </div>
     </Link>
@@ -130,7 +150,9 @@ const STACK_LAYOUTS: Layout[] = [
 
 function HeroVisual() {
   const total = HERO_SITES.length;
-  const [activeIndex, setActiveIndex] = useState(0);
+  // Start with Titan Doors at the front (depth 0) so its animation plays on load.
+  const initialIndex = Math.max(0, HERO_SITES.findIndex((s) => s.href === "/work/titandoors"));
+  const [activeIndex, setActiveIndex] = useState(initialIndex);
   const [mounted, setMounted] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const desktopRef = useRef<HTMLDivElement>(null);
