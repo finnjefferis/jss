@@ -27,7 +27,7 @@ const TIERS = [
   {
     id: "starter",
     name: "Starter",
-    price: "£489",
+    price: "£699",
     tagline: "+ £21/mo hosting & support",
     description: "A clean, professional site built and hosted — one fixed build fee, then a low monthly fee to keep it running.",
     Icon: Zap,
@@ -62,7 +62,7 @@ const TIERS = [
   {
     id: "business",
     name: "CMS",
-    price: "£989",
+    price: "£1,199",
     tagline: "+ £21/mo hosting & support",
     description: "A professional site you can actually keep up to date — with a CMS, blog, and priority support.",
     Icon: BarChart3,
@@ -101,7 +101,7 @@ const TIERS = [
   {
     id: "commerce",
     name: "Commerce",
-    price: "£1,999+",
+    price: "£2,000+",
     tagline: "+ £99/mo hosting & support",
     description: "A full online store with payments, product management, and a CMS — built to your spec.",
     Icon: ShoppingBag,
@@ -129,12 +129,12 @@ const TIERS = [
     highlight: false,
     note: "Price varies by scope.",
     example: {
-      clientName: "Ivy Arch Studios",
-      clientType: "Practice room hire",
-      image: "/ivyarch.png",
-      slug: "ivy",
-      quote: "Good work quickly done diligently and effectively.",
-      reviewer: "Ivy Arch Studios",
+      clientName: "Titan Doors",
+      clientType: "Composite & bifold doors",
+      image: "/titandoors.png",
+      slug: "titandoors",
+      quote: "Completely professional throughout and done an amazing job, great price also. I recommend using this company.",
+      reviewer: "Justin Sommerford, Google Review",
     },
   },
 ];
