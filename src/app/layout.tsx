@@ -202,6 +202,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className={`${sora.variable} ${spaceGrotesk.variable}`}>
         {children}
         <Analytics />
+        {/* Relay: reports opens back to Shared links */}
+        <script src="https://relay-production-7d2c.up.railway.app/t/jss.js" async></script>
       </body>
     </html>
   );

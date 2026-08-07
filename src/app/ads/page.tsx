@@ -23,18 +23,20 @@ import {
   Zap,
 } from "lucide-react";
 import { AdDashboardAnimated } from "../components/AdDashboardAnimated";
+import { SceneStage } from "../components/RelayShowcase";
+import { PipelineScene } from "../relay/pipeline";
 
 const SITE_URL = "https://www.jefferissoftware.co.uk";
 
 export const metadata: Metadata = {
   title: "AI-Optimised Ads",
   description:
-    "Smarter ad campaigns powered by AI. Google Ads, Meta, and more — targeted, optimised, and built to bring you actual leads. Not vanity metrics.",
+    "We build the whole ads pipeline — the creative, the landing funnel it clicks through to, and live tracking that shows which ad brought each lead. Not vanity metrics.",
   alternates: { canonical: `${SITE_URL}/ads` },
   openGraph: {
     title: "AI-Optimised Ads | Jefferis Software Solutions",
     description:
-      "Smarter ad campaigns powered by AI. Google Ads, Meta, and more — targeted, optimised, and built to bring you actual leads.",
+      "We build the whole ads pipeline — the creative, the landing funnel, and live tracking that shows which ad brought each lead.",
     url: `${SITE_URL}/ads`,
   },
 };
@@ -63,15 +65,15 @@ const CAPABILITIES = [
   },
   {
     Icon: MousePointerClick,
-    title: "Landing Page Alignment",
+    title: "Landing Funnels Built For You",
     description:
-      "Your ads match your landing pages. We make sure the click-through experience is seamless so leads don't bounce at the last second.",
+      "Your ads don't dump people on a homepage. Clicks land on a short set of questions we build and host — measured at every step, so drop-offs tell us what to fix.",
   },
   {
     Icon: Eye,
     title: "Transparent Reporting",
     description:
-      "No vanity metrics. You see exactly what you're spending, what's converting, and what each lead costs. Plain English, not marketing jargon.",
+      "No vanity metrics. Every lead is tagged with the ad that brought it, so you see exactly what you're spending, what's converting, and what each lead costs.",
   },
   {
     Icon: Sparkles,
@@ -136,7 +138,7 @@ const adsSchema = [
     "@type": "Service",
     name: "AI-Optimised Advertising",
     description:
-      "Smarter ad campaigns powered by AI. Google Ads, Meta, and more — targeted, optimised, and built to generate real leads for UK businesses.",
+      "Full-pipeline ad campaigns for UK businesses: AI-assisted creatives built from your own site, a custom landing funnel, and live tracking that attributes every lead to the ad that brought it.",
     provider: { "@id": `${SITE_URL}/#organization` },
     url: `${SITE_URL}/ads`,
     areaServed: { "@type": "Country", name: "United Kingdom" },
@@ -195,8 +197,9 @@ export default function AdsPage() {
                   style={{ "--d": 240 } as React.CSSProperties}
                   className="text-lg text-zinc-500 dark:text-zinc-400 max-w-xl leading-relaxed mb-10"
                 >
-                  Automated, monitored ads that deliver. Better
-                  targeting. Better copy. Better results handled for you.
+                  We design the ads, build the page they land on, and track
+                  every tap in between — so you know exactly which ad made
+                  your phone ring.
                 </p>
                 <div
                   data-reveal
@@ -213,10 +216,10 @@ export default function AdsPage() {
                     Book a free strategy call
                   </a>
                   <a
-                    href="#how-it-works"
+                    href="#pipeline"
                     className="inline-flex items-center justify-center gap-2 text-sm font-semibold text-zinc-500 dark:text-zinc-400 hover:text-coral-600 dark:hover:text-coral-400 transition-colors"
                   >
-                    See how it works &rarr;
+                    Watch a lead arrive &darr;
                   </a>
                 </div>
               </div>
@@ -275,7 +278,106 @@ export default function AdsPage() {
               </div>
             </div>
           </div>
-          <ScrollArrow target="capabilities" />
+          <ScrollArrow target="pipeline" />
+        </RevealSection>
+
+        {/* The Lead Engine — the pipeline, end to end */}
+        <RevealSection
+          id="pipeline"
+          className="py-16 md:py-24 border-t border-zinc-100 dark:border-zinc-900 scroll-mt-8"
+        >
+          <div className="mx-auto max-w-6xl px-5 md:px-8">
+            <div className="text-center mb-12">
+              <p
+                data-reveal
+                style={{ "--d": 0 } as React.CSSProperties}
+                className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400"
+              >
+                The Lead Engine
+              </p>
+              <h2
+                data-reveal
+                style={{ "--d": 80 } as React.CSSProperties}
+                className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 md:text-4xl mb-4"
+              >
+                We don&apos;t sell clicks. We build the{" "}
+                <span
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-coral-600 to-pink-600"
+                  data-gradient
+                  style={{ "--gd": 400 } as React.CSSProperties}
+                >
+                  whole pipeline.
+                </span>
+              </h2>
+              <p
+                data-reveal
+                style={{ "--d": 160 } as React.CSSProperties}
+                className="text-base text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto"
+              >
+                The ad is only the front door. We build the creative, the page
+                it lands on, and the tracking in between — so every lead
+                arrives with the ad that brought it, and every drop-off tells
+                us what to fix.
+              </p>
+            </div>
+
+            <div data-reveal style={{ "--d": 240 } as React.CSSProperties}>
+              <SceneStage caption="An ad becomes a lead — creative, funnel and board, tracked end to end">
+                <PipelineScene />
+              </SceneStage>
+            </div>
+
+            <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-5">
+              {[
+                {
+                  Icon: Sparkles,
+                  title: "Creatives from your real site",
+                  body: "No stock templates. Ads are built from your own pages, photos and reviews — so the click lands on something that looks like what was promised.",
+                },
+                {
+                  Icon: MousePointerClick,
+                  title: "A funnel, not your homepage",
+                  body: "Three short questions on your own domain, one tap each. Every step is measured, so we know exactly where anyone gives up.",
+                },
+                {
+                  Icon: BarChart3,
+                  title: "Leads land on a live board",
+                  body: "Every enquiry appears the moment it happens, tagged with the ad that brought it. Follow-up runs through Relay, so nothing goes cold.",
+                },
+              ].map((f, i) => (
+                <div
+                  key={f.title}
+                  data-reveal
+                  style={{ "--d": 320 + i * 80 } as React.CSSProperties}
+                  className="rounded-2xl border border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 p-6 hover:border-coral-200 dark:hover:border-coral-800 hover:shadow-lg hover:shadow-coral-500/5 hover:-translate-y-1 transition-all duration-300"
+                >
+                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-coral-50 dark:bg-coral-950/50">
+                    <f.Icon className="h-4 w-4 text-coral-600 dark:text-coral-400" />
+                  </div>
+                  <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 mb-2">
+                    {f.title}
+                  </h3>
+                  <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
+                    {f.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div
+              data-reveal
+              style={{ "--d": 560 } as React.CSSProperties}
+              className="mt-10 text-center"
+            >
+              <Link
+                href="/software/relay"
+                className="inline-flex items-center justify-center gap-2 text-sm font-semibold text-zinc-500 dark:text-zinc-400 hover:text-coral-600 dark:hover:text-coral-400 transition-colors"
+              >
+                The board is Relay — our own back office product{" "}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
         </RevealSection>
 
         {/* Capabilities */}

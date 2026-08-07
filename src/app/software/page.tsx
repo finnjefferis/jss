@@ -24,6 +24,8 @@ import {
   Shield,
 } from "lucide-react";
 import { TerminalTyping } from "../components/TerminalTyping";
+import { SceneStage, RelayWordmark } from "../components/RelayShowcase";
+import { InboxScene } from "../relay/scenes";
 
 const SITE_URL = "https://www.jefferissoftware.co.uk";
 
@@ -224,7 +226,16 @@ export default function SoftwarePage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
               {/* Left: text */}
               <div>
-                <p data-reveal style={{ "--d": 0 } as React.CSSProperties} className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-amber-600 dark:text-amber-400">
+                <a
+                  data-reveal
+                  style={{ "--d": 0 } as React.CSSProperties}
+                  href="#relay"
+                  className="mb-5 inline-flex items-center gap-2 rounded-full border border-coral-200 dark:border-coral-800 bg-coral-50 dark:bg-coral-950/50 px-4 py-1.5 text-xs font-semibold text-coral-700 dark:text-coral-300 hover:border-coral-300 dark:hover:border-coral-700 transition-colors"
+                >
+                  <span className="h-1.5 w-1.5 rounded-full bg-coral-500 animate-pulse" />
+                  New — meet Relay, our flagship product &darr;
+                </a>
+                <p data-reveal style={{ "--d": 60 } as React.CSSProperties} className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-amber-600 dark:text-amber-400">
                   Custom Software
                 </p>
                 <h1 data-reveal style={{ "--d": 120, "--reveal-y": "16px" } as React.CSSProperties} className="text-4xl font-extrabold leading-[1.12] text-zinc-900 dark:text-white sm:text-5xl lg:text-[3.5rem] mb-6">
@@ -308,7 +319,100 @@ export default function SoftwarePage() {
               </div>
             </div>
           </div>
-          <ScrollArrow target="capabilities" />
+          <ScrollArrow target="relay" />
+        </RevealSection>
+
+        {/* Flagship product — Relay */}
+        <RevealSection id="relay" className="py-16 md:py-24 border-t border-zinc-100 dark:border-zinc-900 scroll-mt-8">
+          <div className="mx-auto max-w-6xl px-5 md:px-8">
+            <div className="text-center mb-12">
+              <p data-reveal style={{ "--d": 0 } as React.CSSProperties} className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400">
+                Flagship product
+              </p>
+              <h2 data-reveal style={{ "--d": 80 } as React.CSSProperties} className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 md:text-4xl mb-4">
+                Meet Relay. The back office that{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-600 to-pink-600" data-gradient style={{ "--gd": 400 } as React.CSSProperties}>
+                  runs itself.
+                </span>
+              </h2>
+              <p data-reveal style={{ "--d": 160 } as React.CSSProperties} className="text-base text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto">
+                Most of what we build is bespoke, for one business at a time.
+                Relay is the product it all feeds into — it reads every email
+                and WhatsApp as it lands, works out the job, drafts the
+                paperwork, chases the money, and ticks the work off when the
+                reply comes back.
+              </p>
+            </div>
+
+            <div data-reveal style={{ "--d": 240 } as React.CSSProperties}>
+              <SceneStage
+                header={
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <RelayWordmark className="text-xl text-white" />
+                    <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-widest text-amber-400">
+                      <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse" />
+                      In private preview
+                    </span>
+                  </div>
+                }
+                caption="Rebuilt from the app's actual components — the real interface, acting out a real morning"
+              >
+                <InboxScene />
+              </SceneStage>
+            </div>
+
+            <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-5">
+              {[
+                {
+                  Icon: PoundSterling,
+                  title: "Chases the money",
+                  body: "Watches every invoice and drafts the nudge in your voice at 5, 7 and 30 days overdue. You just press send.",
+                },
+                {
+                  Icon: MessageSquare,
+                  title: "Texts become jobs",
+                  body: "A WhatsApp from an unknown number becomes a client, a job and a diary slot — booked back in minutes.",
+                },
+                {
+                  Icon: RefreshCw,
+                  title: "Closes its own loop",
+                  body: "Reply from your normal email and Relay matches it to the open step and ticks it off. No app to feed.",
+                },
+              ].map((f, i) => (
+                <div
+                  key={f.title}
+                  data-reveal
+                  style={{ "--d": 320 + i * 80 } as React.CSSProperties}
+                  className="rounded-2xl border border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 p-6 hover:border-coral-200 dark:hover:border-coral-800 hover:shadow-lg hover:shadow-coral-500/5 hover:-translate-y-1 transition-all duration-300"
+                >
+                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-coral-50 dark:bg-coral-950/50">
+                    <f.Icon className="h-4 w-4 text-coral-600 dark:text-coral-400" />
+                  </div>
+                  <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 mb-2">
+                    {f.title}
+                  </h3>
+                  <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
+                    {f.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div data-reveal style={{ "--d": 560 } as React.CSSProperties} className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <a
+                href="mailto:hello@jefferissoftware.co.uk?subject=Relay%20%E2%80%94%20ask%20us%20for%20a%20walkthrough"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-coral-600 px-8 py-4 text-sm font-bold text-white shadow-lg shadow-coral-600/25 hover:bg-coral-700 hover:scale-[1.02] transition-all"
+              >
+                Ask us for a walkthrough
+              </a>
+              <Link
+                href="/software/relay"
+                className="inline-flex items-center justify-center gap-2 text-sm font-semibold text-zinc-500 dark:text-zinc-400 hover:text-coral-600 dark:hover:text-coral-400 transition-colors"
+              >
+                The full Relay story <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
         </RevealSection>
 
         {/* Capabilities */}
