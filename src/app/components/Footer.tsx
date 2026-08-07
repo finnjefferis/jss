@@ -27,6 +27,8 @@ export function Footer() {
           <Link href="/privacy" className="hover:text-coral-600 dark:hover:text-coral-400 transition-colors">Privacy</Link>
           <span>&middot;</span>
           <Link href="/terms" className="hover:text-coral-600 dark:hover:text-coral-400 transition-colors">Terms</Link>
+          <span>&middot;</span>
+          <Link href="/cookies" className="hover:text-coral-600 dark:hover:text-coral-400 transition-colors">Cookies</Link>
         </div>
         <p data-reveal style={{ "--d": 300 } as React.CSSProperties}>
           &copy; {new Date().getFullYear()} All rights reserved.

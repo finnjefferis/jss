@@ -19,51 +19,118 @@ export default function PrivacyPage() {
 
       <article className="mx-auto max-w-3xl px-5 md:px-8 py-12 md:py-16">
         <h1 className="text-3xl font-extrabold text-zinc-900 dark:text-white mb-2">Privacy Policy</h1>
-        <p className="text-sm text-zinc-400 dark:text-zinc-500 mb-10">Last updated: 16 March 2026</p>
+        <p className="text-sm text-zinc-400 dark:text-zinc-500 mb-10">Last updated: 7 August 2026</p>
 
         <div className="prose prose-zinc dark:prose-invert prose-sm max-w-none space-y-8 [&_h2]:text-lg [&_h2]:font-bold [&_h2]:text-zinc-900 dark:[&_h2]:text-zinc-100 [&_h2]:mt-8 [&_h2]:mb-3 [&_p]:leading-relaxed [&_p]:text-zinc-600 dark:[&_p]:text-zinc-400 [&_ul]:text-zinc-600 dark:[&_ul]:text-zinc-400">
 
           <p>
-            Jefferis Software Solutions (&ldquo;we&rdquo;, &ldquo;us&rdquo;) is a UK-based web design and software development business operated by Finlay Jefferis. We take your privacy seriously and keep things simple.
+            This policy explains what personal data Jefferis Software Solutions collects when you use
+            jefferissoftware.co.uk or get in touch with us, why we collect it, and the rights you have over it.
+            We&rsquo;ve kept it in plain English.
           </p>
 
-          <h2>What we collect</h2>
-          <p>We only collect information that helps us do our job or improve the site:</p>
-          <ul className="list-disc pl-5 space-y-1">
-            <li><strong>Contact details</strong> &mdash; name, email, phone number, and anything you share when you get in touch via our contact form, WhatsApp, or email.</li>
-            <li><strong>Analytics data</strong> &mdash; anonymous usage data via Vercel Analytics. This includes pages visited, device type, and approximate location. No personal identifiers are stored and no cookies are used for analytics.</li>
-            <li><strong>Booking information</strong> &mdash; if you book a call via our scheduling tool, we receive the details you provide (name, email, time slot).</li>
-          </ul>
-
-          <h2>How we use it</h2>
-          <ul className="list-disc pl-5 space-y-1">
-            <li>To respond to enquiries and deliver our services.</li>
-            <li>To understand how people use the site so we can make it better.</li>
-            <li>To send you project updates if you&rsquo;re a client. We don&rsquo;t do marketing emails.</li>
-          </ul>
-
-          <h2>Cookies</h2>
+          <h2>Who we are</h2>
           <p>
-            We only use essential cookies (like your theme preference). We don&rsquo;t use any analytics cookies.
-          </p>
-
-          <h2>Third parties</h2>
-          <p>We use the following services that may process data on our behalf:</p>
-          <ul className="list-disc pl-5 space-y-1">
-            <li><strong>Vercel</strong> &mdash; hosting and anonymous, cookie-free analytics.</li>
-            <li><strong>Microsoft Outlook</strong> &mdash; booking calendar.</li>
-          </ul>
-          <p>We don&rsquo;t sell or share your data with anyone else.</p>
-
-          <h2>Your rights</h2>
-          <p>
-            Under UK GDPR, you can request access to, correction of, or deletion of any personal data we hold. Just email us at{" "}
+            Jefferis Software Solutions is a web design and software development business operated by
+            Finlay Jefferis, based in Worthing, West Sussex, England. For the purposes of UK data
+            protection law (the UK GDPR and the Data Protection Act 2018), Finlay Jefferis is the data
+            controller for the personal data described in this policy. You can reach us at{" "}
             <a href="mailto:hello@jefferissoftware.co.uk" className="text-coral-600 dark:text-coral-400 hover:underline">hello@jefferissoftware.co.uk</a>.
           </p>
 
-          <h2>Data retention</h2>
+          <h2>The information we collect</h2>
+          <ul className="list-disc pl-5 space-y-1">
+            <li><strong>Enquiries</strong> &mdash; if you contact us by email or WhatsApp, we receive your name, contact details, and whatever you include in your message.</li>
+            <li><strong>Bookings</strong> &mdash; if you book a call through our scheduling link, Microsoft Bookings collects the details you provide (name, email, chosen time) and shares them with us.</li>
+            <li><strong>Site usage</strong> &mdash; we use Vercel Analytics, which is cookie-free and gives us aggregated figures: pages visited, device type, and approximate location. We can&rsquo;t identify individual visitors from it.</li>
+            <li><strong>Page-open records</strong> &mdash; when you visit this site, or open a proposal or demo link we&rsquo;ve sent you, our own systems record the page opened, the date and time, your IP address, your browser type, and the page that referred you. We use this to understand interest in our work &mdash; for example, whether a proposal we sent has been opened.</li>
+            <li><strong>Client and project information</strong> &mdash; if you become a client, we hold the information needed to deliver the work and invoice for it. That processing is governed by our agreement with you.</li>
+          </ul>
+
+          <h2>Why we use it, and our lawful bases</h2>
+          <ul className="list-disc pl-5 space-y-1">
+            <li><strong>Responding to enquiries and preparing proposals</strong> &mdash; because you&rsquo;ve asked us to (steps taken at your request before entering a contract).</li>
+            <li><strong>Delivering services and invoicing clients</strong> &mdash; performance of our contract with you, and legal obligations for accounting records.</li>
+            <li><strong>Site analytics and page-open records</strong> &mdash; our legitimate interest in understanding whether our website and the proposals we send are being seen, so we can run the business effectively. You can object to this at any time (see &ldquo;Your rights&rdquo; below).</li>
+          </ul>
+          <p>We don&rsquo;t send marketing emails, and we never sell personal data.</p>
+
+          <h2>Cookies</h2>
           <p>
-            We keep contact information for as long as it&rsquo;s relevant to an active project or enquiry. Analytics data is anonymous and not personally identifiable.
+            This website sets no cookies for ordinary visitors &mdash; which is why you don&rsquo;t see a cookie
+            banner. The full detail, including the strictly necessary cookies used only for our own admin
+            login, is in our{" "}
+            <Link href="/cookies" className="text-coral-600 dark:text-coral-400 hover:underline">Cookie Policy</Link>.
+          </p>
+
+          <h2>Who we share data with</h2>
+          <p>We use a small number of service providers who process data on our behalf:</p>
+          <ul className="list-disc pl-5 space-y-1">
+            <li><strong>Vercel</strong> &mdash; hosts this website and provides its cookie-free analytics.</li>
+            <li><strong>Railway</strong> &mdash; hosts our internal business systems, including the page-open records described above.</li>
+            <li><strong>Microsoft 365</strong> &mdash; our email and booking calendar.</li>
+            <li><strong>WhatsApp (Meta)</strong> &mdash; if you choose to message us there, your messages are handled under WhatsApp&rsquo;s own terms and privacy policy.</li>
+          </ul>
+          <p>
+            We don&rsquo;t share personal data with anyone else unless we&rsquo;re required to by law.
+          </p>
+
+          <h2>Where your data is stored</h2>
+          <p>
+            Some of our providers, including Vercel and Railway, store data on servers in the United
+            States. Where personal data leaves the UK, we rely on recognised safeguards &mdash; the UK
+            Extension to the EU&ndash;US Data Privacy Framework where the provider is certified, or the
+            ICO&rsquo;s approved International Data Transfer Agreement / standard contractual clauses
+            otherwise.
+          </p>
+
+          <h2>How long we keep it</h2>
+          <ul className="list-disc pl-5 space-y-1">
+            <li><strong>Enquiries</strong> &mdash; for as long as the conversation is live, and up to two years after our last contact in case you come back to us.</li>
+            <li><strong>Page-open records</strong> &mdash; no longer than 12 months.</li>
+            <li><strong>Client records and invoices</strong> &mdash; six years, as required for tax and accounting purposes.</li>
+          </ul>
+
+          <h2>Your rights</h2>
+          <p>Under UK GDPR you have the right to:</p>
+          <ul className="list-disc pl-5 space-y-1">
+            <li>Ask for a copy of the personal data we hold about you.</li>
+            <li>Have inaccurate data corrected, or incomplete data completed.</li>
+            <li>Ask us to delete your data.</li>
+            <li>Restrict or object to our processing &mdash; including any processing based on legitimate interests, such as page-open records.</li>
+            <li>Receive your data in a portable format.</li>
+          </ul>
+          <p>
+            To exercise any of these, email{" "}
+            <a href="mailto:hello@jefferissoftware.co.uk" className="text-coral-600 dark:text-coral-400 hover:underline">hello@jefferissoftware.co.uk</a>{" "}
+            and we&rsquo;ll respond within one month. If you&rsquo;re unhappy with how we&rsquo;ve handled your data,
+            you can complain to the Information Commissioner&rsquo;s Office at{" "}
+            <a href="https://ico.org.uk" target="_blank" rel="noopener noreferrer" className="text-coral-600 dark:text-coral-400 hover:underline">ico.org.uk</a>{" "}
+            or on 0303 123 1113.
+          </p>
+
+          <h2>Automated decisions</h2>
+          <p>
+            We don&rsquo;t use automated decision-making or profiling that produces legal or similarly
+            significant effects.
+          </p>
+
+          <h2>Children</h2>
+          <p>
+            This site is aimed at businesses and we don&rsquo;t knowingly collect data from children. If you
+            believe a child has given us personal data, contact us and we&rsquo;ll delete it.
+          </p>
+
+          <h2>Security</h2>
+          <p>
+            The site is served over HTTPS with modern security headers, access to our systems is limited
+            to those who need it, and we use reputable hosting providers. No system is perfectly secure,
+            but we keep the data we hold to a minimum.
+          </p>
+
+          <h2>Changes to this policy</h2>
+          <p>
+            If we change how we handle personal data, we&rsquo;ll update this page and the date at the top.
           </p>
 
           <h2>Contact</h2>
@@ -74,9 +141,12 @@ export default function PrivacyPage() {
 
         </div>
 
-        <div className="mt-12 pt-6 border-t border-zinc-200 dark:border-zinc-800">
+        <div className="mt-12 pt-6 border-t border-zinc-200 dark:border-zinc-800 flex items-center gap-6">
           <Link href="/terms" className="text-sm text-coral-600 dark:text-coral-400 hover:underline">
             Terms of Service &rarr;
+          </Link>
+          <Link href="/cookies" className="text-sm text-coral-600 dark:text-coral-400 hover:underline">
+            Cookie Policy &rarr;
           </Link>
         </div>
       </article>

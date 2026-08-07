@@ -83,9 +83,12 @@ export default function TermsPage() {
 
         </div>
 
-        <div className="mt-12 pt-6 border-t border-zinc-200 dark:border-zinc-800">
+        <div className="mt-12 pt-6 border-t border-zinc-200 dark:border-zinc-800 flex items-center gap-6">
           <Link href="/privacy" className="text-sm text-coral-600 dark:text-coral-400 hover:underline">
             Privacy Policy &rarr;
+          </Link>
+          <Link href="/cookies" className="text-sm text-coral-600 dark:text-coral-400 hover:underline">
+            Cookie Policy &rarr;
           </Link>
         </div>
       </article>
