@@ -450,16 +450,16 @@ export function HeroSection() {
             </p>
             <div data-reveal style={{ "--d": 440 } as React.CSSProperties} className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
               <a
-                href="#services"
+                href="/start"
                 className="inline-flex items-center justify-center rounded-xl bg-coral-600 px-8 py-4 text-sm font-bold text-white shadow-md transition-colors hover:bg-coral-700"
               >
-                See packages &amp; pricing
+                Start your project
               </a>
               <a
-                href="#recent-work"
+                href="#services"
                 className="text-sm font-semibold text-zinc-500 dark:text-zinc-400 hover:text-coral-600 dark:hover:text-coral-400 transition-colors"
               >
-                See recent work &rarr;
+                See packages &amp; pricing &rarr;
               </a>
             </div>
           </div>

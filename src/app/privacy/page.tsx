@@ -40,7 +40,7 @@ export default function PrivacyPage() {
 
           <h2>The information we collect</h2>
           <ul className="list-disc pl-5 space-y-1">
-            <li><strong>Enquiries</strong> &mdash; if you contact us by email or WhatsApp, we receive your name, contact details, and whatever you include in your message.</li>
+            <li><strong>Enquiries</strong> &mdash; if you contact us by email or WhatsApp, or through the enquiry form on this site, we receive your name, contact details, and whatever you tell us about your project. Form enquiries are stored in Relay, our own business system.</li>
             <li><strong>Bookings</strong> &mdash; if you book a call through our scheduling link, Microsoft Bookings collects the details you provide (name, email, chosen time) and shares them with us.</li>
             <li><strong>Site usage</strong> &mdash; we use Vercel Analytics, which is cookie-free and gives us aggregated figures: pages visited, device type, and approximate location. We can&rsquo;t identify individual visitors from it.</li>
             <li><strong>Page-open records</strong> &mdash; when you visit this site, or open a proposal or demo link we&rsquo;ve sent you, our own systems record the page opened, the date and time, your IP address, your browser type, and the page that referred you. We use this to understand interest in our work &mdash; for example, whether a proposal we sent has been opened.</li>

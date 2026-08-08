@@ -104,8 +104,8 @@ export function ContactSection() {
             </span>
           </h2>
           <p className="text-lg text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto leading-relaxed">
-            Book a free 30-minute call. We&apos;ll look at your current site, talk through
-            what&apos;s holding it back, and tell you honestly what we&apos;d do differently.
+            Four quick questions and your enquiry lands straight on Finlay&apos;s desk.
+            Prefer to talk it through? Book a free 30-minute call instead.
           </p>
         </div>
 
@@ -225,16 +225,22 @@ export function ContactSection() {
                   </span>
                 </div>
                 <a
-                  href={BOOKING_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/start"
                   className="group relative flex w-full items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-coral-600 to-coral-500 px-6 py-5 text-lg font-bold text-white shadow-lg shadow-coral-600/25 transition-all duration-300 hover:shadow-xl hover:shadow-coral-600/30 hover:scale-[1.01] active:scale-[0.99] overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-coral-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <span className="relative flex items-center gap-3">
-                    <span>Book a call</span>
+                    <span>Tell me what you need</span>
                     <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                   </span>
+                </a>
+                <a
+                  href={BOOKING_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-2xl border border-zinc-200 dark:border-zinc-700/50 bg-white dark:bg-zinc-900/60 px-6 py-4 text-sm font-bold text-zinc-700 dark:text-zinc-300 hover:border-coral-300 dark:hover:border-coral-700 hover:text-coral-600 dark:hover:text-coral-400 transition-all"
+                >
+                  Book a free 30-minute call
                 </a>
               </div>
 

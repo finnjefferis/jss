@@ -64,10 +64,10 @@ export function NavHeader() {
             Ads
           </a>
           <a
-            href="https://wa.me/447887034503"
+            href="/start"
             className="ml-2 rounded-full bg-coral-600 px-5 py-2 text-sm font-semibold text-white hover:bg-coral-500 hover:scale-[1.04] active:scale-[0.97] transition-all duration-200"
           >
-            Contact Us
+            Start a project
           </a>
         </nav>
 
@@ -110,11 +110,11 @@ export function NavHeader() {
             </a>
             <hr className="border-zinc-100 dark:border-zinc-800 my-1" />
             <a
-              href="https://wa.me/447887034503"
+              href="/start"
               onClick={handleLinkClick}
               className="mx-auto rounded-full bg-coral-600 px-6 py-3 text-sm font-semibold text-white hover:bg-coral-500 active:scale-[0.97] transition-all duration-200"
             >
-              Contact Us
+              Start a project
             </a>
           </nav>
         </div>
