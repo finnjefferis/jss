@@ -6,23 +6,27 @@ export function AboutMeSection() {
   return (
     <section className="relative py-16 md:py-24 bg-zinc-50 dark:bg-zinc-950 transition-colors">
       <div className="mx-auto max-w-6xl px-5 md:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-12 lg:gap-20 items-center">
 
-          {/* LEFT — Photo */}
-          <div className="relative w-full max-w-sm mx-auto lg:max-w-none">
-            <div className="absolute -inset-4 bg-gradient-to-tr from-coral-100 dark:from-coral-950/40 to-pink-100 dark:to-pink-950/40 rounded-3xl blur-2xl opacity-60 -z-10" />
-            <div className="relative w-full h-72 md:h-80 lg:h-96 overflow-hidden rounded-2xl bg-zinc-200 dark:bg-zinc-800 shadow-xl">
+          {/* LEFT — Photo, kept small and framed like a print */}
+          <div className="relative mx-auto w-56 md:w-64 lg:w-72 py-4">
+            {/* Tilted accent card behind the print */}
+            <div className="absolute -inset-2 rotate-[-4deg] rounded-3xl bg-gradient-to-tr from-coral-200 to-pink-100 dark:from-coral-950/70 dark:to-pink-950/40" />
+            <div className="absolute -inset-6 bg-gradient-to-tr from-coral-100 dark:from-coral-950/40 to-pink-100 dark:to-pink-950/40 rounded-3xl blur-2xl opacity-60 -z-10" />
+
+            <div className="relative rotate-[2deg] overflow-hidden rounded-2xl bg-zinc-200 dark:bg-zinc-800 ring-1 ring-black/5 dark:ring-white/10 shadow-xl">
               <Image
-                src="/finlay.jpg"
+                src="/finlay-portrait.jpg"
                 alt="Finlay Jefferis"
-                fill
-                className="object-cover object-top"
-                sizes="(max-width: 1024px) 400px, 500px"
+                width={960}
+                height={1200}
+                className="w-full h-auto"
+                sizes="(max-width: 1024px) 256px, 288px"
               />
             </div>
 
             {/* Floating credential */}
-            <div className="absolute -bottom-4 right-4 md:-right-4 z-10 rounded-xl border border-white/60 dark:border-zinc-700/60 bg-white dark:bg-zinc-900 px-4 py-3 shadow-lg">
+            <div className="absolute -bottom-3 -right-2 md:-right-6 z-10 rounded-xl border border-white/60 dark:border-zinc-700/60 bg-white dark:bg-zinc-900 px-4 py-3 shadow-lg">
               <div className="flex items-center gap-2.5">
                 <span className="relative flex h-2.5 w-2.5 shrink-0">
                   <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-40" />
