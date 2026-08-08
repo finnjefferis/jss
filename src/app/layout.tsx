@@ -21,11 +21,11 @@ const SITE_URL = "https://www.jefferissoftware.co.uk";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Web Design for Small Businesses UK | Jefferis Software Solutions",
+    default: "Bespoke Software, Websites & AI Ads | Jefferis Software Solutions",
     template: "%s | Jefferis Software Solutions",
   },
   description:
-    "Jefferis Software Solutions builds fast, modern websites and bespoke software for small businesses across the UK. Real results: more traffic, more enquiries, more growth.",
+    "Jefferis Software Solutions builds bespoke software and fast, modern websites for small businesses across the UK — and runs the ad pipelines that fill them with leads. Makers of Relay, the back office that runs itself.",
   authors: [{ name: "Jefferis Software Solutions", url: SITE_URL }],
   creator: "Jefferis Software Solutions",
   openGraph: {
@@ -33,23 +33,23 @@ export const metadata: Metadata = {
     locale: "en_GB",
     url: SITE_URL,
     siteName: "Jefferis Software Solutions",
-    title: "Web Design for Small Businesses UK | Jefferis Software Solutions",
+    title: "Bespoke Software, Websites & AI Ads | Jefferis Software Solutions",
     description:
-      "Fast, modern websites and bespoke software for small businesses across the UK. Proven results.",
+      "Bespoke software, fast modern websites and AI-optimised ads for small businesses across the UK. Makers of Relay — the back office that runs itself.",
     images: [
       {
         url: `${SITE_URL}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: "Jefferis Software Solutions — Web Design for Small Businesses UK",
+        alt: "Jefferis Software Solutions — bespoke software, websites and AI-optimised ads",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Web Design for Small Businesses UK | Jefferis Software Solutions",
+    title: "Bespoke Software, Websites & AI Ads | Jefferis Software Solutions",
     description:
-      "Fast, modern websites and bespoke software for small businesses across the UK. Proven results.",
+      "Bespoke software, fast modern websites and AI-optimised ads for small businesses across the UK. Makers of Relay — the back office that runs itself.",
     images: [`${SITE_URL}/og-image.png`],
   },
   alternates: {
@@ -82,7 +82,7 @@ const jsonLd = [
       url: `${SITE_URL}/jsslogo.png`,
     },
     description:
-      "Web design and bespoke software development for small businesses across the UK.",
+      "Bespoke software, websites and AI-optimised advertising for small businesses across the UK. Makers of Relay, the back office that runs itself.",
     telephone: "+447887034503",
     email: "hello@jefferissoftware.co.uk",
     areaServed: {
@@ -125,7 +125,7 @@ const jsonLd = [
     telephone: "+447887034503",
     email: "hello@jefferissoftware.co.uk",
     description:
-      "Web design and bespoke software development for small businesses across the UK.",
+      "Bespoke software, websites and AI-optimised advertising for small businesses across the UK.",
     image: `${SITE_URL}/jsslogo.png`,
     address: {
       "@type": "PostalAddress",
@@ -144,33 +144,46 @@ const jsonLd = [
     },
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "Web Design & Software Services",
+      name: "Software, Web & Advertising Services",
       itemListElement: [
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "Web Design",
-            description:
-              "Custom website design for small businesses across the UK. Mobile-first, conversion-focused.",
-          },
-        },
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "Web Development",
-            description:
-              "Full-stack web development using modern technologies. CMS integration, SEO setup, and performance optimisation.",
-          },
-        },
         {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
             name: "Bespoke Software Development",
             description:
-              "Custom internal tools, dashboards, CRM integrations, and workflow automation for UK businesses.",
+              "Custom business systems for UK companies: field-service and back-office platforms, CRMs, client portals, integrations, and workflow automation.",
+            url: `${SITE_URL}/software`,
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Relay — Back-Office Platform",
+            description:
+              "Our flagship product. Relay reads every email and WhatsApp as it lands, drafts the paperwork, chases the money, and ticks the work off when the reply comes back. In private preview.",
+            url: `${SITE_URL}/software/relay`,
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Web Design & Development",
+            description:
+              "Fast, modern, conversion-focused websites for small businesses across the UK. Mobile-first, CMS options, and performance optimisation.",
+            url: `${SITE_URL}/packages`,
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "AI-Optimised Advertising",
+            description:
+              "Full-pipeline ad campaigns: creatives built from your own site, a custom landing funnel, and live tracking that attributes every lead to the ad that brought it.",
+            url: `${SITE_URL}/ads`,
           },
         },
       ],
