@@ -1,6 +1,6 @@
 # Jefferis Software Solutions
 
-> Bespoke software, websites and AI-optimised advertising for small businesses across the UK. Makers of Relay, the back office that runs itself.
+> Bespoke software, websites and advertising for small businesses across the UK. Makers of Relay, the back office that runs itself.
 
 Jefferis Software Solutions is a UK software studio founded by Finlay Jefferis. It builds bespoke business systems (field-service platforms, CRMs, client portals, integrations), fast conversion-focused websites, and full-pipeline ad campaigns — the creative, the landing funnel, and live lead attribution. Its flagship product is Relay, a back-office platform in private preview with real businesses: it reads every email and WhatsApp as it lands, drafts the paperwork, chases the money, and ticks the work off when the reply comes back. Direct client–developer relationship, no agency middlemen.
 
@@ -9,7 +9,7 @@ Jefferis Software Solutions is a UK software studio founded by Finlay Jefferis. 
 - Bespoke Software: Field-service and back-office systems, CRMs, client portals, integrations, and workflow automation
 - Relay: Flagship back-office product — unified inbox (email + WhatsApp), quotes and invoices, e-signatures, certificates, diary, money chasing, week planning. In private preview
 - Web Design & Development: Mobile-first, performance-optimised sites for small businesses
-- AI-Optimised Ads: Creatives built from your own site, a custom landing funnel, and live tracking that shows which ad brought each lead
+- Ads: Creatives built from your own site, a custom landing funnel, and live tracking that shows which ad brought each lead
 
 ## Website Packages
 
@@ -22,7 +22,7 @@ Jefferis Software Solutions is a UK software studio founded by Finlay Jefferis. 
 - Homepage: https://www.jefferissoftware.co.uk
 - Custom Software: https://www.jefferissoftware.co.uk/software
 - Relay: https://www.jefferissoftware.co.uk/software/relay
-- AI-Optimised Ads: https://www.jefferissoftware.co.uk/ads
+- Ads: https://www.jefferissoftware.co.uk/ads
 - Website Packages: https://www.jefferissoftware.co.uk/packages
 - Starter Package: https://www.jefferissoftware.co.uk/packages/starter
 - CMS Package: https://www.jefferissoftware.co.uk/packages/business

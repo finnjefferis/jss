@@ -21,7 +21,7 @@ const SITE_URL = "https://www.jefferissoftware.co.uk";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Bespoke Software, Websites & AI Ads | Jefferis Software Solutions",
+    default: "Bespoke Software, Websites & Ads | Jefferis Software Solutions",
     template: "%s | Jefferis Software Solutions",
   },
   description:
@@ -33,23 +33,23 @@ export const metadata: Metadata = {
     locale: "en_GB",
     url: SITE_URL,
     siteName: "Jefferis Software Solutions",
-    title: "Bespoke Software, Websites & AI Ads | Jefferis Software Solutions",
+    title: "Bespoke Software, Websites & Ads | Jefferis Software Solutions",
     description:
-      "Bespoke software, fast modern websites and AI-optimised ads for small businesses across the UK. Makers of Relay — the back office that runs itself.",
+      "Bespoke software, fast modern websites and ads for small businesses across the UK. Makers of Relay — the back office that runs itself.",
     images: [
       {
         url: `${SITE_URL}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: "Jefferis Software Solutions — bespoke software, websites and AI-optimised ads",
+        alt: "Jefferis Software Solutions — bespoke software, websites and ads",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bespoke Software, Websites & AI Ads | Jefferis Software Solutions",
+    title: "Bespoke Software, Websites & Ads | Jefferis Software Solutions",
     description:
-      "Bespoke software, fast modern websites and AI-optimised ads for small businesses across the UK. Makers of Relay — the back office that runs itself.",
+      "Bespoke software, fast modern websites and ads for small businesses across the UK. Makers of Relay — the back office that runs itself.",
     images: [`${SITE_URL}/og-image.png`],
   },
   alternates: {
@@ -82,7 +82,7 @@ const jsonLd = [
       url: `${SITE_URL}/jsslogo.png`,
     },
     description:
-      "Bespoke software, websites and AI-optimised advertising for small businesses across the UK. Makers of Relay, the back office that runs itself.",
+      "Bespoke software, websites and advertising for small businesses across the UK. Makers of Relay, the back office that runs itself.",
     telephone: "+447887034503",
     email: "hello@jefferissoftware.co.uk",
     areaServed: {
@@ -125,7 +125,7 @@ const jsonLd = [
     telephone: "+447887034503",
     email: "hello@jefferissoftware.co.uk",
     description:
-      "Bespoke software, websites and AI-optimised advertising for small businesses across the UK.",
+      "Bespoke software, websites and advertising for small businesses across the UK.",
     image: `${SITE_URL}/jsslogo.png`,
     address: {
       "@type": "PostalAddress",
@@ -180,7 +180,7 @@ const jsonLd = [
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
-            name: "AI-Optimised Advertising",
+            name: "Advertising",
             description:
               "Full-pipeline ad campaigns: creatives built from your own site, a custom landing funnel, and live tracking that attributes every lead to the ad that brought it.",
             url: `${SITE_URL}/ads`,
