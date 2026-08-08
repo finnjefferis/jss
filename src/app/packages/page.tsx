@@ -202,22 +202,25 @@ export default function PackagesPage() {
                 Not sure which to pick?
               </p>
               <h2 className="text-2xl md:text-3xl font-extrabold text-white mb-3">
-                Book a free discovery call.
+                Answer three quick questions.
               </h2>
               <p className="text-coral-100 text-sm leading-relaxed max-w-md mx-auto mb-8">
-                30 minutes. No sales pressure. We&apos;ll talk through your
-                project and recommend the right package. If it&apos;s not a good
-                fit, we&apos;ll say so.
+                You&apos;ll get the right package and a from-price straight away
+                — no forms, no waiting. Prefer to talk it through first? The
+                discovery call is free, and there&apos;s no sales pressure either way.
               </p>
               <a
-                href={BOOKING_URL}
-                target="_blank"
-                rel="noreferrer"
+                href="/start?for=website"
                 className="inline-flex items-center gap-2 rounded-xl bg-white px-8 py-4 text-sm font-bold text-coral-700 shadow-xl hover:bg-coral-50 hover:scale-[1.02] transition-all"
               >
-                Schedule a time
+                Get my answer
                 <ArrowRight className="h-4 w-4" />
               </a>
+              <p className="mt-5 text-xs text-coral-200">
+                <a href={BOOKING_URL} target="_blank" rel="noreferrer" className="underline hover:text-white transition-colors">
+                  or book a free discovery call
+                </a>
+              </p>
             </div>
           </div>
         </RevealSection>

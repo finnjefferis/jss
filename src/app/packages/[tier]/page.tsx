@@ -323,13 +323,11 @@ export default async function PackagePage({
                 ))}
               </div>
               <a
-                href={BOOKING_URL}
-                target="_blank"
-                rel="noreferrer"
+                href="/start?for=website"
                 className="inline-flex items-center gap-2 rounded-xl bg-coral-600 px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-coral-600/25 hover:bg-coral-700 hover:scale-[1.02] transition-all"
               >
-                <Calendar className="h-4 w-4" />
-                Book your free discovery call
+                Start your project
+                <ArrowRight className="h-4 w-4" />
               </a>
             </div>
 
@@ -583,20 +581,17 @@ export default async function PackagePage({
               30 minutes. No sales pressure. We talk through your project, confirm it&apos;s the right fit, and map out exactly what happens next. If it&apos;s not right for you, we&apos;ll say so.
             </p>
             <a
-              href={BOOKING_URL}
-              target="_blank"
-              rel="noreferrer"
+              href="/start?for=website"
               className="inline-flex items-center gap-2 rounded-xl bg-white px-8 py-4 text-sm font-bold text-coral-700 shadow-xl hover:bg-coral-50 hover:scale-[1.02] transition-all"
             >
-              <Calendar className="h-4 w-4" />
-              Schedule a time that works for you
+              Start your project
               <ArrowRight className="h-4 w-4" />
             </a>
             <p className="mt-5 text-xs text-coral-300">
-              Prefer a different way?{" "}
-              <Link href="/#contact" className="underline hover:text-white transition-colors">
-                Get in touch here.
-              </Link>
+              Prefer to talk first?{" "}
+              <a href={BOOKING_URL} target="_blank" rel="noreferrer" className="underline hover:text-white transition-colors">
+                Book a free discovery call.
+              </a>
             </p>
           </div>
         </div>

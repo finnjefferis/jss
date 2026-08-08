@@ -207,13 +207,11 @@ export default function AdsPage() {
                   className="flex flex-col sm:flex-row gap-4"
                 >
                   <a
-                    href={BOOKING_URL}
-                    target="_blank"
-                    rel="noreferrer"
+                    href="/start?for=ads"
                     className="inline-flex items-center justify-center gap-2 rounded-xl bg-coral-600 px-8 py-4 text-sm font-bold text-white shadow-lg shadow-coral-600/25 hover:bg-coral-700 hover:scale-[1.02] transition-all"
                   >
-                    <Calendar className="h-4 w-4" />
-                    Book a free strategy call
+                    Tell us what you need
+                    <ArrowRight className="h-4 w-4" />
                   </a>
                   <a
                     href="#pipeline"
@@ -609,13 +607,11 @@ export default function AdsPage() {
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4">
                     <a
-                      href={BOOKING_URL}
-                      target="_blank"
-                      rel="noreferrer"
+                      href="/start?for=ads"
                       className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-8 py-4 text-sm font-bold text-coral-700 shadow-xl hover:bg-coral-50 hover:scale-[1.02] transition-all"
                     >
-                      <Calendar className="h-4 w-4" />
-                      Book a free strategy call
+                      Tell us what you need
+                      <ArrowRight className="h-4 w-4" />
                     </a>
                     <Link
                       href="/packages"
