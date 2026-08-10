@@ -23,8 +23,22 @@ const HERO_SITES: { src: string; alt: string; label: string; href: string; video
 function BrowserFrame({ site, className = "", priority = false }: { site: typeof HERO_SITES[number]; className?: string; priority?: boolean }) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // hoverPlay cards sit on their poster until hovered, then act out the
-  // site's entrance animation; leaving rewinds so every hover replays it.
+  // React doesn't render `muted` into SSR markup, so the browser blocks the
+  // autoplay and loadeddata can fire before hydration attaches handlers.
+  // Kick the once-through load-play explicitly after mount instead.
+  useEffect(() => {
+    if (!site.hoverPlay) return;
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = true;
+    const tryPlay = () => v.play().catch(() => {});
+    if (v.readyState >= 2) tryPlay();
+    else v.addEventListener("canplay", tryPlay, { once: true });
+    return () => v.removeEventListener("canplay", tryPlay);
+  }, [site.hoverPlay]);
+
+  // hoverPlay cards act out the site's entrance animation once on load and
+  // come to rest on the finished frame; hovering replays it from the top.
   const hoverHandlers = site.hoverPlay
     ? {
         onMouseEnter: () => {
@@ -32,13 +46,6 @@ function BrowserFrame({ site, className = "", priority = false }: { site: typeof
           if (v) {
             v.currentTime = 0;
             v.play().catch(() => {});
-          }
-        },
-        onMouseLeave: () => {
-          const v = videoRef.current;
-          if (v) {
-            v.pause();
-            v.currentTime = 0;
           }
         },
       }
@@ -64,7 +71,7 @@ function BrowserFrame({ site, className = "", priority = false }: { site: typeof
               ref={videoRef}
               src={site.video}
               poster={site.src}
-              autoPlay={!site.hoverPlay}
+              autoPlay
               loop={!site.hoverPlay}
               muted
               playsInline
@@ -73,7 +80,7 @@ function BrowserFrame({ site, className = "", priority = false }: { site: typeof
               disableRemotePlayback
               onLoadedData={(e) => {
                 e.currentTarget.muted = true;
-                if (!site.hoverPlay) e.currentTarget.play().catch(() => {});
+                e.currentTarget.play().catch(() => {});
               }}
               className="absolute inset-0 h-full w-full object-cover object-top"
             />
