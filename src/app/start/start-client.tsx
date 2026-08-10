@@ -234,6 +234,13 @@ export function StartClient() {
     [],
   );
 
+  /** Answers as the lead board should read them — budget carries the band shown. */
+  const forLead = (extra?: Record<string, string>) => ({
+    ...answers,
+    ...(service ? { budget: `${bandFor(service as Service, answers)}` } : {}),
+    ...extra,
+  });
+
   const branch = service ? BRANCH[service] : null;
   const questions: Question[] = branch ? [...branch.questions] : [];
   const flow: (Question | typeof TIMEFRAME)[] = [...questions, TIMEFRAME];
@@ -261,11 +268,12 @@ export function StartClient() {
     if (qIndex + 1 < flow.length) {
       setQIndex(qIndex + 1);
     } else {
-      // The payoff — band revealed; store it as the lead's budget line.
-      const withBand = { ...next, budget: `${bandFor(service as Service, next)}` };
-      setAnswers(withBand);
+      // The payoff — the lead's budget line becomes the band they were shown,
+      // but local answers stay verbatim so the result screen can read them.
+      // (Clobbering local state here made every website lead see the generic
+      // fallback pitch instead of the one matching their answers.)
       track("start: result");
-      void sync(withBand, "budget");
+      void sync({ ...next, budget: `${bandFor(service as Service, next)}` }, "budget");
       setPhase("result");
     }
   };
@@ -284,7 +292,7 @@ export function StartClient() {
   const submit = async () => {
     if (!name.trim() || !email.trim()) return;
     setSending(true);
-    const next = { ...answers, ...(note.trim() ? { message: note.trim() } : {}) };
+    const next = forLead(note.trim() ? { message: note.trim() } : undefined);
     track("start: contact");
     if (!leadRef.current) await sync(next, "contact");
     const ok =
@@ -303,14 +311,26 @@ export function StartClient() {
     setPhase("thanks");
   };
 
+  /** The primary path: straight to the calendar. The lead is annotated so the
+      board knows they went to pick a slot rather than leaving details here. */
+  const bookCall = () => {
+    track("start: booking");
+    void sync(
+      forLead({ message: "Went to the booking page from the result screen — expect a booked call." }),
+      "booking",
+    );
+    window.open(BOOKING_URL, "_blank", "noopener");
+  };
+
   /** Zero-typing path: their summary lands in Finn's WhatsApp; the lead is
       completed with a note so the board knows to expect the message. */
   const whatsappHandoff = () => {
-    const bits = [answers.service, answers.situation, answers.timeframe, answers.budget].filter(Boolean);
+    const band = service ? `${bandFor(service as Service, answers)}` : "";
+    const bits = [answers.service, answers.situation, answers.timeframe, band].filter(Boolean);
     const text = `Hi Finlay — just went through jefferissoftware.co.uk/start. ${bits.join(" · ")}. `;
     track("start: whatsapp");
     void sync(
-      { ...answers, message: "Went to WhatsApp with their summary — expect a message from them." },
+      forLead({ message: "Went to WhatsApp with their summary — expect a message from them." }),
       "contact",
       { complete: true },
     );
@@ -422,13 +442,30 @@ export function StartClient() {
               )}
             </div>
 
+            {/* Primary: a booked call is the conversion — not a promise of email later. */}
+            <button
+              onClick={bookCall}
+              className="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-coral-600 px-8 py-4 text-sm font-bold text-white shadow-lg shadow-coral-600/25 hover:bg-coral-700 transition-all"
+            >
+              <Calendar className="h-4 w-4" />
+              Book the 20-minute call — pick a slot
+            </button>
+            <p className="mt-2 mb-6 text-xs text-zinc-500 dark:text-zinc-400 text-center">
+              You&apos;ll leave the call with a fixed price and a start date. No sales pressure.
+            </p>
+
+            <div className="flex items-center gap-3 mb-6">
+              <div className="h-px flex-1 bg-zinc-200 dark:bg-zinc-800" />
+              <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">or</span>
+              <div className="h-px flex-1 bg-zinc-200 dark:bg-zinc-800" />
+            </div>
+
             <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 mb-1">
-              {software ? "Want it scoped properly?" : "Want the exact price?"}
+              {software ? "Prefer it scoped in writing?" : "Prefer it in writing?"}
             </h2>
             <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-5">
-              {software
-                ? "Tell me where to reach you and I'll come back to you personally — usually the same day."
-                : "Two fields and I'll send you the full plan personally — usually the same day."}
+              Two fields and the plan lands in your inbox — what we&apos;d build, the fixed
+              price, and how long it takes. Usually the same day.
             </p>
 
             <div className="space-y-3">
@@ -510,7 +547,7 @@ export function StartClient() {
             <p className="text-sm text-zinc-500 dark:text-zinc-400 max-w-sm mx-auto mb-10">
               {offline
                 ? "Something went wrong sending that — sorry. Email me directly and I'll pick it up straight away."
-                : "Your enquiry has landed on my desk — I'll come back to you personally, usually the same day."}
+                : "Your enquiry has landed on my desk and the plan is coming. The fastest route to a fixed price and a start date is grabbing a slot now:"}
             </p>
             {offline ? (
               <a
@@ -532,7 +569,7 @@ export function StartClient() {
                   className="inline-flex items-center justify-center gap-2 rounded-2xl bg-coral-600 px-8 py-4 text-sm font-bold text-white shadow-lg shadow-coral-600/25 hover:bg-coral-700 transition-all"
                 >
                   <Calendar className="h-4 w-4" />
-                  Want to talk sooner? Book a call
+                  Book the call now — pick a slot
                 </a>
                 <a
                   href={WHATSAPP}

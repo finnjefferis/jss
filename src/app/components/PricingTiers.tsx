@@ -545,10 +545,10 @@ function PackageQuiz() {
 
               <div className={`flex flex-wrap gap-3 mt-8 justify-center ${exiting ? "quiz-exit" : "quiz-enter"}`} style={{ "--d": 400 } as React.CSSProperties}>
                 <Link
-                  href="/#contact"
+                  href="/start"
                   className="inline-flex items-center gap-2 rounded-xl bg-coral-600 hover:bg-coral-700 px-7 py-3.5 text-sm font-bold text-white transition-colors"
                 >
-                  Get started
+                  Get an exact price
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <button
