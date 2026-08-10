@@ -23,12 +23,35 @@ function useIsMobile() {
 
 /* ─── Package data ─── */
 
-const TIERS = [
+type Tier = {
+  id: string;
+  name: string;
+  price: string;
+  tagline: string;
+  description: string;
+  Icon: React.ComponentType<{ className?: string }>;
+  features: string[];
+  fullFeatures: string[];
+  cta: string;
+  highlight: boolean;
+  badge: string;
+  note: string;
+  example: {
+    clientName: string;
+    clientType: string;
+    image: string;
+    slug: string;
+    quote: string;
+    reviewer: string;
+  } | null;
+};
+
+const TIERS: Tier[] = [
   {
     id: "starter",
     name: "Starter",
     price: "£699",
-    tagline: "+ £21/mo hosting & support",
+    tagline: "+ £29/mo hosting & support",
     description: "A clean, professional site built and hosted — one fixed build fee, then a low monthly fee to keep it running.",
     Icon: Zap,
     features: [
@@ -49,6 +72,7 @@ const TIERS = [
     ],
     cta: "Get started",
     highlight: false,
+    badge: "",
     note: "",
     example: {
       clientName: "Naxco Services",
@@ -63,7 +87,7 @@ const TIERS = [
     id: "business",
     name: "CMS",
     price: "£1,199",
-    tagline: "+ £21/mo hosting & support",
+    tagline: "+ £29/mo hosting & support",
     description: "A professional site you can actually keep up to date — with a CMS, blog, and priority support.",
     Icon: BarChart3,
     features: [
@@ -87,8 +111,9 @@ const TIERS = [
       "Hosting, SSL & daily backups",
     ],
     cta: "Get started",
-    highlight: true,
-    note: "Most popular",
+    highlight: false,
+    badge: "Most popular",
+    note: "",
     example: {
       clientName: "eDivert",
       clientType: "Virtual assistant services",
@@ -97,6 +122,39 @@ const TIERS = [
       quote: "Working with Finlay and the Team at Jefferis Software this past few weeks has been a great experience. From our first meeting I felt Finlay understood what we are trying to achieve and whilst he followed the brief, he also added valuable suggestions that have enhanced our site both in web browser and especially on smart phones. The project completed on time and to budget - also a great win for us. I highly recommend the Jefferis Software team for your future website developments.",
       reviewer: "Stewart Dunne",
     },
+  },
+  {
+    id: "system",
+    name: "System",
+    price: "£2,500",
+    tagline: "+ £79/mo software & support",
+    description: "A website plus the system that runs the work behind it — quotes, invoices, jobs and messages in one place, shaped to how you already work.",
+    Icon: Cpu,
+    features: [
+      "Everything in CMS",
+      "Customers, jobs & quotes in one place",
+      "Invoices raised, sent & chased",
+      "Email & WhatsApp in one inbox",
+      "Works on phone, tablet & desktop",
+      "Shaped to how you already work",
+    ],
+    fullFeatures: [
+      "Site design & build included",
+      "Mobile-first design",
+      "Full SEO setup",
+      "CMS access (edit your content)",
+      "Customers, jobs & quotes in one place",
+      "Invoices raised, sent & chased",
+      "Email & WhatsApp in one inbox",
+      "Works on phone, tablet & desktop",
+      "Priority support",
+      "Hosting, SSL & daily backups",
+    ],
+    cta: "See the system",
+    highlight: true,
+    badge: "The full setup",
+    note: "Fixed price agreed after a short workflow review.",
+    example: null,
   },
   {
     id: "commerce",
@@ -127,6 +185,7 @@ const TIERS = [
     ],
     cta: "Discuss your store",
     highlight: false,
+    badge: "",
     note: "Price varies by scope.",
     example: {
       clientName: "Titan Doors",
@@ -141,7 +200,7 @@ const TIERS = [
 
 /* ─── Quiz data ─── */
 
-type Step = "website" | "business" | "content" | "growth" | "result" | "managed";
+type Step = "website" | "business" | "admin" | "content" | "growth" | "result" | "managed";
 
 const QUESTIONS: {
   step: Step;
@@ -164,6 +223,15 @@ const QUESTIONS: {
       { value: "services", label: "I offer services", sub: "Plumbing, cleaning, personal training, consulting, etc." },
       { value: "products", label: "I sell products", sub: "Physical or digital products, online shop." },
       { value: "both", label: "Both", sub: "Services and products." },
+    ],
+  },
+  {
+    step: "admin",
+    question: "Where does the admin live right now?",
+    options: [
+      { value: "scattered", label: "Texts, paper & memory", sub: "Quotes and invoices happen in the evenings." },
+      { value: "spreadsheets", label: "Spreadsheets & separate apps", sub: "It works, but nothing talks to anything." },
+      { value: "sorted", label: "It’s under control", sub: "We already have software that does the job." },
     ],
   },
   {
@@ -194,20 +262,23 @@ type Recommendation = {
 };
 
 function getRecommendation(answers: Answers): { primary: Recommendation } {
-  const { business, content } = answers;
+  const { business, admin, content } = answers;
 
-  let tierIdx = 0;
-  if (business === "products" || business === "both") tierIdx = 2;
-  else if (content === "often" || content === "sometimes") tierIdx = 1;
+  let tierId = "starter";
+  if (admin === "scattered" || admin === "spreadsheets") tierId = "system";
+  else if (business === "products" || business === "both") tierId = "commerce";
+  else if (content === "often" || content === "sometimes") tierId = "business";
 
-  const reasons: Record<number, string> = {
-    0: "Get online fast with a professional site. Clean, simple, done — one monthly fee covers everything.",
-    1: "A site you can actually keep up to date, with a CMS and blog built in. Perfect for growing organically.",
-    2: "A full online store with payments and product management, all included in your monthly fee.",
+  const reasons: Record<string, string> = {
+    starter: "Get online fast with a professional site. Clean, simple, done — one monthly fee covers everything.",
+    business: "A site you can actually keep up to date, with a CMS and blog built in. Perfect for growing organically.",
+    system: "The website wins the work — the system runs it. Quotes, invoices and messages in one place, and your evenings back.",
+    commerce: "A full online store with payments and product management, all included in your monthly fee.",
   };
 
+  const tier = TIERS.find((t) => t.id === tierId) ?? TIERS[0];
   return {
-    primary: { tier: TIERS[tierIdx], reason: reasons[tierIdx] },
+    primary: { tier, reason: reasons[tierId] },
   };
 }
 
@@ -417,23 +488,50 @@ function PackageQuiz() {
                         {/* Right: real example */}
                         <div className={`mt-6 md:mt-0 md:pl-8 flex flex-col gap-4`}>
                           <p className={`text-[10px] font-bold uppercase tracking-wider transition-colors duration-300 ${active ? "text-white/50" : "text-zinc-400"}`}>Real example</p>
-                          <Link href={`/work/${ex.slug}`} className="group block rounded-xl overflow-hidden border border-white/10 shadow-md">
-                            <div className="relative aspect-[4/3] w-full bg-zinc-200 dark:bg-zinc-800">
-                              <Image src={ex.image} alt={ex.clientName} fill className="object-cover object-top group-hover:scale-[1.02] transition-transform duration-500" />
-                            </div>
-                          </Link>
-                          <div>
-                            <p className={`text-xs font-bold transition-colors duration-300 ${active ? "text-white/60" : "text-zinc-400"}`}>{ex.clientType}</p>
-                            <p className={`text-sm font-bold transition-colors duration-300 ${active ? "text-white" : "text-zinc-800 dark:text-zinc-100"}`}>{ex.clientName}</p>
-                          </div>
-                          <div className={`rounded-xl p-4 transition-colors duration-300 ${active ? "bg-white/10" : "bg-coral-50 dark:bg-coral-950/40 border border-coral-100 dark:border-coral-900"}`}>
-                            <Quote className={`h-4 w-4 mb-2 transition-colors duration-300 ${active ? "text-white/30" : "text-coral-300"}`} />
-                            <p className={`text-xs italic leading-relaxed mb-2 transition-colors duration-300 ${active ? "text-white/80" : "text-zinc-600 dark:text-zinc-300"}`}>&ldquo;{ex.quote}&rdquo;</p>
-                            <p className={`text-[10px] font-bold transition-colors duration-300 ${active ? "text-white/50" : "text-coral-500 dark:text-coral-400"}`}>&mdash; {ex.reviewer}</p>
-                          </div>
-                          <Link href={`/work/${ex.slug}`} className={`inline-flex items-center gap-1.5 text-xs font-bold transition-colors duration-300 ${active ? "text-white/70 hover:text-white" : "text-coral-600 dark:text-coral-400 hover:text-coral-700"}`}>
-                            View case study <ArrowRight className="h-3 w-3" />
-                          </Link>
+                          {ex ? (
+                            <>
+                              <Link href={`/work/${ex.slug}`} className="group block rounded-xl overflow-hidden border border-white/10 shadow-md">
+                                <div className="relative aspect-[4/3] w-full bg-zinc-200 dark:bg-zinc-800">
+                                  <Image src={ex.image} alt={ex.clientName} fill className="object-cover object-top group-hover:scale-[1.02] transition-transform duration-500" />
+                                </div>
+                              </Link>
+                              <div>
+                                <p className={`text-xs font-bold transition-colors duration-300 ${active ? "text-white/60" : "text-zinc-400"}`}>{ex.clientType}</p>
+                                <p className={`text-sm font-bold transition-colors duration-300 ${active ? "text-white" : "text-zinc-800 dark:text-zinc-100"}`}>{ex.clientName}</p>
+                              </div>
+                              <div className={`rounded-xl p-4 transition-colors duration-300 ${active ? "bg-white/10" : "bg-coral-50 dark:bg-coral-950/40 border border-coral-100 dark:border-coral-900"}`}>
+                                <Quote className={`h-4 w-4 mb-2 transition-colors duration-300 ${active ? "text-white/30" : "text-coral-300"}`} />
+                                <p className={`text-xs italic leading-relaxed mb-2 transition-colors duration-300 ${active ? "text-white/80" : "text-zinc-600 dark:text-zinc-300"}`}>&ldquo;{ex.quote}&rdquo;</p>
+                                <p className={`text-[10px] font-bold transition-colors duration-300 ${active ? "text-white/50" : "text-coral-500 dark:text-coral-400"}`}>&mdash; {ex.reviewer}</p>
+                              </div>
+                              <Link href={`/work/${ex.slug}`} className={`inline-flex items-center gap-1.5 text-xs font-bold transition-colors duration-300 ${active ? "text-white/70 hover:text-white" : "text-coral-600 dark:text-coral-400 hover:text-coral-700"}`}>
+                                View case study <ArrowRight className="h-3 w-3" />
+                              </Link>
+                            </>
+                          ) : (
+                            <>
+                              <div>
+                                <p className={`text-xs font-bold transition-colors duration-300 ${active ? "text-white/60" : "text-zinc-400"}`}>Heating &amp; gas services</p>
+                                <p className={`text-sm font-bold transition-colors duration-300 ${active ? "text-white" : "text-zinc-800 dark:text-zinc-100"}`}>Island Gas</p>
+                              </div>
+                              <p className={`text-xs leading-relaxed transition-colors duration-300 ${active ? "text-white/80" : "text-zinc-600 dark:text-zinc-300"}`}>
+                                Island Gas runs day to day on a system we built &mdash; quotes, job records, gas certificates, WhatsApp and invoicing in one place.
+                              </p>
+                              <div className="grid grid-cols-2 gap-3">
+                                <div className={`rounded-xl p-4 transition-colors duration-300 ${active ? "bg-white/10" : "bg-coral-50 dark:bg-coral-950/40 border border-coral-100 dark:border-coral-900"}`}>
+                                  <p className={`text-xl font-extrabold transition-colors duration-300 ${active ? "text-white" : "text-zinc-900 dark:text-white"}`}>1,890</p>
+                                  <p className={`text-[10px] font-bold uppercase tracking-wider transition-colors duration-300 ${active ? "text-white/50" : "text-zinc-400"}`}>Jobs in one system</p>
+                                </div>
+                                <div className={`rounded-xl p-4 transition-colors duration-300 ${active ? "bg-white/10" : "bg-coral-50 dark:bg-coral-950/40 border border-coral-100 dark:border-coral-900"}`}>
+                                  <p className={`text-xl font-extrabold transition-colors duration-300 ${active ? "text-white" : "text-zinc-900 dark:text-white"}`}>10,400+</p>
+                                  <p className={`text-[10px] font-bold uppercase tracking-wider transition-colors duration-300 ${active ? "text-white/50" : "text-zinc-400"}`}>Bookings managed</p>
+                                </div>
+                              </div>
+                              <Link href="/software/relay" className={`inline-flex items-center gap-1.5 text-xs font-bold transition-colors duration-300 ${active ? "text-white/70 hover:text-white" : "text-coral-600 dark:text-coral-400 hover:text-coral-700"}`}>
+                                See the system in action <ArrowRight className="h-3 w-3" />
+                              </Link>
+                            </>
+                          )}
                         </div>
                       </div>
                     );
@@ -580,9 +678,9 @@ function TierCard({ tier, mobileFocused = false }: { tier: typeof TIERS[0]; mobi
             : "border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900"
         }`}
     >
-      {tier.highlight && !active && (
+      {tier.badge && !active && (
         <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-coral-600 text-white px-4 py-1 text-xs font-bold uppercase tracking-wide shadow-md whitespace-nowrap">
-          Most Popular
+          {tier.badge}
         </div>
       )}
 
@@ -727,7 +825,7 @@ function FullMenu({ className = "mt-16", label }: { className?: string; label?: 
       </button>
 
       <div className={`collapsible-menu mt-10 ${open ? "open" : ""}`}>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6 md:items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-6 md:items-start">
           {TIERS.map((tier, i) => (
             <div key={tier.id} ref={tierFocus.setRef(i)}>
               <TierCard tier={tier} mobileFocused={tierFocus.activeIndex === i} />

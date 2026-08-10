@@ -6,16 +6,16 @@ import { useReveal } from "../hooks/useReveal";
 
 const DIFFERENTIATORS = [
   {
-    title: "You talk to the person building your site",
-    text: "No agencies, no account managers, no handoffs. Just one person who knows your project inside out.",
+    title: "You talk to the person building it",
+    text: "No agencies, no account managers, no handoffs. Just one person who knows your business inside out.",
   },
   {
-    title: "Every decision is made to win you clients",
-    text: "Fast load times, clear calls to action, mobile-first. Good-looking is a bonus. Converting is the goal.",
+    title: "Built around how you already work",
+    text: "We watch how the work actually flows — then automate the slow parts. No forcing your business into someone else's software.",
   },
   {
     title: "You'll know exactly how it's performing",
-    text: "Traffic, rankings, speed, enquiries. No guesswork — real numbers that tell you what's working.",
+    text: "Traffic, rankings, enquiries, unpaid invoices. No guesswork — real numbers that tell you what's working.",
   },
 ];
 
@@ -127,9 +127,9 @@ export function AboutSection() {
         </h2>
 
         <p data-reveal style={{ "--d": 160 } as React.CSSProperties} className="max-w-2xl lg:mx-auto text-base md:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed mb-14 text-left lg:text-center">
-          You've earned your reputation. Your website should back it up. We build sites that make the
-          right impression, win you clients before you've said a word, and keep working for you
-          around the clock.
+          You've earned your reputation &mdash; but if the jobs live in texts, spreadsheets and
+          memory, every busy week costs you evenings. We start with a website that wins the work,
+          then build the system that runs it: quotes, invoices, bookings and messages in one place.
         </p>
 
         <MetricsVisual />

@@ -11,8 +11,8 @@ const CARDS = [
     id: "site",
     icon: Globe,
     step: "01",
-    title: "Websites that work.",
-    description: "Clean, modern, built from scratch. No templates, no page builders. Fast, mobile-first, and designed to actually convert visitors into enquiries.",
+    title: "It starts with your website.",
+    description: "Clean, modern, built from scratch. No templates, no page builders. Fast, mobile-first, and designed to turn visitors into enquiries — because that's its job.",
     proof: {
       label: "Naxco Services",
       metricName: "Page Load Time",
@@ -71,14 +71,14 @@ const CARDS = [
     id: "software",
     icon: Code2,
     step: "05",
-    title: "Built just for you.",
-    description: "Bespoke tools, dashboards, and applications tailored to how your business actually runs. No off-the-shelf compromises.",
+    title: "Then the admin disappears.",
+    description: "Quotes, invoices, job tracking, customer messages — the paperwork that eats your evenings, handled by a system shaped to how you already work. One client runs their entire gas business on ours.",
     proof: {
-      label: "Client Average",
-      metricName: "Manual Work Saved",
-      before: "20hrs/wk",
-      after: "2hrs/wk",
-      change: "-90%",
+      label: "Island Gas",
+      metricName: "Jobs run through one system",
+      before: "Paper & apps",
+      after: "One system",
+      change: "1,890",
       color: "text-emerald-600",
     },
   },
@@ -186,13 +186,13 @@ function SectionHeader() {
         What We Do
       </p>
       <h2 data-reveal style={{ "--d": 80 } as React.CSSProperties} className="mb-6 text-3xl font-bold leading-tight text-zinc-900 dark:text-zinc-100 md:text-5xl lg:text-6xl">
-        Your complete{" "}
+        From front door{" "}
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-600 to-pink-600 inline-block" data-gradient style={{ "--gd": 300 } as React.CSSProperties}>
-          digital partner.
+          to back office.
         </span>
       </h2>
       <p data-reveal style={{ "--d": 160 } as React.CSSProperties} className="text-base text-zinc-600 dark:text-zinc-400 md:text-lg leading-relaxed max-w-xl">
-        Sites, SEO, marketing, monitoring, and bespoke software. Everything your business needs to thrive online.
+        A website that wins the work, search and ads that feed it, monitoring that guards it — and the software that runs the job behind it all.
       </p>
     </>
   );

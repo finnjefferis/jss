@@ -70,23 +70,23 @@ const BRANCH: Record<Service, { questions: Question[]; result: (a: Record<string
         };
       if (need === "Take bookings or enquiries")
         return {
-          rec: "A site that wins you work",
+          rec: "A site that wins the work — and can run it too",
           band: "from £1,199",
           extra: "Enquiries and bookings built in, content you can edit yourself, live in around two weeks — fixed price agreed before we start.",
-          footnote: "Hosting & support from £21/mo.",
+          footnote: "Hosting & support from £29/mo. If the admin behind the jobs is the real problem, the full system — site plus quotes, invoices and messages in one place — starts at £2,500 + £79/mo.",
         };
       if (need === "Tell people about us")
         return {
           rec: "A clean, fast site that does you justice",
           band: "from £699",
           extra: "Mobile-first, up to five pages, live in under ten days — fixed price agreed before we start.",
-          footnote: "Hosting & support from £21/mo.",
+          footnote: "Hosting & support from £29/mo.",
         };
       return {
         rec: "We'll shape it together",
         band: "from £699",
         extra: "Most first sites land between £699 and £1,199 — the price is fixed before any work starts.",
-        footnote: "Hosting & support from £21/mo.",
+        footnote: "Hosting & support from £29/mo.",
       };
     },
   },
@@ -103,11 +103,20 @@ const BRANCH: Record<Service, { questions: Question[]; result: (a: Record<string
         ],
       },
     ],
-    result: () => ({
-      rec: "Scoped first, priced fairly",
-      band: "typically from £2,000",
-      extra: "Bespoke builds are quoted fixed once scoped — twenty minutes on a call usually pins the whole thing down.",
-    }),
+    result: (a) => {
+      if (a.situation === "Replace spreadsheets & paperwork")
+        return {
+          rec: "The system that runs the business",
+          band: "from £2,500",
+          extra: "Customers, jobs, quotes, invoices and messages in one place — with a website included and your existing records moved in. Fixed price agreed after a short workflow review.",
+          footnote: "Software, hosting & support £79/mo.",
+        };
+      return {
+        rec: "Scoped first, priced fairly",
+        band: "typically from £2,500",
+        extra: "Bespoke builds are quoted fixed once scoped — twenty minutes on a call usually pins the whole thing down.",
+      };
+    },
   },
   "Ads & lead generation": {
     questions: [

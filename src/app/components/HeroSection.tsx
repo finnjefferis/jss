@@ -6,9 +6,9 @@ import { useState, useEffect, useRef } from "react";
 import { useReveal } from "../hooks/useReveal";
 
 const PHRASES = [
-  { noun: "Websites", verbs: ["last.", "convert.", "sell.", "win.", "pop."] },
-  { noun: "Integrations", verbs: ["hum.", "click.", "stick.", "flow.", "sync.", "fit."] },
-  { noun: "Software", verbs: ["fits.", "scales.", "ships.", "earns.", "thinks.", "pays."] },
+  { noun: "Websites", verbs: ["win work.", "convert.", "sell.", "last."] },
+  { noun: "Admin", verbs: ["vanishes.", "shrinks.", "flows."] },
+  { noun: "Systems", verbs: ["fit.", "scale.", "think.", "pay off."] },
 ];
 
 const HERO_SITES: { src: string; alt: string; label: string; href: string; video?: string }[] = [
@@ -440,13 +440,15 @@ export function HeroSection() {
           {/* LEFT — Text */}
           <div>
             <p data-reveal style={{ "--d": 50 } as React.CSSProperties} className="mb-3 text-xs font-bold uppercase tracking-[0.25em] text-amber-600 dark:text-amber-400">
-              Websites · Integrations · Bespoke Software · UK
+              Websites · Workflow Automation · Business Systems · UK
             </p>
             <h1 data-reveal style={{ "--d": 180, "--reveal-y": "16px" } as React.CSSProperties} className="text-5xl font-black leading-[1.08] tracking-tight text-zinc-900 dark:text-white sm:text-6xl lg:text-7xl">
               <RotatingPhrase />
             </h1>
             <p data-reveal style={{ "--d": 310 } as React.CSSProperties} className="mt-6 text-lg text-zinc-500 dark:text-zinc-400 md:text-xl max-w-xl">
-              Your website should be winning you clients. If it isn&apos;t, we&apos;ll fix that.
+              We look at how your business actually runs, then build around it. It usually
+              starts with a website that wins you work &mdash; and grows into a system that
+              handles the quotes, invoices and chasing behind it.
             </p>
             <div data-reveal style={{ "--d": 440 } as React.CSSProperties} className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
               <a
