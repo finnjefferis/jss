@@ -11,17 +11,41 @@ const PHRASES = [
   { noun: "Systems", verbs: ["fit.", "scale.", "think.", "pay off."] },
 ];
 
-const HERO_SITES: { src: string; alt: string; label: string; href: string; video?: string }[] = [
+const HERO_SITES: { src: string; alt: string; label: string; href: string; video?: string; hoverPlay?: boolean }[] = [
+  // Titan leads — hover the card and the demo's entrance animation plays.
+  { src: "/titandoors.png", alt: "Titan Doors website", label: "titan doors · demo", href: "/work/titandoors", video: "/titandoors.mp4", hoverPlay: true },
   { src: "/naxnew.png", alt: "Naxco website", label: "naxco.co.uk", href: "/work/naxco" },
   { src: "/edivertnew.png", alt: "eDivert website", label: "edivert.co.uk", href: "/work/edivert" },
   { src: "/dsoil.png", alt: "D&S Oil Tanks website", label: "dsoiltanks.co.uk", href: "/work/dsoil", video: "/dsoil.mp4" },
   { src: "/ivyarch.png", alt: "Ivy Arch Studios website", label: "ivyarchstudios.co.uk", href: "/work/ivy" },
-  { src: "/titandoors.png", alt: "Titan Doors website", label: "titandoors.co.uk", href: "/work/titandoors" },
 ];
 
 function BrowserFrame({ site, className = "", priority = false }: { site: typeof HERO_SITES[number]; className?: string; priority?: boolean }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // hoverPlay cards sit on their poster until hovered, then act out the
+  // site's entrance animation; leaving rewinds so every hover replays it.
+  const hoverHandlers = site.hoverPlay
+    ? {
+        onMouseEnter: () => {
+          const v = videoRef.current;
+          if (v) {
+            v.currentTime = 0;
+            v.play().catch(() => {});
+          }
+        },
+        onMouseLeave: () => {
+          const v = videoRef.current;
+          if (v) {
+            v.pause();
+            v.currentTime = 0;
+          }
+        },
+      }
+    : {};
+
   return (
-    <Link href={site.href} className={`block group ${className}`}>
+    <Link href={site.href} className={`block group ${className}`} {...hoverHandlers}>
       <div className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 shadow-md overflow-hidden">
         <div className="flex items-center gap-1.5 px-3 py-2 border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/50">
           <span className="h-2 w-2 rounded-full bg-red-400" />
@@ -37,10 +61,11 @@ function BrowserFrame({ site, className = "", priority = false }: { site: typeof
           {site.video ? (
             <video
               key={site.video}
+              ref={videoRef}
               src={site.video}
               poster={site.src}
-              autoPlay
-              loop
+              autoPlay={!site.hoverPlay}
+              loop={!site.hoverPlay}
               muted
               playsInline
               preload="auto"
@@ -48,7 +73,7 @@ function BrowserFrame({ site, className = "", priority = false }: { site: typeof
               disableRemotePlayback
               onLoadedData={(e) => {
                 e.currentTarget.muted = true;
-                e.currentTarget.play().catch(() => {});
+                if (!site.hoverPlay) e.currentTarget.play().catch(() => {});
               }}
               className="absolute inset-0 h-full w-full object-cover object-top"
             />

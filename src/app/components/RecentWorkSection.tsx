@@ -22,7 +22,7 @@ const PROJECTS = [
   {
     key: "titandoors" as ProjectKey,
     title: "Titan Doors",
-    role: "Website + Brand",
+    role: "Website",
     summary: "New website for a Sussex door specialist. Premium composite, bifold and sliding doors, built to outperform on security and design.",
     image: "/titandoors.png",
     alt: "Titan Doors website",
