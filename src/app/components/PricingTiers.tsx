@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Quote } from "lucide-react";
 import {
   Check, ArrowRight, Zap, BarChart3, ShoppingBag, Cpu, ChevronDown, RotateCcw,
+  Calendar, MessageSquare,
 } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useReveal } from "../hooks/useReveal";
@@ -198,58 +199,67 @@ const TIERS: Tier[] = [
   },
 ];
 
-/* ─── Quiz data ─── */
+/* ─── The funnel ───
+   The one pipeline: it lives here in the middle of the homepage, opens a
+   lead on Relay's board from the first answer, and closes to a booked call.
+   Answer values are stored verbatim so the board reads as English. */
 
-type Step = "website" | "business" | "admin" | "content" | "growth" | "result" | "managed";
+const RELAY = "https://relay-production-7d2c.up.railway.app/api/funnel/lead";
+const WHATSAPP = "https://wa.me/447887034503";
+const BOOKING_URL =
+  "https://outlook.office.com/bookwithme/user/b44ea33c0eb847a3a69babfcdc453315@jefferissoftware.co.uk?anonymous&ismsaljsauthenabled&ep=plink";
+
+declare global {
+  interface Window {
+    relayTrack?: (event: string) => void;
+  }
+}
+
+type Step = "situation" | "need" | "admin" | "timeframe";
+
+type LeadRef = { id: string | number; token: string };
 
 const QUESTIONS: {
   step: Step;
   question: string;
-  options: { value: string; label: string; sub: string }[];
+  options: { value: string; sub: string }[];
 }[] = [
   {
-    step: "website",
-    question: "Do you have a website right now?",
+    step: "situation",
+    question: "Got a website at the moment?",
     options: [
-      { value: "none", label: "No website", sub: "Starting from scratch." },
-      { value: "bad", label: "Yes, but it\u2019s bad", sub: "Outdated, broken, or embarrassing." },
-      { value: "decent", label: "It\u2019s fine, just need it looked after", sub: "I want someone to host, maintain, and keep it running." },
+      { value: "No — starting fresh", sub: "First proper site." },
+      { value: "Yes — it needs replacing", sub: "Outdated, broken, or just not winning work." },
+      { value: "Yes — and it's fine", sub: "It's the rest of the business that needs sorting." },
     ],
   },
   {
-    step: "business",
-    question: "What does your business do?",
+    step: "need",
+    question: "What should it do for you?",
     options: [
-      { value: "services", label: "I offer services", sub: "Plumbing, cleaning, personal training, consulting, etc." },
-      { value: "products", label: "I sell products", sub: "Physical or digital products, online shop." },
-      { value: "both", label: "Both", sub: "Services and products." },
+      { value: "Tell people about us", sub: "A clean, professional presence." },
+      { value: "Take bookings & enquiries", sub: "Turn visitors into booked work." },
+      { value: "Sell online", sub: "Products, payments, orders." },
+      { value: "Run the whole job", sub: "Quotes, invoices, jobs and messages — the lot." },
     ],
   },
   {
     step: "admin",
     question: "Where does the admin live right now?",
     options: [
-      { value: "scattered", label: "Texts, paper & memory", sub: "Quotes and invoices happen in the evenings." },
-      { value: "spreadsheets", label: "Spreadsheets & separate apps", sub: "It works, but nothing talks to anything." },
-      { value: "sorted", label: "It’s under control", sub: "We already have software that does the job." },
+      { value: "Texts, paper & memory", sub: "Quotes and invoices happen in the evenings." },
+      { value: "Spreadsheets & separate apps", sub: "It works, but nothing talks to anything." },
+      { value: "It's under control", sub: "We already have software that does the job." },
     ],
   },
   {
-    step: "content",
-    question: "Will you need to update your site content?",
+    step: "timeframe",
+    question: "When do you want to move?",
     options: [
-      { value: "often", label: "Yes, regularly", sub: "Blog posts, new services, price changes." },
-      { value: "sometimes", label: "Occasionally", sub: "A few times a year." },
-      { value: "never", label: "Set it and forget it", sub: "Just need it to look good and stay online." },
-    ],
-  },
-  {
-    step: "growth",
-    question: "What matters most to you right now?",
-    options: [
-      { value: "just-online", label: "Just get me online", sub: "I need a website. That\u2019s the priority." },
-      { value: "more-customers", label: "I want more customers", sub: "I need people to actually find me." },
-      { value: "serious-growth", label: "I want serious growth", sub: "Full marketing. Leads on autopilot." },
+      { value: "As soon as possible", sub: "Ready when you are." },
+      { value: "In the next month", sub: "Soon, but not on fire." },
+      { value: "In the next few months", sub: "Planning ahead." },
+      { value: "No rush", sub: "Just weighing it up." },
     ],
   },
 ];
@@ -257,22 +267,26 @@ const QUESTIONS: {
 type Answers = Record<string, string>;
 
 type Recommendation = {
-  tier: typeof TIERS[0];
+  tier: Tier;
   reason: string;
 };
 
 function getRecommendation(answers: Answers): { primary: Recommendation } {
-  const { business, admin, content } = answers;
+  const { situation, need, admin } = answers;
+  const scattered = admin === "Texts, paper & memory" || admin === "Spreadsheets & separate apps";
 
   let tierId = "starter";
-  if (admin === "scattered" || admin === "spreadsheets") tierId = "system";
-  else if (business === "products" || business === "both") tierId = "commerce";
-  else if (content === "often" || content === "sometimes") tierId = "business";
+  if (need === "Run the whole job" || (scattered && need !== "Sell online")) tierId = "system";
+  else if (need === "Sell online") tierId = "commerce";
+  else if (need === "Take bookings & enquiries") tierId = "business";
 
   const reasons: Record<string, string> = {
     starter: "Get online fast with a professional site. Clean, simple, done — one monthly fee covers everything.",
-    business: "A site you can actually keep up to date, with a CMS and blog built in. Perfect for growing organically.",
-    system: "The website wins the work — the system runs it. Quotes, invoices and messages in one place, and your evenings back.",
+    business: "A site you can actually keep up to date, with a CMS and blog built in — and enquiries wired straight to you.",
+    system:
+      situation === "Yes — and it's fine"
+        ? "Your site can stay. The system plugs in behind it — quotes, invoices and messages in one place, and your evenings back."
+        : "The website wins the work — the system runs it. Quotes, invoices and messages in one place, and your evenings back.",
     commerce: "A full online store with payments and product management, all included in your monthly fee.",
   };
 
@@ -282,21 +296,102 @@ function getRecommendation(answers: Answers): { primary: Recommendation } {
   };
 }
 
+/** The lead board's budget line: the exact recommendation they were shown. */
+function bandFor(answers: Answers): string {
+  const { tier } = getRecommendation(answers).primary;
+  return `${tier.name} — ${tier.price} ${tier.tagline}`;
+}
+
+/** The lead board's service line, derived from the recommendation. */
+function serviceFor(answers: Answers): string {
+  const id = getRecommendation(answers).primary.tier.id;
+  if (id === "system") return "Website + business system";
+  if (id === "commerce") return "An online shop";
+  return "A website";
+}
+
 /* ─── Quiz component ─── */
 
 function PackageQuiz() {
   const [answers, setAnswers] = useState<Answers>({});
   const [step, setStep] = useState(0);
-  const [phase, setPhase] = useState<"question" | "result">("question");
+  const [phase, setPhase] = useState<"question" | "result" | "thanks">("question");
   const [locked, setLocked] = useState(false);
   const [animKey, setAnimKey] = useState(0);
   const [exiting, setExiting] = useState(false);
 
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [sending, setSending] = useState(false);
+  const [offline, setOffline] = useState(false);
+
   const containerRef = useRef<HTMLDivElement>(null);
+  const leadRef = useRef<LeadRef | null>(null);
+
+  // Survive a refresh mid-funnel without opening a duplicate lead.
+  useEffect(() => {
+    try {
+      const saved = sessionStorage.getItem("jss-lead");
+      if (saved) leadRef.current = JSON.parse(saved);
+    } catch {}
+  }, []);
+
+  const track = useCallback((event: string) => {
+    try {
+      window.relayTrack?.(event);
+    } catch {}
+  }, []);
+
+  /** Open the lead on the first answer; top it up on every step after. */
+  const sync = useCallback(
+    async (nextAnswers: Answers, stepKey: string, extra?: Record<string, unknown>) => {
+      try {
+        if (!leadRef.current) {
+          const res = await fetch(RELAY, {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ answers: nextAnswers, website: "" }),
+          });
+          if (!res.ok) return false;
+          const body = await res.json();
+          if (body?.id) {
+            leadRef.current = { id: body.id, token: body.token };
+            try {
+              sessionStorage.setItem("jss-lead", JSON.stringify(leadRef.current));
+            } catch {}
+          }
+          return !!body?.ok;
+        }
+        const res = await fetch(RELAY, {
+          method: "PATCH",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({
+            id: leadRef.current.id,
+            token: leadRef.current.token,
+            answers: nextAnswers,
+            step: stepKey,
+            ...extra,
+          }),
+        });
+        return res.ok;
+      } catch {
+        return false;
+      }
+    },
+    [],
+  );
+
+  /** Answers as the lead board should read them — service + budget carry the recommendation. */
+  const forLead = (extra?: Record<string, string>): Answers => ({
+    ...answers,
+    service: serviceFor(answers),
+    budget: bandFor(answers),
+    ...extra,
+  });
 
   const totalSteps = QUESTIONS.length;
   const answeredCount = Object.keys(answers).length;
-  const progress = phase === "result" ? 1 : answeredCount / totalSteps;
+  const progress = phase === "question" ? answeredCount / totalSteps : 1;
 
   const currentQuestion = QUESTIONS[step];
 
@@ -316,6 +411,16 @@ function PackageQuiz() {
 
     const next = { ...answers, [currentQuestion.step]: value };
     setAnswers(next);
+    track(`plan: ${currentQuestion.step}`);
+
+    if (step < QUESTIONS.length - 1) {
+      void sync(next, currentQuestion.step);
+    } else {
+      // The payoff — the lead's service + budget lines become the
+      // recommendation they were shown; local answers stay verbatim.
+      track("plan: result");
+      void sync({ ...next, service: serviceFor(next), budget: bandFor(next) }, "budget");
+    }
 
     setTimeout(() => {
       setExiting(false);
@@ -329,6 +434,54 @@ function PackageQuiz() {
       scrollToQuiz();
     }, 280);
   }
+
+  /** The primary close: straight to the calendar, lead annotated to expect it. */
+  const bookCall = () => {
+    track("plan: booking");
+    void sync(
+      forLead({ message: "Went to the booking page from the plan result — expect a booked call." }),
+      "booking",
+    );
+    window.open(BOOKING_URL, "_blank", "noopener");
+  };
+
+  /** Fallback close: the written plan. */
+  const submitPlan = async () => {
+    if (!name.trim() || !email.trim() || sending) return;
+    setSending(true);
+    track("plan: contact");
+    if (!leadRef.current) await sync(forLead(), "contact");
+    const ok =
+      !!leadRef.current &&
+      (await sync(forLead(), "contact", { name: name.trim(), email: email.trim(), complete: true }));
+    setOffline(!ok);
+    try {
+      sessionStorage.removeItem("jss-lead");
+    } catch {}
+    leadRef.current = null;
+    track("plan: complete");
+    setSending(false);
+    setPhase("thanks");
+    setAnimKey((k) => k + 1);
+    scrollToQuiz();
+  };
+
+  /** Zero-typing close: their summary lands in Finn's WhatsApp. */
+  const whatsappHandoff = () => {
+    const bits = [answers.situation, answers.timeframe, bandFor(answers)].filter(Boolean);
+    const text = `Hi Finlay — just went through jefferissoftware.co.uk. ${bits.join(" · ")}. `;
+    track("plan: whatsapp");
+    void sync(
+      forLead({ message: "Went to WhatsApp with their summary — expect a message from them." }),
+      "contact",
+      { complete: true },
+    );
+    try {
+      sessionStorage.removeItem("jss-lead");
+    } catch {}
+    leadRef.current = null;
+    window.open(`${WHATSAPP}?text=${encodeURIComponent(text)}`, "_blank", "noopener");
+  };
 
   function goBack() {
     if (locked || step === 0) return;
@@ -353,6 +506,9 @@ function PackageQuiz() {
       setAnswers({});
       setStep(0);
       setPhase("question");
+      setName("");
+      setEmail("");
+      setOffline(false);
       setAnimKey((k) => k + 1);
       setLocked(false);
     }, 350);
@@ -400,7 +556,7 @@ function PackageQuiz() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div className={`grid grid-cols-1 gap-3 ${currentQuestion.options.length === 4 ? "sm:grid-cols-2" : "sm:grid-cols-3"}`}>
                 {currentQuestion.options.map((opt, i) => (
                   <button
                     key={opt.value}
@@ -417,7 +573,7 @@ function PackageQuiz() {
                         ? "text-coral-500"
                         : "text-zinc-800 dark:text-zinc-100 group-hover:text-zinc-900 dark:group-hover:text-white"
                     }`}>
-                      {opt.label}
+                      {opt.value}
                     </p>
                     <p className="text-xs text-zinc-500 leading-relaxed">{opt.sub}</p>
                   </button>
@@ -543,22 +699,109 @@ function PackageQuiz() {
                 <FullMenu className="mt-0" label="Or explore a different plan" />
               </div>
 
-              <div className={`flex flex-wrap gap-3 mt-8 justify-center ${exiting ? "quiz-exit" : "quiz-enter"}`} style={{ "--d": 400 } as React.CSSProperties}>
-                <Link
-                  href="/start"
-                  className="inline-flex items-center gap-2 rounded-xl bg-coral-600 hover:bg-coral-700 px-7 py-3.5 text-sm font-bold text-white transition-colors"
-                >
-                  Get an exact price
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
+              {/* The close: a booked call first, the written plan second. */}
+              <div className={`max-w-lg mx-auto mt-8 ${exiting ? "quiz-exit" : "quiz-enter"}`} style={{ "--d": 400 } as React.CSSProperties}>
                 <button
-                  onClick={reset}
-                  className="inline-flex items-center gap-2 rounded-xl border border-zinc-300 dark:border-zinc-700 px-6 py-3.5 text-sm font-semibold text-zinc-600 dark:text-zinc-400 hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors"
+                  onClick={bookCall}
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-coral-600 px-8 py-4 text-sm font-bold text-white shadow-lg shadow-coral-600/25 hover:bg-coral-700 transition-all"
                 >
-                  <RotateCcw className="h-3.5 w-3.5" />
+                  <Calendar className="h-4 w-4" />
+                  Book the 20-minute call — pick a slot
+                </button>
+                <p className="mt-2 mb-6 text-xs text-zinc-500 dark:text-zinc-400 text-center">
+                  You&apos;ll leave the call with a fixed price and a start date. No sales pressure.
+                </p>
+
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="h-px flex-1 bg-zinc-200 dark:bg-zinc-800" />
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">or get it in writing</span>
+                  <div className="h-px flex-1 bg-zinc-200 dark:bg-zinc-800" />
+                </div>
+
+                <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-4 text-center">
+                  Two fields and the plan lands in your inbox — what we&apos;d build, the fixed
+                  price, and how long it takes. Usually the same day.
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Your name"
+                    className="w-full rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-5 py-3.5 text-sm text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 focus:border-coral-400 focus:outline-none"
+                  />
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Email"
+                    className="w-full rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-5 py-3.5 text-sm text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 focus:border-coral-400 focus:outline-none"
+                  />
+                </div>
+                <button
+                  onClick={submitPlan}
+                  disabled={!name.trim() || !email.trim() || sending}
+                  className="mt-3 w-full inline-flex items-center justify-center gap-2 rounded-2xl border-2 border-coral-600 px-8 py-3.5 text-sm font-bold text-coral-600 dark:text-coral-400 hover:bg-coral-600 hover:text-white transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                >
+                  {sending ? "Sending…" : "Send me the plan"}
+                  {!sending && <ArrowRight className="h-4 w-4" />}
+                </button>
+
+                <div className="mt-4 flex items-center justify-center gap-5">
+                  <button
+                    onClick={whatsappHandoff}
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-500 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+                  >
+                    <MessageSquare className="h-3.5 w-3.5" />
+                    WhatsApp me instead
+                  </button>
+                  <button
+                    onClick={reset}
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors"
+                  >
+                    <RotateCcw className="h-3 w-3" />
+                    Start over
+                  </button>
+                </div>
+                <p className="mt-4 text-[11px] text-zinc-400 dark:text-zinc-500 text-center">
+                  Your details go only to us — see our{" "}
+                  <Link href="/privacy" className="underline hover:text-coral-600 dark:hover:text-coral-400">
+                    Privacy Policy
+                  </Link>
+                  .
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* ── Thanks ── */}
+          {phase === "thanks" && (
+            <div key={`thanks-${animKey}`} className="text-center py-8 quiz-enter" style={{ "--d": 0 } as React.CSSProperties}>
+              <span className="mx-auto mb-6 grid h-14 w-14 place-items-center rounded-full bg-emerald-100 dark:bg-emerald-950">
+                <Check className="h-6 w-6 text-emerald-600 dark:text-emerald-400" />
+              </span>
+              <h3 className="text-2xl font-extrabold text-zinc-900 dark:text-white mb-3">
+                Thanks{name.trim() ? `, ${name.trim().split(" ")[0]}` : ""}.
+              </h3>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400 max-w-sm mx-auto mb-8">
+                {offline
+                  ? "Something went wrong sending that — sorry. Email hello@jefferissoftware.co.uk and I'll pick it up straight away."
+                  : "Your plan is being put together. The fastest route to a fixed price and a start date is grabbing a slot now:"}
+              </p>
+              {!offline && (
+                <button
+                  onClick={bookCall}
+                  className="inline-flex items-center justify-center gap-2 rounded-2xl bg-coral-600 px-8 py-4 text-sm font-bold text-white shadow-lg shadow-coral-600/25 hover:bg-coral-700 transition-all"
+                >
+                  <Calendar className="h-4 w-4" />
+                  Book the call now — pick a slot
+                </button>
+              )}
+              <p className="mt-6">
+                <button onClick={reset} className="text-xs font-semibold text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">
                   Start over
                 </button>
-              </div>
+              </p>
             </div>
           )}
 
@@ -849,18 +1092,18 @@ export function PricingTiers() {
     <section ref={sectionRef} id="services" className="relative py-16 md:py-24 bg-zinc-50 dark:bg-zinc-950 overflow-hidden">
 
       <div className="mx-auto max-w-6xl px-5 md:px-8 relative z-10">
-        <div className="text-center mb-16">
+        <div id="plan" className="text-center mb-16 scroll-mt-24">
           <p data-reveal style={{ "--d": 0 } as React.CSSProperties} className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-amber-500">
             Packages & Pricing
           </p>
           <h2 data-reveal style={{ "--d": 80 } as React.CSSProperties} className="text-3xl font-bold text-zinc-900 dark:text-white md:text-4xl lg:text-5xl mb-4">
-            Not sure what you need?{" "}
+            Four questions.{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-coral-500 to-pink-500 inline-block pb-1" data-gradient style={{ "--gd": 300 } as React.CSSProperties}>
-              We&apos;ll figure it out.
+              A straight answer.
             </span>
           </h2>
           <p data-reveal style={{ "--d": 160 } as React.CSSProperties} className="text-base text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto">
-            Answer a few quick questions and we&apos;ll recommend the right plan for your business.
+            The right package and the price, on the spot — no email needed to see it.
           </p>
         </div>
 

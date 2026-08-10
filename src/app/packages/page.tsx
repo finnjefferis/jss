@@ -232,7 +232,7 @@ export default function PackagesPage() {
                 discovery call is free, and there&apos;s no sales pressure either way.
               </p>
               <a
-                href="/start?for=website"
+                href="/#plan"
                 className="inline-flex items-center gap-2 rounded-xl bg-white px-8 py-4 text-sm font-bold text-coral-700 shadow-xl hover:bg-coral-50 hover:scale-[1.02] transition-all"
               >
                 Get my answer

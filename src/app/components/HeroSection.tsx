@@ -484,7 +484,7 @@ export function HeroSection() {
             </p>
             <div data-reveal style={{ "--d": 440 } as React.CSSProperties} className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
               <a
-                href="/start"
+                href="#plan"
                 className="inline-flex items-center justify-center rounded-xl bg-coral-600 px-8 py-4 text-sm font-bold text-white shadow-md transition-colors hover:bg-coral-700"
               >
                 Start your project

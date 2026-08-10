@@ -64,7 +64,7 @@ export function NavHeader() {
             Ads
           </a>
           <a
-            href="/start"
+            href="/#plan"
             className="ml-2 rounded-full bg-coral-600 px-5 py-2 text-sm font-semibold text-white hover:bg-coral-500 hover:scale-[1.04] active:scale-[0.97] transition-all duration-200"
           >
             Start a project
@@ -110,7 +110,7 @@ export function NavHeader() {
             </a>
             <hr className="border-zinc-100 dark:border-zinc-800 my-1" />
             <a
-              href="/start"
+              href="/#plan"
               onClick={handleLinkClick}
               className="mx-auto rounded-full bg-coral-600 px-6 py-3 text-sm font-semibold text-white hover:bg-coral-500 active:scale-[0.97] transition-all duration-200"
             >

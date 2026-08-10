@@ -380,7 +380,7 @@ export default async function PackagePage({
                 ))}
               </div>
               <a
-                href="/start?for=website"
+                href="/#plan"
                 className="inline-flex items-center gap-2 rounded-xl bg-coral-600 px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-coral-600/25 hover:bg-coral-700 hover:scale-[1.02] transition-all"
               >
                 Start your project
@@ -648,7 +648,7 @@ export default async function PackagePage({
               30 minutes. No sales pressure. We talk through your project, confirm it&apos;s the right fit, and map out exactly what happens next. If it&apos;s not right for you, we&apos;ll say so.
             </p>
             <a
-              href="/start?for=website"
+              href="/#plan"
               className="inline-flex items-center gap-2 rounded-xl bg-white px-8 py-4 text-sm font-bold text-coral-700 shadow-xl hover:bg-coral-50 hover:scale-[1.02] transition-all"
             >
               Start your project
