@@ -43,6 +43,7 @@ export default function PrivacyPage() {
             <li><strong>Enquiries</strong> &mdash; if you contact us by email or WhatsApp, or through the enquiry form on this site, we receive your name, contact details, and whatever you tell us about your project. Form enquiries are stored in Relay, our own business system.</li>
             <li><strong>Bookings</strong> &mdash; if you book a call through our scheduling link, Microsoft Bookings collects the details you provide (name, email, chosen time) and shares them with us.</li>
             <li><strong>Site usage</strong> &mdash; we use Vercel Analytics, which is cookie-free and gives us aggregated figures: pages visited, device type, and approximate location. We can&rsquo;t identify individual visitors from it.</li>
+            <li><strong>Visitor numbers</strong> &mdash; we also count visits using our own system, Relay. It sets nothing on your device. We don&rsquo;t store your IP address: each day a random key is generated and destroyed at the end of that day, and your IP address and browser type are combined with that key to produce a short code, so that several pages viewed in one session count as one visit. Once the day&rsquo;s key is destroyed that code can&rsquo;t be traced back to you by anyone, including us. What we keep is the page visited, the referring site, general device and browser type, and the date.</li>
             <li><strong>Page-open records</strong> &mdash; when you visit this site, or open a proposal or demo link we&rsquo;ve sent you, our own systems record the page opened, the date and time, your IP address, your browser type, and the page that referred you. We use this to understand interest in our work &mdash; for example, whether a proposal we sent has been opened.</li>
             <li><strong>Client and project information</strong> &mdash; if you become a client, we hold the information needed to deliver the work and invoice for it. That processing is governed by our agreement with you.</li>
           </ul>
@@ -88,6 +89,7 @@ export default function PrivacyPage() {
           <ul className="list-disc pl-5 space-y-1">
             <li><strong>Enquiries</strong> &mdash; for as long as the conversation is live, and up to two years after our last contact in case you come back to us.</li>
             <li><strong>Page-open records</strong> &mdash; no longer than 12 months.</li>
+            <li><strong>Visitor numbers</strong> &mdash; the daily key is destroyed after 24 hours, which makes the underlying records anonymous. The anonymous records themselves are deleted after two years.</li>
             <li><strong>Client records and invoices</strong> &mdash; six years, as required for tax and accounting purposes.</li>
           </ul>
 

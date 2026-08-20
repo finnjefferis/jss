@@ -59,6 +59,7 @@ export default function CookiesPage() {
           <ul className="list-disc pl-5 space-y-1">
             <li><strong>Vercel Analytics</strong> &mdash; aggregated, cookie-free page statistics. Nothing is stored on your device and individual visitors can&rsquo;t be identified.</li>
             <li><strong>Our own page-open records</strong> &mdash; a small first-party script notes when a page or a shared proposal link is opened. It stores nothing on your device either; what it collects and how long we keep it is covered in our <Link href="/privacy" className="text-coral-600 dark:text-coral-400 hover:underline">Privacy Policy</Link>.</li>
+            <li><strong>Our own visitor counts</strong> &mdash; a second first-party script counts visits. It reads and writes nothing on your device, and we don&rsquo;t keep your IP address: the key used to recognise a repeat visit within one day is destroyed after 24 hours, after which the records can&rsquo;t be linked back to anyone. Details are in our <Link href="/privacy" className="text-coral-600 dark:text-coral-400 hover:underline">Privacy Policy</Link>.</li>
           </ul>
           <p>
             We don&rsquo;t use Google Analytics, advertising pixels, or any third-party tracking cookies.
