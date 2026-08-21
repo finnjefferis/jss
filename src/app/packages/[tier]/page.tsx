@@ -5,8 +5,10 @@ import Link from "next/link";
 import { BackButton } from "../../work/[slug]/BackButton";
 import {
   Check, ArrowRight, Calendar, Clock,
-  Zap, BarChart3, ShoppingBag, X, Quote,
+  Zap, BarChart3, ShoppingBag, Cpu, X, Quote,
 } from "lucide-react";
+import { SceneStage } from "../../components/RelayShowcase";
+import { InboxScene } from "../../relay/scenes";
 
 const BOOKING_URL =
   "https://outlook.office.com/bookwithme/user/b44ea33c0eb847a3a69babfcdc453315@jefferissoftware.co.uk?anonymous&ismsaljsauthenabled&ep=plink";
@@ -22,12 +24,13 @@ type PackageData = {
   example: {
     clientName: string;
     clientType: string;
-    image: string;
-    slug: string;
+    image?: string; // omit to show the live system scene instead of a screenshot
+    slug?: string; // /work case-study slug; omit to use `link`
+    link?: string; // where "view it" goes when there's no case-study page
     story: string;
     result: string;
     note?: string;
-    quote: string;
+    quote?: string;
     tags: string[];
   };
   includes: { title: string; description: string }[];
@@ -40,13 +43,13 @@ type PackageData = {
 const PACKAGES: Record<string, PackageData> = {
   starter: {
     name: "Starter",
-    price: "£699 + £21/mo",
+    price: "£699 + £29/mo",
     tagline: "Get online fast.",
     Icon: Zap,
     headline: "A clean, professional site. Live in under two weeks.",
     subheadline:
-      "Fixed build fee of £699, then £21/mo for hosting and support. We build your site, host it, and keep it running. Plus we set up your Google Business profile.",
-    trustSignals: ["£699 one-time build", "£21/mo hosting & support", "Google Business setup included"],
+      "Fixed build fee of £699, then £29/mo for hosting and support. We build your site, host it, and keep it running. Plus we set up your Google Business profile.",
+    trustSignals: ["£699 one-time build", "£29/mo hosting & support", "Google Business setup included"],
     example: {
       clientName: "Naxco Services",
       clientType: "Property maintenance",
@@ -87,19 +90,19 @@ const PACKAGES: Record<string, PackageData> = {
       { q: "What if I need more than 5 pages?", a: "Additional pages are scoped at £75 each, or you might be better suited to the Business package which includes up to 8 pages." },
       { q: "Can I update the site myself?", a: "Not on this package. Starter is a fixed, hand-coded site. If you want to edit content yourself, the Business package includes a full CMS." },
       { q: "What do I need to provide?", a: "Your logo, any photos you want to use, and a rough idea of what you want the site to say. We can help with copy if needed." },
-      { q: "What does the monthly fee cover?", a: "Hosting, SSL, daily backups, and ongoing maintenance. The £699 covers the build — the £21/mo keeps it running." },
+      { q: "What does the monthly fee cover?", a: "Hosting, SSL, daily backups, and ongoing maintenance. The £699 covers the build — the £29/mo keeps it running." },
     ],
   },
 
   business: {
     name: "CMS",
-    price: "£1,199 + £21/mo",
+    price: "£1,199 + £29/mo",
     tagline: "Built to grow.",
     Icon: BarChart3,
     headline: "A professional site you can actually keep up to date.",
     subheadline:
-      "Everything in Starter, plus a CMS so you can edit your own content without touching code — and a blog to build your SEO over time. Fixed build fee of £1,199, then £21/mo.",
-    trustSignals: ["£1,199 one-time build", "£21/mo hosting & support", "Priority support"],
+      "Everything in Starter, plus a CMS so you can edit your own content without touching code — and a blog to build your SEO over time. Fixed build fee of £1,199, then £29/mo.",
+    trustSignals: ["£1,199 one-time build", "£29/mo hosting & support", "Priority support"],
     example: {
       clientName: "eDivert",
       clientType: "Virtual assistant services",
@@ -136,13 +139,67 @@ const PACKAGES: Record<string, PackageData> = {
     notFor: [
       "Businesses that just need a static brochure site (Starter is cheaper and faster)",
       "Businesses selling products online (see Commerce)",
+      "Businesses drowning in quotes, invoices and messages — the System package solves that properly",
     ],
     faqs: [
       { q: "Which CMS do you use?", a: "We typically use Sanity — it's clean, fast, and genuinely easy to use. We'll walk you through it in the training session." },
       { q: "Can I upgrade from Starter to Business later?", a: "It's possible but more expensive than starting with Business. If you think you'll want CMS access, start here." },
       { q: "How many pages are included?", a: "Up to 8 pages. Additional pages can be added at £75 each." },
       { q: "What does priority support mean?", a: "Business clients get a same-day response where possible and are first in line for any fix or update requests." },
-      { q: "What does the monthly fee cover?", a: "Hosting, SSL, daily backups, ongoing maintenance, and the CMS. The £1,199 covers the build — the £21/mo keeps everything running." },
+      { q: "What does the monthly fee cover?", a: "Hosting, SSL, daily backups, ongoing maintenance, and the CMS. The £1,199 covers the build — the £29/mo keeps everything running." },
+    ],
+  },
+
+  system: {
+    name: "System",
+    price: "£2,500 + £79/mo",
+    tagline: "The whole job, handled.",
+    Icon: Cpu,
+    headline: "A website that wins the work — and the system that runs it.",
+    subheadline:
+      "We look at how your business actually runs, then build both: the site that brings work in, and the software that handles the quotes, invoices, jobs and messages once it lands. From £2,500, then £79/mo.",
+    trustSignals: ["From £2,500 one-time build", "£79/mo software, hosting & support", "Your existing records moved in"],
+    example: {
+      clientName: "Island Gas",
+      clientType: "Heating & gas services",
+      link: "/software/relay",
+      story:
+        "Island Gas is a heating and gas business whose records lived in a paper diary and a patchwork of apps. We moved the whole operation onto one system: 1,890 jobs with their history, quotes, gas safety certificates, WhatsApp messages and invoicing — in one place, on the phone as well as the desktop.",
+      result: "Quotes, certificates and invoices now come off the back of each job — instead of being evening homework.",
+      tags: ["Workflow", "Software", "Migration"],
+    },
+    includes: [
+      { title: "Everything in CMS", description: "The full website — design, build, CMS, blog, SEO setup and Google Business — included." },
+      { title: "Customers & jobs in one place", description: "Every customer, job, note and document together and searchable. No more digging through texts to find what was agreed." },
+      { title: "Quotes & invoices", description: "Raised in minutes, sent from the system, and chased automatically when they go unpaid." },
+      { title: "One inbox", description: "Email and WhatsApp in a single view, attached to the customer they belong to." },
+      { title: "Diary & bookings", description: "Jobs on a calendar the whole team can see, from any device." },
+      { title: "Workflow review first", description: "Before building anything we sit with how the work actually flows — so the system fits you, not the other way round." },
+    ],
+    process: [
+      { step: "01", title: "Workflow review", body: "We go through how the business runs today — where work comes from, how quotes go out, what gets chased and what gets forgotten.", duration: "1–2 days" },
+      { step: "02", title: "Scope & fixed price", body: "A written scope and a fixed price for the whole build. You know exactly what you're getting before we start.", duration: "1–2 days" },
+      { step: "03", title: "The website", body: "Built first, so it's winning you work while the rest takes shape.", duration: "1–2 weeks" },
+      { step: "04", title: "The system", body: "Customers, jobs, quotes, invoices and messages — including your existing records, moved in for you.", duration: "2–3 weeks" },
+      { step: "05", title: "Run it together", body: "You put real jobs through it while we watch, and we adjust anything that doesn't fit how you work.", duration: "1 week" },
+      { step: "06", title: "Handover & support", body: "Training for you and the team, then the monthly fee covers hosting, support and steady improvement.", duration: "1 day" },
+    ],
+    perfectFor: [
+      "Trades and service businesses — gas, electrical, plumbing, building, maintenance",
+      "Businesses where quotes and invoices happen in the evenings",
+      "Teams juggling WhatsApp, email, paper and a diary that lives in someone's head",
+      "Businesses outgrowing an off-the-shelf app or a stack of spreadsheets",
+    ],
+    notFor: [
+      "Businesses that just need a simple online presence (see Starter)",
+      "Selling products online is the priority (see Commerce)",
+    ],
+    faqs: [
+      { q: "Why £2,500 when app-store CRMs are £30 a month?", a: "Off-the-shelf tools are good at being general. This is shaped to your workflow, your existing records are moved in for you, and the website and the system work as one thing. The build fee covers that work — the £79/mo is usually less than the separate subscriptions it replaces." },
+      { q: "Can you move our existing records in?", a: "Yes — that's part of the build. We've migrated thousands of jobs, quotes and invoices out of previous systems, exports and spreadsheets." },
+      { q: "We already have a website. Do we pay for another?", a: "No — if your site is worth keeping, we connect the system to it and adjust the price at scoping." },
+      { q: "Do we have to take the whole thing at once?", a: "No. Plenty of clients start with the website and add the system later — every site we build is ready for it to plug in." },
+      { q: "What does the £79/mo cover?", a: "Hosting for the site and the system, daily backups, support, and steady improvement as your needs change." },
     ],
   },
 
@@ -214,7 +271,7 @@ export async function generateMetadata({
   const { tier } = await params;
   const pkg = PACKAGES[tier];
   if (!pkg) return {};
-  const title = `${pkg.name} Website Package — ${pkg.price}`;
+  const title = `${pkg.name} Package — ${pkg.price}`;
   const description = `${pkg.headline} ${pkg.subheadline}`;
   return {
     title,
@@ -253,13 +310,13 @@ export default async function PackagePage({
     {
       "@context": "https://schema.org",
       "@type": "Service",
-      name: `${pkg.name} Website Package`,
+      name: `${pkg.name} Package`,
       description: `${pkg.headline} ${pkg.subheadline}`,
       provider: { "@id": `${SITE_URL}/#organization` },
       url: `${SITE_URL}/packages/${tier}`,
       offers: {
         "@type": "Offer",
-        price: pkg.price.replace(/[^0-9.]/g, ""),
+        price: pkg.price.match(/[\d,]+/)?.[0].replace(/,/g, "") ?? "",
         priceCurrency: "GBP",
         availability: "https://schema.org/InStock",
       },
@@ -323,7 +380,7 @@ export default async function PackagePage({
                 ))}
               </div>
               <a
-                href="/start?for=website"
+                href="/#plan"
                 className="inline-flex items-center gap-2 rounded-xl bg-coral-600 px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-coral-600/25 hover:bg-coral-700 hover:scale-[1.02] transition-all"
               >
                 Start your project
@@ -393,29 +450,37 @@ export default async function PackagePage({
               Seen in practice
             </p>
             <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 md:text-3xl">
-              What a {pkg.name} site looks like.
+              What {pkg.name} looks like in practice.
             </h2>
           </div>
 
           <div className="lg:grid lg:grid-cols-2 lg:gap-10 lg:items-start">
-            {/* Screenshot */}
-            <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden mb-8 lg:mb-0">
-              <div className="relative aspect-[4/3] w-full bg-zinc-100 dark:bg-zinc-900">
-                <Image
-                  src={pkg.example.image}
-                  alt={pkg.example.clientName}
-                  fill
-                  className="object-cover object-top"
-                />
-                <div className="absolute top-4 left-4 flex gap-2 flex-wrap">
-                  {pkg.example.tags.map((tag) => (
-                    <span key={tag} className="bg-white px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-coral-700 border border-coral-100 shadow-sm">
-                      {tag}
-                    </span>
-                  ))}
+            {/* Screenshot — or, for the system, the live recreated interface */}
+            {pkg.example.image ? (
+              <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden mb-8 lg:mb-0">
+                <div className="relative aspect-[4/3] w-full bg-zinc-100 dark:bg-zinc-900">
+                  <Image
+                    src={pkg.example.image}
+                    alt={pkg.example.clientName}
+                    fill
+                    className="object-cover object-top"
+                  />
+                  <div className="absolute top-4 left-4 flex gap-2 flex-wrap">
+                    {pkg.example.tags.map((tag) => (
+                      <span key={tag} className="bg-white px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-coral-700 border border-coral-100 shadow-sm">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
+            ) : (
+              <div className="mb-8 lg:mb-0">
+                <SceneStage caption="Rebuilt from the app's actual components — the real interface, acting out a real morning">
+                  <InboxScene />
+                </SceneStage>
+              </div>
+            )}
 
             {/* Story + quote */}
             <div className="flex flex-col gap-6">
@@ -438,20 +503,22 @@ export default async function PackagePage({
                   </p>
                 )}
               </div>
-              <div className="rounded-xl bg-coral-50 dark:bg-coral-950/40 border border-coral-100 dark:border-coral-900 p-5">
-                <Quote className="h-5 w-5 text-coral-300 dark:text-coral-700 mb-3" />
-                <p className="text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed italic mb-3">
-                  &ldquo;{pkg.example.quote}&rdquo;
-                </p>
-                <p className="text-xs font-bold text-coral-600 dark:text-coral-400">
-                  &mdash; {pkg.example.clientName}
-                </p>
-              </div>
+              {pkg.example.quote && (
+                <div className="rounded-xl bg-coral-50 dark:bg-coral-950/40 border border-coral-100 dark:border-coral-900 p-5">
+                  <Quote className="h-5 w-5 text-coral-300 dark:text-coral-700 mb-3" />
+                  <p className="text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed italic mb-3">
+                    &ldquo;{pkg.example.quote}&rdquo;
+                  </p>
+                  <p className="text-xs font-bold text-coral-600 dark:text-coral-400">
+                    &mdash; {pkg.example.clientName}
+                  </p>
+                </div>
+              )}
               <Link
-                href={`/work/${pkg.example.slug}`}
+                href={pkg.example.slug ? `/work/${pkg.example.slug}` : (pkg.example.link ?? "/work")}
                 className="inline-flex items-center gap-2 text-sm font-bold text-coral-600 dark:text-coral-400 hover:text-coral-700 transition-colors"
               >
-                View full case study
+                {pkg.example.slug ? "View full case study" : "See the system in action"}
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
@@ -581,7 +648,7 @@ export default async function PackagePage({
               30 minutes. No sales pressure. We talk through your project, confirm it&apos;s the right fit, and map out exactly what happens next. If it&apos;s not right for you, we&apos;ll say so.
             </p>
             <a
-              href="/start?for=website"
+              href="/#plan"
               className="inline-flex items-center gap-2 rounded-xl bg-white px-8 py-4 text-sm font-bold text-coral-700 shadow-xl hover:bg-coral-50 hover:scale-[1.02] transition-all"
             >
               Start your project

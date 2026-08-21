@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Check, ArrowRight, Zap, BarChart3, ShoppingBag } from "lucide-react";
+import { Check, ArrowRight, Zap, BarChart3, ShoppingBag, Cpu } from "lucide-react";
 
 const ICON_MAP: Record<string, typeof Zap> = {
   Zap,
   BarChart3,
   ShoppingBag,
+  Cpu,
 };
 
 function useIsMobile() {
@@ -83,6 +84,7 @@ type TierData = {
   features: string[];
   cta: string;
   highlight: boolean;
+  badge?: string;
   note: string;
 };
 
@@ -90,7 +92,7 @@ export function TierCardGrid({ tiers }: { tiers: TierData[] }) {
   const focus = useMobileFocusGroup(tiers.length);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:items-start">
+    <div className={`grid grid-cols-1 md:grid-cols-2 ${tiers.length > 3 ? "xl:grid-cols-4" : "xl:grid-cols-3"} gap-6 md:items-start`}>
       {tiers.map((tier, i) => (
         <div key={tier.id} ref={focus.setRef(i)}>
           <TierCard tier={tier} mobileFocused={focus.activeIndex === i} />
@@ -144,9 +146,9 @@ function TierCard({
               : "border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900"
         }`}
     >
-      {tier.highlight && !active && (
+      {(tier.badge || tier.highlight) && !active && (
         <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-coral-600 text-white px-4 py-1 text-xs font-bold uppercase tracking-wide shadow-md whitespace-nowrap">
-          Most Popular
+          {tier.badge || "Most Popular"}
         </div>
       )}
 

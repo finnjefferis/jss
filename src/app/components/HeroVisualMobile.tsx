@@ -6,7 +6,7 @@ import { WebsiteTransformSimulator } from "./WebsiteTransformSimulator";
 const STEPS = [
   {
     id: "site",
-    title: "Websites that work.",
+    title: "It starts with your website.",
     text: "Clean, fast, mobile-first sites built from scratch. No templates — designed to convert.",
     step: "01",
   },
@@ -30,8 +30,8 @@ const STEPS = [
   },
   {
     id: "software",
-    title: "Built just for you.",
-    text: "Bespoke tools, dashboards, and applications tailored to how your business actually runs.",
+    title: "Then the admin disappears.",
+    text: "Quotes, invoices, jobs and messages in one system, shaped to how you already work.",
     step: "05",
   },
 ];

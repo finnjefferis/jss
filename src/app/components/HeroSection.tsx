@@ -6,22 +6,53 @@ import { useState, useEffect, useRef } from "react";
 import { useReveal } from "../hooks/useReveal";
 
 const PHRASES = [
-  { noun: "Websites", verbs: ["last.", "convert.", "sell.", "win.", "pop."] },
-  { noun: "Integrations", verbs: ["hum.", "click.", "stick.", "flow.", "sync.", "fit."] },
-  { noun: "Software", verbs: ["fits.", "scales.", "ships.", "earns.", "thinks.", "pays."] },
+  { noun: "Websites", verbs: ["win work.", "convert.", "sell.", "last."] },
+  { noun: "Admin", verbs: ["vanishes.", "shrinks.", "flows."] },
+  { noun: "Systems", verbs: ["fit.", "scale.", "think.", "pay off."] },
 ];
 
-const HERO_SITES: { src: string; alt: string; label: string; href: string; video?: string }[] = [
+const HERO_SITES: { src: string; alt: string; label: string; href: string; video?: string; hoverPlay?: boolean }[] = [
+  // Titan leads — hover the card and the demo's entrance animation plays.
+  { src: "/titandoors.png", alt: "Titan Doors website", label: "titan doors · demo", href: "/work/titandoors", video: "/titandoors.mp4", hoverPlay: true },
   { src: "/naxnew.png", alt: "Naxco website", label: "naxco.co.uk", href: "/work/naxco" },
   { src: "/edivertnew.png", alt: "eDivert website", label: "edivert.co.uk", href: "/work/edivert" },
   { src: "/dsoil.png", alt: "D&S Oil Tanks website", label: "dsoiltanks.co.uk", href: "/work/dsoil", video: "/dsoil.mp4" },
   { src: "/ivyarch.png", alt: "Ivy Arch Studios website", label: "ivyarchstudios.co.uk", href: "/work/ivy" },
-  { src: "/titandoors.png", alt: "Titan Doors website", label: "titandoors.co.uk", href: "/work/titandoors" },
 ];
 
 function BrowserFrame({ site, className = "", priority = false }: { site: typeof HERO_SITES[number]; className?: string; priority?: boolean }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // React doesn't render `muted` into SSR markup, so the browser blocks the
+  // autoplay and loadeddata can fire before hydration attaches handlers.
+  // Kick the once-through load-play explicitly after mount instead.
+  useEffect(() => {
+    if (!site.hoverPlay) return;
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = true;
+    const tryPlay = () => v.play().catch(() => {});
+    if (v.readyState >= 2) tryPlay();
+    else v.addEventListener("canplay", tryPlay, { once: true });
+    return () => v.removeEventListener("canplay", tryPlay);
+  }, [site.hoverPlay]);
+
+  // hoverPlay cards act out the site's entrance animation once on load and
+  // come to rest on the finished frame; hovering replays it from the top.
+  const hoverHandlers = site.hoverPlay
+    ? {
+        onMouseEnter: () => {
+          const v = videoRef.current;
+          if (v) {
+            v.currentTime = 0;
+            v.play().catch(() => {});
+          }
+        },
+      }
+    : {};
+
   return (
-    <Link href={site.href} className={`block group ${className}`}>
+    <Link href={site.href} className={`block group ${className}`} {...hoverHandlers}>
       <div className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 shadow-md overflow-hidden">
         <div className="flex items-center gap-1.5 px-3 py-2 border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/50">
           <span className="h-2 w-2 rounded-full bg-red-400" />
@@ -37,10 +68,11 @@ function BrowserFrame({ site, className = "", priority = false }: { site: typeof
           {site.video ? (
             <video
               key={site.video}
+              ref={videoRef}
               src={site.video}
               poster={site.src}
               autoPlay
-              loop
+              loop={!site.hoverPlay}
               muted
               playsInline
               preload="auto"
@@ -440,17 +472,19 @@ export function HeroSection() {
           {/* LEFT — Text */}
           <div>
             <p data-reveal style={{ "--d": 50 } as React.CSSProperties} className="mb-3 text-xs font-bold uppercase tracking-[0.25em] text-amber-600 dark:text-amber-400">
-              Websites · Integrations · Bespoke Software · UK
+              Websites · Workflow Automation · Business Systems · UK
             </p>
             <h1 data-reveal style={{ "--d": 180, "--reveal-y": "16px" } as React.CSSProperties} className="text-5xl font-black leading-[1.08] tracking-tight text-zinc-900 dark:text-white sm:text-6xl lg:text-7xl">
               <RotatingPhrase />
             </h1>
             <p data-reveal style={{ "--d": 310 } as React.CSSProperties} className="mt-6 text-lg text-zinc-500 dark:text-zinc-400 md:text-xl max-w-xl">
-              Your website should be winning you clients. If it isn&apos;t, we&apos;ll fix that.
+              We look at how your business actually runs, then build around it. It usually
+              starts with a website that wins you work &mdash; and grows into a system that
+              handles the quotes, invoices and chasing behind it.
             </p>
             <div data-reveal style={{ "--d": 440 } as React.CSSProperties} className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
               <a
-                href="/start"
+                href="#plan"
                 className="inline-flex items-center justify-center rounded-xl bg-coral-600 px-8 py-4 text-sm font-bold text-white shadow-md transition-colors hover:bg-coral-700"
               >
                 Start your project

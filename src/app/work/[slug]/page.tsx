@@ -113,11 +113,10 @@ const PROJECTS: Record<ProjectSlug, Project> = {
   titandoors: {
     slug: "titandoors",
     title: "Titan Doors",
-    role: "Website + Brand",
+    role: "Website",
     tags: ["Design", "Dev", "SEO"],
     summary: "New website for a Sussex door specialist. Premium composite, bifold and sliding doors — built to outperform on security, thermal efficiency and design.",
     image: "/titandoors.png",
-    externalLink: "https://titandoors.co.uk",
     challenge:
       "Titan supply and install premium composite, bifold and sliding doors across Sussex, handling everything from survey to aftercare. They needed a site that felt as solid as the product — leading with the 5.0 Google rating and end-to-end service, making the free survey impossible to miss, and turning quote-curious visitors into booked surveys.",
     outcomes: ["Premium, security-led design", "Free survey CTA front and centre", "Local SEO for Sussex"],

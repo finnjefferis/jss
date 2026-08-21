@@ -8,14 +8,14 @@ import { TierCardGrid } from "../components/PackageCards";
 const SITE_URL = "https://www.jefferissoftware.co.uk";
 
 export const metadata: Metadata = {
-  title: "Web Design Packages & Pricing",
+  title: "Packages & Pricing — Websites & Business Systems",
   description:
-    "Transparent pricing for small business websites. From £699 for a clean starter site to full e-commerce. Fixed build fee, then a low monthly fee for hosting and support.",
+    "Transparent pricing, from a clean starter site to a complete business system — website, quotes, invoices and messages in one place. Fixed build fee, then a low monthly fee.",
   alternates: { canonical: `${SITE_URL}/packages` },
   openGraph: {
-    title: "Web Design Packages & Pricing | Jefferis Software Solutions",
+    title: "Packages & Pricing | Jefferis Software Solutions",
     description:
-      "Transparent pricing for small business websites. From £699 — fixed build fee, then low monthly hosting and support. No hidden fees.",
+      "Transparent pricing, from a clean starter site to a complete business system. Fixed build fee, then a low monthly fee. No hidden fees.",
     url: `${SITE_URL}/packages`,
   },
 };
@@ -25,7 +25,7 @@ const TIERS = [
     id: "starter",
     name: "Starter",
     price: "£699",
-    tagline: "+ £21/mo hosting & support",
+    tagline: "+ £29/mo hosting & support",
     description:
       "A clean, professional site built for you and kept running — for one simple monthly fee.",
     icon: "Zap",
@@ -45,7 +45,7 @@ const TIERS = [
     id: "business",
     name: "CMS",
     price: "£1,199",
-    tagline: "+ £21/mo hosting & support",
+    tagline: "+ £29/mo hosting & support",
     description:
       "A professional site you can actually keep up to date — with a CMS, blog, and priority support.",
     icon: "BarChart3",
@@ -58,8 +58,30 @@ const TIERS = [
       "Priority support",
     ],
     cta: "View CMS",
+    highlight: false,
+    badge: "Most popular",
+    note: "",
+  },
+  {
+    id: "system",
+    name: "System",
+    price: "£2,500",
+    tagline: "+ £79/mo software & support",
+    description:
+      "A website plus the system that runs the work behind it — quotes, invoices, jobs and messages in one place.",
+    icon: "Cpu",
+    features: [
+      "Everything in CMS",
+      "Customers, jobs & quotes in one place",
+      "Invoices raised, sent & chased",
+      "Email & WhatsApp in one inbox",
+      "Works on phone, tablet & desktop",
+      "Shaped to how you already work",
+    ],
+    cta: "View System",
     highlight: true,
-    note: "Most popular",
+    badge: "The full setup",
+    note: "Fixed price agreed after a short workflow review.",
   },
   {
     id: "commerce",
@@ -132,8 +154,8 @@ export default function PackagesPage() {
               </span>
             </h1>
             <p data-reveal style={{ "--d": 200 } as React.CSSProperties} className="text-lg text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-              Fixed build fee. Low monthly fee for hosting and support.
-              No hidden extras, no surprises.
+              Fixed build fee, then a low monthly fee. Start with the website
+              &mdash; or take the full system and get your evenings back.
             </p>
           </div>
         </RevealSection>
@@ -210,7 +232,7 @@ export default function PackagesPage() {
                 discovery call is free, and there&apos;s no sales pressure either way.
               </p>
               <a
-                href="/start?for=website"
+                href="/#plan"
                 className="inline-flex items-center gap-2 rounded-xl bg-white px-8 py-4 text-sm font-bold text-coral-700 shadow-xl hover:bg-coral-50 hover:scale-[1.02] transition-all"
               >
                 Get my answer

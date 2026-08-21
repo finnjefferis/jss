@@ -21,11 +21,11 @@ const SITE_URL = "https://www.jefferissoftware.co.uk";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Bespoke Software, Websites & Ads | Jefferis Software Solutions",
+    default: "Websites, Automation & Business Systems | Jefferis Software Solutions",
     template: "%s | Jefferis Software Solutions",
   },
   description:
-    "Jefferis Software Solutions builds bespoke software and fast, modern websites for small businesses across the UK — and runs the ad pipelines that fill them with leads. Makers of Relay, the back office that runs itself.",
+    "Jefferis Software Solutions looks at how small UK businesses actually run, then builds around it — websites that win work, and the systems that handle the quotes, invoices and messages behind them. Makers of Relay, the back office that runs itself.",
   authors: [{ name: "Jefferis Software Solutions", url: SITE_URL }],
   creator: "Jefferis Software Solutions",
   openGraph: {
@@ -33,23 +33,23 @@ export const metadata: Metadata = {
     locale: "en_GB",
     url: SITE_URL,
     siteName: "Jefferis Software Solutions",
-    title: "Bespoke Software, Websites & Ads | Jefferis Software Solutions",
+    title: "Websites, Automation & Business Systems | Jefferis Software Solutions",
     description:
-      "Bespoke software, fast modern websites and ads for small businesses across the UK. Makers of Relay — the back office that runs itself.",
+      "Websites that win work, and the systems that run the job behind them — for small businesses across the UK. Makers of Relay, the back office that runs itself.",
     images: [
       {
         url: `${SITE_URL}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: "Jefferis Software Solutions — bespoke software, websites and ads",
+        alt: "Jefferis Software Solutions — websites, automation and business systems",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bespoke Software, Websites & Ads | Jefferis Software Solutions",
+    title: "Websites, Automation & Business Systems | Jefferis Software Solutions",
     description:
-      "Bespoke software, fast modern websites and ads for small businesses across the UK. Makers of Relay — the back office that runs itself.",
+      "Websites that win work, and the systems that run the job behind them — for small businesses across the UK. Makers of Relay, the back office that runs itself.",
     images: [`${SITE_URL}/og-image.png`],
   },
   alternates: {
