@@ -12,8 +12,8 @@ const PHRASES = [
 ];
 
 const HERO_SITES: { src: string; alt: string; label: string; href: string; video?: string; hoverPlay?: boolean }[] = [
-  // Padel Quarter leads — the newest live build, then Northstar.
-  { src: "/padelquarter.png", alt: "Padel Quarter website", label: "padelquarter.net", href: "/work/padelquarter" },
+  // Padel Quarter leads — a 9s loop of the live hero (video background + headline entrance), then Northstar.
+  { src: "/padelquarter.png", alt: "Padel Quarter website", label: "padelquarter.net", href: "/work/padelquarter", video: "/padelquarter.mp4" },
   { src: "/northstar.png", alt: "Northstar Plumbing & Heating website", label: "northstarenergy.co.uk", href: "/work/northstar" },
   { src: "/naxnew.png", alt: "Naxco website", label: "naxco.co.uk", href: "/work/naxco" },
   { src: "/edivertnew.png", alt: "eDivert website", label: "edivert.co.uk", href: "/work/edivert" },
