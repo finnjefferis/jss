@@ -54,6 +54,9 @@ export function NavHeader() {
         </a>
 
         <nav className="hidden md:flex items-center gap-6">
+          <a href="/work" className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-coral-600 dark:hover:text-coral-400 transition-colors">
+            Work
+          </a>
           <a href="/packages" className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-coral-600 dark:hover:text-coral-400 transition-colors">
             Packages
           </a>
@@ -96,6 +99,9 @@ export function NavHeader() {
       >
         <div className="mx-auto max-w-6xl px-5 md:px-8 lg:px-10">
           <nav className="flex flex-col py-6 gap-4 text-center">
+            <a href="/work" onClick={handleLinkClick} className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-coral-600 dark:hover:text-coral-400 py-2">
+              Work
+            </a>
             <a href="/packages" onClick={handleLinkClick} className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-coral-600 dark:hover:text-coral-400 py-2">
               Packages
             </a>

@@ -21,11 +21,12 @@ const SITE_URL = "https://www.jefferissoftware.co.uk";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Websites, Automation & Business Systems | Jefferis Software Solutions",
+    default: "Web Design & Business Systems in Brighton & Hove | Jefferis Software Solutions",
     template: "%s | Jefferis Software Solutions",
   },
   description:
-    "Jefferis Software Solutions looks at how small UK businesses actually run, then builds around it — websites that win work, and the systems that handle the quotes, invoices and messages behind them. Makers of Relay, the back office that runs itself.",
+    "Jefferis Software Solutions is a Hove-based studio building websites that win work for small businesses across Sussex and the UK, and the systems that handle the quotes, invoices and messages behind them. Makers of Relay.",
+  keywords: ["web design Brighton", "web design Hove", "web designer Sussex", "small business website Brighton", "business systems Sussex", "CRM for small business UK"],
   authors: [{ name: "Jefferis Software Solutions", url: SITE_URL }],
   creator: "Jefferis Software Solutions",
   openGraph: {
@@ -33,9 +34,9 @@ export const metadata: Metadata = {
     locale: "en_GB",
     url: SITE_URL,
     siteName: "Jefferis Software Solutions",
-    title: "Websites, Automation & Business Systems | Jefferis Software Solutions",
+    title: "Web Design & Business Systems in Brighton & Hove | Jefferis Software Solutions",
     description:
-      "Websites that win work, and the systems that run the job behind them — for small businesses across the UK. Makers of Relay, the back office that runs itself.",
+      "Websites that win work, and the systems that run the job behind them — built in Hove for small businesses across Sussex and the UK.",
     images: [
       {
         url: `${SITE_URL}/og-image.png`,
@@ -47,9 +48,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Websites, Automation & Business Systems | Jefferis Software Solutions",
+    title: "Web Design & Business Systems in Brighton & Hove | Jefferis Software Solutions",
     description:
-      "Websites that win work, and the systems that run the job behind them — for small businesses across the UK. Makers of Relay, the back office that runs itself.",
+      "Websites that win work, and the systems that run the job behind them — built in Hove for small businesses across Sussex and the UK.",
     images: [`${SITE_URL}/og-image.png`],
   },
   alternates: {
@@ -125,23 +126,29 @@ const jsonLd = [
     telephone: "+447887034503",
     email: "hello@jefferissoftware.co.uk",
     description:
-      "Bespoke software, websites and advertising for small businesses across the UK.",
+      "Websites and business systems for small businesses, built in Hove and working across Brighton, Sussex and the UK.",
     image: `${SITE_URL}/jsslogo.png`,
+    logo: `${SITE_URL}/jsslogo.png`,
+    founder: { "@type": "Person", name: "Finn Jefferis" },
+    sameAs: ["https://github.com/finnjefferis"],
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Worthing",
-      addressRegion: "West Sussex",
+      addressLocality: "Hove",
+      addressRegion: "East Sussex",
+      postalCode: "BN3",
       addressCountry: "GB",
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: 50.8146,
-      longitude: -0.3714,
+      latitude: 50.8279,
+      longitude: -0.1688,
     },
-    areaServed: {
-      "@type": "Country",
-      name: "United Kingdom",
-    },
+    areaServed: [
+      { "@type": "City", name: "Brighton and Hove" },
+      { "@type": "AdministrativeArea", name: "East Sussex" },
+      { "@type": "AdministrativeArea", name: "West Sussex" },
+      { "@type": "Country", name: "United Kingdom" },
+    ],
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Software, Web & Advertising Services",
@@ -187,13 +194,6 @@ const jsonLd = [
           },
         },
       ],
-    },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "5",
-      reviewCount: "4",
-      bestRating: "5",
-      worstRating: "1",
     },
   },
 ];

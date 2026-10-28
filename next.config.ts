@@ -30,6 +30,17 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
+  // Preview and alias hosts must never compete with the real domain in search.
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "(?<host>.*\\.vercel\\.app)" }],
+        destination: "https://www.jefferissoftware.co.uk/:path*",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
