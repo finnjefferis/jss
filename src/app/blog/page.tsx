@@ -7,6 +7,7 @@ import { ArrowRight, Calendar, Clock } from "lucide-react";
 const SITE_URL = "https://www.jefferissoftware.co.uk";
 
 export const metadata: Metadata = {
+  robots: POSTS.length ? undefined : { index: false, follow: true },
   title: "Blog — Web Design Tips for Small Businesses",
   description:
     "Practical advice on web design, SEO, and growing your small business online. Written by Jefferis Software Solutions.",

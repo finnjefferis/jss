@@ -473,7 +473,7 @@ export function HeroSection() {
           {/* LEFT — Text */}
           <div>
             <p data-reveal style={{ "--d": 50 } as React.CSSProperties} className="mb-3 text-xs font-bold uppercase tracking-[0.25em] text-amber-600 dark:text-amber-400">
-              Websites · Workflow Automation · Business Systems · UK
+              Websites · Automation · Business Systems · Brighton &amp; Hove
             </p>
             <h1 data-reveal style={{ "--d": 180, "--reveal-y": "16px" } as React.CSSProperties} className="text-5xl font-black leading-[1.08] tracking-tight text-zinc-900 dark:text-white sm:text-6xl lg:text-7xl">
               <RotatingPhrase />
@@ -481,7 +481,8 @@ export function HeroSection() {
             <p data-reveal style={{ "--d": 310 } as React.CSSProperties} className="mt-6 text-lg text-zinc-500 dark:text-zinc-400 md:text-xl max-w-xl">
               We look at how your business actually runs, then build around it. It usually
               starts with a website that wins you work &mdash; and grows into a system that
-              handles the quotes, invoices and chasing behind it.
+              handles the quotes, invoices and chasing behind it. Based in Hove, working with
+              businesses across Sussex and the rest of the UK.
             </p>
             <div data-reveal style={{ "--d": 440 } as React.CSSProperties} className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
               <a
