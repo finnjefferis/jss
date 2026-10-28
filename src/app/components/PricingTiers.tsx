@@ -42,8 +42,9 @@ type Tier = {
     clientType: string;
     image: string;
     slug: string;
-    quote: string;
-    reviewer: string;
+    quote?: string;
+    reviewer?: string;
+    result?: string; // shown when there's no review on record yet
   } | null;
 };
 
@@ -189,12 +190,11 @@ const TIERS: Tier[] = [
     badge: "",
     note: "Price varies by scope.",
     example: {
-      clientName: "Titan Doors",
-      clientType: "Composite & bifold doors",
-      image: "/titandoors.png",
-      slug: "titandoors",
-      quote: "Completely professional throughout and done an amazing job, great price also. I recommend using this company.",
-      reviewer: "Justin Sommerford, Google Review",
+      clientName: "Padel Quarter",
+      clientType: "Padel club, Portsmouth",
+      image: "/padelquarter.png",
+      slug: "padelquarter",
+      result: "Website, court booking, coaching and memberships — plus a club hub to run members, enquiries and reviews from one place.",
     },
   },
 ];
@@ -656,9 +656,18 @@ function PackageQuiz() {
                                 <p className={`text-sm font-bold transition-colors duration-300 ${active ? "text-white" : "text-zinc-800 dark:text-zinc-100"}`}>{ex.clientName}</p>
                               </div>
                               <div className={`rounded-xl p-4 transition-colors duration-300 ${active ? "bg-white/10" : "bg-coral-50 dark:bg-coral-950/40 border border-coral-100 dark:border-coral-900"}`}>
-                                <Quote className={`h-4 w-4 mb-2 transition-colors duration-300 ${active ? "text-white/30" : "text-coral-300"}`} />
-                                <p className={`text-xs italic leading-relaxed mb-2 transition-colors duration-300 ${active ? "text-white/80" : "text-zinc-600 dark:text-zinc-300"}`}>&ldquo;{ex.quote}&rdquo;</p>
-                                <p className={`text-[10px] font-bold transition-colors duration-300 ${active ? "text-white/50" : "text-coral-500 dark:text-coral-400"}`}>&mdash; {ex.reviewer}</p>
+                                {ex.quote ? (
+                                  <>
+                                    <Quote className={`h-4 w-4 mb-2 transition-colors duration-300 ${active ? "text-white/30" : "text-coral-300"}`} />
+                                    <p className={`text-xs italic leading-relaxed mb-2 transition-colors duration-300 ${active ? "text-white/80" : "text-zinc-600 dark:text-zinc-300"}`}>&ldquo;{ex.quote}&rdquo;</p>
+                                    <p className={`text-[10px] font-bold transition-colors duration-300 ${active ? "text-white/50" : "text-coral-500 dark:text-coral-400"}`}>&mdash; {ex.reviewer}</p>
+                                  </>
+                                ) : (
+                                  <>
+                                    <p className={`text-[10px] font-bold uppercase tracking-wider mb-2 transition-colors duration-300 ${active ? "text-white/50" : "text-coral-500 dark:text-coral-400"}`}>What we built</p>
+                                    <p className={`text-xs leading-relaxed transition-colors duration-300 ${active ? "text-white/80" : "text-zinc-600 dark:text-zinc-300"}`}>{ex.result}</p>
+                                  </>
+                                )}
                               </div>
                               <Link href={`/work/${ex.slug}`} className={`inline-flex items-center gap-1.5 text-xs font-bold transition-colors duration-300 ${active ? "text-white/70 hover:text-white" : "text-coral-600 dark:text-coral-400 hover:text-coral-700"}`}>
                                 View case study <ArrowRight className="h-3 w-3" />

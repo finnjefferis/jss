@@ -213,15 +213,14 @@ const PACKAGES: Record<string, PackageData> = {
       "Full e-commerce with payments, inventory management, and automations. Fixed build fee from £2,000 — scoped to your catalogue — then £99/mo for hosting and support.",
     trustSignals: ["From £2,000 one-time build", "£99/mo hosting & support", "Stripe payments included"],
     example: {
-      clientName: "Titan Doors",
-      clientType: "Composite & bifold doors",
-      image: "/titandoors.png",
-      slug: "titandoors",
+      clientName: "Padel Quarter",
+      clientType: "Padel club, Portsmouth",
+      image: "/padelquarter.png",
+      slug: "padelquarter",
       story:
-        "Titan supply and install premium composite, bifold and sliding doors across Sussex, handling everything from survey to aftercare. They needed a site as solid as the product — one that leads with their 5.0 Google rating and end-to-end service, and turns quote-curious visitors into booked surveys.",
-      result: "A premium, security-led build that makes the free survey impossible to miss.",
-      quote: "Completely professional throughout and done an amazing job, great price also. I recommend using this company.",
-      tags: ["Design", "Dev", "SEO"],
+        "Padel Quarter opened at The Admiral Park in Portsmouth with no web presence at all. They needed a site as premium as the club — real video of the courts, a booking button on every screen, coaching and membership pages — and somewhere behind it to keep members, enquiries and reviews in one place.",
+      result: "A video-led site with court booking on every screen, and a club hub to run it from.",
+      tags: ["Design", "Dev", "CRM"],
     },
     includes: [
       { title: "Everything in Business", description: "Full site, CMS, blog, editable pages, training, and priority support — all included." },
