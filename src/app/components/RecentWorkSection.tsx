@@ -6,9 +6,29 @@ import { ArrowRight, ArrowLeft } from "lucide-react";
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useReveal } from "../hooks/useReveal";
 
-type ProjectKey = "naxco" | "edivert" | "carbon" | "toolbox" | "ivy" | "jmrt" | "dsoil" | "titandoors";
+type ProjectKey = "naxco" | "edivert" | "carbon" | "toolbox" | "ivy" | "jmrt" | "dsoil" | "padelquarter" | "northstar";
 
 const PROJECTS = [
+  {
+    key: "padelquarter" as ProjectKey,
+    title: "Padel Quarter",
+    role: "Website + Club System",
+    summary: "New website for a new padel club in Portsmouth. Court booking, coaching, memberships and a club hub to run it all from.",
+    image: "/padelquarter.png",
+    alt: "Padel Quarter website",
+    tags: ["Design", "Dev", "CRM"],
+    href: "/work/padelquarter",
+  },
+  {
+    key: "northstar" as ProjectKey,
+    title: "Northstar Plumbing & Heating",
+    role: "Website",
+    summary: "One-page site for a Gas Safe plumbing and heating firm in West Sussex. Trust signals first, phone number everywhere.",
+    image: "/northstar.png",
+    alt: "Northstar Plumbing & Heating website",
+    tags: ["Design", "Dev", "SEO"],
+    href: "/work/northstar",
+  },
   {
     key: "edivert" as ProjectKey,
     title: "eDivert",
@@ -18,16 +38,6 @@ const PROJECTS = [
     alt: "eDivert website",
     tags: ["Design", "Dev", "SEO"],
     href: "/work/edivert",
-  },
-  {
-    key: "titandoors" as ProjectKey,
-    title: "Titan Doors",
-    role: "Website",
-    summary: "New website for a Sussex door specialist. Premium composite, bifold and sliding doors, built to outperform on security and design.",
-    image: "/titandoors.png",
-    alt: "Titan Doors website",
-    tags: ["Design", "Dev", "SEO"],
-    href: "/work/titandoors",
   },
   {
     key: "dsoil" as ProjectKey,

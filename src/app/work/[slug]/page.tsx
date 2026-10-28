@@ -5,7 +5,7 @@ import { ComparisonSlider } from "./ComparisonSlider";
 import { BackButton } from "./BackButton";
 import { ExternalLink, Check, Users, Music2, MessageSquare, Rss, ShieldCheck, Layers } from "lucide-react";
 
-export type ProjectSlug = "naxco" | "edivert" | "ivy" | "jmrt" | "toolbox" | "carbon" | "dsoil" | "titandoors";
+export type ProjectSlug = "naxco" | "edivert" | "ivy" | "jmrt" | "toolbox" | "carbon" | "dsoil" | "padelquarter" | "northstar";
 
 type Project = {
   slug: ProjectSlug;
@@ -110,16 +110,29 @@ const PROJECTS: Record<ProjectSlug, Project> = {
       "D&S Oil Tanks have been replacing tanks across West Sussex for 35+ years with flawless Checkatrade reviews — but the old web presence didn't reflect that. The new site had to land trust in seconds, make the free survey offer impossible to miss, and convert quote-curious visitors into booked surveys.",
     outcomes: ["Trust signals front and centre", "Clear free-quote CTA", "Local SEO for West Sussex"],
   },
-  titandoors: {
-    slug: "titandoors",
-    title: "Titan Doors",
+  padelquarter: {
+    slug: "padelquarter",
+    title: "Padel Quarter",
+    role: "Website + Club System",
+    tags: ["Design", "Dev", "CRM"],
+    summary: "New website for a new padel club in Portsmouth — court booking, coaching, memberships and a club hub to run it all from.",
+    image: "/padelquarter.png",
+    externalLink: "https://padelquarter.net",
+    challenge:
+      "Padel Quarter opened at The Admiral Park in Portsmouth with no web presence at all. They needed a site that felt as premium as the club — real video of the courts, a booking button on every screen, coaching and membership pages — and, behind it, somewhere to keep members, enquiries and reviews in one place as the club grew.",
+    outcomes: ["Video-led, premium design", "Book-a-court on every screen", "Club hub for members, enquiries and reviews"],
+  },
+  northstar: {
+    slug: "northstar",
+    title: "Northstar Plumbing & Heating",
     role: "Website",
     tags: ["Design", "Dev", "SEO"],
-    summary: "New website for a Sussex door specialist. Premium composite, bifold and sliding doors — built to outperform on security, thermal efficiency and design.",
-    image: "/titandoors.png",
+    summary: "One-page site for a Gas Safe plumbing and heating firm in West Sussex. Trust signals first, phone number everywhere.",
+    image: "/northstar.png",
+    externalLink: "https://northstarenergy.co.uk",
     challenge:
-      "Titan supply and install premium composite, bifold and sliding doors across Sussex, handling everything from survey to aftercare. They needed a site that felt as solid as the product — leading with the 5.0 Google rating and end-to-end service, making the free survey impossible to miss, and turning quote-curious visitors into booked surveys.",
-    outcomes: ["Premium, security-led design", "Free survey CTA front and centre", "Local SEO for Sussex"],
+      "Northstar had an old site on a shared host that said nothing about who they were. The new one leads with the things a homeowner checks first — Google reviews, Checkatrade score, Gas Safe registration — puts the phone number where it can't be missed, and lays out plumbing, heating and renewables with the areas they cover.",
+    outcomes: ["Trust signals above the fold", "Click-to-call on every screen", "Local SEO for West Sussex"],
   },
 };
 

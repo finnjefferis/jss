@@ -12,8 +12,9 @@ const PHRASES = [
 ];
 
 const HERO_SITES: { src: string; alt: string; label: string; href: string; video?: string; hoverPlay?: boolean }[] = [
-  // Titan leads — hover the card and the demo's entrance animation plays.
-  { src: "/titandoors.png", alt: "Titan Doors website", label: "titan doors · demo", href: "/work/titandoors", video: "/titandoors.mp4", hoverPlay: true },
+  // Padel Quarter leads — the newest live build, then Northstar.
+  { src: "/padelquarter.png", alt: "Padel Quarter website", label: "padelquarter.net", href: "/work/padelquarter" },
+  { src: "/northstar.png", alt: "Northstar Plumbing & Heating website", label: "northstarenergy.co.uk", href: "/work/northstar" },
   { src: "/naxnew.png", alt: "Naxco website", label: "naxco.co.uk", href: "/work/naxco" },
   { src: "/edivertnew.png", alt: "eDivert website", label: "edivert.co.uk", href: "/work/edivert" },
   { src: "/dsoil.png", alt: "D&S Oil Tanks website", label: "dsoiltanks.co.uk", href: "/work/dsoil", video: "/dsoil.mp4" },
@@ -182,8 +183,8 @@ const STACK_LAYOUTS: Layout[] = [
 
 function HeroVisual() {
   const total = HERO_SITES.length;
-  // Start with Titan Doors at the front (depth 0) so its animation plays on load.
-  const initialIndex = Math.max(0, HERO_SITES.findIndex((s) => s.href === "/work/titandoors"));
+  // Start with Padel Quarter at the front (depth 0).
+  const initialIndex = Math.max(0, HERO_SITES.findIndex((s) => s.href === "/work/padelquarter"));
   const [activeIndex, setActiveIndex] = useState(initialIndex);
   const [mounted, setMounted] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
