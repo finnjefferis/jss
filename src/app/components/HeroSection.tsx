@@ -13,6 +13,8 @@ const PHRASES = [
 
 const HERO_SITES: { src: string; alt: string; label: string; href: string; video?: string; hoverPlay?: boolean }[] = [
   // Padel Quarter leads — a 9s loop of the live hero (video background + headline entrance), then Northstar.
+  // The mp4 is 720px / 30fps / main profile / tv colour range / faststart: the 1280px 60fps
+  // capture was 1.4 MB and iOS Safari never got far enough into it to start playing.
   { src: "/padelquarter.png", alt: "Padel Quarter website", label: "padelquarter.net", href: "/work/padelquarter", video: "/padelquarter.mp4" },
   { src: "/northstar.png", alt: "Northstar Plumbing & Heating website", label: "northstarenergy.co.uk", href: "/work/northstar" },
   { src: "/naxnew.png", alt: "Naxco website", label: "naxco.co.uk", href: "/work/naxco" },

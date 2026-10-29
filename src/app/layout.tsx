@@ -53,12 +53,9 @@ export const metadata: Metadata = {
       "Websites that win work, and the systems that run the job behind them — built in Hove for small businesses across Sussex and the UK.",
     images: [`${SITE_URL}/og-image.png`],
   },
-  alternates: {
-    canonical: "/",
-  },
-  icons: {
-    icon: "/jsslogo.png",
-  },
+  // No canonical here: a layout-level "/" would be inherited by any page that
+  // forgets its own and quietly tell Google that page is the home page.
+  // Icons come from src/app/{favicon.ico,icon.png,apple-icon.png}.
   robots: {
     index: true,
     follow: true,

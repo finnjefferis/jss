@@ -7,6 +7,11 @@ import { RecentWorkSection } from "./components/RecentWorkSection";
 import { AboutSection } from "./components/AboutSection";
 import { AboutMeSection } from "./components/AboutMeSection";
 import { Footer } from "./components/Footer";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default function Page() {
   return (
