@@ -16,7 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     : [];
 
   return [
-    { url: SITE_URL, lastModified: new Date("2026-03-13"), priority: 1 },
+    { url: SITE_URL, lastModified: new Date("2026-10-29"), priority: 1 },
     { url: `${SITE_URL}/packages`, lastModified: new Date("2026-03-16"), priority: 0.9 },
     { url: `${SITE_URL}/packages/starter`, lastModified: new Date("2026-03-01"), priority: 0.9 },
     { url: `${SITE_URL}/packages/business`, lastModified: new Date("2026-03-01"), priority: 0.9 },
