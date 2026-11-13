@@ -481,10 +481,8 @@ export function HeroSection() {
               <RotatingPhrase />
             </h1>
             <p data-reveal style={{ "--d": 310 } as React.CSSProperties} className="mt-6 text-lg text-zinc-500 dark:text-zinc-400 md:text-xl max-w-xl">
-              We look at how your business actually runs, then build around it. It usually
-              starts with a website that wins you work &mdash; and grows into a system that
-              handles the quotes, invoices and chasing behind it. Based in Hove, working with
-              businesses across Sussex and the rest of the UK.
+              Most small business sites sit online doing nothing. Yours should be your
+              hardest-working salesperson, generating enquiries while you sleep.
             </p>
             <div data-reveal style={{ "--d": 440 } as React.CSSProperties} className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
               <a
