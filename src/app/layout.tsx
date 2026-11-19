@@ -216,7 +216,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <script src="https://relay-production-7d2c.up.railway.app/t/jss.js" async></script>
         {/* Relay site analytics — cookieless, no IP retained, so no consent
             banner is required for it. Same tag on every site we host. */}
-        <script src="https://relay-production-7d2c.up.railway.app/px.js" defer></script>
+        <script src="https://jss-traffic.jss-traffic.workers.dev/px.js" defer></script>
       </body>
     </html>
   );
